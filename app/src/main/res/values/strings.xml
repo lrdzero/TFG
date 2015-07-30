@@ -7,4 +7,5 @@
     <string name="rb1">Hombre</string>
     <string name="rb2">Mujer</string>
     <string name="title_activity_seleccion_recorridos">SeleccionRecorridos</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 </resources>

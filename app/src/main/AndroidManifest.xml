@@ -24,6 +24,10 @@
             android:name=".SeleccionRecorridos"
             android:label="@string/title_activity_seleccion_recorridos" >
         </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile" >
+        </activity>
     </application>
 
 </manifest>
