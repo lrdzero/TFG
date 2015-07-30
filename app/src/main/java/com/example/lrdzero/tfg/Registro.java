@@ -1,15 +1,17 @@
 package com.example.lrdzero.tfg;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class Registro extends ActionBarActivity {
+public class Registro extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.Base_ThemeOverlay_AppCompat_Dark);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
     }
