@@ -1,39 +1,33 @@
 package com.example.lrdzero.tfg;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
 
-public class SeleccionRecorridos extends ActionBarActivity {
+public class SeleccionRecorridos extends Activity {
+
+    ImageView User;
+    ImageView Rc1;
+    ImageView Rc2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccion_recorridos);
+
+        User = (ImageView) findViewById(R.id.imageView);
+
+        Rc1 = (ImageView) findViewById(R.id.imageView2);
+        Rc2 =(ImageView)findViewById(R.id.imageView3);
+
+
+
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_seleccion_recorridos, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
