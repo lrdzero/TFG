@@ -20,6 +20,10 @@
             android:name=".Registro"
             android:label="@string/title_activity_registro" >
         </activity>
+        <activity
+            android:name=".SeleccionRecorridos"
+            android:label="@string/title_activity_seleccion_recorridos" >
+        </activity>
     </application>
 
 </manifest>
