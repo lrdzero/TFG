@@ -28,6 +28,18 @@
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile" >
         </activity>
+        <activity
+            android:name=".RecorridosParaUsuario"
+            android:label="@string/title_activity_recorridos_para_usuario" >
+        </activity>
+        <activity
+            android:name=".Listas"
+            android:label="@string/title_activity_listas" >
+        </activity>
+        <activity
+            android:name=".ListasConImagen"
+            android:label="@string/title_activity_listas_con_imagen" >
+        </activity>
     </application>
 
 </manifest>
