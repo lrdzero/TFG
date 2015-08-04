@@ -11,4 +11,11 @@
     <string name="title_activity_recorridos_para_usuario">RecorridosParaUsuario</string>
     <string name="title_activity_listas">Listas</string>
     <string name="title_activity_listas_con_imagen">ListasConImagen</string>
+    <string-array name="discapacidades">
+        <item>Ninguna</item>
+        <item>Dificultad auditiva</item>
+        <item>Dificultad visual</item>
+        <item>Movilidad reducida</item>
+
+    </string-array>
 </resources>
