@@ -20,8 +20,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
         inicio = (Button) findViewById(R.id.botonSesion);
+        registro = (Button) findViewById(R.id.botonRegistro);
 
         inicio.setOnClickListener(this);
+        registro.setOnClickListener(this);
     }
 
 
@@ -31,6 +33,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.botonSesion:
                 nueva = new Intent(MainActivity.this, SeleccionRecorridos.class);
+                startActivity(nueva);
+                break;
+            case R.id.botonRegistro:
+                nueva = new Intent(MainActivity.this, Registro.class);
                 startActivity(nueva);
                 break;
 

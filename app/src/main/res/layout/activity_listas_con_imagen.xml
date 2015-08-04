@@ -21,6 +21,7 @@
         android:id="@+id/nRutas"
         android:layout_alignBottom="@+id/imageView8"
         android:layout_alignLeft="@+id/NombreRecorrido"
+        android:layout_marginRight="10dp"
         android:layout_alignStart="@+id/NombreRecorrido"
         android:layout_marginBottom="27dp" />
 
@@ -41,6 +42,7 @@
         android:id="@+id/textView7"
         android:layout_alignBottom="@+id/imageView8"
         android:layout_alignLeft="@+id/nRutas"
+        android:layout_marginRight="10dp"
         android:layout_alignStart="@+id/nRutas" />
 
 </RelativeLayout>

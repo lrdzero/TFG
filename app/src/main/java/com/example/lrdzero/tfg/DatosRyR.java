@@ -18,12 +18,12 @@ public class DatosRyR {
 
     }
 
-    public DatosRyR(String aName, String aNumber, String aDescription, String anOther){
+    public DatosRyR(String aName, String aNumber, String aDescription, String anOther,int ima){
         this.name=aName;
         this.number=aNumber;
         this.description=aDescription;
         this.other=anOther;
-        this.image = R.drawable.f0907;
+        this.image = ima;
 
     }
 
