@@ -13,7 +13,8 @@
         android:textColor="#ff37000f"
         android:textSize="17sp"
         android:layout_alignTop="@+id/imageView5"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp" />
 
     <ImageView
         android:layout_width="120dp"
@@ -28,13 +29,13 @@
         android:text="Edad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/fecha"
+        android:id="@+id/edad"
         android:textSize="17sp"
+        android:layout_marginTop="15dp"
         android:textColor="#ff37000f"
         android:layout_below="@+id/nombre"
         android:layout_alignLeft="@+id/nombre"
-        android:layout_alignStart="@+id/nombre"
-        android:layout_marginTop="25dp" />
+        android:layout_alignStart="@+id/nombre" />
 
     <TextView
         android:text="Mis estadísticas"
@@ -84,17 +85,55 @@
         android:layout_alignRight="@+id/imageView5"
         android:layout_alignEnd="@+id/imageView5" />
 
-    <TextView
-        android:text="Discapacidades"
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/edit"
+        android:id="@+id/imageView9"
+        android:layout_marginLeft="10dp"
+        android:layout_above="@+id/edad"
+        android:layout_toRightOf="@+id/nombre"
+        android:layout_toEndOf="@+id/nombre" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/edit"
+        android:id="@+id/imageView10"
+        android:layout_marginLeft="10dp"
+        android:layout_alignBottom="@+id/edad"
+        android:layout_toRightOf="@+id/nombre"
+        android:layout_toEndOf="@+id/nombre" />
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView6"
+        android:text="Discapacidades"
+        android:id="@+id/discapacidades"
+        android:layout_alignTop="@+id/button2"
+        android:layout_toRightOf="@+id/edad" />
+
+    <TextView
+        android:text="Contraseña"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/passwd"
+        android:layout_marginTop="15dp"
         android:textSize="17sp"
         android:textColor="#ff37000f"
-        android:layout_below="@+id/imageView5"
-        android:layout_toRightOf="@+id/fecha"
-        android:layout_toEndOf="@+id/fecha" />
+        android:layout_alignBottom="@+id/imageView5"
+        android:layout_alignLeft="@+id/edad"
+        android:layout_alignStart="@+id/edad"
+        android:password="true" />
 
-
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/edit"
+        android:id="@+id/imageView11"
+        android:layout_marginLeft="10dp"
+        android:layout_alignTop="@+id/passwd"
+        android:layout_toRightOf="@id/passwd"
+        />
 
 </RelativeLayout>

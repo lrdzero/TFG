@@ -102,8 +102,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="23dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Fecha de nacimiento"
-                android:id="@+id/titulofecha" />
+                android:text="Edad"
+                android:id="@+id/tituloedad" />
 
 
             <EditText
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="date"
                 android:ems="10"
-                android:id="@+id/fecha" />
+                android:id="@+id/edad" />
 
 
             <TextView

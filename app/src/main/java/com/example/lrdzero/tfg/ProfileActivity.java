@@ -1,17 +1,77 @@
 package com.example.lrdzero.tfg;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
+import java.util.ArrayList;
+
+import static android.app.PendingIntent.getActivity;
 
 
 public class ProfileActivity extends Activity {
+    ArrayList<Integer> Discapacidades = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        Button discButton = (Button)findViewById(R.id.discapacidades);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        discButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_SHORT).show();
+
+                final ArrayList<Integer> aux = new ArrayList<>();
+
+                // Set the dialog title
+                //Log.i("title", "prog");
+                builder.setTitle("Discapacidades")
+                       .setMultiChoiceItems(R.array.discapacidades, null,
+                                new DialogInterface.OnMultiChoiceClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                        if (isChecked) {
+
+                                            aux.add(which);
+                                        } else if (aux.contains(which)) {
+
+                                            aux.remove(Integer.valueOf(which));
+                                        }
+                                    }
+                                })
+                                // Set the action buttons*/
+                        .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                Discapacidades = aux;
+                                // User clicked OK, so save the mSelectedItems results somewhere
+                                // or return them to the component that opened the dialog
+
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        });
+                Log.i("cred", "prog");
+
+               builder.show();
+
+
+
+
+            }
+        });
     }
 
     @Override
@@ -35,4 +95,10 @@ public class ProfileActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
+
+
 }
