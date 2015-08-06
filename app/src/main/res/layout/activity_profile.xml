@@ -95,15 +95,6 @@
         android:layout_toRightOf="@+id/fecha"
         android:layout_toEndOf="@+id/fecha" />
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-        android:id="@+id/spinner"
-        android:entries="@array/discapacidades"
-        android:spinnerMode="dropdown"
-        android:layout_alignTop="@+id/button2"
-        android:layout_alignLeft="@+id/fecha"
-        android:layout_alignStart="@+id/fecha"
-        android:layout_alignBottom="@+id/button2" />
+
 
 </RelativeLayout>

@@ -11,6 +11,7 @@ public class DatosRyR {
     private String number;
     private String description;
     private String other;
+    private String largeDescription;
     private int image;
 
 
@@ -18,12 +19,13 @@ public class DatosRyR {
 
     }
 
-    public DatosRyR(String aName, String aNumber, String aDescription, String anOther,int ima){
+    public DatosRyR(String aName, String aNumber, String aDescription, String anOther,int ima,String large){
         this.name=aName;
         this.number=aNumber;
         this.description=aDescription;
         this.other=anOther;
         this.image = ima;
+        this.largeDescription=large;
 
     }
 
@@ -38,4 +40,5 @@ public class DatosRyR {
     public int getImage(){
         return image;
     }
+    public String getLargeDescription(){return largeDescription;}
 }
