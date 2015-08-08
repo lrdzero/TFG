@@ -2,6 +2,7 @@ package com.example.lrdzero.tfg;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -23,6 +25,7 @@ public class ProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         Button discButton = (Button)findViewById(R.id.discapacidades);
+        ImageView estadisticas = (ImageView)findViewById(R.id.imageestadisticas);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         discButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +75,17 @@ public class ProfileActivity extends Activity {
 
             }
         });
+
+        estadisticas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), HistorialUsuario.class);
+                startActivity(i);
+
+            }
+        });
+
+
     }
 
     @Override

@@ -2,14 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.lrdzero.tfg" >
 
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.read_external_storage"></uses-permission>
-    <uses-permission android:name="android.permission.read_phone_state"></uses-permission>
+    <uses-permission android:name="android.permission.read_external_storage" />
+    <uses-permission android:name="android.permission.read_phone_state" />
 
     <application
         android:allowBackup="true"
@@ -48,6 +46,10 @@
         <activity
             android:name=".ListasConImagen"
             android:label="@string/title_activity_listas_con_imagen" >
+        </activity>
+        <activity
+            android:name=".HistorialUsuario"
+            android:label="@string/title_activity_historial_usuario" >
         </activity>
     </application>
 
