@@ -23,8 +23,10 @@ public class MyAdapter extends BaseAdapter {
     private ImageView image;
     private TextView text;
 
+
     public MyAdapter(Context c){
         context= c;
+
     }
     @Override
     public int getCount() {
@@ -55,8 +57,13 @@ public class MyAdapter extends BaseAdapter {
         text = (TextView)convertView.findViewById(R.id.ItemText);
         image=(ImageView)convertView.findViewById(R.id.ItemImage);
 
+
         text.setText(Item.getName());
         image.setImageResource(Item.getImage());
+
+
+
+
 
 
 

@@ -23,6 +23,7 @@
         android:text="Medium Text"
         android:id="@+id/ItemText"
         android:textColor="#ffff0c03"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
