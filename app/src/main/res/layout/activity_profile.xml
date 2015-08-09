@@ -12,14 +12,14 @@
         android:id="@+id/nombre"
         android:textColor="#ff37000f"
         android:textSize="17sp"
-        android:layout_alignTop="@+id/imageView5"
+        android:layout_alignTop="@+id/foto"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp" />
 
     <ImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:id="@+id/imageView5"
+        android:id="@+id/foto"
         android:src="@drawable/busto"
         android:layout_below="@+id/button"
         android:layout_alignParentLeft="true"
@@ -44,7 +44,7 @@
         android:id="@+id/estadisticas"
         android:textColor="#ff37000f"
         android:textSize="18sp"
-        android:layout_below="@+id/imageView5"
+        android:layout_below="@+id/foto"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="112dp" />
@@ -78,12 +78,12 @@
         android:layout_height="wrap_content"
         android:text="Herramientas de autor"
         android:id="@+id/button2"
-        android:layout_below="@+id/imageView5"
+        android:layout_below="@+id/foto"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="30dp"
-        android:layout_alignRight="@+id/imageView5"
-        android:layout_alignEnd="@+id/imageView5" />
+        android:layout_alignRight="@+id/foto"
+        android:layout_alignEnd="@+id/foto" />
 
     <ImageView
         android:layout_width="20dp"
@@ -121,7 +121,7 @@
         android:layout_marginTop="15dp"
         android:textSize="17sp"
         android:textColor="#ff37000f"
-        android:layout_alignBottom="@+id/imageView5"
+        android:layout_alignBottom="@+id/foto"
         android:layout_alignLeft="@+id/edad"
         android:layout_alignStart="@+id/edad"
         android:password="true" />
