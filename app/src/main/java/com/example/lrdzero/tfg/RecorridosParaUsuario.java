@@ -1,9 +1,11 @@
 package com.example.lrdzero.tfg;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.StrictMode;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.ListFragment;
@@ -52,6 +54,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
     private static int port=7;
     private static String ip="192.168.1.33";
 
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
