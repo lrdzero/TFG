@@ -177,7 +177,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
 
     }
     public void aceptar2(){
-        ListaView();
+        adapter.notifyDataSetChanged();
 
     }
 }

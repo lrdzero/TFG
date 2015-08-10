@@ -138,7 +138,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
 
     }
     public void aceptar2(){
-        ListView();
+        adapter.notifyDataSetChanged();
 
     }
 }

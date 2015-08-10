@@ -1,6 +1,7 @@
 package com.example.lrdzero.tfg;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -35,7 +36,8 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
         switch (v.getId()){
             case R.id.botonEnd:
                 crono.stop();
-                finish();
+                Intent premio = new Intent(CronometroDeporte.this,RecogerPremio.class);
+                startActivity(premio);
                 break;
         }
     }
