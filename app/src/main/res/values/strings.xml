@@ -19,4 +19,7 @@
 
     </string-array>
     <string name="title_activity_historial_usuario">HistorialUsuario</string>
+    <string name="title_activity_reto_deportivo">RetoDeportivo</string>
+    <string name="title_activity_cronometro_deporte">CronometroDeporte</string>
+    <string name="title_activity_recoger_premio">RecogerPremio</string>
 </resources>

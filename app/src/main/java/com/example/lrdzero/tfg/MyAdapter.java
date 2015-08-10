@@ -51,23 +51,18 @@ public class MyAdapter extends BaseAdapter {
             // rest of the code
             inflater =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.activity_lista_horizontal_mochila, null);
-            //convertView = inflater.inflate(R.layout.options, null);
+
         }
+
         listatotal.add(convertView);
-        text = (TextView)convertView.findViewById(R.id.ItemText);
-        image=(ImageView)convertView.findViewById(R.id.ItemImage);
-
-
-        text.setText(Item.getName());
-        image.setImageResource(Item.getImage());
+        ImageView img = (ImageView) convertView.findViewById(R.id.ItemImage);
+        TextView txt1 = (TextView) convertView.findViewById(R.id.ItemText);
 
 
 
 
-
-
-
-
+        img.setImageResource(R.drawable.busto);
+        txt1.setText(Item.getName());
         return convertView;
     }
 
