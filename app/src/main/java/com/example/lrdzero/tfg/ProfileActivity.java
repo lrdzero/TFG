@@ -45,6 +45,7 @@ public class ProfileActivity extends Activity {
         Button discButton = (Button)findViewById(R.id.discapacidades);
 
         ImageView estadisticas = (ImageView)findViewById(R.id.imageestadisticas);
+        Log.i("est",estadisticas.toString());
         ImageView foto = (ImageView)findViewById(R.id.foto);
 
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
@@ -77,8 +78,7 @@ public class ProfileActivity extends Activity {
                     camara.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                          //  Log.i("Camara", String.valueOf(fileUri));
-                           // Log.i("Camara", MediaStore.EXTRA_OUTPUT);
+
                             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
@@ -96,6 +96,7 @@ public class ProfileActivity extends Activity {
                             intent.setType("image/*");
                             intent.setAction(Intent.ACTION_GET_CONTENT);
                             startActivityForResult(Intent.createChooser(intent, "Selecciona una foto"), PICK_IMAGE);
+                            dialog.cancel();
 
                         }
                     });
@@ -145,7 +146,7 @@ public class ProfileActivity extends Activity {
 
                             }
                         });
-                Log.i("cred", "prog");
+
 
                builder.show();
 
@@ -169,6 +170,7 @@ public class ProfileActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), HistorialUsuario.class);
+                Log.i("est","intent craedo");
                 startActivity(i);
 
             }
