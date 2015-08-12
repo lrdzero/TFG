@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imagenNuevoReto"
+        android:src="@drawable/gallery"
+        android:adjustViewBounds="true" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp">
+
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="25dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Nombre del Reto"
+                    android:id="@+id/RetoNombre" />
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="40dp"
+                        android:id="@+id/btnEditar"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/edit" />
+
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:id="@+id/imagenEliminar"
+                        android:src="@drawable/error" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="time"
+                        android:id="@+id/Time" />
+            </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Descripcion Del Reto:"
+            android:id="@+id/DescricionReto" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Una breve descripcion del reto"
+                android:id="@+id/retoDescription" />
+
+
+
+
+
+    </LinearLayout>
+</LinearLayout>

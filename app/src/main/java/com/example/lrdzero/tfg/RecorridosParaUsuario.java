@@ -3,37 +3,21 @@ package com.example.lrdzero.tfg;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.StrictMode;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.ListFragment;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.StrictMode;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.lrdzero.tfg.R.drawable.f0907;
 
 
 public class RecorridosParaUsuario extends Activity implements View.OnClickListener{
@@ -54,6 +38,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
     private static int port=7;
     private static String ip="192.168.1.33";
 
+    private Conexion con;
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +56,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         atras.setOnClickListener(this);
         textoGuia.setText(TITULO4);
         recorr =true;
+        con = new  Conexion();
         Create();
 
         ListaView();
@@ -90,7 +76,8 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
                 textoGuia.setText(TITULO4);
                 dt.clear();
                 Create();
-                listView.setAdapter(adapter);
+                ListaView();
+                //listView.setAdapter(adapter);
                 recorr=true;
                 break;
 
@@ -100,41 +87,12 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
     }
 
     public void Create(){
-        /*
-        try{
-            Log.e("TagConnect","Create part intentando conexion");
-            sk = new Socket(ip, port);
-            DataInputStream in = new DataInputStream(sk.getInputStream());
-            DataOutputStream out = new DataOutputStream(sk.getOutputStream());
-            Log.e("TagConnect","Enviando");
-            out.writeUTF("ListarDatosRutas");
-            Log.e("TagConnect","Enviado");
-            if(in.readUTF().equals("continuar")){
-                Log.e("TagConnect","Aceptado");
-                int tama= in.read();
-                for(int i=0;i<tama;i++) {
-                    String Nombre = in.readUTF();
-                    String num = in.readUTF();
-                    String breveD = in.readUTF();
-                    String autor = in.readUTF();
-                    String Descrip = in.readUTF();
-                    dt.add(new DatosRyR(Nombre, num, breveD, autor, R.drawable.f0907, Descrip));
-                }
-            }
-            else{
-                Toast.makeText(RecorridosParaUsuario.this,"Error en conexion",Toast.LENGTH_LONG).show();
+        dt=con.cargaDeRecorridos();
 
-            }
-            sk.close();
-
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-*/
-        dt.add(new DatosRyR("RECORRIDO 1", "2", "Ruta de muestra inicial 1", "JAVIEL RAMBIEL",R.drawable.f0907,"Una ruta POSICION 1 que no tiene nada por el momento y que es utilizada a modo de prueba"));
-        dt.add(new DatosRyR("RECORRIDO 2", "3", "Ruta de muestra inicial 2", "ISMAEL",R.drawable.f0907,"Una ruta POSICION 2 que no tiene nada por el momento y que es utilizada a modo de prueba"));
-        dt.add(new DatosRyR("RECORRIDO 3", "4", "Ruta de muestra inicial 3", "FEDERICO",R.drawable.f0907,"Una ruta POSICION 3 que no tiene nada por el momento y que es utilizada a modo de prueba"));
-        dt.add(new DatosRyR("RECORRIDO 4", "7", "Ruta de muestra inicial 4", "PAQUITO",R.drawable.f0907,"Una ruta POSICION 4 que no tiene nada por el momento y que es utilizada a modo de prueba"));
+        //dt.add(new DatosRyR("RECORRIDO 1", "2", "Ruta de muestra inicial 1", "JAVIEL RAMBIEL",R.drawable.f0907,"Una ruta POSICION 1 que no tiene nada por el momento y que es utilizada a modo de prueba"));
+        //dt.add(new DatosRyR("RECORRIDO 2", "3", "Ruta de muestra inicial 2", "ISMAEL",R.drawable.f0907,"Una ruta POSICION 2 que no tiene nada por el momento y que es utilizada a modo de prueba"));
+        //dt.add(new DatosRyR("RECORRIDO 3", "4", "Ruta de muestra inicial 3", "FEDERICO",R.drawable.f0907,"Una ruta POSICION 3 que no tiene nada por el momento y que es utilizada a modo de prueba"));
+        //dt.add(new DatosRyR("RECORRIDO 4", "7", "Ruta de muestra inicial 4", "PAQUITO",R.drawable.f0907,"Una ruta POSICION 4 que no tiene nada por el momento y que es utilizada a modo de prueba"));
 
     }
 

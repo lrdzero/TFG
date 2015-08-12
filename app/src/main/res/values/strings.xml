@@ -11,10 +11,19 @@
     <string name="title_activity_recorridos_para_usuario">RecorridosParaUsuario</string>
     <string name="title_activity_listas">Listas</string>
     <string name="title_activity_listas_con_imagen">ListasConImagen</string>
+    <string name="title_activity_Herramientas_Autor">HerramientasAutor</string>
+    <string name="title_activity_Nuevos_Retos">CreadorRetos</string>
     <string-array name="discapacidades">
         <item>Ninguna</item>
         <item>Dificultad auditiva</item>
         <item>Dificultad visual</item>
+        <item>Movilidad reducida</item>
+
+    </string-array>
+    <string-array name="recomendado">
+        <item>Niños</item>
+        <item>Adultos</item>
+        <item>Porblemas Cardiovasculares</item>
         <item>Movilidad reducida</item>
 
     </string-array>

@@ -78,6 +78,14 @@
             android:name=".Mapa"
             android:label="@string/title_activity_mapa" >
         </activity>
+        <activity
+            android:name=".HerramientaNuevaRuta"
+            android:label="@string/title_activity_Herramientas_Autor" >
+        </activity>
+        <activity
+            android:name=".CrearNuevoRecorrido"
+            android:label="@string/title_activity_Nuevos_Retos" >
+        </activity>
     </application>
 
 </manifest>

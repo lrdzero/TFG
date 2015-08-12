@@ -1,7 +1,5 @@
 package com.example.lrdzero.tfg;
 
-import android.graphics.drawable.Drawable;
-
 /**
  * Created by lrdzero on 03/08/2015.
  */
@@ -30,6 +28,12 @@ public class DatosRyR {
     }
 
 
+    public void setName(String n){this.name=n;}
+    public void setNumber(String n){this.number=n;}
+    public void setDescription(String n){this.description=n;}
+    public void setOther(String n){this.other=n;}
+    public void setImage(int n){this.image=n;}
+    public void setLargeDescription(String n){this.largeDescription=n;}
 
     public String getName(){
         return name;
