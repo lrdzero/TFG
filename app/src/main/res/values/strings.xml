@@ -8,7 +8,7 @@
     <string name="rb2">Mujer</string>
     <string name="title_activity_seleccion_recorridos">SeleccionRecorridos</string>
     <string name="title_activity_profile">ProfileActivity</string>
-    <string name="title_activity_recorridos_para_usuario">RecorridosParaUsuario</string>
+    <string name="title_activity_recorridos_para_usuario">Recorridos Para Usuario</string>
     <string name="title_activity_listas">Listas</string>
     <string name="title_activity_listas_con_imagen">ListasConImagen</string>
     <string name="title_activity_Herramientas_Autor">HerramientasAutor</string>

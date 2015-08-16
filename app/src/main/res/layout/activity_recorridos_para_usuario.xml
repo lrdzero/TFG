@@ -16,17 +16,73 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="160dp"
         android:layout_height="170dp"
-        android:id="@+id/imageView7"
+        android:id="@+id/Avatar"
         android:src="@drawable/guia2"
-        android:adjustViewBounds="true"
+
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="26dp"
-        android:layout_marginStart="26dp" />
+        android:layout_marginStart="26dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cabeza"
+            android:src="@drawable/cuerpo"
+            android:contentDescription="cabeza"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ojos"
+            android:src="@drawable/ojos"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bocaroja"
+            android:src="@drawable/boca_roja"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bocaverde"
+            android:src="@drawable/boca_verde"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/brazoizq"
+            android:src="@drawable/manoizq"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/brazoder"
+            android:src="@drawable/manoderecha"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+           />
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -34,9 +90,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Selecciona el recorrido en el que quieres participar"
         android:id="@+id/TextoGuia"
-        android:layout_alignTop="@+id/imageView7"
-        android:layout_toRightOf="@+id/imageView7"
-        android:layout_toEndOf="@+id/imageView7"
+        android:layout_alignTop="@+id/Avatar"
+        android:layout_toRightOf="@+id/Avatar"
+        android:layout_toEndOf="@+id/Avatar"
         android:layout_marginLeft="24dp"
         android:layout_marginStart="24dp"
         android:background="#ffffffff"
@@ -46,7 +102,6 @@
         android:layout_width="400dp"
         android:layout_height="300dp"
         android:id="@+id/listView2"
-        android:layout_above="@+id/imageView7"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -55,7 +110,7 @@
         android:text="Volver"
         android:id="@+id/button2"
         android:background="#ffff0d0e"
-        android:layout_alignBottom="@+id/imageView7"
+        android:layout_alignBottom="@+id/Avatar"
         android:layout_alignLeft="@+id/TextoGuia"
         android:layout_alignStart="@+id/TextoGuia" />
 
