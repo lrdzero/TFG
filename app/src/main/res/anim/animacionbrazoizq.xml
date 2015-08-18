@@ -2,13 +2,15 @@
 <set xmlns:android="http://schemas.android.com/apk/res/android">
 
      <rotate
-         android:repeatCount="infinite"
+         android:fillAfter="true"
+         android:fillEnabled="true"
+         android:repeatCount="5"
          android:repeatMode="reverse"
          android:duration="800"
          android:fromDegrees="0"
          android:toDegrees="25"
-         android:pivotX="43%"
- 		 android:pivotY="43%"
+         android:pivotX="41%"
+ 		 android:pivotY="60%"
          
          />
 

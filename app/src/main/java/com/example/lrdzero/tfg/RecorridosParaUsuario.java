@@ -2,15 +2,24 @@ package com.example.lrdzero.tfg;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,10 +31,10 @@ import java.util.List;
 
 public class RecorridosParaUsuario extends Activity implements View.OnClickListener{
 
-    private List<DatosRyR> dt = new ArrayList<DatosRyR>();
+    private List<DatosRyR> dt = new ArrayList<>();
     private TextView tituloRecorrido;
     private TextView textoGuia;
-    private Button atras;
+    private ImageView sig;
     private boolean recorr;
     private final static String TITULO ="Recorridos para tí";
     private final static String TITULO2 ="Rutas Disponibles";
@@ -46,21 +55,72 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         setContentView(R.layout.activity_recorridos_para_usuario);
 
         tituloRecorrido =(TextView) findViewById(R.id.TextoRecorrido);
-        textoGuia =(TextView) findViewById(R.id.TextoGuia);
-        atras =(Button) findViewById(R.id.button2);
+        ImageView bi = (ImageView)findViewById(R.id.brazoizq);
+        final ImageView ojos = (ImageView)findViewById(R.id.ojos);
+        textoGuia =(TextView) findViewById(R.id.textodinamico);
+        textoGuia.setText(TITULO3);
+        sig =(ImageView) findViewById(R.id.sig);
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
 
-        atras.setEnabled(false);
-        atras.setVisibility(atras.INVISIBLE);
-        atras.setOnClickListener(this);
+        sig.setEnabled(false);
+        sig.setVisibility(View.INVISIBLE);
+        //sig.setOnClickListener(this);
+        sig.setAdjustViewBounds(true);
         textoGuia.setText(TITULO4);
         recorr =true;
         con = new  Conexion();
         Create();
 
-        ListaView();
 
+        ListaView();
+        Animation s = saludo(getApplicationContext());
+        s.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                ojos.startAnimation(GiroOjos());
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        Animation a = new AlphaAnimation(0,  1);
+        Interpolator i = new Interpolator() {
+            @Override
+            public float getInterpolation(float input) {
+                return (float) (1 - Math.sin(input * Math.PI));
+            }
+        };
+        a.setInterpolator(i);
+        a.setDuration(2000);
+        a.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                sig.setVisibility(View.VISIBLE);
+                sig.startAnimation(PasaTexto());
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        bi.startAnimation(s);
+        textoGuia.startAnimation(a);
 
     }
 
@@ -71,8 +131,8 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
             case R.id.button2:
                 tituloRecorrido.setText(TITULO);
 
-                atras.setEnabled(false);
-                atras.setVisibility(atras.INVISIBLE);
+                sig.setEnabled(false);
+                sig.setVisibility(View.INVISIBLE);
                 textoGuia.setText(TITULO4);
                 dt.clear();
                 Create();
@@ -148,8 +208,8 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
                         dt.clear();
                     dt.add(new DatosRyR("RUTA PRIMERA", "1", "Ruta de muestra inicial", "JAVIEL RAMBIEL",R.drawable.f0907,"Una ruta inicial que no tiene nada por el momento y que es utilizada a modo de prueba"));
                         adapter2 = new PlaceList2(currentData.getName());
-                        atras.setVisibility(atras.VISIBLE);
-                        atras.setEnabled(true);
+                        //atras.setVisibility(atras.VISIBLE);
+                        //atras.setEnabled(true);
                         tituloRecorrido.setText(TITULO2);
                         textoGuia.setText(TITULO3);
                         listView.setAdapter(adapter2);
@@ -196,5 +256,38 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         }
     }
 
+    //***********   ANIMACIONES
+
+    public Animation saludo(Context c){
+
+
+        return AnimationUtils.loadAnimation(c, R.anim.animacionbrazoizq);
+    }
+
+    public  AnimationSet GiroOjos(){
+
+        Animation mirada = new TranslateAnimation(Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,(float)0.035,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0);
+        Animation mirada2 = new TranslateAnimation(Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,(float)-0.035,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0);
+        mirada.setDuration(1800);
+        mirada2.setDuration(1800);
+        mirada2.setStartOffset(3000);
+
+        AnimationSet as = new AnimationSet(true);
+        as.addAnimation(mirada);
+        as.addAnimation(mirada2);
+
+
+        return as;
+
+    }
+
+    public Animation PasaTexto(){
+        Animation agrandaSig = new ScaleAnimation((float)0.25,(float)1.25,(float)0.25,(float)1.25,Animation.RELATIVE_TO_SELF,(float)0.50,Animation.RELATIVE_TO_SELF,(float)0.50);
+        agrandaSig.setDuration(500);
+        agrandaSig.setRepeatCount(Animation.INFINITE);
+        agrandaSig.setRepeatMode(Animation.REVERSE);
+
+        return agrandaSig;
+    }
 
 }
