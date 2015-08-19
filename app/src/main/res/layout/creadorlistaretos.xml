@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="100dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imagenRetoPremio"
+            android:adjustViewBounds="true"
+            android:src="@drawable/f0907" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Descripcion:"
+                    android:id="@+id/textDescripcionReto" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/retoEdit"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/edit"
+                    android:adjustViewBounds="true"
+                    android:layout_marginLeft="80dp" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:id="@+id/retoErase"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/error"
+                    android:layout_marginLeft="20dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="................................................................................................................................."
+                android:id="@+id/descripcionDelReto" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -10,6 +10,8 @@ public class DatosRyR {
     private String description;
     private String other;
     private String largeDescription;
+    private String adic;
+    private String aux;
     private int image;
 
 
@@ -27,7 +29,8 @@ public class DatosRyR {
 
     }
 
-
+    public void setAdic(String n){this.adic=n;}
+    public void setAux(String n){this.aux=n;}
     public void setName(String n){this.name=n;}
     public void setNumber(String n){this.number=n;}
     public void setDescription(String n){this.description=n;}
@@ -35,6 +38,8 @@ public class DatosRyR {
     public void setImage(int n){this.image=n;}
     public void setLargeDescription(String n){this.largeDescription=n;}
 
+    public String getAdic(){return adic;}
+    public String getAux(){return aux;}
     public String getName(){
         return name;
     }

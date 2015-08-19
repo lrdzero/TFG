@@ -5,7 +5,7 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:id="@+id/imagenNuevoReto"
+        android:id="@+id/imagenNuevoRuta"
         android:src="@drawable/gallery"
         android:adjustViewBounds="true" />
 
@@ -24,8 +24,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Nombre del Reto"
-                    android:id="@+id/RetoNombre" />
+                    android:text="Nombre del Ruta"
+                    android:id="@+id/RutaNombre" />
 
                 <ImageView
                         android:layout_width="25dp"
@@ -54,8 +54,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Descripcion Del Reto:"
-            android:id="@+id/DescricionReto" />
+            android:text="Descripcion de la Ruta:"
+            android:id="@+id/DescricionRuta" />
 
         <TextView
                 android:layout_width="wrap_content"

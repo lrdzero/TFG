@@ -15,10 +15,10 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="300dp">
+            android:layout_height="220dp">
 
             <RelativeLayout
-                android:layout_width="180dp"
+                android:layout_width="160dp"
                 android:layout_height="fill_parent">
 
                 <ImageView
@@ -49,6 +49,7 @@
                     android:src="@drawable/recorridodefecto"
                     android:layout_centerVertical="true"
                     android:layout_centerHorizontal="true" />
+
             </RelativeLayout>
 
             <LinearLayout
@@ -57,7 +58,7 @@
                 android:layout_height="fill_parent">
 
                 <EditText
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="60dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
@@ -84,18 +85,47 @@
             </LinearLayout>
         </LinearLayout>
 
+        <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Recorrido Deportivo"
+                android:id="@+id/rdbDeporte"
+                android:layout_gravity="center_horizontal"
+                android:checked="false" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:text="Recorrido Cultural"
+                android:id="@+id/rdbCultural"
+                android:checked="false" />
+        </RadioGroup>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Retos actuales en la ruta"
+            android:text="Rutas Actuales"
             android:id="@+id/textoRetos" />
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="206dp"
             android:id="@+id/listView5"
             android:layout_gravity="center_horizontal"
             android:background="#ffffffff" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nuevoReto"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/nuevo" />
     </LinearLayout>
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.example.lrdzero.tfg;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ public class Registro extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         nombre=(EditText)findViewById(R.id.nombre);
         usuario=(EditText)findViewById(R.id.usuario);
         contrasenia=(EditText)findViewById(R.id.contraseña);
@@ -38,6 +40,7 @@ public class Registro extends Activity implements View.OnClickListener{
         registrar=(Button) findViewById(R.id.botonConfirn1);
 
         group =(RadioGroup) findViewById(R.id.grupoSex);
+
 
         registrar.setOnClickListener(this);
 
@@ -57,18 +60,28 @@ public class Registro extends Activity implements View.OnClickListener{
                         Toast.makeText(Registro.this,"No ha seleccionado Sexo.",Toast.LENGTH_LONG).show();
                     }
                      else {
+
                         envio.add(nombre.getText().toString());
                         envio.add(usuario.getText().toString());
                         envio.add(contrasenia.getText().toString());
                         envio.add(correo.getText().toString());
                         envio.add(edad.getText().toString());
-                        int  response=con.registrarse(envio);
+                        if(hombre.isChecked()==true){
+                            envio.add("H");
+                        }
+                        else if(mujer.isChecked()==true){
+                            envio.add("M");
+                        }
+                        int  response=con.hacerconexionGenerica("registrarse",envio);
 
                         if(response==1){
                             finish();
                         }
-                        else{
-                            Toast.makeText(Registro.this,"Error en el servidor",Toast.LENGTH_LONG).show();
+                        else if(response==0){
+                            Toast.makeText(Registro.this,"Error en el servidor o usuario ya existente",Toast.LENGTH_LONG).show();
+                        }
+                        else if(response==-1){
+                            Toast.makeText(Registro.this,"No se ha podido conectar",Toast.LENGTH_LONG).show();
                         }
                     }
                 break;

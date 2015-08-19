@@ -1,0 +1,97 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.lrdzero.tfg.CreadorRutas"
+    android:background="#FFFECF">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imagenCheck"
+                android:adjustViewBounds="true"
+                android:src="@drawable/check" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Listo"
+                android:id="@+id/textView15"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Mapa"
+            android:id="@+id/textMapa"
+            android:layout_gravity="center_horizontal" />
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:id="@+id/imageView17"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/f0907"
+            android:adjustViewBounds="true" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Nombre:"
+                android:id="@+id/textNombre" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/editName"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Retos"
+            android:id="@+id/textRetos"
+            android:layout_gravity="center_horizontal" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="133dp"
+            android:id="@+id/listaRetosParaRuta"
+            android:layout_gravity="center_horizontal"
+            android:cacheColorHint="#ffffffff" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imagenNuevoReto"
+            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="true"
+            android:src="@drawable/nuevo" />
+    </LinearLayout>
+</RelativeLayout>
