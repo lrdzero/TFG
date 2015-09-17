@@ -22,11 +22,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class RecorridosParaUsuario extends Activity implements View.OnClickListener{
@@ -56,8 +58,12 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
         tituloRecorrido =(TextView) findViewById(R.id.TextoRecorrido);
         ImageView bi = (ImageView)findViewById(R.id.brazoizq);
+        final ImageView boca = (ImageView)findViewById(R.id.bocaverde);
         final ImageView ojos = (ImageView)findViewById(R.id.ojos);
         textoGuia =(TextView) findViewById(R.id.textodinamico);
+        final RelativeLayout tdin =(RelativeLayout)findViewById(R.id.relativetexto);
+        tdin.setVisibility(View.INVISIBLE);
+
         textoGuia.setText(TITULO3);
         sig =(ImageView) findViewById(R.id.sig);
 
@@ -73,26 +79,10 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         Create();
 
 
+        final AnimationSet habla = habla();
+
         ListaView();
-        Animation s = saludo(getApplicationContext());
-        s.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                ojos.startAnimation(GiroOjos());
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        Animation a = new AlphaAnimation(0,  1);
+        final Animation a = new AlphaAnimation(0,  1);
         Interpolator i = new Interpolator() {
             @Override
             public float getInterpolation(float input) {
@@ -100,7 +90,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
             }
         };
         a.setInterpolator(i);
-        a.setDuration(2000);
+        a.setDuration(3000);
         a.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -111,6 +101,28 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
             public void onAnimationEnd(Animation animation) {
                 sig.setVisibility(View.VISIBLE);
                 sig.startAnimation(PasaTexto());
+                boca.clearAnimation();
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        Animation s = saludo(getApplicationContext());
+        s.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                ojos.startAnimation(GiroOjos());
+                tdin.setVisibility(View.VISIBLE);
+                textoGuia.startAnimation(a);
+                boca.startAnimation(habla);
+
             }
 
             @Override
@@ -119,8 +131,10 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
             }
         });
 
+
+
         bi.startAnimation(s);
-        textoGuia.startAnimation(a);
+
 
     }
 
@@ -147,7 +161,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
     }
 
     public void Create(){
-        dt=con.cargaDeRecorridos();
+//        dt=con.cargaDeRecorridos();
 
         //dt.add(new DatosRyR("RECORRIDO 1", "2", "Ruta de muestra inicial 1", "JAVIEL RAMBIEL",R.drawable.f0907,"Una ruta POSICION 1 que no tiene nada por el momento y que es utilizada a modo de prueba"));
         //dt.add(new DatosRyR("RECORRIDO 2", "3", "Ruta de muestra inicial 2", "ISMAEL",R.drawable.f0907,"Una ruta POSICION 2 que no tiene nada por el momento y que es utilizada a modo de prueba"));
@@ -268,9 +282,11 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
         Animation mirada = new TranslateAnimation(Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,(float)0.035,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0);
         Animation mirada2 = new TranslateAnimation(Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,(float)-0.035,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,0);
+
         mirada.setDuration(1800);
         mirada2.setDuration(1800);
         mirada2.setStartOffset(3000);
+
 
         AnimationSet as = new AnimationSet(true);
         as.addAnimation(mirada);
@@ -281,8 +297,41 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
     }
 
+    public AnimationSet habla(){
+
+        Animation habla = new TranslateAnimation(Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,(float)0,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,(float)0.03);
+        habla.setDuration(500);
+        habla.setRepeatCount(Animation.INFINITE);
+        habla.setRepeatMode(Animation.REVERSE);
+        habla.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                Random rand = new Random();
+
+                // nextInt is normally exclusive of the top value,
+                // so add 1 to make it inclusive
+                int randomNum = rand.nextInt((300 - 50) + 1) + 50;
+                animation.setDuration(randomNum);
+            }
+        });
+
+        AnimationSet as = new AnimationSet(true);
+        as.addAnimation(habla);
+        return as;
+    }
     public Animation PasaTexto(){
         Animation agrandaSig = new ScaleAnimation((float)0.25,(float)1.25,(float)0.25,(float)1.25,Animation.RELATIVE_TO_SELF,(float)0.50,Animation.RELATIVE_TO_SELF,(float)0.50);
+
         agrandaSig.setDuration(500);
         agrandaSig.setRepeatCount(Animation.INFINITE);
         agrandaSig.setRepeatMode(Animation.REVERSE);
@@ -290,4 +339,14 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         return agrandaSig;
     }
 
+
+
+
+    @Override
+    public void onBackPressed() {
+        // finish() is called in super: we only override this method to be able to override the transition
+        super.onBackPressed();
+
+        overridePendingTransition(R.anim.animstart, R.anim.animend);
+    }
 }
