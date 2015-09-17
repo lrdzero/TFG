@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class Conexion {
 
     private Socket sk;
-    private String ip="192.168.1.33";
+    private String ip="192.168.1.128";
     private int port=7;
     private DataInputStream in;
     private DataOutputStream out;
@@ -98,7 +98,7 @@ public class Conexion {
 
        return respuesta;
    }
-   public int nuevaRuta(String nombre,String nombre2){
+   public int nuevaRuta(String nombre,String nombre2,String nombre3){
        int respuesta=-1;
        try{
            conectar();
@@ -106,6 +106,7 @@ public class Conexion {
            if(in.readUTF().equals("continua")){
                out.writeUTF(nombre);
                out.writeUTF(nombre2);
+               out.writeUTF(nombre3);
            }
            cerrar();
        }catch (IOException e){
@@ -157,9 +158,10 @@ public class Conexion {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
-                for(int i=0;i<listReception.size();i++){
+                for(int i=0;i<listReception.size();i=i+2){
                     String nombre=listReception.get(i);
-                    dt.add(new DatosRyR(nombre,"","","",R.drawable.recorridodefecto,""));
+                    String historia=listReception.get(i+1);
+                    dt.add(new DatosRyR(nombre,"","","",R.drawable.recorridodefecto,historia));
                 }
             }
             else{
@@ -287,6 +289,45 @@ public class Conexion {
 
         return n;
     }
+    public DatosRyR buscarUsuario(String nombre){
+        DatosRyR n = new DatosRyR();
+        try{
+            conectar();
+            out.writeUTF("buscarUsuario");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(nombre);
+                try{
+                    object = objectInput.readObject();
+                    listReception= (ArrayList<String>) object;
+
+                } catch (ClassNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                n.setName(listReception.get(0));
+                n.setDescription(listReception.get(1));
+                n.setNumber(listReception.get(2));
+            }
+            cerrar();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
 
 
+        return n;
+    }
+
+    public void updateUsuario(String n1, String n2){
+        try{
+            conectar();
+            out.writeUTF("updateUsuario");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(n1);
+                out.writeUTF(n2);
+            }
+            cerrar();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }

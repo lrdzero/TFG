@@ -75,13 +75,15 @@ public class Registro extends Activity implements View.OnClickListener{
                         int  response=con.hacerconexionGenerica("registrarse",envio);
 
                         if(response==1){
-                            finish();
+                            Toast.makeText(Registro.this,"No se ha podido conectar",Toast.LENGTH_LONG).show();
+
                         }
                         else if(response==0){
                             Toast.makeText(Registro.this,"Error en el servidor o usuario ya existente",Toast.LENGTH_LONG).show();
                         }
                         else if(response==-1){
-                            Toast.makeText(Registro.this,"No se ha podido conectar",Toast.LENGTH_LONG).show();
+                            Toast.makeText(Registro.this,"Registrado correctamente",Toast.LENGTH_LONG).show();
+                            finish();
                         }
                     }
                 break;

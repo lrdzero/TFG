@@ -24,9 +24,9 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
     private ListView lista;
     private ImageView imageNew;
     private Boolean tipo;
-    private EditText nombreRuta;
+    private EditText nombreRuta,historia;
     private String nombreRecorrido,descRecorrido;
-    private ImageView check;
+    private ImageView check,mapa;
     private Conexion con;
     private boolean modif;
     private String myName;
@@ -58,12 +58,14 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
         modif=getIntent().getExtras().getBoolean("modif");
 
         check=(ImageView) findViewById(R.id.imagenCheck);
-
+        mapa=(ImageView)findViewById(R.id.imageView17);
         nombreRuta=(EditText)findViewById(R.id.editName);
         lista =(ListView) findViewById(R.id.listaRetosParaRuta);
         imageNew =(ImageView) findViewById(R.id.imagenNuevoReto);
+        historia=(EditText)findViewById(R.id.editHistoria);
         imageNew.setOnClickListener(this);
         check.setOnClickListener(this);
+        mapa.setOnClickListener(this);
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         con = new Conexion();
@@ -78,13 +80,17 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
 
     public void onClick(View v){
         switch (v.getId()){
+            case R.id.imageView17:
+                Intent n = new Intent(CreadorRutas.this,Mapa.class);
+                startActivity(n);
+                break;
             case R.id.imagenNuevoReto:
                 if(nombreRuta.getText().toString().matches("")){
                     Toast.makeText(CreadorRutas.this,"El nombre de la ruta no puede estar vacio",Toast.LENGTH_LONG).show();
                 }
                 else {
                     if(retos.isEmpty()) {
-                        con.nuevaRuta(nombreRuta.getText().toString(),nombreRecorrido);
+                      con.nuevaRuta(nombreRuta.getText().toString(),nombreRecorrido,historia.getText().toString());
                     }
 
                     Intent nuevo = new Intent(CreadorRutas.this, CreadorRetoDeportivo.class);
@@ -103,17 +109,17 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
 
                     relacion.add(nombreRuta.getText().toString());
                     relacion.add(Integer.toString(retos.size()));
-                    con.hacerconexionGenerica("actualizaReco", relacion);
+                    //con.hacerconexionGenerica("actualizaReco", relacion);
                 }
                 else{
                     relacion.add(nombreRecorrido);
                     relacion.add(Integer.toString(retos.size()));
-                    con.hacerconexionGenerica("actualizarReco", relacion);
+                    //con.hacerconexionGenerica("actualizarReco", relacion);
                     relacion.clear();
                     relacion.add(myName);
                     relacion.add(nombreRuta.getText().toString());
                     relacion.add(Integer.toString(retos.size()));
-                    con.hacerconexionGenerica("actualizarRuta",relacion);
+                    //con.hacerconexionGenerica("actualizarRuta",relacion);
                 }
                     finish();
                 break;
@@ -121,7 +127,10 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
     }
 
     public void Creador(){
-        retos=con.cargaDeRetos(nombreRuta.getText().toString());
+       retos=con.cargaDeRetos(nombreRuta.getText().toString());
+        //retos.add(new DatosRyR("Ruta 1", "2", "Breve descripcion de ruta", "alguien", R.drawable.recorridodefecto, "mas descripcion"));
+        //retos.add(new DatosRyR("Ruta 2", "2", "Breve descripcion de ruta", "alguien", R.drawable.recorridodefecto, "mas descripcion"));
+        //retos.add(new DatosRyR("Ruta 3", "2", "Breve descripcion de ruta", "alguien", R.drawable.recorridodefecto, "mas descripcion"));
 
     }
     public void Visualizar(){
@@ -161,6 +170,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Intent al = new Intent(CreadorRutas.this,CreadorRetoDeportivo.class);
                     al.putExtra("tipo", tipo);
                     al.putExtra("RecNombre",nombreRecorrido);
@@ -170,11 +180,13 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                     al.putExtra("nombreReto",currentData.getName());
                     startActivity(al);
 
+
                 }
             });
             erase.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     envios.add(currentData.getName());
                     Log.e("TAAAGTAMA",Integer.toString(envios.size()));
                     int borrarReto = con.hacerconexionGenerica("borrarReto",envios);

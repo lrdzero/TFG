@@ -190,7 +190,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                     envios.add(nombreRc);
                     envios.add(nombreRecorrido.getText().toString());
                     envios.add(brevDescripcionRecorrido.getText().toString());
-                    con.hacerconexionGenerica("updateRecorrido", envios);
+                    //con.hacerconexionGenerica("updateRecorrido", envios);
                     envios.clear();
                 }
                 finish();
@@ -199,11 +199,11 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
     }
     public void Create(){
         retos=con.cargaDeRutas(nombreRecorrido.getText().toString());
-        /*
-        retos.add(new DatosRyR("Ruta 1", "2", "Breve descripcion de ruta", "alguien", R.drawable.recorridodefecto, "mas descripcion"));
-        retos.add(new DatosRyR("Ruta 2", "2", "Breve descripcion de ruta", "alguien", R.drawable.recorridodefecto, "mas descripcion"));
-        retos.add(new DatosRyR("Ruta 3", "2", "Breve descripcion de ruta", "alguien", R.drawable.recorridodefecto, "mas descripcion"));
-        */
+
+        //retos.add(new DatosRyR("Ruta 1", "2", "Breve descripcion de ruta", "alguien", R.drawable.recorridodefecto, "mas descripcion"));
+        //retos.add(new DatosRyR("Ruta 2", "2", "Breve descripcion de ruta", "alguien", R.drawable.recorridodefecto, "mas descripcion"));
+        //retos.add(new DatosRyR("Ruta 3", "2", "Breve descripcion de ruta", "alguien", R.drawable.recorridodefecto, "mas descripcion"));
+
     }
 
     public void Visualizar(){
@@ -239,13 +239,14 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
             ImageView eliminar =(ImageView) intenView.findViewById(R.id.imagenEliminar);
 
             nombre.setText(currentData.getName());
-            descr.setText(currentData.getDescription());
+            descr.setText(currentData.getLargeDescription());
             time.setText(currentData.getNumber());
             imag.setImageResource(currentData.getImage());
 
             modifi.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Intent n = new Intent(CrearNuevoRecorrido.this,CreadorRutas.class);
                     n.putExtra("RecNombre",nombreRecorrido.getText().toString());
                     n.putExtra("drescrip",brevDescripcionRecorrido.getText().toString());
@@ -265,6 +266,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
             eliminar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     envios.add(currentData.getName());
                     int borrarRuta =con.hacerconexionGenerica("borrarRuta",envios);
                     envios.clear();

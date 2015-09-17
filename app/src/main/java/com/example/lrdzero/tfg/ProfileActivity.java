@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -16,15 +17,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
-import static android.app.PendingIntent.getActivity;
 import static com.example.lrdzero.tfg.R.id.icamara;
 
 
@@ -34,22 +35,100 @@ public class ProfileActivity extends Activity {
     public static final int MEDIA_TYPE_IMAGE = 1;
     private static final int PICK_IMAGE=200;
     private Uri fileUri;
+    private String Name;
+    private Conexion con;
+    private DatosRyR datosUser =new DatosRyR();
 
+    private ImageView editName,editEdad,editContrasenia;
+    private TextView nom,ed,contr;
 
-
+    protected void onDestroy(){
+        super.onDestroy();
+    }
+    protected void onResume(){
+        super.onResume();
+    }
+    protected void onPause(){
+        super.onPause();
+    }
     @TargetApi(Build.VERSION_CODES.FROYO)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
         Button discButton = (Button)findViewById(R.id.discapacidades);
+        Button discHerr = (Button)findViewById(R.id.button2);
+        con = new Conexion();
+
+        editName = (ImageView) findViewById(R.id.imageView9);
+        editEdad= (ImageView) findViewById(R.id.imageView10);
+        editContrasenia = (ImageView) findViewById(R.id.imageView11);
+
+        nom =(TextView)findViewById(R.id.nombre);
+        ed =(TextView)findViewById(R.id.edad);
+        contr =(TextView)findViewById(R.id.passwd);
+
+
+        Name = getIntent().getExtras().getString("NombreUser");
+
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
 
         ImageView estadisticas = (ImageView)findViewById(R.id.imageestadisticas);
         Log.i("est",estadisticas.toString());
+
+        datosUser=con.buscarUsuario(Name);
+
+        nom.setText(datosUser.getName());
+        ed.setText(datosUser.getNumber());
+        ed.setText(datosUser.getDescription());
+
         ImageView foto = (ImageView)findViewById(R.id.foto);
 
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
         foto.setImageURI(fileUri);
+
+
+        discHerr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent n = new Intent(ProfileActivity.this,HerramientaNuevaRuta.class);
+                startActivity(n);
+            }
+        });
+        editName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
+                alertDialog.setTitle("Cambio de nombre");
+                alertDialog.setMessage("Introduce nuevo nombre");
+
+                final EditText input = new EditText(ProfileActivity.this);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setLayoutParams(lp);
+                alertDialog.setView(input);
+                //alertDialog.setIcon(R.drawable.key);
+
+                alertDialog.setPositiveButton("YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                String nuevoNombre = input.getText().toString();
+                                con.updateUsuario(Name,nuevoNombre);
+                            }
+                        });
+
+                alertDialog.setNegativeButton("NO",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                alertDialog.show();
+            }
+        });
 
 
         AlertDialog.Builder builder2 = new AlertDialog.Builder(this);

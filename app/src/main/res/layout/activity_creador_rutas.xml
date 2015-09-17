@@ -43,7 +43,7 @@
 
         <ImageView
             android:layout_width="300dp"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:id="@+id/imageView17"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/f0907"
@@ -69,6 +69,28 @@
                 android:ems="10"
                 android:id="@+id/editName"
                 android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Historia:"
+                android:id="@+id/textHistoria" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/editHistoria"
+                android:layout_weight="1" />
+
         </LinearLayout>
 
         <TextView

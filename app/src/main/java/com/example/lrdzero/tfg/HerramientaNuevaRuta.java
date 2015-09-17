@@ -24,7 +24,7 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
     private EditText nombre,descrip;
 
     private ArrayList<String> envios=new ArrayList<String>();
-    private Conexion con= new Conexion();
+    private Conexion con;
 
     @Override
     public void onResume(){
@@ -43,7 +43,7 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
 
 
-
+        con = new Conexion();
         nuevo.setOnClickListener(this);
         CargarLista();
         Visualizar();
@@ -110,16 +110,19 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
             modifi.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Intent nuevo = new Intent(HerramientaNuevaRuta.this,CrearNuevoRecorrido.class);
                     nuevo.putExtra("Modif",true);
                     nuevo.putExtra("nombre",currentData.getName());
                     startActivity(nuevo);
+
                 }
             });
 
             eliminar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     envios.add(currentData.getName());
                     int borrarRecorrido =con.hacerconexionGenerica("borrarRecorrido",envios);
                     envios.clear();
@@ -130,6 +133,7 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
                     else{
                         Toast.makeText(HerramientaNuevaRuta.this, "Error al borrar ruta", Toast.LENGTH_LONG).show();
                     }
+
 
                 }
             });

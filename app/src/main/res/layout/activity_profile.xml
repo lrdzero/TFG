@@ -53,12 +53,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageestadisticas"
-        android:src="@drawable/estad"
+        android:src="@drawable/estadisticas"
         android:layout_below="@+id/estadisticas"
         android:layout_alignLeft="@+id/estadisticas"
         android:layout_alignStart="@+id/estadisticas"
         android:layout_marginTop="52dp"
-        android:background="@drawable/estad" />
+        />
 
     <Button
         style="?android:attr/buttonStyleSmall"

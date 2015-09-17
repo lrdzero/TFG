@@ -1,16 +1,10 @@
 package com.example.lrdzero.tfg;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 
 public class SeleccionRecorridos extends Activity implements View.OnClickListener {
@@ -18,6 +12,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
     ImageView User;
     ImageView Rc1;
     ImageView Rc2;
+    private String name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +27,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         User.setOnClickListener(this);
         Rc1.setOnClickListener(this);
         Rc2.setOnClickListener(this);
+        name= getIntent().getExtras().getString("NombreUser");
     }
 
     public void onClick(View v) {
@@ -48,6 +44,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
                 break;
             case R.id.imageView:
                 nueva = new Intent(SeleccionRecorridos.this, ProfileActivity.class);
+                nueva.putExtra("NombreUser",name);
                 startActivity(nueva);
                 break;
         }
