@@ -62,7 +62,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                 break;
             case R.id.botonRegistro:
-                nueva = new Intent(MainActivity.this,Registro.class);
+                nueva = new Intent(MainActivity.this,Mapa.class);
                 startActivity(nueva);
                 break;
 

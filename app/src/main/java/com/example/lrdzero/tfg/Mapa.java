@@ -35,6 +35,9 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
     private double longitude;
     LocationClient mLocationClient;
     LatLng LastPoint;
+    int nTramos=0;
+    Ruta ruta= new Ruta("r1");
+    //ArrayList<Array> ArrayTramos = new ArrayList<>();
     static private final int GET_TEXT_REQUEST_CODE = 2;
     @Override
     protected void onResume(){
@@ -72,26 +75,24 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
             public void onMyLocationChange(Location location) {
 
 
+
             }
         });
 
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-
-
                 LatLng loc;
                // new LatLng(mLocationClient.getLastLocation().getLatitude(), mLocationClient.getLastLocation().getLongitude());
 
 
-                if(LastPoint==null) {
+                if(ruta.getLastPoint()==null) {
                     loc = new LatLng(mLocationClient.getLastLocation().getLatitude(), mLocationClient.getLastLocation().getLongitude());
                     googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
                 }
                 else
-                    loc=LastPoint;
+                    loc=ruta.getLastPoint();
 
-                Directions dir = new Directions();
 
                 new LongOperation().execute(loc,latLng);
                 Toast.makeText(getApplication(), String.valueOf(latLng), Toast.LENGTH_SHORT).show();
@@ -119,21 +120,18 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
             }
         });
 
-        /*LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        String provider = locationManager.getBestProvider(new Criteria(), false);
-        Location location = locationManager.getLastKnownLocation(provider);
+        Button deshacer= (Button)findViewById(R.id.deshacer);
+        deshacer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        double lat =  location.getLatitude();
-        double lng = location.getLongitude();
-        LatLng coordinate = new LatLng(lat, lng);*///
+                    new BorradoTramo().execute();
 
-      //  CameraUpdate center=new CameraUpdateFactory.newLatLng(coordinate);//;e(); new CameraUpdateFactory.newLatLng(coordinate);
-      //  CameraUpdate zoom=;
 
-        //googleMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
-        //googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
 
-        //googleMap.getUiSettings();
+            }
+        });
+
     }
 
     @Override
@@ -188,8 +186,61 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
             ArrayList<LatLng> directionPoint = dir.getDirection(doc);
             PolylineOptions rectLine = new PolylineOptions().width(5).color(Color.RED);
 
+
+            ruta.addTramo(new Tramo(li,lf));
+
             for(int i = 0 ; i < directionPoint.size() ; i++) {
                 rectLine.add(directionPoint.get(i));
+            }
+
+
+
+
+            return rectLine;
+        }
+
+
+        @Override
+        protected void onPostExecute(PolylineOptions result) {
+
+            googleMap.addPolyline(result);
+
+            /*Polyline pl = googleMap.addPolyline(new PolylineOptions()
+                            .add(li,lf)
+                            .geodesic(true)
+                            .width((float) 2.0)
+                            .color(Color.BLUE).geodesic(true)
+            );*/
+        }
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+        }
+    }
+
+    private class BorradoTramo extends AsyncTask<Void, Void, PolylineOptions> {
+
+
+        @Override
+        protected PolylineOptions doInBackground(Void... params) {
+
+
+
+            //Directions dir = new Directions();
+            //Document doc = dir.getDocument(li, lf, Directions.MODE_WALKING);
+
+            ruta.removeTramo();
+
+            PolylineOptions rectLine = new PolylineOptions().width(5).color(Color.RED);
+
+
+            for(LatLng p : ruta.getPoints()) {
+                rectLine.add(p);
+
             }
 
 
@@ -201,6 +252,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
         protected void onPostExecute(PolylineOptions result) {
 
             googleMap.addPolyline(result);
+
             /*Polyline pl = googleMap.addPolyline(new PolylineOptions()
                             .add(li,lf)
                             .geodesic(true)
@@ -209,8 +261,11 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
             );*/
         }
 
+
+
         @Override
         protected void onPreExecute() {
+            googleMap.clear();
         }
 
         @Override
