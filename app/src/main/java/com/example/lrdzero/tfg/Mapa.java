@@ -243,7 +243,6 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
 
             }
 
-
             return rectLine;
         }
 

@@ -41,8 +41,6 @@ public class Ruta {
         Directions dir = new Directions();
 
 
-
-
         for(Tramo t : tramos){
             Document doc = dir.getDocument(t.getOrigen(), t.getFinal(), Directions.MODE_WALKING);
             points.addAll(dir.getDirection(doc));

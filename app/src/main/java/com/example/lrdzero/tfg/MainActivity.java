@@ -54,7 +54,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
                    else if(result==1){
                         nueva = new Intent(MainActivity.this, SeleccionRecorridos.class);
                         nueva.putExtra("NombreUser",user.getText().toString());
-
                         startActivity(nueva);
                     }
 
