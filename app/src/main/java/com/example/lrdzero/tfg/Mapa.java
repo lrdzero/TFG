@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,8 +24,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import org.w3c.dom.Document;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 
 
@@ -37,6 +42,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
     LatLng LastPoint;
     int nTramos=0;
     Ruta ruta= new Ruta("r1");
+    Conexion con;
     //ArrayList<Array> ArrayTramos = new ArrayList<>();
     static private final int GET_TEXT_REQUEST_CODE = 2;
     @Override
@@ -59,15 +65,20 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa);
+
+
         mapView =(MapView)findViewById(R.id.mi_mapa);
         mapView.onCreate(savedInstanceState);
         MapsInitializer.initialize(this);
 
+        con = new Conexion();
         googleMap = mapView.getMap();
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         googleMap.setMyLocationEnabled(true);
         mLocationClient = new LocationClient(getApplicationContext(), this, this);
         mLocationClient.connect();
+
+        ruta.setTramos(con.cargarVisionRuta("ruta a"));
 
         googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
@@ -94,6 +105,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
                     loc=ruta.getLastPoint();
 
 
+
                 new LongOperation().execute(loc,latLng);
                 Toast.makeText(getApplication(), String.valueOf(latLng), Toast.LENGTH_SHORT).show();
 
@@ -115,6 +127,52 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
                     if (googleMap != null) {
                         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 17.0f));
                     }
+
+                    //llevar a cabo la recogida de los datos.
+                    ArrayList<Tramo> datos =ruta.getTramos();
+
+
+
+                    for(int i=0;i< datos.size();i++){
+                        JSONObject ori = new JSONObject();
+
+                        Double latitudO=datos.get(i).getOrigen().latitude;
+                        Double longitudO = datos.get(i).getOrigen().longitude;
+                        Double latitudF=datos.get(i).getFinal().latitude;
+                        Double longitudF = datos.get(i).getFinal().longitude;
+                        try {
+                            ori.put("Ruta","ruta a");
+                            ori.put("latitudO",latitudO);
+                            ori.put("longitudO",longitudO);
+                            ori.put("latitudF", latitudF);
+                            ori.put("longitudF", longitudF);
+                            ori.put("posicion", i);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            Double imprime = ori.getDouble("longitudO");
+
+                            String imprime2 = ori.toString();
+                            Toast.makeText(Mapa.this,"Se han creado los JSONObject",Toast.LENGTH_LONG).show();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        Toast.makeText(Mapa.this,"Enviando",Toast.LENGTH_LONG).show();
+                         con.hacerConexionJSON("Mapeado", ori);
+                        Toast.makeText(Mapa.this,"Termino envio",Toast.LENGTH_LONG).show();
+
+
+
+
+
+                    }
+
+
+
+
                 }
 
             }

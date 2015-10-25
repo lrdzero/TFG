@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
     private static Socket sk;
     private static int port=7;
     private static String ip="192.168.1.33";
+    private String selected;
 
     private Conexion con;
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
@@ -71,8 +73,9 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
         sig.setEnabled(false);
         sig.setVisibility(View.INVISIBLE);
-        //sig.setOnClickListener(this);
+
         sig.setAdjustViewBounds(true);
+       // sig.setOnClickListener(this);
         textoGuia.setText(TITULO4);
         recorr =true;
         con = new  Conexion();
@@ -142,6 +145,10 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
         Intent nueva;
         switch (v.getId()) {
+            case R.id.sig:
+                Intent mp = new Intent(RecorridosParaUsuario.this,Mapa.class);
+                startActivity(mp);
+                break;
             case R.id.button2:
                 tituloRecorrido.setText(TITULO);
 
@@ -151,7 +158,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
                 dt.clear();
                 Create();
                 ListaView();
-                //listView.setAdapter(adapter);
+                listView.setAdapter(adapter);
                 recorr=true;
                 break;
 
@@ -161,7 +168,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
     }
 
     public void Create(){
-//        dt=con.cargaDeRecorridos();
+        dt=con.cargaDeRecorridos();
 
         //dt.add(new DatosRyR("RECORRIDO 1", "2", "Ruta de muestra inicial 1", "JAVIEL RAMBIEL",R.drawable.f0907,"Una ruta POSICION 1 que no tiene nada por el momento y que es utilizada a modo de prueba"));
         //dt.add(new DatosRyR("RECORRIDO 2", "3", "Ruta de muestra inicial 2", "ISMAEL",R.drawable.f0907,"Una ruta POSICION 2 que no tiene nada por el momento y que es utilizada a modo de prueba"));
@@ -181,7 +188,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if(recorr)
-                    textoGuia.setText(dt.get(position).getLargeDescription());
+                    textoGuia.setText(dt.get(position).getDescription());
 
 
 
@@ -195,7 +202,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
                 super(RecorridosParaUsuario.this,R.layout.activity_listas_con_imagen,dt);
             }
 
-        public View getView(int position,View convertView, ViewGroup parent){
+        public View getView(final int position,View convertView, ViewGroup parent){
 
 
             View intenView=convertView;
@@ -204,9 +211,9 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
             }
 
             ImageView img = (ImageView) intenView.findViewById(R.id.imageView8);
-            TextView txt1 = (TextView) intenView.findViewById(R.id.NombreRecorrido);
-            TextView txt2 = (TextView) intenView.findViewById(R.id.nRutas);
-            TextView txt3 = (TextView) intenView.findViewById(R.id.textView7);
+            final TextView txt1 = (TextView) intenView.findViewById(R.id.NombreRecorrido);
+            final TextView txt2 = (TextView) intenView.findViewById(R.id.nRutas);
+            final TextView txt3 = (TextView) intenView.findViewById(R.id.textView7);
 
             final DatosRyR currentData = dt.get(position);
 
@@ -215,12 +222,17 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
             txt2.setText(currentData.getNumber());
             txt3.setText(currentData.getDescription());
 
+
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                        dt.clear();
-                    dt.add(new DatosRyR("RUTA PRIMERA", "1", "Ruta de muestra inicial", "JAVIEL RAMBIEL",R.drawable.f0907,"Una ruta inicial que no tiene nada por el momento y que es utilizada a modo de prueba"));
+                    dt.clear();
+                    Toast.makeText(RecorridosParaUsuario.this,"El nombre es: "+txt1.getText().toString(),Toast.LENGTH_LONG).show();
+
+                    dt = con.cargaDeRutas(txt1.getText().toString());
+
+                    //dt.add(new DatosRyR("RUTA PRIMERA", "1", "Ruta de muestra inicial", "JAVIEL RAMBIEL",R.drawable.f0907,"Una ruta inicial que no tiene nada por el momento y que es utilizada a modo de prueba"));
                         adapter2 = new PlaceList2(currentData.getName());
                         //atras.setVisibility(atras.VISIBLE);
                         //atras.setEnabled(true);
@@ -263,7 +275,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
             img.setImageResource(currentData.getImage());
             txt1.setText(currentData.getName());
             txt2.setText(currentData.getOther());
-            txt3.setText(currentData.getDescription());
+            txt3.setText(currentData.getLargeDescription());
 
 
             return intenView;

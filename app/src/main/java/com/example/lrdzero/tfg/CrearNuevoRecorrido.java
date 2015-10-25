@@ -136,7 +136,14 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
             }
         });
     }
+    private String converToString(ArrayList<Integer> f){
+        String sul = "";
+        for(int i=0;i<f.size();i++){
+            sul+=Integer.toString(f.get(i))+",";
+        }
 
+        return sul;
+    }
     public void onClick(View v){
         switch (v.getId()){
             case R.id.nuevoReto:
@@ -156,6 +163,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                              envios.add(nombreRecorrido.getText().toString());
                              envios.add(brevDescripcionRecorrido.getText().toString());
                              envios.add("1");
+                             envios.add(converToString(recomendaciones));
                              con.hacerconexionGenerica("nuevoRecorrido",envios);
                              envios.clear();
                          }
@@ -167,6 +175,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                              envios.add(nombreRecorrido.getText().toString());
                              envios.add(brevDescripcionRecorrido.getText().toString());
                              envios.add("0");
+                             envios.add(converToString(recomendaciones));
                              con.hacerconexionGenerica("nuevoRecorrido",envios);
                              envios.clear();
                          }
@@ -190,8 +199,51 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                     envios.add(nombreRc);
                     envios.add(nombreRecorrido.getText().toString());
                     envios.add(brevDescripcionRecorrido.getText().toString());
-                    //con.hacerconexionGenerica("updateRecorrido", envios);
+                    if(!recomendaciones.isEmpty()){
+                        envios.add(converToString(recomendaciones));
+                    }
+                    con.hacerconexionGenerica("updateRecorrido", envios);
                     envios.clear();
+                }
+                else{
+                    if(nombreRecorrido.getText().toString().matches("")||brevDescripcionRecorrido.getText().toString().matches("")){
+                        Toast.makeText(CrearNuevoRecorrido.this,"Debe rellenar los campos Nombre y Descripcion.",Toast.LENGTH_LONG).show();
+                    }
+                    else{
+
+
+                        if(btn1.isChecked()){
+                            ;
+                            if(retos.isEmpty()){
+                                envios.add(nombreRecorrido.getText().toString());
+                                envios.add(brevDescripcionRecorrido.getText().toString());
+                                envios.add("1");
+                                envios.add(converToString(recomendaciones));
+                                con.hacerconexionGenerica("nuevoRecorrido",envios);
+                                envios.clear();
+                            }
+
+                        }
+                        else if(btn2.isChecked()){
+
+                            if(retos.isEmpty()){
+                                envios.add(nombreRecorrido.getText().toString());
+                                envios.add(brevDescripcionRecorrido.getText().toString());
+                                envios.add("0");
+                                envios.add(converToString(recomendaciones));
+                                con.hacerconexionGenerica("nuevoRecorrido",envios);
+                                envios.clear();
+                            }
+
+                        }
+                        else{
+                            Toast.makeText(CrearNuevoRecorrido.this, "Debe elegir un tipo de Recorrido", Toast.LENGTH_LONG).show();
+                        }
+
+
+
+
+                    }
                 }
                 finish();
                 break;

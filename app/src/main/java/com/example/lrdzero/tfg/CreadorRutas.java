@@ -109,17 +109,20 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
 
                     relacion.add(nombreRuta.getText().toString());
                     relacion.add(Integer.toString(retos.size()));
-                    //con.hacerconexionGenerica("actualizaReco", relacion);
+                    if(retos.isEmpty()) {
+                        con.nuevaRuta(nombreRuta.getText().toString(),nombreRecorrido,historia.getText().toString());
+                    }
+                    con.hacerconexionGenerica("actualizaReco", relacion);
                 }
                 else{
                     relacion.add(nombreRecorrido);
                     relacion.add(Integer.toString(retos.size()));
-                    //con.hacerconexionGenerica("actualizarReco", relacion);
+                    con.hacerconexionGenerica("actualizarReco", relacion);
                     relacion.clear();
                     relacion.add(myName);
                     relacion.add(nombreRuta.getText().toString());
                     relacion.add(Integer.toString(retos.size()));
-                    //con.hacerconexionGenerica("actualizarRuta",relacion);
+                    con.hacerconexionGenerica("actualizarRuta",relacion);
                 }
                     finish();
                 break;
@@ -162,11 +165,18 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
             ImageView img =(ImageView) intenView.findViewById(R.id.imagenRetoPremio);
             ImageView edit =(ImageView) intenView.findViewById(R.id.retoEdit);
             ImageView erase =(ImageView) intenView.findViewById(R.id.retoErase);
+            ImageView pickPos =(ImageView) intenView.findViewById(R.id.pickPosition);
 
             descp.setText(currentData.getName());
             img.setImageResource(currentData.getImage());
 
-
+            pickPos.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent map = new Intent(CreadorRutas.this,Mapa.class);
+                    startActivity(map);
+                }
+            });
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -5,7 +5,7 @@ android {
         debug {
             keyAlias 'mapaAPP2'
             keyPassword 'shinigami'
-            storeFile file('C:/Users/Carlos/Documents/mapa2.keystore')
+            storeFile file('D:/Programacion/keys/mapa2.keystore')
             storePassword 'shinigami'
         }
     }

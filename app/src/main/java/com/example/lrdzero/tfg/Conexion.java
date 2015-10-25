@@ -2,6 +2,11 @@ package com.example.lrdzero.tfg;
 
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -98,6 +103,9 @@ public class Conexion {
 
        return respuesta;
    }
+    public void cambiarIP(String nueva){
+        ip=nueva;
+    }
    public int nuevaRuta(String nombre,String nombre2,String nombre3){
        int respuesta=-1;
        try{
@@ -138,7 +146,21 @@ public class Conexion {
         return respuesta;
     }
 
+    public void hacerConexionJSON(String name, JSONObject obj){
+        ArrayList<String> envio = new ArrayList<>();
+        try {
+            envio.add(obj.getString("Ruta"));
+            envio.add(Double.toString(obj.getDouble("latitudO")));
+            envio.add(Double.toString(obj.getDouble("longitudO")));
+            envio.add(Double.toString(obj.getDouble("latitudF")));
+            envio.add(Double.toString(obj.getDouble("longitudF")));
+            envio.add(Integer.toString(obj.getInt("posicion")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        hacerconexionGenerica(name,envio);
 
+    }
     public ArrayList<DatosRyR> cargaDeRutas(String name){
         ArrayList<DatosRyR> dt = new ArrayList<DatosRyR>();
         DatosRyR nm = new DatosRyR();
@@ -329,5 +351,39 @@ public class Conexion {
         }catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<Tramo> cargarVisionRuta(String nombre){
+        ArrayList<Tramo> result = new ArrayList<Tramo>();
+        try{
+            conectar();
+            out.writeUTF("obtenerDibujoRuta");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(nombre);
+                try{
+                    object = objectInput.readObject();
+                    listReception= (ArrayList<String>) object;
+
+                } catch (ClassNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+            for(int i=0;i<listReception.size();i=i+4) {
+
+                Double ini1 = Double.valueOf(listReception.get(i));
+                Double ini2 = Double.valueOf(listReception.get((i+1)));
+                Double ini3 = Double.valueOf(listReception.get((i+2)));
+                Double ini4 = Double.valueOf(listReception.get((i+3)));
+
+                Tramo nuevo = new Tramo(new LatLng(ini1,ini2), new LatLng(ini3, ini4));
+                result.add(nuevo);
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        cerrar();
+
+        return result;
     }
 }

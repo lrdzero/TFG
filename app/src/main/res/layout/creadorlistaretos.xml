@@ -43,6 +43,14 @@
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
+                    android:id="@+id/pickPosition"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/f0907"
+                    android:layout_marginLeft="20dp" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:id="@+id/retoErase"
                     android:adjustViewBounds="true"
                     android:src="@drawable/error"

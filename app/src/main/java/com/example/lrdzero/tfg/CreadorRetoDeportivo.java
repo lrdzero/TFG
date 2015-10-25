@@ -2,8 +2,11 @@ package com.example.lrdzero.tfg;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +18,7 @@ import java.util.ArrayList;
 
 public class CreadorRetoDeportivo extends Activity {
     private boolean lyout,modifi;
+    private ArrayList<Integer> dificultades = new ArrayList<>();
     private String nombreRecorrido, descripRecorrido, nombreRuta;
     private Conexion con;
     private ArrayList<String> envio = new ArrayList<String>();
@@ -52,12 +56,56 @@ public class CreadorRetoDeportivo extends Activity {
     public void metodosDeportivos(boolean modifi, final Context c){
 
             Button crear=(Button) findViewById(R.id.botonCrearPDeportiva);
+            Button dificultad=(Button) findViewById(R.id.buttonDificultadPrueva);
             final EditText nombreDeporti=(EditText) findViewById(R.id.editNombrePruebaDeportiva);
             final EditText descripcion =(EditText) findViewById(R.id.editPruevaDescripcion);
             final EditText tiempo =(EditText) findViewById(R.id.editText3);
             final EditText recomp =(EditText)findViewById(R.id.editTextPruevaDeportivaRecompensa);
 
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        dificultad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final ArrayList<Integer> aux = new ArrayList<>();
 
+                // Set the dialog title
+                //Log.i("title", "prog");
+                builder.setTitle("Dificultad:")
+                        .setMultiChoiceItems(R.array.dificultades, null,
+                                new DialogInterface.OnMultiChoiceClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                        if (isChecked) {
+
+                                            aux.add(which);
+                                        } else if (aux.contains(which)) {
+
+                                            aux.remove(Integer.valueOf(which));
+                                        }
+                                    }
+                                })
+                                // Set the action buttons*/
+                        .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                dificultades = aux;
+                                Toast.makeText(CreadorRetoDeportivo.this,Integer.toString(dificultades.get(0)),Toast.LENGTH_LONG).show();
+                                // User clicked OK, so save the mSelectedItems results somewhere
+                                // or return them to the component that opened the dialog
+
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        });
+                Log.i("cred", "prog");
+
+                builder.show();
+            }
+        });
 
             if(modifi) {
                 crear.setText("Modificar");
@@ -69,10 +117,13 @@ public class CreadorRetoDeportivo extends Activity {
                 descripcion.setText(miDato.getDescription());
                 tiempo.setText(miDato.getNumber());
                 recomp.setText(miDato.getLargeDescription());
+                dificultad.setEnabled(false);
+
 
                 crear.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")) {
                             Toast.makeText(c, "Hay campos sin rellenar", Toast.LENGTH_LONG).show();
                         } else {
@@ -82,6 +133,10 @@ public class CreadorRetoDeportivo extends Activity {
                             envio.add(descripcion.getText().toString());
                             envio.add(tiempo.getText().toString());
                             envio.add(recomp.getText().toString());
+                            if(!dificultades.isEmpty()){
+                                envio.add(Integer.toString(dificultades.get(0)));
+                            }
+
                             int resultado = con.hacerconexionGenerica("updateReto", envio);
                             envio.clear();
                             if (resultado == -1) {
@@ -110,6 +165,7 @@ public class CreadorRetoDeportivo extends Activity {
                             envio.add(descripcion.getText().toString());
                             envio.add(tiempo.getText().toString());
                             envio.add(recomp.getText().toString());
+                            envio.add(Integer.toString(dificultades.get(0)));
                             int resultado = con.hacerconexionGenerica("crearRetoNuevo", envio);
                             envio.clear();
                             if (resultado == -1) {
@@ -124,6 +180,7 @@ public class CreadorRetoDeportivo extends Activity {
     }
     public void metodosCulturales(boolean modifi,final Context c){
         Button crear=(Button) findViewById(R.id.botonCrear);
+        Button dificultad=(Button) findViewById(R.id.botonDifucultad);
         final EditText nombre =(EditText)findViewById(R.id.editText);
         final EditText Pregunta=(EditText)findViewById(R.id.editPregunta);
         final EditText respA = (EditText) findViewById(R.id.editTextA);
@@ -135,6 +192,51 @@ public class CreadorRetoDeportivo extends Activity {
         final RadioButton btnB =(RadioButton)findViewById(R.id.radioButtonB);
         final RadioButton btnC =(RadioButton)findViewById(R.id.radioButtonC);
         final RadioButton btnD =(RadioButton)findViewById(R.id.radioButtonD);
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        dificultad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final ArrayList<Integer> aux = new ArrayList<>();
+
+                // Set the dialog title
+                //Log.i("title", "prog");
+                builder.setTitle("Dificultad:")
+                        .setMultiChoiceItems(R.array.dificultades, null,
+                                new DialogInterface.OnMultiChoiceClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                        if (isChecked) {
+
+                                            aux.add(which);
+                                        } else if (aux.contains(which)) {
+
+                                            aux.remove(Integer.valueOf(which));
+                                        }
+                                    }
+                                })
+                                // Set the action buttons*/
+                        .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                dificultades = aux;
+                                Toast.makeText(CreadorRetoDeportivo.this,Integer.toString(dificultades.get(0)),Toast.LENGTH_LONG).show();
+                                // User clicked OK, so save the mSelectedItems results somewhere
+                                // or return them to the component that opened the dialog
+
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        });
+                Log.i("cred", "prog");
+
+                builder.show();
+            }
+        });
 
         if(modifi) {
             crear.setText("Modificar");
@@ -151,6 +253,7 @@ public class CreadorRetoDeportivo extends Activity {
             respC.setText(nuevo.getAdic());
             respD.setText(nuevo.getAux());
             descRecom.setText(nuevo.getLargeDescription());
+            dificultad.setEnabled(false);
 
             crear.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -164,6 +267,7 @@ public class CreadorRetoDeportivo extends Activity {
                     envio.add(respC.getText().toString());
                     envio.add(respD.getText().toString());
                     envio.add(descRecom.getText().toString());
+                    envio.add(Integer.toString(dificultades.get(0)));
                     if(btnA.isChecked()==true){
                         envio.add("A");
                     }
