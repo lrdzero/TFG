@@ -7,61 +7,117 @@
     tools:context="com.example.lrdzero.tfg.SeleccionRecorridos"
     android:background="#fffcffa3">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:src="@drawable/busto"
-        android:maxWidth="124dp"
-        android:maxHeight="124dp"
-        android:adjustViewBounds="true"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textView"
-        android:layout_toEndOf="@+id/textView" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Granada Verde"
-        android:id="@+id/textView"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="24dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="155dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="0.41">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Granada Historica"
-        android:id="@+id/textView2"
-        android:layout_alignTop="@+id/textView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Gestionar Perfil"
+                android:id="@+id/textView3"
+                android:layout_gravity="center_horizontal" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:src="@drawable/images"
-        android:maxWidth="150dp"
-        android:maxHeight="150dp"
-        android:adjustViewBounds="true"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:src="@drawable/busto"
+                android:maxWidth="124dp"
+                android:maxHeight="124dp"
+                android:adjustViewBounds="true"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/textView"
+                android:layout_toEndOf="@+id/textView"
+                android:layout_gravity="center_horizontal" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView3"
-        android:src="@drawable/bustogriego"
-        android:maxWidth="100dp"
-        android:maxHeight="100dp"
-        android:adjustViewBounds="true"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Mis Recorridos"
+                android:id="@+id/textView18"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="146dp"
+            android:layout_marginTop="30dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="170dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Granada Historica"
+                    android:id="@+id/textView2"
+                    android:layout_alignTop="@+id/textView"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <ImageView
+                    android:layout_width="121dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/imageView3"
+                    android:src="@drawable/bustogriego"
+                    android:maxWidth="100dp"
+                    android:maxHeight="100dp"
+                    android:adjustViewBounds="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imageView"
+                    android:layout_toEndOf="@+id/imageView" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Granada Verde"
+                    android:id="@+id/textView"
+                    android:layout_below="@+id/imageView"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <ImageView
+                    android:layout_width="160dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/imageView2"
+                    android:src="@drawable/images"
+                    android:maxWidth="150dp"
+                    android:maxHeight="150dp"
+                    android:adjustViewBounds="true"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>

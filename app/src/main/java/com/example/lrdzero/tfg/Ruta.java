@@ -35,6 +35,9 @@ public class Ruta {
     public ArrayList<Tramo> getTramos(){
         return tramos;
     }
+    public LatLng getFirstPoint(){
+        return tramos.get(0).getOrigen();
+    }
 
     public ArrayList<LatLng> getPoints(){
         ArrayList<LatLng> points= new ArrayList<>();

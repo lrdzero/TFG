@@ -41,14 +41,14 @@
                         android:id="@+id/imagenEliminar"
                         android:src="@drawable/error" />
 
-                <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="time"
-                        android:id="@+id/Time" />
-            </LinearLayout>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/enroutar"
+                android:adjustViewBounds="true"
+                android:src="@drawable/f0907" />
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"

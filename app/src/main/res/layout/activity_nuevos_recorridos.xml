@@ -13,15 +13,15 @@
         android:layout_height="120dp">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:id="@+id/imagenRecrorrido"
             android:adjustViewBounds="true"
             android:src="@drawable/recorridodefecto" />
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="230dp"
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent">
 
             <TextView
@@ -32,7 +32,7 @@
                 android:id="@+id/nombreRecorrido" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="186dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -40,7 +40,7 @@
                 android:id="@+id/tituloDescrip" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="195dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="....................................................................................................................."
@@ -49,11 +49,11 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="fill_parent"
+            android:layout_width="42dp"
             android:layout_height="fill_parent">
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:id="@+id/camara"
@@ -61,14 +61,14 @@
                 android:adjustViewBounds="true" />
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/modificar"
                 android:adjustViewBounds="true"
                 android:src="@drawable/edit" />
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/eliminar"
                 android:src="@drawable/error"

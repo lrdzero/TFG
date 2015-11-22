@@ -101,6 +101,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                                 new DialogInterface.OnMultiChoiceClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
                                         if (isChecked) {
 
                                             aux.add(which);
@@ -282,19 +283,30 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
             }
             final DatosRyR currentData = retos.get(position);
 
-            TextView nombre=(TextView)intenView.findViewById(R.id.RutaNombre);
+            final TextView nombre=(TextView)intenView.findViewById(R.id.RutaNombre);
             TextView descr=(TextView) intenView.findViewById(R.id.retoDescription);
-            TextView time=(TextView) intenView.findViewById(R.id.Time);
+            //TextView time=(TextView) intenView.findViewById(R.id.Time);
             ImageView imag =(ImageView)intenView.findViewById(R.id.imagenNuevoRuta);
 
             ImageView modifi =(ImageView) intenView.findViewById(R.id.btnEditar);
             ImageView eliminar =(ImageView) intenView.findViewById(R.id.imagenEliminar);
+            ImageView enrutar =(ImageView) intenView.findViewById(R.id.enroutar);
 
             nombre.setText(currentData.getName());
             descr.setText(currentData.getLargeDescription());
-            time.setText(currentData.getNumber());
+            //time.setText(currentData.getNumber());
             imag.setImageResource(currentData.getImage());
 
+            enrutar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent n = new Intent(CrearNuevoRecorrido.this,Mapa.class);
+                    n.putExtra("tipo",false);
+                    n.putExtra("nombre",nombre.getText().toString());
+                    n.putExtra("retos",false);
+                    startActivity(n);
+                }
+            });
             modifi.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

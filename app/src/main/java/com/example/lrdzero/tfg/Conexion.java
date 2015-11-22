@@ -1,6 +1,7 @@
 package com.example.lrdzero.tfg;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 public class Conexion {
 
     private Socket sk;
-    private String ip="192.168.1.128";
+    private String ip="192.168.1.129";
     private int port=7;
     private DataInputStream in;
     private DataOutputStream out;
@@ -54,7 +55,47 @@ public class Conexion {
             e.printStackTrace();
         }
     }
+    public ArrayList<String> cargarPositonRetos(String name){
+        ArrayList<String> respuesta=new ArrayList<String>();
+        try{
+            conectar();
+            out.writeUTF("cargarPositionRetos");
+            if(in.readUTF().equals("continua")) {
+                out.writeUTF(name);
+                try {
+                    object = objectInput.readObject();
+                    listReception = (ArrayList<String>) object;
+                    for(int i=0;i<listReception.size();i++){
+                        respuesta.add(listReception.get(i));
+                    }
 
+                } catch (ClassNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+            cerrar();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return respuesta;
+    }
+    public void updateRetoPos(String m,double lat,double log){
+        try{
+            conectar();
+            out.writeUTF("updateRetoPost");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(m);
+                out.writeUTF(Double.toString(lat));
+                out.writeUTF(Double.toString(log));
+               int result= in.readInt();
+            }
+            cerrar();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
     public int hacerconexionGenerica(String tipo,ArrayList<String>data){
         int respuesta=-1;
         try{
@@ -197,7 +238,7 @@ public class Conexion {
         }
         return dt;
     }
-    public ArrayList<DatosRyR> cargaDeRecorridos(){
+    public ArrayList<DatosRyR> cargaDeRecorridos(int tipo){
         ArrayList<DatosRyR> dt = new ArrayList<DatosRyR>();
         DatosRyR nm = new DatosRyR();
         try{
@@ -205,6 +246,7 @@ public class Conexion {
             out.writeUTF("cargarRecorridos");
             if(in.readUTF().equals("continua")){
                 try{
+                    out.writeUTF(Integer.toString(tipo));
                     object = objectInput.readObject();
                     listReception= (ArrayList<String>) object;
                 } catch (ClassNotFoundException e1) {
@@ -339,18 +381,22 @@ public class Conexion {
         return n;
     }
 
-    public void updateUsuario(String n1, String n2){
+    public String updateUsuario(String n1, String n2,String n3){
+        String devol="";
         try{
             conectar();
             out.writeUTF("updateUsuario");
             if(in.readUTF().equals("continua")){
                 out.writeUTF(n1);
                 out.writeUTF(n2);
+                out.writeUTF(n3);
+                devol=in.readUTF();
             }
             cerrar();
         }catch (IOException e){
             e.printStackTrace();
         }
+        return devol;
     }
 
     public ArrayList<Tramo> cargarVisionRuta(String nombre){

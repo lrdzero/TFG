@@ -58,14 +58,14 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
         modif=getIntent().getExtras().getBoolean("modif");
 
         check=(ImageView) findViewById(R.id.imagenCheck);
-        mapa=(ImageView)findViewById(R.id.imageView17);
+
         nombreRuta=(EditText)findViewById(R.id.editName);
         lista =(ListView) findViewById(R.id.listaRetosParaRuta);
         imageNew =(ImageView) findViewById(R.id.imagenNuevoReto);
         historia=(EditText)findViewById(R.id.editHistoria);
         imageNew.setOnClickListener(this);
         check.setOnClickListener(this);
-        mapa.setOnClickListener(this);
+
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         con = new Conexion();
@@ -80,10 +80,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
 
     public void onClick(View v){
         switch (v.getId()){
-            case R.id.imageView17:
-                Intent n = new Intent(CreadorRutas.this,Mapa.class);
-                startActivity(n);
-                break;
+
             case R.id.imagenNuevoReto:
                 if(nombreRuta.getText().toString().matches("")){
                     Toast.makeText(CreadorRutas.this,"El nombre de la ruta no puede estar vacio",Toast.LENGTH_LONG).show();
@@ -161,7 +158,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
             }
             final DatosRyR currentData = retos.get(position);
 
-            TextView descp =(TextView) intenView.findViewById(R.id.descripcionDelReto);
+            final TextView descp =(TextView) intenView.findViewById(R.id.descripcionDelReto);
             ImageView img =(ImageView) intenView.findViewById(R.id.imagenRetoPremio);
             ImageView edit =(ImageView) intenView.findViewById(R.id.retoEdit);
             ImageView erase =(ImageView) intenView.findViewById(R.id.retoErase);
@@ -173,21 +170,27 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
             pickPos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent map = new Intent(CreadorRutas.this,Mapa.class);
-                    startActivity(map);
+                    Intent n = new Intent(CreadorRutas.this,Mapa.class);
+                    n.putExtra("tipo",true);
+                    n.putExtra("nombre",nombreRuta.getText().toString());
+                    n.putExtra("retos",true);
+                    n.putExtra("namereto",descp.getText().toString());
+                    startActivity(n);
+
                 }
             });
+
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    Intent al = new Intent(CreadorRutas.this,CreadorRetoDeportivo.class);
+                    Intent al = new Intent(CreadorRutas.this, CreadorRetoDeportivo.class);
                     al.putExtra("tipo", tipo);
-                    al.putExtra("RecNombre",nombreRecorrido);
+                    al.putExtra("RecNombre", nombreRecorrido);
                     al.putExtra("descrip", descRecorrido);
                     al.putExtra("RutaName", nombreRuta.getText().toString());
-                    al.putExtra("modifi",true);
-                    al.putExtra("nombreReto",currentData.getName());
+                    al.putExtra("modifi", true);
+                    al.putExtra("nombreReto", currentData.getName());
                     startActivity(al);
 
 
@@ -198,15 +201,14 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                 public void onClick(View v) {
 
                     envios.add(currentData.getName());
-                    Log.e("TAAAGTAMA",Integer.toString(envios.size()));
-                    int borrarReto = con.hacerconexionGenerica("borrarReto",envios);
+                    Log.e("TAAAGTAMA", Integer.toString(envios.size()));
+                    int borrarReto = con.hacerconexionGenerica("borrarReto", envios);
                     envios.clear();
-                    if(borrarReto==-1){
+                    if (borrarReto == -1) {
                         retos.remove(currentData);
                         actualizar();
-                    }
-                    else{
-                        Toast.makeText(CreadorRutas.this,"Error al borrar el reto",Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(CreadorRutas.this, "Error al borrar el reto", Toast.LENGTH_LONG).show();
                     }
 
                 }

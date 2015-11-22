@@ -15,11 +15,11 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="220dp">
+            android:layout_height="171dp">
 
             <RelativeLayout
                 android:layout_width="160dp"
-                android:layout_height="fill_parent">
+                android:layout_height="150dp">
 
                 <ImageView
                     android:layout_width="25dp"
@@ -42,13 +42,12 @@
                     android:layout_toEndOf="@+id/imageView15" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:id="@+id/imageView16"
                     android:adjustViewBounds="true"
                     android:src="@drawable/recorridodefecto"
-                    android:layout_centerVertical="true"
-                    android:layout_centerHorizontal="true" />
+                    android:layout_centerVertical="true" />
 
             </RelativeLayout>
 
@@ -58,14 +57,13 @@
                 android:layout_height="fill_parent">
 
                 <EditText
-                    android:layout_marginTop="60dp"
+                    android:layout_marginTop="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
                     android:text="Nombre Recorrido"
                     android:ems="10"
-                    android:id="@+id/recorridoNombre"
-                    android:layout_gravity="center_horizontal" />
+                    android:id="@+id/recorridoNombre" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -116,16 +114,17 @@
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="206dp"
+            android:layout_height="160dp"
             android:id="@+id/listView5"
             android:layout_gravity="center_horizontal"
             android:background="#ffffffff" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:id="@+id/nuevoReto"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/nuevo" />
+            android:src="@drawable/nuevo"
+            android:adjustViewBounds="true" />
     </LinearLayout>
 </RelativeLayout>

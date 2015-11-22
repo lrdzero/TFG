@@ -36,10 +36,12 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         switch (v.getId()) {
             case R.id.imageView2:
                 nueva = new Intent(SeleccionRecorridos.this, RecorridosParaUsuario.class);
+                nueva.putExtra("tipo",1);
                 startActivity(nueva);
                 break;
             case R.id.imageView3:
                 nueva = new Intent(SeleccionRecorridos.this, RecorridosParaUsuario.class);
+                nueva.putExtra("tipo",0);
                 startActivity(nueva);
                 break;
             case R.id.imageView:

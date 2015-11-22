@@ -62,7 +62,7 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
     }
 
     public void CargarLista(){
-            dt=con.cargaDeRecorridos();
+            dt=con.cargaDeRecorridos(3);
 
 
     }

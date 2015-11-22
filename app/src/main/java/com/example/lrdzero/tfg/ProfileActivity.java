@@ -57,7 +57,7 @@ public class ProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        Button discButton = (Button)findViewById(R.id.discapacidades);
+        //Button discButton = (Button)findViewById(R.id.discapacidades);
         Button discHerr = (Button)findViewById(R.id.button2);
         con = new Conexion();
 
@@ -81,7 +81,7 @@ public class ProfileActivity extends Activity {
 
         nom.setText(datosUser.getName());
         ed.setText(datosUser.getNumber());
-        ed.setText(datosUser.getDescription());
+        contr.setText(datosUser.getDescription());
 
         ImageView foto = (ImageView)findViewById(R.id.foto);
 
@@ -92,7 +92,7 @@ public class ProfileActivity extends Activity {
         discHerr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent n = new Intent(ProfileActivity.this,HerramientaNuevaRuta.class);
+                Intent n = new Intent(ProfileActivity.this, HerramientaNuevaRuta.class);
                 startActivity(n);
             }
         });
@@ -115,7 +115,82 @@ public class ProfileActivity extends Activity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 String nuevoNombre = input.getText().toString();
-                                con.updateUsuario(Name,nuevoNombre);
+                                String resul=con.updateUsuario(Name,nuevoNombre,"nombre");
+                                if(!resul.equals("error")) {
+                                    nom.setText(resul);
+                                }
+                            }
+                        });
+
+                alertDialog.setNegativeButton("NO",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                alertDialog.show();
+            }
+        });
+        editEdad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
+                alertDialog.setTitle("Cambio de edad");
+                alertDialog.setMessage("Introduce nuevo edad");
+
+                final EditText input = new EditText(ProfileActivity.this);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setLayoutParams(lp);
+                alertDialog.setView(input);
+                //alertDialog.setIcon(R.drawable.key);
+
+                alertDialog.setPositiveButton("YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                String nuevaEdad = input.getText().toString();
+                                String resul=con.updateUsuario(Name,nuevaEdad, "edad");
+                                if(!resul.equals("error")) {
+                                    ed.setText(resul);
+                                }
+                            }
+                        });
+
+                alertDialog.setNegativeButton("NO",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+
+                alertDialog.show();
+            }
+        });
+        editContrasenia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
+                alertDialog.setTitle("Cambio de correo");
+                alertDialog.setMessage("Introduce nuevo correo");
+
+                final EditText input = new EditText(ProfileActivity.this);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT);
+                input.setLayoutParams(lp);
+                alertDialog.setView(input);
+                //alertDialog.setIcon(R.drawable.key);
+
+                alertDialog.setPositiveButton("YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                String nuevoContrasenia = input.getText().toString();
+                               String resul=con.updateUsuario(Name,nuevoContrasenia,"correo");
+                                if(!resul.equals("error")) {
+                                    contr.setText(resul);
+                                }
                             }
                         });
 
@@ -185,55 +260,8 @@ public class ProfileActivity extends Activity {
         });
 
         //dialog.show();
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        discButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_SHORT).show();
-
-                final ArrayList<Integer> aux = new ArrayList<>();
-
-                // Set the dialog title
-                //Log.i("title", "prog");
-                builder.setTitle("Discapacidades")
-                       .setMultiChoiceItems(R.array.discapacidades, null,
-                                new DialogInterface.OnMultiChoiceClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                        if (isChecked) {
-
-                                            aux.add(which);
-                                        } else if (aux.contains(which)) {
-
-                                            aux.remove(Integer.valueOf(which));
-                                        }
-                                    }
-                                })
-                                // Set the action buttons*/
-                        .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                Discapacidades = aux;
-                                // User clicked OK, so save the mSelectedItems results somewhere
-                                // or return them to the component that opened the dialog
-
-                            }
-                        })
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-
-                            }
-                        });
 
 
-               builder.show();
-
-
-
-
-            }
-        });
 
         foto.setOnClickListener(new View.OnClickListener() {
             @Override
