@@ -118,6 +118,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
                                                                  Double l = Double.valueOf(latlong.get(i));
                                                                  Double l2 =Double.valueOf(latlong.get(i+1));
                                                                  googleMap.addMarker(new MarkerOptions().position(new LatLng(l,l2)));
+                                                                 //con pruebas.
                                                              }
                                                          }
                                                          new BorradoTramo().execute();
