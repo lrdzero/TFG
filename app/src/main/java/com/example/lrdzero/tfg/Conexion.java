@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class Conexion {
 
     private Socket sk;
-    private String ip="192.168.1.129";
+    private String ip="95.16.47.44";
     private int port=7;
     private DataInputStream in;
     private DataOutputStream out;
