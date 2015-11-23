@@ -1,5 +1,6 @@
 package com.example.lrdzero.tfg;
 
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -128,12 +129,14 @@ public class Conexion {
                     e1.printStackTrace();
                  }
 
-               for(int i=0;i<listReception.size();i=i+4){
+               for(int i=0;i<listReception.size();i=i+5){
                    String nombre =listReception.get(i);
                    String brevDes =listReception.get(i+1);
                    String desp =listReception.get(i+2);
                    String num = listReception.get(i+3);
-                   respuesta.add(new DatosRyR(nombre,num,brevDes,"Alguien",R.drawable.premiodefecto,desp));
+                   String foto =listReception.get(i+4);
+                   Uri una = Uri.parse(foto);
+                   respuesta.add(new DatosRyR(nombre,num,brevDes,"Alguien",R.drawable.premiodefecto,desp,una));
 
                }
            }
@@ -224,7 +227,8 @@ public class Conexion {
                 for(int i=0;i<listReception.size();i=i+2){
                     String nombre=listReception.get(i);
                     String historia=listReception.get(i+1);
-                    dt.add(new DatosRyR(nombre,"","","",R.drawable.recorridodefecto,historia));
+                    Uri n =null;
+                    dt.add(new DatosRyR(nombre,"","","",R.drawable.recorridodefecto,historia,n));
                 }
             }
             else{
@@ -258,9 +262,10 @@ public class Conexion {
                     String Tipo = listReception.get(i + 1);
                     String otro = listReception.get(i+2);
                     String descripcion=listReception.get(i+3);
+                    Uri m=null;
 
 
-                    dt.add(new DatosRyR(nombre,Tipo,descripcion,otro,R.drawable.recorridodefecto,""));
+                    dt.add(new DatosRyR(nombre,Tipo,descripcion,otro,R.drawable.recorridodefecto,"",m));
                 }
             }
             cerrar();

@@ -96,6 +96,9 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                     nuevo.putExtra("descrip", descRecorrido);
                     nuevo.putExtra("RutaName", nombreRuta.getText().toString());
                     nuevo.putExtra("modifi",false);
+                    double numero = Math.random() * 5000;
+                    int n2= (int) numero;
+                    nuevo.putExtra("nombrefile", Integer.toString(n2));
                     startActivity(nuevo);
                 }
                 break;
@@ -165,7 +168,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
             ImageView pickPos =(ImageView) intenView.findViewById(R.id.pickPosition);
 
             descp.setText(currentData.getName());
-            img.setImageResource(currentData.getImage());
+            img.setImageURI(currentData.getUri());
 
             pickPos.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -191,6 +194,10 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                     al.putExtra("RutaName", nombreRuta.getText().toString());
                     al.putExtra("modifi", true);
                     al.putExtra("nombreReto", currentData.getName());
+                    double numero = Math.random() * 5000;
+                    int n2= (int) numero;
+                    al.putExtra("nombrefile",Integer.toString(n2));
+
                     startActivity(al);
 
 

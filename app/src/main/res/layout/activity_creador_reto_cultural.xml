@@ -52,12 +52,6 @@
                 android:id="@+id/textPremio"
                 android:layout_marginLeft="50dp" />
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/imagenCamera"
-                android:adjustViewBounds="true"
-                android:src="@drawable/camara" />
         </LinearLayout>
 
         <EditText
@@ -178,6 +172,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/editText2"
             android:text="Descripcion Aqui" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imagenCamera"
+            android:adjustViewBounds="true"
+            android:src="@drawable/camara" />
 
         <Button
             android:layout_width="wrap_content"

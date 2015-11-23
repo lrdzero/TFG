@@ -3,16 +3,22 @@ package com.example.lrdzero.tfg;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -24,7 +30,13 @@ public class CreadorRetoDeportivo extends Activity {
     private ArrayList<String> envio = new ArrayList<String>();
     private String name;
     private DatosRyR miDato = new DatosRyR();
-
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+    public static final int MEDIA_TYPE_IMAGE = 1;
+    private static final int PICK_IMAGE=200;
+    private Uri fileUri;
+    private static String nameFile;
+    private ImageView camara;
+    private String nombre;
     @Override
     public void onResume(){
         super.onResume();
@@ -39,6 +51,7 @@ public class CreadorRetoDeportivo extends Activity {
         descripRecorrido=getIntent().getExtras().getString("descrip");
         nombreRuta=getIntent().getExtras().getString("RutaName");
         con=new Conexion();
+
         if(lyout) {
             setContentView(R.layout.activity_creador_reto_deportivo);
             metodosDeportivos(modifi,getBaseContext());
@@ -51,7 +64,43 @@ public class CreadorRetoDeportivo extends Activity {
 
 
     }
+    private static Uri getOutputMediaFileUri(int type){
+        return Uri.fromFile(getOutputMediaFile(type));
+    }
+    private static File getOutputMediaFile(int type){
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
 
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "RutasGranada");
+        // This location works best if you want the created images to be shared
+        // between applications and persist after your app has been uninstalled.
+
+        // Create the storage directory if it does not exist
+        if (! mediaStorageDir.exists()){
+            if (! mediaStorageDir.mkdirs()){
+                Log.d("Camara", "failed to create directory");
+                return null;
+            }
+        }
+
+
+
+        // Create a media file name
+        //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        File mediaFile;
+        if (type == MEDIA_TYPE_IMAGE){
+            double numero = Math.random() * 5000;
+            int n2= (int) numero;
+            mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+                    nameFile+".jpg");
+
+        }else {
+            return null;
+        }
+
+        return mediaFile;
+    }
 
     public void metodosDeportivos(boolean modifi, final Context c){
 
@@ -61,8 +110,22 @@ public class CreadorRetoDeportivo extends Activity {
             final EditText descripcion =(EditText) findViewById(R.id.editPruevaDescripcion);
             final EditText tiempo =(EditText) findViewById(R.id.editText3);
             final EditText recomp =(EditText)findViewById(R.id.editTextPruevaDeportivaRecompensa);
+            camara=(ImageView) findViewById(R.id.imagenCamaraPruevaDeportiva);
+            nombre=nombreDeporti.getText().toString();
+            nameFile=getIntent().getExtras().getString("nombrefile");
+        Toast.makeText(CreadorRetoDeportivo.this,nombre,Toast.LENGTH_LONG).show();
+        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        camara.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+
+                startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+            }
+        });
         dificultad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,7 +152,7 @@ public class CreadorRetoDeportivo extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 dificultades = aux;
-                                Toast.makeText(CreadorRetoDeportivo.this,Integer.toString(dificultades.get(0)),Toast.LENGTH_LONG).show();
+                                Toast.makeText(CreadorRetoDeportivo.this, Integer.toString(dificultades.get(0)), Toast.LENGTH_LONG).show();
                                 // User clicked OK, so save the mSelectedItems results somewhere
                                 // or return them to the component that opened the dialog
 
@@ -136,7 +199,7 @@ public class CreadorRetoDeportivo extends Activity {
                             if(!dificultades.isEmpty()){
                                 envio.add(Integer.toString(dificultades.get(0)));
                             }
-
+                            envio.add(fileUri.toString());
                             int resultado = con.hacerconexionGenerica("updateReto", envio);
                             envio.clear();
                             if (resultado == -1) {
@@ -165,6 +228,7 @@ public class CreadorRetoDeportivo extends Activity {
                             envio.add(descripcion.getText().toString());
                             envio.add(tiempo.getText().toString());
                             envio.add(recomp.getText().toString());
+                            envio.add(fileUri.toString());
                             envio.add(Integer.toString(dificultades.get(0)));
                             int resultado = con.hacerconexionGenerica("crearRetoNuevo", envio);
                             envio.clear();
@@ -192,7 +256,8 @@ public class CreadorRetoDeportivo extends Activity {
         final RadioButton btnB =(RadioButton)findViewById(R.id.radioButtonB);
         final RadioButton btnC =(RadioButton)findViewById(R.id.radioButtonC);
         final RadioButton btnD =(RadioButton)findViewById(R.id.radioButtonD);
-
+        camara=(ImageView) findViewById(R.id.imagenCamera);
+        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         dificultad.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,6 +266,15 @@ public class CreadorRetoDeportivo extends Activity {
 
                 // Set the dialog title
                 //Log.i("title", "prog");
+                camara.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+
+                        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+                    }
+                });
                 builder.setTitle("Dificultad:")
                         .setMultiChoiceItems(R.array.dificultades, null,
                                 new DialogInterface.OnMultiChoiceClickListener() {
@@ -280,7 +354,7 @@ public class CreadorRetoDeportivo extends Activity {
                     else if(btnD.isChecked()==true){
                         envio.add("D");
                     }
-
+                    envio.add(fileUri.toString());
                     int resultado = con.hacerconexionGenerica("updateRetoCultural",envio);
                     envio.clear();
                     if(resultado==-1){
@@ -328,7 +402,7 @@ public class CreadorRetoDeportivo extends Activity {
                             else if(btnD.isChecked()==true){
                                 envio.add("D");
                             }
-
+                            envio.add(fileUri.toString());
                             int resultado = con.hacerconexionGenerica("crearRetoNuevoCultural",envio);
                             envio.clear();
                             if(resultado==-1){
@@ -344,6 +418,41 @@ public class CreadorRetoDeportivo extends Activity {
         }
 
     }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        ImageView iv = (ImageView)findViewById(R.id.foto);
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                // Image captured and saved to fileUri specified in the Intent
+                //Log.i("Camara", String.valueOf(data));
+                //Toast.makeText(this, "Image saved to:\n" +
+                //  fileUri, Toast.LENGTH_LONG).show();
 
+
+                Toast.makeText(CreadorRetoDeportivo.this,fileUri.toString(), Toast.LENGTH_LONG).show();
+                finish();
+                startActivity(getIntent());
+            } else if (resultCode != RESULT_CANCELED){
+                Toast.makeText(this,"Error al capturar la imagen", Toast.LENGTH_LONG).show();
+                // Image capture failed, advise user
+            }
+        }
+        else if(requestCode == PICK_IMAGE) {
+
+            if (resultCode == RESULT_OK) {
+                // Image captured and saved to fileUri specified in the Intent
+                //Log.i("Camara", String.valueOf(data));
+
+
+                //iv.setImageURI(data.getData());
+
+
+            } else if (resultCode != RESULT_CANCELED) {
+                // User cancelled the image capture
+                Toast.makeText(this,"Error al recoger la imagen", Toast.LENGTH_LONG).show();
+
+            }
+        }
+
+    }
 
 }

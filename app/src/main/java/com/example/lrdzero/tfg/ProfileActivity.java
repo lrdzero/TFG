@@ -359,6 +359,7 @@ public class ProfileActivity extends Activity {
                     //  fileUri, Toast.LENGTH_LONG).show();
 
                 iv.setImageURI(fileUri);
+
                 finish();
                 startActivity(getIntent());
             } else if (resultCode != RESULT_CANCELED){
