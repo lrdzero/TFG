@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,17 +19,13 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import org.w3c.dom.Document;
 
-import java.io.StringWriter;
 import java.util.ArrayList;
 
 
@@ -89,12 +84,13 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
         mLocationClient = new LocationClient(getApplicationContext(), this, this);
         mLocationClient.connect();
         ruta = new Ruta("ruta a");
-        if(carga){
+        if(carga) {
             confirmar.setEnabled(false);
             confirmar.setVisibility(View.INVISIBLE);
             deshacer.setEnabled(false);
             deshacer.setVisibility(View.INVISIBLE);
-         ruta.setTramos(con.cargarVisionRuta(name));
+        }
+            ruta.setTramos(con.cargarVisionRuta(name));
 
 
 
@@ -104,11 +100,12 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
                                                  public void onMapLoaded() {
 
                                                      LatLng loc = ruta.getFirstPoint();
-                                                     googleMap.addMarker(new MarkerOptions().position(loc));
+
                                                      if (googleMap != null) {
+                                                         googleMap.addMarker(new MarkerOptions().position(loc));
                                                          googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 17.0f));
 
-                                                         ruta.addTramo(new Tramo(new LatLng(2.33, 2.33), new LatLng(2.33, 2.33)));
+                                                         //ruta.addTramo(new Tramo(new LatLng(2.33, 2.33), new LatLng(2.33, 2.33)));
                                                          if(!retos){
                                                              ArrayList<String> latlong=con.cargarPositonRetos(name);
                                                              Toast.makeText(getApplication(), "CARGANDOOOO:"+String.valueOf(latlong.size()), Toast.LENGTH_SHORT).show();
@@ -121,48 +118,27 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
                                                                  //con pruebas.
                                                              }
                                                          }
-                                                         new BorradoTramo().execute();
+                                                         new RefreshTramos().execute();
 
                                                      }
                                                  }
-
                                              }
             );
-            if(retos) {
-                namereto = getIntent().getExtras().getString("namereto");
-               googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                   @Override
-                   public void onMapClick(LatLng latLng) {
-                       LatLng loc;
-                       LatLng ps;
-                       loc=new LatLng(mLocationClient.getLastLocation().getLatitude(),mLocationClient.getLastLocation().getLongitude());
-                       googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-
-                       googleMap.addMarker(new MarkerOptions().position(latLng).title("Marcado el reto"));
-                       double l,lg;
-                       l =latLng.latitude;
-                       lg=latLng.longitude;
-                       con.updateRetoPos(namereto,l,lg);
-                       Toast.makeText(getApplication(), "Nueva posicion reto: "+String.valueOf(latLng), Toast.LENGTH_SHORT).show();
-
-                   }
-               });
-            }
 
 
 
 
-        }
+
+
         googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
 
             @Override
             public void onMyLocationChange(Location location) {
 
 
-
             }
         });
-        if(!carga&&!retos) {
+
             googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                 @Override
                 public void onMapClick(LatLng latLng) {
@@ -183,7 +159,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
 
                 }
             });
-        }
+
 
         confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,14 +192,14 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
                             Double imprime = ori.getDouble("longitudO");
 
                             String imprime2 = ori.toString();
-                            Toast.makeText(Mapa.this,"Se han creado los JSONObject",Toast.LENGTH_LONG).show();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
 
-                        Toast.makeText(Mapa.this,"Enviando",Toast.LENGTH_LONG).show();
+
                          con.hacerConexionJSON("Mapeado", ori);
-                        Toast.makeText(Mapa.this,"Termino envio",Toast.LENGTH_LONG).show();
+
 
 
 
@@ -231,7 +207,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
 
                     }
 
-
+                Toast.makeText(Mapa.this,"Termino envio",Toast.LENGTH_LONG).show();
 
 
 
@@ -243,8 +219,8 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
         deshacer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                    new BorradoTramo().execute();
+                    ruta.removeTramo();
+                    new RefreshTramos().execute();
 
 
 
@@ -341,7 +317,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
         }
     }
 
-    private class BorradoTramo extends AsyncTask<Void, Void, PolylineOptions> {
+    private class RefreshTramos extends AsyncTask<Void, Void, PolylineOptions> {
 
 
         @Override
@@ -352,7 +328,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
             //Directions dir = new Directions();
             //Document doc = dir.getDocument(li, lf, Directions.MODE_WALKING);
 
-            ruta.removeTramo();
+
 
             PolylineOptions rectLine = new PolylineOptions().width(5).color(Color.RED);
 
@@ -362,6 +338,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
 
             }
 
+
             return rectLine;
         }
 
@@ -370,6 +347,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
         protected void onPostExecute(PolylineOptions result) {
 
             googleMap.addPolyline(result);
+
 
             /*Polyline pl = googleMap.addPolyline(new PolylineOptions()
                             .add(li,lf)

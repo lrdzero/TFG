@@ -18,8 +18,8 @@ import java.util.ArrayList;
 
 
 public class CreadorRutas extends Activity implements View.OnClickListener {
-    private ArrayList<DatosRyR> retos = new ArrayList<DatosRyR>();
-    private ArrayList<String> envios = new ArrayList<String>();
+    private ArrayList<DatosRyR> retos = new ArrayList<>();
+    private ArrayList<String> envios = new ArrayList<>();
     private PlaceList adapter;
     private ListView lista;
     private ImageView imageNew;
@@ -63,8 +63,11 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
         lista =(ListView) findViewById(R.id.listaRetosParaRuta);
         imageNew =(ImageView) findViewById(R.id.imagenNuevoReto);
         historia=(EditText)findViewById(R.id.editHistoria);
+        mapa=(ImageView)findViewById(R.id.maprutas);
         imageNew.setOnClickListener(this);
         check.setOnClickListener(this);
+        mapa.setOnClickListener(this);
+
 
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
@@ -101,7 +104,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                 break;
 
             case R.id.imagenCheck:
-                ArrayList<String> relacion = new ArrayList<String>();
+                ArrayList<String> relacion = new ArrayList<>();
                 if(!modif) {
 
                     relacion.add(nombreRuta.getText().toString());
@@ -122,6 +125,19 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                     con.hacerconexionGenerica("actualizarRuta",relacion);
                 }
                     finish();
+                break;
+
+            case R.id.maprutas:
+                if(nombreRuta.getText().toString().matches("")){
+                    Toast.makeText(CreadorRutas.this,"El nombre de la ruta no puede estar vacio",Toast.LENGTH_LONG).show();
+                }
+                else{
+                    con.nuevaRuta(nombreRuta.getText().toString(), historia.getText().toString(), "");
+                    Intent nuevo = new Intent(CreadorRutas.this, Mapa.class);
+                    nuevo.putExtra("nombre", nombreRuta.getText().toString());
+                    nuevo.putExtra("tipo", true);
+                    startActivity(nuevo);
+                }
                 break;
         }
     }

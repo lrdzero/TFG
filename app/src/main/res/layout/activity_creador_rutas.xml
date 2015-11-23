@@ -85,12 +85,18 @@
             android:id="@+id/textRetos"
             android:layout_gravity="center_horizontal" />
 
-        <ListView
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="133dp"
-            android:id="@+id/listaRetosParaRuta"
-            android:layout_gravity="center_horizontal"
-            android:cacheColorHint="#ffffffff" />
+            android:layout_height="160dp"
+            android:id="@+id/scrollView2" >
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="133dp"
+                android:id="@+id/listaRetosParaRuta"
+                android:layout_gravity="center_horizontal"
+                android:cacheColorHint="#ffffffff" />
+        </ScrollView>
 
         <ImageView
             android:layout_width="50dp"
@@ -99,5 +105,11 @@
             android:layout_gravity="center_horizontal"
             android:adjustViewBounds="true"
             android:src="@drawable/nuevo" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/f0907"
+            android:id="@+id/maprutas" />
     </LinearLayout>
 </RelativeLayout>
