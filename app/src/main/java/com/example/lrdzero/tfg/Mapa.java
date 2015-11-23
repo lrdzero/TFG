@@ -84,6 +84,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
         mLocationClient = new LocationClient(getApplicationContext(), this, this);
         mLocationClient.connect();
         ruta = new Ruta("ruta a");
+
         if(carga) {
             confirmar.setEnabled(false);
             confirmar.setVisibility(View.INVISIBLE);
