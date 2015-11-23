@@ -17,20 +17,18 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-/**
- * Created by lrdzero on 11/08/2015.
- */
+
 public class Conexion {
 
     private Socket sk;
-    private String ip="95.16.47.44";
+    private String ip="87.217.11.202";
     private int port=7;
     private DataInputStream in;
     private DataOutputStream out;
     private ObjectOutputStream objectOutput;
     private ObjectInputStream objectInput;
     private Object object;
-    private ArrayList<String> listReception=new ArrayList<String>();
+    private ArrayList<String> listReception=new ArrayList<>();
 
     public Conexion(){}
 
@@ -57,7 +55,7 @@ public class Conexion {
         }
     }
     public ArrayList<String> cargarPositonRetos(String name){
-        ArrayList<String> respuesta=new ArrayList<String>();
+        ArrayList<String> respuesta=new ArrayList<>();
         try{
             conectar();
             out.writeUTF("cargarPositionRetos");
@@ -168,7 +166,7 @@ public class Conexion {
    }
     public int IniciarSesion(String nombre, String contrasenia){
         int respuesta=-2;
-        ArrayList<String> my = new ArrayList<String>();
+        ArrayList<String> my = new ArrayList<>();
         my.add(nombre);
         my.add(contrasenia);
 

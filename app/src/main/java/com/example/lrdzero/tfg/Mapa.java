@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -36,6 +38,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
     private double longitude;
     LocationClient mLocationClient;
     LatLng LastPoint;
+    LatLng inicio=null;
     int nTramos=0;
     Ruta ruta;
     Conexion con;
@@ -100,33 +103,28 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
                                                  @Override
                                                  public void onMapLoaded() {
 
-                                                     LatLng loc = ruta.getFirstPoint();
+                                                     LatLng loc;
 
                                                      if (googleMap != null) {
+                                                         if (ruta.getTramos().size() == 0) {
+                                                             loc = new LatLng(mLocationClient.getLastLocation().getLatitude(), mLocationClient.getLastLocation().getLongitude());
+
+                                                         } else {
+                                                             loc = ruta.getFirstPoint();
+                                                             new RefreshTramos().execute();
+                                                         }
                                                          googleMap.addMarker(new MarkerOptions().position(loc));
                                                          googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 17.0f));
 
                                                          //ruta.addTramo(new Tramo(new LatLng(2.33, 2.33), new LatLng(2.33, 2.33)));
-                                                         if(!retos){
-                                                             ArrayList<String> latlong=con.cargarPositonRetos(name);
-                                                             Toast.makeText(getApplication(), "CARGANDOOOO:"+String.valueOf(latlong.size()), Toast.LENGTH_SHORT).show();
-                                                             for(int i=0;i<latlong.size();i=i+2){
 
-                                                                 Toast.makeText(getApplication(), "Lat: "+latlong.get(i)+"Long: "+latlong.get(i+1), Toast.LENGTH_SHORT).show();
-                                                                 Double l = Double.valueOf(latlong.get(i));
-                                                                 Double l2 =Double.valueOf(latlong.get(i+1));
-                                                                 googleMap.addMarker(new MarkerOptions().position(new LatLng(l,l2)));
-                                                                 //con pruebas.
-                                                             }
-                                                         }
-                                                         new RefreshTramos().execute();
+
+
 
                                                      }
                                                  }
                                              }
             );
-
-
 
 
 
@@ -144,17 +142,28 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
                 @Override
                 public void onMapClick(LatLng latLng) {
                     LatLng loc;
-                    // new LatLng(mLocationClient.getLastLocation().getLatitude(), mLocationClient.getLastLocation().getLongitude());
 
+                    if(inicio!=null){
+                        Toast.makeText(getApplication(),inicio.toString(),Toast.LENGTH_SHORT).show();
+                        loc=inicio;
+                        Log.i("inicio null", "ultimo");
+                        new LongOperation().execute(loc, latLng);
+                        inicio=null;
 
-                    if (ruta.getLastPoint() == null) {
-                        loc = new LatLng(mLocationClient.getLastLocation().getLatitude(), mLocationClient.getLastLocation().getLongitude());
-                        googleMap.moveCamera(CameraUpdateFactory.newLatLng(loc));
-                    } else
+                    }
+                    else if (ruta.getLastPoint() == null) {
+                        Marker marker = googleMap.addMarker(new MarkerOptions()
+                                .position(latLng)
+                                .title("Inicio"));
+                        Log.i("vacio", "ultimo");
+                        inicio=latLng;
+                    }
+                    else {
                         loc = ruta.getLastPoint();
+                        new LongOperation().execute(loc, latLng);
+                        Log.i("normal"+ruta.getLastPoint().toString(), "ultimo");
+                    }
 
-
-                    new LongOperation().execute(loc, latLng);
                     Toast.makeText(getApplication(), String.valueOf(latLng), Toast.LENGTH_SHORT).show();
 
 
@@ -198,14 +207,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
                             e.printStackTrace();
                         }
 
-
                          con.hacerConexionJSON("Mapeado", ori);
-
-
-
-
-
-
                     }
 
                 Toast.makeText(Mapa.this,"Termino envio",Toast.LENGTH_LONG).show();
@@ -222,8 +224,6 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
             public void onClick(View v) {
                     ruta.removeTramo();
                     new RefreshTramos().execute();
-
-
 
             }
         });
@@ -284,13 +284,11 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
 
 
             ruta.addTramo(new Tramo(li,lf));
+            Log.i(ruta.getLastPoint().toString(), "ultimo");
 
             for(int i = 0 ; i < directionPoint.size() ; i++) {
                 rectLine.add(directionPoint.get(i));
             }
-
-
-
 
             return rectLine;
         }
@@ -301,12 +299,6 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
 
             googleMap.addPolyline(result);
 
-            /*Polyline pl = googleMap.addPolyline(new PolylineOptions()
-                            .add(li,lf)
-                            .geodesic(true)
-                            .width((float) 2.0)
-                            .color(Color.BLUE).geodesic(true)
-            );*/
         }
 
         @Override
@@ -323,12 +315,6 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
 
         @Override
         protected PolylineOptions doInBackground(Void... params) {
-
-
-
-            //Directions dir = new Directions();
-            //Document doc = dir.getDocument(li, lf, Directions.MODE_WALKING);
-
 
 
             PolylineOptions rectLine = new PolylineOptions().width(5).color(Color.RED);
@@ -348,14 +334,15 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
         protected void onPostExecute(PolylineOptions result) {
 
             googleMap.addPolyline(result);
+            if(ruta.getTramos().size()>0) {
+                Marker marker = googleMap.addMarker(new MarkerOptions()
+                        .position(ruta.getFirstPoint())
+                        .title("Inicio"));
+            }
+            Log.i("vacio", "ultimo");
 
 
-            /*Polyline pl = googleMap.addPolyline(new PolylineOptions()
-                            .add(li,lf)
-                            .geodesic(true)
-                            .width((float) 2.0)
-                            .color(Color.BLUE).geodesic(true)
-            );*/
+
         }
 
 
