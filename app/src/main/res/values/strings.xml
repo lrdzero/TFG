@@ -23,14 +23,14 @@
     <string-array name="recomendado">
         <item>Niños</item>
         <item>Adultos</item>
-        <item>Porblemas Cardiovasculares</item>
+        <item>Problemas Cardiovasculares</item>
         <item>Movilidad reducida</item>
 
     </string-array>
     <string-array name="dificultades">
         <item>Fácil</item>
         <item>Medio</item>
-        <item>Dificil</item>
+        <item>Difícil</item>
     </string-array>
     <string name="title_activity_historial_usuario">HistorialUsuario</string>
     <string name="title_activity_reto_deportivo">RetoDeportivo</string>

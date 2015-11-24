@@ -37,6 +37,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
             case R.id.imageView14:
                 dt.add(new Items("Premio 1",R.drawable.premiodefecto));
                 adapter.notifyDataSetChanged();
+                finish();
                 break;
         }
     }

@@ -45,6 +45,13 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
 
         con = new Conexion();
         nuevo.setOnClickListener(this);
+
+        listo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         CargarLista();
         Visualizar();
     }
@@ -92,21 +99,21 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
             TextView nombre=(TextView)intenView.findViewById(R.id.nombreRecorrido);
             TextView descr=(TextView) intenView.findViewById(R.id.descripcion);
             ImageView imag =(ImageView)intenView.findViewById(R.id.imagenRecrorrido);
-            ImageView camera =(ImageView) intenView.findViewById(R.id.camara);
+            //ImageView camera =(ImageView) intenView.findViewById(R.id.camara);
             ImageView modifi =(ImageView) intenView.findViewById(R.id.modificar);
             ImageView eliminar =(ImageView) intenView.findViewById(R.id.eliminar);
 
             nombre.setText(currentData.getName());
             descr.setText(currentData.getDescription());
             imag.setImageResource(currentData.getImage());
-
+/*
             camera.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                 }
             });
-
+*/
             modifi.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

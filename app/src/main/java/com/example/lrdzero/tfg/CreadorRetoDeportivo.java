@@ -33,7 +33,7 @@ public class CreadorRetoDeportivo extends Activity {
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     public static final int MEDIA_TYPE_IMAGE = 1;
     private static final int PICK_IMAGE=200;
-    private Uri fileUri;
+    private Uri fileUri = Uri.parse("vacio");
     private static String nameFile;
     private ImageView camara;
     private String nombre;
@@ -90,8 +90,7 @@ public class CreadorRetoDeportivo extends Activity {
         //String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         File mediaFile;
         if (type == MEDIA_TYPE_IMAGE){
-            double numero = Math.random() * 5000;
-            int n2= (int) numero;
+
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
                     nameFile+".jpg");
 
@@ -104,19 +103,20 @@ public class CreadorRetoDeportivo extends Activity {
 
     public void metodosDeportivos(boolean modifi, final Context c){
 
-            Button crear=(Button) findViewById(R.id.botonCrearPDeportiva);
-            Button dificultad=(Button) findViewById(R.id.buttonDificultadPrueva);
-            final EditText nombreDeporti=(EditText) findViewById(R.id.editNombrePruebaDeportiva);
-            final EditText descripcion =(EditText) findViewById(R.id.editPruevaDescripcion);
-            final EditText tiempo =(EditText) findViewById(R.id.editText3);
-            final EditText recomp =(EditText)findViewById(R.id.editTextPruevaDeportivaRecompensa);
-            camara=(ImageView) findViewById(R.id.imagenCamaraPruevaDeportiva);
-            nombre=nombreDeporti.getText().toString();
-            nameFile=getIntent().getExtras().getString("nombrefile");
+        Button crear=(Button) findViewById(R.id.botonCrearPDeportiva);
+        Button dificultad=(Button) findViewById(R.id.buttonDificultadPrueva);
+        final EditText nombreDeporti=(EditText) findViewById(R.id.editNombrePruebaDeportiva);
+        final EditText descripcion =(EditText) findViewById(R.id.editPruevaDescripcion);
+        final EditText tiempo =(EditText) findViewById(R.id.editText3);
+        final EditText recomp =(EditText)findViewById(R.id.editTextPruevaDeportivaRecompensa);
+        final ImageView camara=(ImageView) findViewById(R.id.imagenCamaraPruevaDeportiva);
+        nombre=nombreDeporti.getText().toString();
+        nameFile=getIntent().getExtras().getString("nombrefile");
         Toast.makeText(CreadorRetoDeportivo.this,nombre,Toast.LENGTH_LONG).show();
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
         camara.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,77 +170,77 @@ public class CreadorRetoDeportivo extends Activity {
             }
         });
 
-            if(modifi) {
-                crear.setText("Modificar");
-                final String nam = getIntent().getExtras().getString("nombreReto");
+        if(modifi) {
+            crear.setText("Modificar");
+            final String nam = getIntent().getExtras().getString("nombreReto");
 
-                miDato=con.buscarDatosRetoDeportivo(nam);
+            miDato=con.buscarDatosRetoDeportivo(nam);
 
-                nombreDeporti.setText(miDato.getName());
-                descripcion.setText(miDato.getDescription());
-                tiempo.setText(miDato.getNumber());
-                recomp.setText(miDato.getLargeDescription());
-                dificultad.setEnabled(false);
-
-
-                crear.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")) {
-                            Toast.makeText(c, "Hay campos sin rellenar", Toast.LENGTH_LONG).show();
-                        } else {
-
-                            envio.add(nam);
-                            envio.add(nombreDeporti.getText().toString());
-                            envio.add(descripcion.getText().toString());
-                            envio.add(tiempo.getText().toString());
-                            envio.add(recomp.getText().toString());
-                            if(!dificultades.isEmpty()){
-                                envio.add(Integer.toString(dificultades.get(0)));
-                            }
-                            envio.add(fileUri.toString());
-                            int resultado = con.hacerconexionGenerica("updateReto", envio);
-                            envio.clear();
-                            if (resultado == -1) {
-                                finish();
-                            } else {
-                                Toast.makeText(c, "Error en insercion reto", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }
-                });
+            nombreDeporti.setText(miDato.getName());
+            descripcion.setText(miDato.getDescription());
+            tiempo.setText(miDato.getNumber());
+            recomp.setText(miDato.getLargeDescription());
+            dificultad.setEnabled(false);
 
 
+            crear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-            }
-            else {
-                crear.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")) {
-                            Toast.makeText(c, "Hay campos sin rellenar", Toast.LENGTH_LONG).show();
-                        } else {
-                            envio.add(nombreRecorrido);
-                            envio.add(descripRecorrido);
-                            envio.add(nombreRuta);
-                            envio.add(nombreDeporti.getText().toString());
-                            envio.add(descripcion.getText().toString());
-                            envio.add(tiempo.getText().toString());
-                            envio.add(recomp.getText().toString());
-                            envio.add(fileUri.toString());
+                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")||dificultades.isEmpty()) {
+                        Toast.makeText(c, "Hay campos sin rellenar", Toast.LENGTH_LONG).show();
+                    } else {
+
+                        envio.add(nam);
+                        envio.add(nombreDeporti.getText().toString());
+                        envio.add(descripcion.getText().toString());
+                        envio.add(tiempo.getText().toString());
+                        envio.add(recomp.getText().toString());
+                        if(!dificultades.isEmpty()){
                             envio.add(Integer.toString(dificultades.get(0)));
-                            int resultado = con.hacerconexionGenerica("crearRetoNuevo", envio);
-                            envio.clear();
-                            if (resultado == -1) {
-                                finish();
-                            } else {
-                                Toast.makeText(c, "Error en insercion reto", Toast.LENGTH_LONG).show();
-                            }
+                        }
+                        envio.add(fileUri.toString());
+                        int resultado = con.hacerconexionGenerica("updateReto", envio);
+                        envio.clear();
+                        if (resultado == -1) {
+                            finish();
+                        } else {
+                            Toast.makeText(c, "Error en insercion reto", Toast.LENGTH_LONG).show();
                         }
                     }
-                });
-            }
+                }
+            });
+
+
+
+        }
+        else {
+            crear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")) {
+                        Toast.makeText(c, "Hay campos sin rellenar", Toast.LENGTH_LONG).show();
+                    } else {
+                        envio.add(nombreRecorrido);
+                        envio.add(descripRecorrido);
+                        envio.add(nombreRuta);
+                        envio.add(nombreDeporti.getText().toString());
+                        envio.add(descripcion.getText().toString());
+                        envio.add(tiempo.getText().toString());
+                        envio.add(recomp.getText().toString());
+                        envio.add(fileUri.toString());
+                        envio.add(Integer.toString(dificultades.get(0)));
+                        int resultado = con.hacerconexionGenerica("crearRetoNuevo", envio);
+                        envio.clear();
+                        if (resultado == -1) {
+                            finish();
+                        } else {
+                            Toast.makeText(c, "Error en insercion reto", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+            });
+        }
     }
     public void metodosCulturales(boolean modifi,final Context c){
         Button crear=(Button) findViewById(R.id.botonCrear);
@@ -256,9 +256,49 @@ public class CreadorRetoDeportivo extends Activity {
         final RadioButton btnB =(RadioButton)findViewById(R.id.radioButtonB);
         final RadioButton btnC =(RadioButton)findViewById(R.id.radioButtonC);
         final RadioButton btnD =(RadioButton)findViewById(R.id.radioButtonD);
-        camara=(ImageView) findViewById(R.id.imagenCamera);
+        final ImageView borrarA =(ImageView) findViewById(R.id.borrarA);
+        final ImageView borrarB =(ImageView) findViewById(R.id.borraB);
+        final ImageView borrarC =(ImageView) findViewById(R.id.borraC);
+        final ImageView borrarD =(ImageView) findViewById(R.id.borraD);
+        final ImageView camara=(ImageView) findViewById(R.id.imagenCameraCultural);
+        nameFile=getIntent().getExtras().getString("nombrefile");
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        camara.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("CAMERA", "CAMARA");
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+
+                startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+            }
+        });
+        borrarA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnA.setChecked(false);
+            }
+        });
+        borrarB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnB.setChecked(false);
+            }
+        });
+        borrarC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnC.setChecked(false);
+            }
+        });
+        borrarD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnD.setChecked(false);
+            }
+        });
         dificultad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -266,15 +306,7 @@ public class CreadorRetoDeportivo extends Activity {
 
                 // Set the dialog title
                 //Log.i("title", "prog");
-                camara.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
-                        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-                    }
-                });
                 builder.setTitle("Dificultad:")
                         .setMultiChoiceItems(R.array.dificultades, null,
                                 new DialogInterface.OnMultiChoiceClickListener() {
@@ -342,18 +374,24 @@ public class CreadorRetoDeportivo extends Activity {
                     envio.add(respD.getText().toString());
                     envio.add(descRecom.getText().toString());
                     envio.add(Integer.toString(dificultades.get(0)));
+                    String Respuesta="";
                     if(btnA.isChecked()==true){
-                        envio.add("A");
+                        //envio.add("A");
+                        Respuesta+="A";
                     }
-                    else if(btnB.isChecked()==true){
-                        envio.add("B");
+                    if(btnB.isChecked()==true){
+                        //envio.add("B");
+                        Respuesta+="B";
                     }
-                    else if(btnC.isChecked()==true){
-                        envio.add("C");
+                    if(btnC.isChecked()==true){
+                        //envio.add("C");
+                        Respuesta+="C";
                     }
-                    else if(btnD.isChecked()==true){
-                        envio.add("D");
+                    if(btnD.isChecked()==true){
+                        //envio.add("D");
+                        Respuesta+="D";
                     }
+                    envio.add(Respuesta);
                     envio.add(fileUri.toString());
                     int resultado = con.hacerconexionGenerica("updateRetoCultural",envio);
                     envio.clear();
@@ -372,8 +410,8 @@ public class CreadorRetoDeportivo extends Activity {
             crear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(nombre.getText().toString().matches("")||Pregunta.getText().toString().matches("")||descRecom.getText().toString().matches("")||respA.getText().toString().matches("")||respB.getText().toString().matches("")||respC.getText().toString().matches("")||respD.getText().toString().matches("")){
-                                                Toast.makeText(c,"Hay campos sin rellenar",Toast.LENGTH_LONG).show();
+                    if(nombre.getText().toString().matches("")||Pregunta.getText().toString().matches("")||descRecom.getText().toString().matches("")||respA.getText().toString().matches("")||respB.getText().toString().matches("")||respC.getText().toString().matches("")||respD.getText().toString().matches("")||dificultades.isEmpty()){
+                        Toast.makeText(c,"Hay campos sin rellenar",Toast.LENGTH_LONG).show();
                     }
                     else{
                         if((btnA.isChecked()==false)&&(btnB.isChecked()==false)&&(btnC.isChecked()==false)&&(btnD.isChecked()==false)){
@@ -390,18 +428,25 @@ public class CreadorRetoDeportivo extends Activity {
                             envio.add(respC.getText().toString());
                             envio.add(respD.getText().toString());
                             envio.add(descRecom.getText().toString());
+                            envio.add(Integer.toString(dificultades.get(0)));
+                            String Respuesta="";
                             if(btnA.isChecked()==true){
-                                envio.add("A");
+                                //envio.add("A");
+                                Respuesta+="A";
                             }
-                            else if(btnB.isChecked()==true){
-                                envio.add("B");
+                            if(btnB.isChecked()==true){
+                                //envio.add("B");
+                                Respuesta+="B";
                             }
-                            else if(btnC.isChecked()==true){
-                                envio.add("C");
+                            if(btnC.isChecked()==true){
+                                //envio.add("C");
+                                Respuesta+="C";
                             }
-                            else if(btnD.isChecked()==true){
-                                envio.add("D");
+                            if(btnD.isChecked()==true){
+                                //envio.add("D");
+                                Respuesta+="D";
                             }
+                            envio.add(Respuesta);
                             envio.add(fileUri.toString());
                             int resultado = con.hacerconexionGenerica("crearRetoNuevoCultural",envio);
                             envio.clear();

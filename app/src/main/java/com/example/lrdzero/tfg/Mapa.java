@@ -1,6 +1,7 @@
 package com.example.lrdzero.tfg;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -80,6 +81,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
         retos = getIntent().getExtras().getBoolean("retos");
         Button confirmar= (Button)findViewById(R.id.confirmar);
         Button deshacer= (Button)findViewById(R.id.deshacer);
+        Button lanza=(Button)findViewById(R.id.lanzar);
         con = new Conexion();
         googleMap = mapView.getMap();
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -87,7 +89,8 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
         mLocationClient = new LocationClient(getApplicationContext(), this, this);
         mLocationClient.connect();
         ruta = new Ruta("ruta a");
-
+        lanza.setEnabled(false);
+        lanza.setVisibility(View.INVISIBLE);
         if(carga) {
             confirmar.setEnabled(false);
             confirmar.setVisibility(View.INVISIBLE);
@@ -119,8 +122,6 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
                                                          //ruta.addTramo(new Tramo(new LatLng(2.33, 2.33), new LatLng(2.33, 2.33)));
 
 
-
-
                                                      }
                                                  }
                                              }
@@ -137,31 +138,30 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
 
             }
         });
+        if(!retos) {
 
             googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                 @Override
                 public void onMapClick(LatLng latLng) {
                     LatLng loc;
 
-                    if(inicio!=null){
-                        Toast.makeText(getApplication(),inicio.toString(),Toast.LENGTH_SHORT).show();
-                        loc=inicio;
+                    if (inicio != null) {
+                        Toast.makeText(getApplication(), inicio.toString(), Toast.LENGTH_SHORT).show();
+                        loc = inicio;
                         Log.i("inicio null", "ultimo");
                         new LongOperation().execute(loc, latLng);
-                        inicio=null;
+                        inicio = null;
 
-                    }
-                    else if (ruta.getLastPoint() == null) {
+                    } else if (ruta.getLastPoint() == null) {
                         Marker marker = googleMap.addMarker(new MarkerOptions()
                                 .position(latLng)
                                 .title("Inicio"));
                         Log.i("vacio", "ultimo");
-                        inicio=latLng;
-                    }
-                    else {
+                        inicio = latLng;
+                    } else {
                         loc = ruta.getLastPoint();
                         new LongOperation().execute(loc, latLng);
-                        Log.i("normal"+ruta.getLastPoint().toString(), "ultimo");
+                        Log.i("normal" + ruta.getLastPoint().toString(), "ultimo");
                     }
 
                     Toast.makeText(getApplication(), String.valueOf(latLng), Toast.LENGTH_SHORT).show();
@@ -169,8 +169,38 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
 
                 }
             });
+        }
+        else{
+
+            final String nombreRto=getIntent().getExtras().getString("namereto");
+            googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng latLng) {
+                    LatLng loc;
+                    googleMap.addMarker(new MarkerOptions().position(latLng));
+                    con.updateRetoPos(nombreRto, latLng.latitude, latLng.longitude);
+                    Toast.makeText(Mapa.this, "Posición de reto asignada", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            });
 
 
+        }
+
+        lanza.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //DatosRyR datosDeRuta=con.buscarDatosRuta(name);
+                //if(datosDeRuta.getNumber().equals("0")) {
+                   // Intent n = new Intent(Mapa.this, RetoDeportivo.class);
+                    //startActivity(n);
+                //}
+                //else{
+                  //  Intent n = new Intent(Mapa.this,RetoCultural.class);
+                    //startActivity(n);
+                //}
+            }
+        });
         confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,7 +242,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
 
                 Toast.makeText(Mapa.this,"Termino envio",Toast.LENGTH_LONG).show();
 
-
+                finish();
 
 
             }

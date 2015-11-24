@@ -136,7 +136,10 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
 
             }
         });
+
+
     }
+
     private String converToString(ArrayList<Integer> f){
         String sul = "";
         for(int i=0;i<f.size();i++){
@@ -149,7 +152,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
         switch (v.getId()){
             case R.id.nuevoReto:
 
-                if(nombreRecorrido.getText().toString().matches("")||brevDescripcionRecorrido.getText().toString().matches("")){
+                if(nombreRecorrido.getText().toString().matches("")||brevDescripcionRecorrido.getText().toString().matches("")||recomendaciones.isEmpty()){
                     Toast.makeText(CrearNuevoRecorrido.this,"Debe rellenar los campos Nombre y Descripcion.",Toast.LENGTH_LONG).show();
                 }
                 else{
@@ -196,19 +199,25 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                 break;
             case R.id.imageView15:
                 if(modif){
-                    envios.clear();
-                    envios.add(nombreRc);
-                    envios.add(nombreRecorrido.getText().toString());
-                    envios.add(brevDescripcionRecorrido.getText().toString());
-                    if(!recomendaciones.isEmpty()){
-                        envios.add(converToString(recomendaciones));
+                    if(!recomendaciones.isEmpty()) {
+                        envios.clear();
+                        envios.add(nombreRc);
+                        envios.add(nombreRecorrido.getText().toString());
+                        envios.add(brevDescripcionRecorrido.getText().toString());
+                        if (!recomendaciones.isEmpty()) {
+                            envios.add(converToString(recomendaciones));
+                        }
+                        con.hacerconexionGenerica("updateRecorrido", envios);
+                        envios.clear();
+                        finish();
                     }
-                    con.hacerconexionGenerica("updateRecorrido", envios);
-                    envios.clear();
+                    else{
+                        Toast.makeText(CrearNuevoRecorrido.this,"Campos sin rellenar: Recomendaciones",Toast.LENGTH_LONG).show();
+                    }
                 }
                 else{
-                    if(nombreRecorrido.getText().toString().matches("")||brevDescripcionRecorrido.getText().toString().matches("")){
-                        Toast.makeText(CrearNuevoRecorrido.this,"Debe rellenar los campos Nombre y Descripcion.",Toast.LENGTH_LONG).show();
+                    if(nombreRecorrido.getText().toString().matches("")||brevDescripcionRecorrido.getText().toString().matches("")||recomendaciones.isEmpty()){
+                        Toast.makeText(CrearNuevoRecorrido.this,"Debe rellenar los campos Nombre, Descripcion y Recomendado para.",Toast.LENGTH_LONG).show();
                     }
                     else{
 
@@ -242,11 +251,11 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                         }
 
 
-
+                        finish();
 
                     }
                 }
-                finish();
+
                 break;
         }
     }
@@ -323,6 +332,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                     }
                     n.putExtra("name",currentData.getName());
                     startActivity(n);
+                    Log.e("Recargo rutas:","lanzamiento");
 
                 }
             });

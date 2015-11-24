@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 
@@ -12,6 +13,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
     ImageView User;
     ImageView Rc1;
     ImageView Rc2;
+    private Button cultura,ejercicio;
     private String name;
 
     @Override
@@ -20,13 +22,16 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_seleccion_recorridos);
 
         User = (ImageView) findViewById(R.id.imageView);
-
+        cultura=(Button) findViewById(R.id.buttonCulture);
+        ejercicio=(Button) findViewById(R.id.buttonEjercicio);
         Rc1 = (ImageView) findViewById(R.id.imageView2);
         Rc2 = (ImageView) findViewById(R.id.imageView3);
 
         User.setOnClickListener(this);
         Rc1.setOnClickListener(this);
         Rc2.setOnClickListener(this);
+        cultura.setOnClickListener(this);
+        ejercicio.setOnClickListener(this);
         name= getIntent().getExtras().getString("NombreUser");
     }
 
@@ -34,6 +39,14 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
 
         Intent nueva;
         switch (v.getId()) {
+            case R.id.buttonCulture:
+                Intent n = new Intent(SeleccionRecorridos.this,RetoCultural.class);
+                startActivity(n);
+                break;
+            case R.id.buttonEjercicio:
+                Intent n2 = new Intent(SeleccionRecorridos.this, RetoDeportivo.class);
+                startActivity(n2);
+                break;
             case R.id.imageView2:
                 nueva = new Intent(SeleccionRecorridos.this, RecorridosParaUsuario.class);
                 nueva.putExtra("tipo",1);

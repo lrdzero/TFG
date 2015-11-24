@@ -55,14 +55,6 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:id="@+id/camara"
-                android:src="@drawable/camara"
-                android:adjustViewBounds="true" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
                 android:id="@+id/modificar"
                 android:adjustViewBounds="true"
                 android:src="@drawable/edit" />

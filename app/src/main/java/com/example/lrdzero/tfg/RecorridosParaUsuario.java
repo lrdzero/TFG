@@ -223,9 +223,10 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
             final DatosRyR currentData = dt.get(position);
 
             img.setImageResource(currentData.getImage());
+
             txt1.setText(currentData.getName());
-            txt2.setText(currentData.getNumber());
-            txt3.setText(currentData.getDescription());
+            txt2.setText("Nº de Rutas: "+currentData.getNumber());
+            txt3.setText("Descripcion: "+currentData.getDescription());
 
 
             img.setOnClickListener(new View.OnClickListener() {
@@ -280,15 +281,15 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
             img.setImageResource(currentData.getImage());
             txt1.setText(currentData.getName());
-            txt2.setText(currentData.getOther());
-            txt3.setText(currentData.getLargeDescription());
+            txt2.setText("Nº retos: "+currentData.getNumber());
+            txt3.setText("Historia: "+currentData.getLargeDescription());
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent mp = new Intent(RecorridosParaUsuario.this,Mapa.class);
-                    mp.putExtra("tipo",true);
-                    mp.putExtra("nombre",currentData.getName());
-                    mp.putExtra("retos",false);
+                    Intent mp = new Intent(RecorridosParaUsuario.this, Mapa.class);
+                    mp.putExtra("tipo", true);
+                    mp.putExtra("nombre", currentData.getName());
+                    mp.putExtra("retos", false);
                     startActivity(mp);
                 }
             });

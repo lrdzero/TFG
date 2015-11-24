@@ -126,15 +126,23 @@ public class Conexion {
                 // TODO Auto-generated catch block
                     e1.printStackTrace();
                  }
-
+               Log.e("CARGA DE RETOS",Integer.toString(listReception.size()));
                for(int i=0;i<listReception.size();i=i+5){
+
                    String nombre =listReception.get(i);
+                   Log.e("LISRECEPTION: ",listReception.get(i));
+
                    String brevDes =listReception.get(i+1);
                    String desp =listReception.get(i+2);
                    String num = listReception.get(i+3);
                    String foto =listReception.get(i+4);
+                   Log.e("CARGA DE URI:",foto);
                    Uri una = Uri.parse(foto);
+
                    respuesta.add(new DatosRyR(nombre,num,brevDes,"Alguien",R.drawable.premiodefecto,desp,una));
+
+
+
 
                }
            }
@@ -148,15 +156,15 @@ public class Conexion {
     public void cambiarIP(String nueva){
         ip=nueva;
     }
-   public int nuevaRuta(String nombre,String nombre2,String nombre3){
+   public int nuevaRuta(String nombre,String descripcion,String historia){
        int respuesta=-1;
        try{
            conectar();
            out.writeUTF("crearNuevaRuta");
            if(in.readUTF().equals("continua")){
                out.writeUTF(nombre);
-               out.writeUTF(nombre2);
-               out.writeUTF(nombre3);
+               out.writeUTF(descripcion);
+               out.writeUTF(historia);
            }
            cerrar();
        }catch (IOException e){
@@ -177,7 +185,7 @@ public class Conexion {
             if(in.readUTF().equals("continua")) {
                 objectOutput.writeObject(my);
                 respuesta = Integer.valueOf(in.readUTF());
-                Log.e("TTAAAAA", Integer.toString(respuesta));
+                //Log.e("TTAAAAA", Integer.toString(respuesta));
             }
 
             cerrar();
@@ -225,6 +233,7 @@ public class Conexion {
                 for(int i=0;i<listReception.size();i=i+2){
                     String nombre=listReception.get(i);
                     String historia=listReception.get(i+1);
+                   // String nRetos=listReception.get(i+2);
                     Uri n =null;
                     dt.add(new DatosRyR(nombre,"","","",R.drawable.recorridodefecto,historia,n));
                 }
@@ -384,15 +393,15 @@ public class Conexion {
         return n;
     }
 
-    public String updateUsuario(String n1, String n2,String n3){
+    public String updateUsuario(String nombre, String nuevonombre,String action){
         String devol="";
         try{
             conectar();
             out.writeUTF("updateUsuario");
             if(in.readUTF().equals("continua")){
-                out.writeUTF(n1);
-                out.writeUTF(n2);
-                out.writeUTF(n3);
+                out.writeUTF(nombre);
+                out.writeUTF(nuevonombre);
+                out.writeUTF(action);
                 devol=in.readUTF();
             }
             cerrar();

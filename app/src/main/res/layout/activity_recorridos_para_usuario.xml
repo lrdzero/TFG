@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Recorridos para tí"
+        android:text="Recorridos para ti"
         android:id="@+id/TextoRecorrido"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -147,7 +147,8 @@
         android:layout_height="300dp"
         android:id="@+id/listView2"
 
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/TextoRecorrido" />
 
     <ImageView
         android:layout_width="30dp"

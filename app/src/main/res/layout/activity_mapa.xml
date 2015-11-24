@@ -19,7 +19,7 @@
         android:id="@+id/confirmar"
         android:layout_below="@+id/mi_mapa"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="76dp" />
+        android:layout_marginTop="46dp" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -32,5 +32,13 @@
         android:layout_alignStart="@+id/confirmar"
         android:layout_alignRight="@+id/confirmar"
         android:layout_alignEnd="@+id/confirmar" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LanzaReto"
+        android:id="@+id/lanzar"
+        android:layout_below="@+id/deshacer"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

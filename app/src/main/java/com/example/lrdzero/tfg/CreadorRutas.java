@@ -90,6 +90,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                 }
                 else {
                     if(retos.isEmpty()) {
+                        Log.e("ERRORRORORORO","VUELVO A ENTRAR");
                       con.nuevaRuta(nombreRuta.getText().toString(),nombreRecorrido,historia.getText().toString());
                     }
 

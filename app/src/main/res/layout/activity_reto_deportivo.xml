@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Ejemplo de Reto: Bien, ya que estamos en este parque ¿Por qué no hacemos algo de Cardio?. Da tres vueltas al parque, ¡Vamo el tiempo corre! "
-            android:id="@+id/textView11"
+            android:id="@+id/desafio"
             android:layout_gravity="center_horizontal"
             android:background="#ffffffff" />
 

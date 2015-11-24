@@ -30,7 +30,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Name"
                 android:ems="10"
                 android:id="@+id/editNombrePruebaDeportiva"
                 android:layout_weight="1" />
@@ -55,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editPruevaDescripcion"
-            android:text="Introduzca la descripcion de la prueba" />
+            android:text="Introduzca la descripción de la prueba" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -99,8 +98,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/editTextPruevaDeportivaRecompensa"
-            android:text="Descripcion Aqui" />
+            android:id="@+id/editTextPruevaDeportivaRecompensa" />
 
         <TextView
             android:layout_width="wrap_content"

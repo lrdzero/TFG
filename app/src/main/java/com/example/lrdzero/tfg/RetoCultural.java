@@ -48,8 +48,8 @@ public class RetoCultural extends Activity implements View.OnClickListener {
         respuesta = (Button) findViewById(R.id.buttonResponse);
 
 
-        loadItems();
-        ListaView();
+        //loadItems();
+        //ListaView();
 
         resp1.setOnClickListener(this);
         resp2.setOnClickListener(this);
@@ -122,10 +122,10 @@ public class RetoCultural extends Activity implements View.OnClickListener {
     }
 
     public void loadItems(){
-        dt.add(new Items("nombre 1",R.drawable.busto ));
-        dt.add(new Items("nombre 2",R.drawable.busto ));
-        dt.add(new Items("nombre 3",R.drawable.busto ));
-        dt.add(new Items("nombre 4",R.drawable.busto ));
+       // dt.add(new Items("nombre 1",R.drawable.busto ));
+       // dt.add(new Items("nombre 2",R.drawable.busto ));
+       // dt.add(new Items("nombre 3",R.drawable.busto ));
+       // dt.add(new Items("nombre 4",R.drawable.busto ));
 
 
     }

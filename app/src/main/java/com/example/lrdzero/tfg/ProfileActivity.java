@@ -58,6 +58,7 @@ public class ProfileActivity extends Activity {
         setContentView(R.layout.activity_profile);
 
         //Button discButton = (Button)findViewById(R.id.discapacidades);
+        Button cerrarsesion = (Button)findViewById(R.id.button);
         Button discHerr = (Button)findViewById(R.id.button2);
         con = new Conexion();
 
@@ -75,7 +76,7 @@ public class ProfileActivity extends Activity {
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
 
         ImageView estadisticas = (ImageView)findViewById(R.id.imageestadisticas);
-        Log.i("est",estadisticas.toString());
+        Log.i("est", estadisticas.toString());
 
         datosUser=con.buscarUsuario(Name);
 
@@ -83,12 +84,16 @@ public class ProfileActivity extends Activity {
         ed.setText(datosUser.getNumber());
         contr.setText(datosUser.getDescription());
 
-        ImageView foto = (ImageView)findViewById(R.id.foto);
-
-        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-        foto.setImageURI(fileUri);
+        final ImageView foto = (ImageView)findViewById(R.id.foto);
 
 
+
+        cerrarsesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         discHerr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,7 +142,7 @@ public class ProfileActivity extends Activity {
             public void onClick(View v) {
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(ProfileActivity.this);
                 alertDialog.setTitle("Cambio de edad");
-                alertDialog.setMessage("Introduce nuevo edad");
+                alertDialog.setMessage("Introduce nueva edad");
 
                 final EditText input = new EditText(ProfileActivity.this);
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
@@ -229,6 +234,8 @@ public class ProfileActivity extends Activity {
             public void onShow(DialogInterface dialogI) {
                     ImageView camara= (ImageView)dialog.findViewById(icamara);
                     ImageView galeria= (ImageView)dialog.findViewById(R.id.igallery);
+                    fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+                    foto.setImageURI(fileUri);
                     camara.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

@@ -22,16 +22,18 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
     private ArrayList<Items> dt = new ArrayList<Items>();
     private PlaceList adapter;
     private Button go;
+    private Conexion con;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reto_deportivo);
-
+        TextView desafio =(TextView) findViewById(R.id.desafio);
+        con=new Conexion();
         go=(Button) findViewById(R.id.buttonStart);
 
 
-        loadItems();
-        ListView();
+       // loadItems();
+        //ListView();
 
         go.setOnClickListener(this);
 
@@ -50,10 +52,10 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
     }
 
     public void loadItems(){
-        dt.add(new Items("nombre 1",R.drawable.busto ));
-        dt.add(new Items("nombre 2",R.drawable.busto ));
-        dt.add(new Items("nombre 3",R.drawable.busto ));
-        dt.add(new Items("nombre 4",R.drawable.busto ));
+        //dt.add(new Items("nombre 1",R.drawable.busto ));
+        //dt.add(new Items("nombre 2",R.drawable.busto ));
+        //dt.add(new Items("nombre 3",R.drawable.busto ));
+        //dt.add(new Items("nombre 4",R.drawable.busto ));
 
     }
     public void ListView(){
