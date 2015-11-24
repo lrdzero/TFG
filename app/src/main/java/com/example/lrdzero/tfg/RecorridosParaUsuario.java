@@ -18,8 +18,6 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -69,7 +67,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         tdin.setVisibility(View.INVISIBLE);
 
         textoGuia.setText(TITULO3);
-        sig =(ImageView) findViewById(R.id.sig);
+        sig =(ImageView) findViewById(R.id.siguiente);
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
 
@@ -148,8 +146,8 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
         Intent nueva;
         switch (v.getId()) {
-            case R.id.sig:
-                Intent mp = new Intent(RecorridosParaUsuario.this,Mapa.class);
+            case R.id.siguiente:
+                Intent mp = new Intent(RecorridosParaUsuario.this,Seguimiento.class);
                 mp.putExtra("tipo",true);
                 mp.putExtra("nombre",nombreABuscar);
                 startActivity(mp);
@@ -241,8 +239,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
                     //dt.add(new DatosRyR("RUTA PRIMERA", "1", "Ruta de muestra inicial", "JAVIEL RAMBIEL",R.drawable.f0907,"Una ruta inicial que no tiene nada por el momento y que es utilizada a modo de prueba"));
                         adapter2 = new PlaceList2(currentData.getName());
                     nombreABuscar=currentData.getName();
-                        //atras.setVisibility(atras.VISIBLE);
-                        //atras.setEnabled(true);
+
                         tituloRecorrido.setText(TITULO2);
                         textoGuia.setText(TITULO3);
                         listView.setAdapter(adapter2);
@@ -286,7 +283,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent mp = new Intent(RecorridosParaUsuario.this, Mapa.class);
+                    Intent mp = new Intent(RecorridosParaUsuario.this, Seguimiento.class);
                     mp.putExtra("tipo", true);
                     mp.putExtra("nombre", currentData.getName());
                     mp.putExtra("retos", false);

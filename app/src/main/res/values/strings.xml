@@ -39,4 +39,5 @@
     <string name="title_activity_mapa">Mapa</string>
     <string name="title_activity_creador_reto_deportivo">CreadorRetoDeportivo</string>
     <string name="title_activity_creador_rutas">CreadorRutas</string>
+    <string name="title_activity_seguimiento" />
 </resources>

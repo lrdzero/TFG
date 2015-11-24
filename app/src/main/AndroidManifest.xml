@@ -76,7 +76,7 @@
             android:label="@string/title_activity_recoger_premio" >
         </activity>
         <activity
-            android:name=".Mapa"
+            android:name=".MapaEditor"
             android:label="@string/title_activity_mapa" >
         </activity>
         <activity
@@ -94,6 +94,10 @@
         <activity
             android:name=".CreadorRutas"
             android:label="@string/title_activity_creador_rutas" >
+        </activity>
+        <activity
+            android:name=".Seguimiento"
+            android:label="@string/title_activity_seguimiento" >
         </activity>
 
     </application>

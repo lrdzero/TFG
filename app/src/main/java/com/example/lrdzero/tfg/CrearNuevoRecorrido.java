@@ -309,7 +309,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
             enrutar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent n = new Intent(CrearNuevoRecorrido.this,Mapa.class);
+                    Intent n = new Intent(CrearNuevoRecorrido.this,MapaEditor.class);
                     n.putExtra("tipo",false);
                     n.putExtra("nombre",nombre.getText().toString());
                     n.putExtra("retos",false);

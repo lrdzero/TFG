@@ -1,7 +1,6 @@
 package com.example.lrdzero.tfg;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
@@ -32,7 +31,7 @@ import org.w3c.dom.Document;
 import java.util.ArrayList;
 
 
-public class Mapa extends Activity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
+public class MapaEditor extends Activity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
     GoogleMap googleMap;
     MapView mapView;
     private double latitude;
@@ -81,7 +80,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
         retos = getIntent().getExtras().getBoolean("retos");
         Button confirmar= (Button)findViewById(R.id.confirmar);
         Button deshacer= (Button)findViewById(R.id.deshacer);
-        Button lanza=(Button)findViewById(R.id.lanzar);
+
         con = new Conexion();
         googleMap = mapView.getMap();
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -89,8 +88,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
         mLocationClient = new LocationClient(getApplicationContext(), this, this);
         mLocationClient.connect();
         ruta = new Ruta("ruta a");
-        lanza.setEnabled(false);
-        lanza.setVisibility(View.INVISIBLE);
+
         if(carga) {
             confirmar.setEnabled(false);
             confirmar.setVisibility(View.INVISIBLE);
@@ -179,7 +177,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
                     LatLng loc;
                     googleMap.addMarker(new MarkerOptions().position(latLng));
                     con.updateRetoPos(nombreRto, latLng.latitude, latLng.longitude);
-                    Toast.makeText(Mapa.this, "Posición de reto asignada", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MapaEditor.this, "Posicion de reto asignada", Toast.LENGTH_LONG).show();
                     finish();
                 }
             });
@@ -187,20 +185,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
 
         }
 
-        lanza.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //DatosRyR datosDeRuta=con.buscarDatosRuta(name);
-                //if(datosDeRuta.getNumber().equals("0")) {
-                   // Intent n = new Intent(Mapa.this, RetoDeportivo.class);
-                    //startActivity(n);
-                //}
-                //else{
-                  //  Intent n = new Intent(Mapa.this,RetoCultural.class);
-                    //startActivity(n);
-                //}
-            }
-        });
+
         confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,7 +225,7 @@ public class Mapa extends Activity implements GooglePlayServicesClient.Connectio
                          con.hacerConexionJSON("Mapeado", ori);
                     }
 
-                Toast.makeText(Mapa.this,"Termino envio",Toast.LENGTH_LONG).show();
+                Toast.makeText(MapaEditor.this,"Termino envio",Toast.LENGTH_LONG).show();
 
                 finish();
 

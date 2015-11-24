@@ -139,21 +139,19 @@
             android:text="Hello"
             android:textColor="#000000"/>
 
-
     </RelativeLayout>
 
     <ListView
         android:layout_width="400dp"
         android:layout_height="300dp"
         android:id="@+id/listView2"
-
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/TextoRecorrido" />
 
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:id="@+id/sig"
+        android:id="@+id/siguiente"
         android:src="@drawable/flecha"
         android:adjustViewBounds="true"
         android:layout_marginRight="10dp"

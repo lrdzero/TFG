@@ -137,7 +137,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                 }
                 else{
                     con.nuevaRuta(nombreRuta.getText().toString(), historia.getText().toString(), "");
-                    Intent nuevo = new Intent(CreadorRutas.this, Mapa.class);
+                    Intent nuevo = new Intent(CreadorRutas.this, MapaEditor.class);
                     nuevo.putExtra("nombre", nombreRuta.getText().toString());
                     nuevo.putExtra("tipo", true);
                     startActivity(nuevo);
@@ -190,7 +190,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
             pickPos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent n = new Intent(CreadorRutas.this,Mapa.class);
+                    Intent n = new Intent(CreadorRutas.this,MapaEditor.class);
                     n.putExtra("tipo",true);
                     n.putExtra("nombre",nombreRuta.getText().toString());
                     n.putExtra("retos",true);
