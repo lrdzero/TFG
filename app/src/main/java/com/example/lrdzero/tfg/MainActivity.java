@@ -44,7 +44,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         registro.setOnClickListener(this);
     }
 
-
     public void onClick(View v) {
 
 
