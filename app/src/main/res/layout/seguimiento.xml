@@ -1,0 +1,151 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".Mapa">
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/gmap"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+
+    </com.google.android.gms.maps.MapView>
+    <RelativeLayout
+        android:layout_width="160dp"
+        android:layout_height="170dp"
+        android:id="@+id/Avatar"
+        android:src="@drawable/guia2"
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="26dp"
+        android:layout_marginStart="26dp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cabeza"
+            android:src="@drawable/cuerpo"
+            android:contentDescription="cabeza"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ojos"
+            android:src="@drawable/ojos"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bocaroja"
+            android:src="@drawable/boca_roja"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bocaverde"
+            android:src="@drawable/boca"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/brazoizq"
+            android:src="@drawable/manoizq"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/brazoder"
+            android:src="@drawable/manoderecha"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/parpizq"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/parpadoizq"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/parpder"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/parpadoder"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+
+        android:id="@+id/relativetexto"
+
+        android:layout_alignTop="@+id/Avatar"
+        android:layout_toRightOf="@+id/Avatar"
+        android:layout_toEndOf="@+id/Avatar">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bocadillo"
+            android:id="@+id/callout"
+            android:adjustViewBounds="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textodinamico"
+            android:layout_alignLeft="@+id/callout"
+            android:layout_alignTop="@+id/callout"
+            android:layout_alignRight="@+id/callout"
+            android:layout_alignBottom="@+id/callout"
+
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="5dp"
+
+
+            android:gravity="center"
+            android:text="Hello"
+            android:textColor="#000000"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/siguiente"
+            android:src="@drawable/flecha"
+            android:adjustViewBounds="true"
+            android:layout_alignBottom="@+id/callout"
+            android:layout_alignRight="@+id/callout"
+
+             />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
