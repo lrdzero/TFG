@@ -113,9 +113,13 @@ public class CreadorRetoDeportivo extends Activity {
         nombre=nombreDeporti.getText().toString();
         nameFile=getIntent().getExtras().getString("nombrefile");
         Toast.makeText(CreadorRetoDeportivo.this,nombre,Toast.LENGTH_LONG).show();
+
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+        mostrarCamera().show();
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+
 
         camara.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -498,6 +502,26 @@ public class CreadorRetoDeportivo extends Activity {
             }
         }
 
+    }
+    private AlertDialog.Builder mostrarCamera(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Imagen del reto").setMessage("Primero inserte una imagen para el reto.")
+                .setPositiveButton("Camara", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+
+                        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+                    }
+                })
+                .setNegativeButton("Ya tengo la imagen.", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        return builder;
     }
 
 }

@@ -35,6 +35,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         Rc2 = (ImageView) findViewById(R.id.imageView3);
         con =new Conexion();
 
+
         User.setOnClickListener(this);
         Rc1.setOnClickListener(this);
         Rc2.setOnClickListener(this);
@@ -57,17 +58,17 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
                 startActivity(n2);
                 break;
             case R.id.imageView2:
-                datosUser=con.buscarUsuario(name);
-                generarBuilder().show();
-                nueva = new Intent(SeleccionRecorridos.this, RecorridosParaUsuario.class);
-                nueva.putExtra("tipo",1);
-                startActivity(nueva);
+
+                generarBuilder(1);
+
+                dificultad.clear();
+
                 break;
+
             case R.id.imageView3:
-                datosUser=con.buscarUsuario(name);
-                nueva = new Intent(SeleccionRecorridos.this, RecorridosParaUsuario.class);
-                nueva.putExtra("tipo",0);
-                startActivity(nueva);
+
+                generarBuilder(0);
+
                 break;
             case R.id.imageView:
                 nueva = new Intent(SeleccionRecorridos.this, ProfileActivity.class);
@@ -77,44 +78,80 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         }
 
     }
-    public AlertDialog.Builder generarBuilder(){
+    public void generarBuilder(final int tipo){
+        final DatosRyR datosUser;
+
+
+        datosUser=con.buscarUsuario(name);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final ArrayList<Integer> aux = new ArrayList<>();
         final ArrayList<Integer> aux2 = new ArrayList<>();
-        builder.setTitle("Dificultad:")
-                .setMultiChoiceItems(R.array.dificultades, null,
-                        new DialogInterface.OnMultiChoiceClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                                if (isChecked) {
+        final int variable=tipo;
+        Toast.makeText(SeleccionRecorridos.this,"Pref1 "+datosUser.getPreferenciaUser1(),Toast.LENGTH_LONG).show();
+        //Toast.makeText(SeleccionRecorridos.this,"Por favor rellene información adicional en su perfil (Preferencias)",Toast.LENGTH_LONG).show();
+        if(datosUser.getPreferenciaUser1().equals("2")&&datosUser.getPreferenciaUser2().equals("2")){
+            builder.setTitle("Es necesaria más información").setMessage("Es necesario que especifique sus preferencias.\n\tPor favor acceda al perfil")
+            .setPositiveButton("Ir a mi perfil", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent perfil;
+                    perfil = new Intent(SeleccionRecorridos.this, ProfileActivity.class);
+                    perfil.putExtra("NombreUser",name);
+                    startActivity(perfil);
+                }
+            })
+            .setNegativeButton("En otro momento", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-                                    aux.add(which);
-                                } else if (aux.contains(which)) {
+                }
+            });
+            builder.show();
+        }
+        else {
+            builder.setTitle("Dificultad:")
+                    .setMultiChoiceItems(R.array.dificultades, null,
+                            new DialogInterface.OnMultiChoiceClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                    if (isChecked) {
 
-                                    aux.remove(Integer.valueOf(which));
+                                        aux.add(which);
+                                    } else if (aux.contains(which)) {
+
+                                        aux.remove(Integer.valueOf(which));
+                                    }
                                 }
-                            }
-                        })
-                        // Set the action buttons*/
-                .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dificultad = aux;
-                        Toast.makeText(SeleccionRecorridos.this, Integer.toString(dificultad.get(0)), Toast.LENGTH_LONG).show();
-                        // User clicked OK, so save the mSelectedItems results somewhere
-                        // or return them to the component that opened the dialog
+                            })
+                            // Set the action buttons*/
+                    .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dificultad = aux;
+                            final Intent nueva;
+                            nueva = new Intent(SeleccionRecorridos.this, RecorridosParaUsuario.class);
+                            nueva.putExtra("tipo", variable);
+                            nueva.putExtra("edad", datosUser.getNumber());
+                            nueva.putExtra("pref1", datosUser.getPreferenciaUser1());
+                            nueva.putExtra("pref2", datosUser.getPreferenciaUser2());
+                            nueva.putExtra("dificultad", Integer.toString(dificultad.get(0)));
+                            startActivity(nueva);
+                            // User clicked OK, so save the mSelectedItems results somewhere
+                            // or return them to the component that opened the dialog
 
-                    }
-                })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
+                        }
+                    })
+                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
 
-                    }
-                });
-        Log.i("cred", "prog");
+                        }
+                    });
+            Log.i("cred", "prog");
 
-        return builder;
+            builder.show();
+        }
     }
 
 

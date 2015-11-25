@@ -35,8 +35,9 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
     private Conexion con;
     private ImageView imgna;
     private boolean modif;
+    private int tutorial=1;
     private String nombreRc;
-
+    private ArrayList<String> recomendaModifi;
 
     @Override
     public void onResume(){
@@ -59,13 +60,15 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
         nombreRecorrido=(EditText) findViewById(R.id.recorridoNombre);
         brevDescripcionRecorrido=(EditText)findViewById(R.id.textoDescripcion);
 
-
+        recomen.setOnClickListener(this);
         nuevoReto.setOnClickListener(this);
         imgna.setOnClickListener(this);
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         con=new Conexion();
         modif=getIntent().getExtras().getBoolean("Modif");
+
+
         if(modif){
             nombreRc=getIntent().getExtras().getString("nombre");
             DatosRyR mod = new DatosRyR();
@@ -80,66 +83,75 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
             }
             btn1.setEnabled(false);
             btn2.setEnabled(false);
+            recomendaModifi= con.cargaRecomendaciones(nombreRc);
+            recomendaciones.add(Integer.valueOf(recomendaModifi.get(0)));
+            recomendaciones.add(Integer.valueOf(recomendaModifi.get(1)));
+            recomendaciones.add(Integer.valueOf(recomendaModifi.get(2)));
+            recomendaciones.add(Integer.valueOf(recomendaModifi.get(3)));
+        }
+        else{
+            tutorial=getIntent().getExtras().getInt("tutorial");
         }
 
-            Create();
+        Create();
             Visualizar();
 
 
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        recomen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_SHORT).show();
-
-                final ArrayList<Integer> aux = new ArrayList<>();
-
-                // Set the dialog title
-                //Log.i("title", "prog");
-                builder.setTitle("Recomendado para")
-                        .setMultiChoiceItems(R.array.recomendado, null,
-                                new DialogInterface.OnMultiChoiceClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-
-                                        if (isChecked) {
-
-                                            aux.add(which);
-                                        } else if (aux.contains(which)) {
-
-                                            aux.remove(Integer.valueOf(which));
-                                        }
-                                    }
-                                })
-                                // Set the action buttons*/
-                        .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                recomendaciones = aux;
-                                // User clicked OK, so save the mSelectedItems results somewhere
-                                // or return them to the component that opened the dialog
-
-                            }
-                        })
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-
-                            }
-                        });
-                Log.i("cred", "prog");
-
-                builder.show();
 
 
-
-
-            }
-        });
 
 
     }
+    private AlertDialog.Builder generarTutorial(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(CrearNuevoRecorrido.this);
+        builder.setTitle("Tutorial")
+                .setMessage("Bienvenido al tutorial:\n Para crear un nuevo reto debes rellenar todos los datos y pulsar el boton \"+\" o pulsar listo si quireres hacer un Recorrido de prueba")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
+                    }
+                });
+        return builder;
+    }
+   private AlertDialog.Builder generarBuilder(){
+       final AlertDialog.Builder builder = new AlertDialog.Builder(CrearNuevoRecorrido.this);
+       final ArrayList<Integer> aux = new ArrayList<>();
+       builder.setTitle("Recomendado para")
+               .setMultiChoiceItems(R.array.recomendado, null,
+                       new DialogInterface.OnMultiChoiceClickListener() {
+                           @Override
+                           public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+                               if (isChecked) {
+
+                                   aux.add(which);
+                               } else if (aux.contains(which)) {
+
+                                   aux.remove(Integer.valueOf(which));
+                               }
+                           }
+                       })
+                       // Set the action buttons*/
+               .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int id) {
+                       recomendaciones = aux;
+                       // User clicked OK, so save the mSelectedItems results somewhere
+                       // or return them to the component that opened the dialog
+
+                   }
+               })
+               .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialog, int id) {
+
+                   }
+               });
+       Log.i("cred", "prog");
+
+       return builder;
+   }
     private String converToString(ArrayList<Integer> f){
         String sul = "";
         for(int i=0;i<f.size();i++){
@@ -150,90 +162,58 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
     }
     public void onClick(View v){
         switch (v.getId()){
+            case R.id.botonRecomendado:
+                Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_SHORT).show();
+                final AlertDialog.Builder builder = new AlertDialog.Builder(CrearNuevoRecorrido.this);
+                // Set the dialog title
+                //Log.i("title", "prog");
+                if(modif){
+
+                    String recomendacion1,recomendacion2,recomendacion3,recomendacion4;
+                    recomendacion1="";
+                    recomendacion2="";
+                    recomendacion3="";
+                    recomendacion4="";
+                    if(recomendaModifi.get(0).equals("1")){recomendacion1="Niño";}
+                    if(recomendaModifi.get(1).equals("1")){recomendacion2="Adulto";}
+                    if(recomendaModifi.get(2).equals("1")){recomendacion3="Problemas Cardiovasculares";}
+                    if(recomendaModifi.get(3).equals("1")){recomendacion4="Problemas de movilidad";}
+                    builder.setTitle("Advertencia")
+                            .setMessage("Sus datos anteriores  son:\n\t" + recomendacion1 + "\n\t" + recomendacion2+"\n\t"+recomendacion3+"\n\t"+recomendacion4+"\n¿Desea modificarlos?")
+                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    generarBuilder().show();
+                                    // User clicked OK, so save the mSelectedItems results somewhere
+                                    // or return them to the component that opened the dialog
+
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                }
+                            });
+                    builder.show();
+                }
+                else{
+                    generarBuilder().show();
+                }
+                break;
             case R.id.nuevoReto:
 
                 if(nombreRecorrido.getText().toString().matches("")||brevDescripcionRecorrido.getText().toString().matches("")||recomendaciones.isEmpty()){
                     Toast.makeText(CrearNuevoRecorrido.this,"Debe rellenar los campos Nombre y Descripcion.",Toast.LENGTH_LONG).show();
                 }
                 else{
-
-                    Intent nuevo = new Intent(CrearNuevoRecorrido.this,CreadorRutas.class);
-                    nuevo.putExtra("RecNombre",nombreRecorrido.getText().toString());
-                    nuevo.putExtra("drescrip",brevDescripcionRecorrido.getText().toString());
-                    nuevo.putExtra("modif",false);
-                     if(btn1.isChecked()){
-                        nuevo.putExtra("tipo",true);
-                         if(retos.isEmpty()){
-                             envios.add(nombreRecorrido.getText().toString());
-                             envios.add(brevDescripcionRecorrido.getText().toString());
-                             envios.add("1");
-                             envios.add(converToString(recomendaciones));
-                             con.hacerconexionGenerica("nuevoRecorrido", envios);
-                             envios.clear();
-                             ArrayList<Integer> datosTrueEnBD =new ArrayList<>();
-                             for(int i=0;i<4;i++){
-                                 datosTrueEnBD.add(0);
-                             }
-                             for(int i=0;i<recomendaciones.size();i++){
-                                 datosTrueEnBD.set(recomendaciones.get(i),1);
-                             }
-                             con.updateRecorridoPreferencias("updateRecorridoPreferencias",datosTrueEnBD,nombreRecorrido.getText().toString());
-                         }
-                         startActivity(nuevo);
-                    }
-                    else if(btn2.isChecked()){
-                        nuevo.putExtra("tipo",false);
-                         if(retos.isEmpty()){
-                             envios.add(nombreRecorrido.getText().toString());
-                             envios.add(brevDescripcionRecorrido.getText().toString());
-                             envios.add("0");
-                             envios.add(converToString(recomendaciones));
-                             con.hacerconexionGenerica("nuevoRecorrido",envios);
-                             envios.clear();
-                             ArrayList<Integer> datosTrueEnBD =new ArrayList<>();
-                             for(int i=0;i<4;i++){
-                                 datosTrueEnBD.add(0);
-                             }
-                             for(int i=0;i<recomendaciones.size();i++){
-                                 datosTrueEnBD.set(recomendaciones.get(i),1);
-                             }
-                             con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
-                         }
-                         startActivity(nuevo);
-                    }
-                    else{
-                        Toast.makeText(CrearNuevoRecorrido.this, "Debe elegir un tipo de Recorrido", Toast.LENGTH_LONG).show();
-                    }
-
-
-
-
+                    llevarACaboInsercion();
                 }
-
-
-
                 break;
             case R.id.imageView15:
                 if(modif){
                     if(!recomendaciones.isEmpty()) {
-                        envios.clear();
-                        envios.add(nombreRc);
-                        envios.add(nombreRecorrido.getText().toString());
-                        envios.add(brevDescripcionRecorrido.getText().toString());
-                        if (!recomendaciones.isEmpty()) {
-                            envios.add(converToString(recomendaciones));
-                        }
-                        con.hacerconexionGenerica("updateRecorrido", envios);
-                        envios.clear();
-                        ArrayList<Integer> datosTrueEnBD =new ArrayList<>();
-                        for(int i=0;i<4;i++){
-                            datosTrueEnBD.add(0);
-                        }
-                        for(int i=0;i<recomendaciones.size();i++){
-                            datosTrueEnBD.set(recomendaciones.get(i),1);
-                        }
-                        con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
-                        finish();
+                        llevaACaboModificacion();
                     }
                     else{
                         Toast.makeText(CrearNuevoRecorrido.this,"Campos sin rellenar: Recomendaciones",Toast.LENGTH_LONG).show();
@@ -244,55 +224,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                         Toast.makeText(CrearNuevoRecorrido.this,"Debe rellenar los campos Nombre, Descripcion y Recomendado para.",Toast.LENGTH_LONG).show();
                     }
                     else{
-
-
-                        if(btn1.isChecked()){
-                            ;
-                            if(retos.isEmpty()){
-                                envios.add(nombreRecorrido.getText().toString());
-                                envios.add(brevDescripcionRecorrido.getText().toString());
-                                envios.add("1");
-                                envios.add(converToString(recomendaciones));
-                                con.hacerconexionGenerica("nuevoRecorrido",envios);
-                                envios.clear();
-                                ArrayList<Integer> datosTrueEnBD =new ArrayList<>();
-                                for(int i=0;i<4;i++){
-                                    datosTrueEnBD.add(0);
-                                }
-                                for(int i=0;i<recomendaciones.size();i++){
-                                    datosTrueEnBD.set(recomendaciones.get(i),1);
-                                }
-                                con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
-                            }
-
-                        }
-                        else if(btn2.isChecked()){
-
-                            if(retos.isEmpty()){
-                                envios.add(nombreRecorrido.getText().toString());
-                                envios.add(brevDescripcionRecorrido.getText().toString());
-                                envios.add("0");
-                                envios.add(converToString(recomendaciones));
-                                con.hacerconexionGenerica("nuevoRecorrido",envios);
-                                envios.clear();
-                                ArrayList<Integer> datosTrueEnBD =new ArrayList<>();
-                                for(int i=0;i<4;i++){
-                                    datosTrueEnBD.add(0);
-                                }
-                                for(int i=0;i<recomendaciones.size();i++){
-                                    datosTrueEnBD.set(recomendaciones.get(i),1);
-                                }
-                                con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
-                            }
-
-                        }
-                        else{
-                            Toast.makeText(CrearNuevoRecorrido.this, "Debe elegir un tipo de Recorrido", Toast.LENGTH_LONG).show();
-                        }
-
-
-                        finish();
-
+                        llevaACaboListo();
                     }
                 }
 
@@ -307,10 +239,140 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
         //retos.add(new DatosRyR("Ruta 3", "2", "Breve descripcion de ruta", "alguien", R.drawable.recorridodefecto, "mas descripcion"));
 
     }
+    public void llevaACaboListo(){
+        ArrayList<Integer> datosTrueEnBD =new ArrayList<>();
+        for(int i=0;i<4;i++){
+            datosTrueEnBD.add(0);
+        }
+        for(int i=0;i<recomendaciones.size();i++){
+            datosTrueEnBD.set(recomendaciones.get(i),1);
+        }
+        if(datosTrueEnBD.get(0)==0&&datosTrueEnBD.get(1)==0){
+            Toast.makeText(CrearNuevoRecorrido.this,"Debe especificar si es para niños o adultos.",Toast.LENGTH_LONG).show();
+        }
+        else if(datosTrueEnBD.get(0)==1&&datosTrueEnBD.get(1)==1){
+            Toast.makeText(CrearNuevoRecorrido.this,"Solo puede ser para niños o para adultos.",Toast.LENGTH_LONG).show();
+        }
+        else {
+            if (btn1.isChecked()) {
+                ;
+                if (retos.isEmpty()) {
+                    envios.add(nombreRecorrido.getText().toString());
+                    envios.add(brevDescripcionRecorrido.getText().toString());
+                    envios.add("1");
+                    envios.add(converToString(recomendaciones));
+                    con.hacerconexionGenerica("nuevoRecorrido", envios);
+                    envios.clear();
+                    con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
+                }
 
+            } else if (btn2.isChecked()) {
+
+                if (retos.isEmpty()) {
+                    envios.add(nombreRecorrido.getText().toString());
+                    envios.add(brevDescripcionRecorrido.getText().toString());
+                    envios.add("0");
+                    envios.add(converToString(recomendaciones));
+                    con.hacerconexionGenerica("nuevoRecorrido", envios);
+                    envios.clear();
+                    con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
+                }
+
+            } else {
+                Toast.makeText(CrearNuevoRecorrido.this, "Debe elegir un tipo de Recorrido", Toast.LENGTH_LONG).show();
+            }
+
+
+            finish();
+        }
+    }
+    public void llevaACaboModificacion(){
+        ArrayList<Integer> datosTrueEnBD =new ArrayList<>();
+        for(int i=0;i<4;i++){
+            datosTrueEnBD.add(0);
+        }
+        for(int i=0;i<recomendaciones.size();i++){
+            datosTrueEnBD.set(recomendaciones.get(i),1);
+        }
+        if(datosTrueEnBD.get(0)==0&&datosTrueEnBD.get(1)==0){
+            Toast.makeText(CrearNuevoRecorrido.this,"Debe especificar si es para niños o adultos.",Toast.LENGTH_LONG).show();
+        }
+        else if(datosTrueEnBD.get(0)==1&&datosTrueEnBD.get(1)==1){
+            Toast.makeText(CrearNuevoRecorrido.this,"Solo puede ser para niños o para adultos.",Toast.LENGTH_LONG).show();
+        }
+        else {
+            envios.clear();
+            envios.add(nombreRc);
+            envios.add(nombreRecorrido.getText().toString());
+            envios.add(brevDescripcionRecorrido.getText().toString());
+            if (!recomendaciones.isEmpty()) {
+                envios.add(converToString(recomendaciones));
+            }
+            con.hacerconexionGenerica("updateRecorrido", envios);
+            envios.clear();
+            con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
+            finish();
+        }
+    }
+    public void llevarACaboInsercion(){
+        ArrayList<Integer> datosTrueEnBD = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            datosTrueEnBD.add(0);
+        }
+        for (int i = 0; i < recomendaciones.size(); i++) {
+            datosTrueEnBD.set(recomendaciones.get(i), 1);
+        }
+        if(datosTrueEnBD.get(0)==0&&datosTrueEnBD.get(1)==0){
+            Toast.makeText(CrearNuevoRecorrido.this,"Debe especificar si es para niños o adultos.",Toast.LENGTH_LONG).show();
+        }
+        else if(datosTrueEnBD.get(0)==1&&datosTrueEnBD.get(1)==1){
+            Toast.makeText(CrearNuevoRecorrido.this,"Solo puede ser para niños o para adultos.",Toast.LENGTH_LONG).show();
+        }
+        else {
+
+            Intent nuevo = new Intent(CrearNuevoRecorrido.this, CreadorRutas.class);
+            nuevo.putExtra("RecNombre", nombreRecorrido.getText().toString());
+            nuevo.putExtra("drescrip", brevDescripcionRecorrido.getText().toString());
+            nuevo.putExtra("modif", false);
+            nuevo.putExtra("tutorial", listaRetos.getCount());
+            if (btn1.isChecked()) {
+                nuevo.putExtra("tipo", true);
+                if (retos.isEmpty()) {
+                    envios.add(nombreRecorrido.getText().toString());
+                    envios.add(brevDescripcionRecorrido.getText().toString());
+                    envios.add("1");
+                    envios.add(converToString(recomendaciones));
+                    con.hacerconexionGenerica("nuevoRecorrido", envios);
+                    envios.clear();
+                    con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
+                }
+                startActivity(nuevo);
+
+            } else if (btn2.isChecked()) {
+                nuevo.putExtra("tipo", false);
+                if (retos.isEmpty()) {
+                    envios.add(nombreRecorrido.getText().toString());
+                    envios.add(brevDescripcionRecorrido.getText().toString());
+                    envios.add("0");
+                    envios.add(converToString(recomendaciones));
+                    con.hacerconexionGenerica("nuevoRecorrido", envios);
+                    envios.clear();
+                    con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
+                }
+                startActivity(nuevo);
+            } else {
+                Toast.makeText(CrearNuevoRecorrido.this, "Debe elegir un tipo de Recorrido", Toast.LENGTH_LONG).show();
+            }
+
+        }
+    }
     public void Visualizar(){
+
         adapter=new PlaceList();
         listaRetos.setAdapter(adapter);
+        if(tutorial==0){
+            generarTutorial().show();
+        }
 
     }
 
@@ -371,6 +433,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                         n.putExtra("tipo",false);
                     }
                     n.putExtra("name",currentData.getName());
+
                     startActivity(n);
                     Log.e("Recargo rutas:","lanzamiento");
 

@@ -171,7 +171,12 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
     }
 
     public void Create(){
-        dt=con.cargaDeRecorridos(tipo);
+        String edad,pref1,pref2,dificultad;
+        edad=getIntent().getExtras().getString("edad");
+        pref1 = getIntent().getExtras().getString("pref1");
+        pref2 =getIntent().getExtras().getString("pref2");
+        dificultad=getIntent().getExtras().getString("dificultad");
+        dt=con.cargaDeRecorridosPorAdaptacion(tipo,edad,pref1,pref2,dificultad);
 
         //dt.add(new DatosRyR("RECORRIDO 1", "2", "Ruta de muestra inicial 1", "JAVIEL RAMBIEL",R.drawable.f0907,"Una ruta POSICION 1 que no tiene nada por el momento y que es utilizada a modo de prueba"));
         //dt.add(new DatosRyR("RECORRIDO 2", "3", "Ruta de muestra inicial 2", "ISMAEL",R.drawable.f0907,"Una ruta POSICION 2 que no tiene nada por el momento y que es utilizada a modo de prueba"));

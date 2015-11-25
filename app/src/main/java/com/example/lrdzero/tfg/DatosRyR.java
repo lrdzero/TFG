@@ -32,8 +32,8 @@ public class DatosRyR {
         this.image = ima;
         this.largeDescription=large;
         this.uri=un;
-        this.preferenciaUser1="";
-        this.preferenciaUser2="";
+
+
 
     }
     public void setPreferenciaUser1(String n){this.preferenciaUser1=n;}

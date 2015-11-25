@@ -265,6 +265,43 @@ public class Conexion {
         }
         return dt;
     }
+    public ArrayList<DatosRyR> cargaDeRecorridosPorAdaptacion(int tipo,String edad,String pref1,String pref2,String dificultad){
+        ArrayList<DatosRyR> dt = new ArrayList<DatosRyR>();
+        DatosRyR nm = new DatosRyR();
+        try{
+            conectar();
+            out.writeUTF("cargarRecorridosPorAdaptacion");
+            if(in.readUTF().equals("continua")){
+                try{
+                    out.writeUTF(Integer.toString(tipo));
+                    out.writeUTF(edad);
+                    out.writeUTF(pref1);
+                    out.writeUTF(pref2);
+                    out.writeUTF(dificultad);
+                    object = objectInput.readObject();
+                    listReception= (ArrayList<String>) object;
+                } catch (ClassNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                for(int i=0;i<listReception.size();i=i+4){
+                    String nombre=listReception.get(i);
+                    String Tipo = listReception.get(i + 1);
+                    String otro = listReception.get(i+2);
+                    String descripcion=listReception.get(i+3);
+                    Uri m=null;
+
+
+                    dt.add(new DatosRyR(nombre,Tipo,descripcion,otro,R.drawable.recorridodefecto,"",m));
+                }
+            }
+            cerrar();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return dt;
+    }
     public ArrayList<DatosRyR> cargaDeRecorridos(int tipo){
         ArrayList<DatosRyR> dt = new ArrayList<DatosRyR>();
         DatosRyR nm = new DatosRyR();
@@ -323,6 +360,33 @@ public class Conexion {
             e.printStackTrace();
         }
         return nuvo;
+    }
+    public ArrayList<String> cargaRecomendaciones(String nombreRecorrido){
+        ArrayList<String> respuesta=new ArrayList<String>();
+        try{
+            conectar();
+            out.writeUTF("buscarRecomendacionesRecorrido");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(nombreRecorrido);
+                try{
+                    object = objectInput.readObject();
+                    listReception= (ArrayList<String>) object;
+
+                } catch (ClassNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                respuesta.add(listReception.get(0));
+                respuesta.add(listReception.get(1));
+                respuesta.add(listReception.get(2));
+                respuesta.add(listReception.get(3));
+            }
+            cerrar();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return respuesta;
     }
     public DatosRyR buscarDatosRetoCultural(String name){
         DatosRyR nuvo = new DatosRyR();

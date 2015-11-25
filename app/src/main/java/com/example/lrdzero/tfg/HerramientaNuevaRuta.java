@@ -62,6 +62,8 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
 
                 Intent nuevo = new Intent(HerramientaNuevaRuta.this,CrearNuevoRecorrido.class);
                 nuevo.putExtra("Modif",false);
+
+                nuevo.putExtra("tutorial",recorridos.getCount());
                 startActivity(nuevo);
                 break;
         }
@@ -121,6 +123,7 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
                     Intent nuevo = new Intent(HerramientaNuevaRuta.this,CrearNuevoRecorrido.class);
                     nuevo.putExtra("Modif",true);
                     nuevo.putExtra("nombre",currentData.getName());
+
                     startActivity(nuevo);
 
                 }

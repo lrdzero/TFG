@@ -1,9 +1,11 @@
 package com.example.lrdzero.tfg;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
     private Conexion con;
     private boolean modif;
     private String myName;
+    private int tutorial=1;
 
     @Override
     public void onResume(){
@@ -66,7 +69,9 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
         mapa=(ImageView)findViewById(R.id.maprutas);
         imageNew.setOnClickListener(this);
         check.setOnClickListener(this);
-        mapa.setOnClickListener(this);
+        mapa.setEnabled(false);
+        mapa.setVisibility(View.INVISIBLE);
+        //mapa.setOnClickListener(this);
 
 
 
@@ -76,6 +81,9 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
         if(modif){
             myName=getIntent().getExtras().getString("name");
             nombreRuta.setText(myName);
+        }
+        else{
+            tutorial=getIntent().getExtras().getInt("tutorial");
         }
         Creador();
         Visualizar();
@@ -156,6 +164,9 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
     public void Visualizar(){
         adapter=new PlaceList();
         lista.setAdapter(adapter);
+        if(tutorial==0){
+            generarTutorial().show();
+        }
 
 
     }
@@ -245,6 +256,20 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
         }
 
 
+    }
+    private AlertDialog.Builder generarTutorial(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(CreadorRutas.this);
+        builder.setTitle("Tutorial")
+                .setMessage("Bienvenido al tutorial:\n Para Crear una Ruta nueva Rellene los campos necesarios: 1) Una vez hecho esto pulse \"Listo\", le devolverá a la pantalla anterior y allí podrá asignar la ruta pulsando el icono \"mapa\".\n" +
+                        "2) Si por el contrario desea crear los Retos para esta ruta pulse el botón \"+\" y continue.\n"
+                        +"3) Para asignar un recorrido primero deberá haber creado la ruta en google Maps como se dice en el punto 1 y acceder al Reto mediante el editor, despues pulsar el icono \"mapa\"")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+        return builder;
     }
 
 }
