@@ -38,7 +38,7 @@ public class ProfileActivity extends Activity {
     private String Name;
     private Conexion con;
     private DatosRyR datosUser =new DatosRyR();
-
+    private ArrayList<Integer> pref = new ArrayList<Integer>();
     private ImageView editName,editEdad,editContrasenia;
     private TextView nom,ed,contr;
 
@@ -60,6 +60,9 @@ public class ProfileActivity extends Activity {
         //Button discButton = (Button)findViewById(R.id.discapacidades);
         Button cerrarsesion = (Button)findViewById(R.id.button);
         Button discHerr = (Button)findViewById(R.id.button2);
+        Button preferencias =(Button)findViewById(R.id.button3);
+
+
         con = new Conexion();
 
         editName = (ImageView) findViewById(R.id.imageView9);
@@ -101,6 +104,51 @@ public class ProfileActivity extends Activity {
                 startActivity(n);
             }
         });
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        preferencias.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_SHORT).show();
+
+
+
+                // Set the dialog title
+                //Log.i("title", "prog");
+                datosUser=con.buscarUsuario(Name);
+                if(datosUser.getPreferenciaUser1()!=null&&datosUser.getPreferenciaUser2()!=null){
+                    String pref1,pref2;
+                    pref1="";
+                    pref2="";
+                    if(datosUser.getPreferenciaUser1().equals("1")){
+                        pref1="Problemas Cardiovasculares.";
+                    }
+                    if(datosUser.getPreferenciaUser2().equals("1")){
+                        pref2="Problemas de movilidad.";
+                    }
+                    builder.setTitle("Advertencia")
+                            .setMessage("Sus preferencias son:\n\t" + pref1 + "\n\t" + pref2+"\n¿Desea modificarlos?")
+                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    generarBuilderParaPreferencias("Preferencias","",R.array.recomendadoUser).show();
+                                    // User clicked OK, so save the mSelectedItems results somewhere
+                                    // or return them to the component that opened the dialog
+
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                }
+                            });
+                }
+
+
+                builder.show();
+
+            }
+        });
         editName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +168,7 @@ public class ProfileActivity extends Activity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 String nuevoNombre = input.getText().toString();
-                                String resul=con.updateUsuario(Name,nuevoNombre,"nombre");
+                                String resul=con.updateUsuario(Name,nuevoNombre,"nombre",null);
                                 if(!resul.equals("error")) {
                                     nom.setText(resul);
                                 }
@@ -156,7 +204,7 @@ public class ProfileActivity extends Activity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 String nuevaEdad = input.getText().toString();
-                                String resul=con.updateUsuario(Name,nuevaEdad, "edad");
+                                String resul=con.updateUsuario(Name,nuevaEdad, "edad",null);
                                 if(!resul.equals("error")) {
                                     ed.setText(resul);
                                 }
@@ -192,7 +240,7 @@ public class ProfileActivity extends Activity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 String nuevoContrasenia = input.getText().toString();
-                               String resul=con.updateUsuario(Name,nuevoContrasenia,"correo");
+                               String resul=con.updateUsuario(Name,nuevoContrasenia,"correo",null);
                                 if(!resul.equals("error")) {
                                     contr.setText(resul);
                                 }
@@ -394,7 +442,55 @@ public class ProfileActivity extends Activity {
     }
 
 
+    private AlertDialog.Builder generarBuilderParaPreferencias(String tittle,String message, int list){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final ArrayList<Integer> aux = new ArrayList<>();
+        builder.setTitle("Preferencias")
+                .setMultiChoiceItems(R.array.recomendadoUser, null,
+                        new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
 
+                                if (isChecked) {
+
+                                    aux.add(which);
+                                } else if (aux.contains(which)) {
+
+                                    aux.remove(Integer.valueOf(which));
+                                }
+                            }
+                        })
+                        // Set the action buttons*/
+                .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        pref = aux;
+
+                        ArrayList<Integer> datosTrueEnBD =new ArrayList<>();
+
+                        datosTrueEnBD.add(0);
+                        datosTrueEnBD.add(0);
+
+                        for(int i=0;i<pref.size();i++){
+                            datosTrueEnBD.set(pref.get(i),1);
+                        }
+                        con.updateUsuario(Name,"","preferencias",datosTrueEnBD);
+                        //con.updateUsuario();
+                        // User clicked OK, so save the mSelectedItems results somewhere
+                        // or return them to the component that opened the dialog
+
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+        Log.i("cred", "prog");
+
+        return builder;
+    }
 
 
 }

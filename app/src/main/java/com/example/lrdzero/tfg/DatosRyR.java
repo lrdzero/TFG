@@ -16,6 +16,8 @@ public class DatosRyR {
     private String aux;
     private int image;
     private Uri uri;
+    private String preferenciaUser1;
+    private String preferenciaUser2;
 
 
     public DatosRyR(){
@@ -30,11 +32,13 @@ public class DatosRyR {
         this.image = ima;
         this.largeDescription=large;
         this.uri=un;
+        this.preferenciaUser1="";
+        this.preferenciaUser2="";
 
     }
-    public void setUri(Uri n){
-        this.uri =n;
-    }
+    public void setPreferenciaUser1(String n){this.preferenciaUser1=n;}
+    public void setPreferenciaUser2(String n){this.preferenciaUser2=n;}
+    public void setUri(Uri n){this.uri =n;}
     public void setAdic(String n){this.adic=n;}
     public void setAux(String n){this.aux=n;}
     public void setName(String n){this.name=n;}
@@ -44,6 +48,8 @@ public class DatosRyR {
     public void setImage(int n){this.image=n;}
     public void setLargeDescription(String n){this.largeDescription=n;}
 
+    public String getPreferenciaUser1(){return preferenciaUser1;}
+    public String getPreferenciaUser2(){return preferenciaUser2;}
     public Uri getUri(){return uri;}
     public String getAdic(){return adic;}
     public String getAux(){return aux;}

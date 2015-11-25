@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class Conexion {
 
     private Socket sk;
-    private String ip="87.217.11.202";
+    private String ip="87.222.129.100";
     private int port=7;
     private DataInputStream in;
     private DataOutputStream out;
@@ -53,6 +53,22 @@ public class Conexion {
         }catch (IOException e){
             e.printStackTrace();
         }
+    }
+    public int updateRecorridoPreferencias(String tipo,ArrayList<Integer> data,String nombreRecorrido){
+        int respuesta=-1;
+        try{
+            conectar();
+            out.writeUTF(tipo);
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(nombreRecorrido);
+                objectOutput.writeObject(data);
+                respuesta = Integer.valueOf(in.readUTF());
+            }
+            cerrar();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return respuesta;
     }
     public ArrayList<String> cargarPositonRetos(String name){
         ArrayList<String> respuesta=new ArrayList<>();
@@ -383,6 +399,8 @@ public class Conexion {
                 n.setName(listReception.get(0));
                 n.setDescription(listReception.get(1));
                 n.setNumber(listReception.get(2));
+                n.setPreferenciaUser1(listReception.get(3));
+                n.setPreferenciaUser2(listReception.get(4));
             }
             cerrar();
         }catch (IOException e){
@@ -393,20 +411,39 @@ public class Conexion {
         return n;
     }
 
-    public String updateUsuario(String nombre, String nuevonombre,String action){
+    public String updateUsuario(String nombre, String nuevonombre,String action,ArrayList<Integer> preferencias){
         String devol="";
-        try{
-            conectar();
-            out.writeUTF("updateUsuario");
-            if(in.readUTF().equals("continua")){
-                out.writeUTF(nombre);
-                out.writeUTF(nuevonombre);
-                out.writeUTF(action);
-                devol=in.readUTF();
+        if(!action.equals("preferencias")) {
+            try {
+                conectar();
+                out.writeUTF("updateUsuario");
+                if (in.readUTF().equals("continua")) {
+                    out.writeUTF(nombre);
+                    out.writeUTF(action);
+                    out.writeUTF(nuevonombre);
+
+                    devol = in.readUTF();
+                }
+                cerrar();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            cerrar();
-        }catch (IOException e){
-            e.printStackTrace();
+        }
+        else{
+            try {
+                conectar();
+                out.writeUTF("updateUsuario");
+                if (in.readUTF().equals("continua")) {
+                    out.writeUTF(nombre);
+                    out.writeUTF(action);
+                    objectOutput.writeObject(preferencias);
+
+                    devol = in.readUTF();
+                }
+                cerrar();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return devol;
     }

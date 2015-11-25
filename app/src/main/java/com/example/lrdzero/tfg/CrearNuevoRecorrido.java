@@ -96,7 +96,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
 
                 // Set the dialog title
                 //Log.i("title", "prog");
-                builder.setTitle("Recomendado Para")
+                builder.setTitle("Recomendado para")
                         .setMultiChoiceItems(R.array.recomendado, null,
                                 new DialogInterface.OnMultiChoiceClickListener() {
                                     @Override
@@ -168,8 +168,16 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                              envios.add(brevDescripcionRecorrido.getText().toString());
                              envios.add("1");
                              envios.add(converToString(recomendaciones));
-                             con.hacerconexionGenerica("nuevoRecorrido",envios);
+                             con.hacerconexionGenerica("nuevoRecorrido", envios);
                              envios.clear();
+                             ArrayList<Integer> datosTrueEnBD =new ArrayList<>();
+                             for(int i=0;i<4;i++){
+                                 datosTrueEnBD.add(0);
+                             }
+                             for(int i=0;i<recomendaciones.size();i++){
+                                 datosTrueEnBD.set(recomendaciones.get(i),1);
+                             }
+                             con.updateRecorridoPreferencias("updateRecorridoPreferencias",datosTrueEnBD,nombreRecorrido.getText().toString());
                          }
                          startActivity(nuevo);
                     }
@@ -182,6 +190,14 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                              envios.add(converToString(recomendaciones));
                              con.hacerconexionGenerica("nuevoRecorrido",envios);
                              envios.clear();
+                             ArrayList<Integer> datosTrueEnBD =new ArrayList<>();
+                             for(int i=0;i<4;i++){
+                                 datosTrueEnBD.add(0);
+                             }
+                             for(int i=0;i<recomendaciones.size();i++){
+                                 datosTrueEnBD.set(recomendaciones.get(i),1);
+                             }
+                             con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
                          }
                          startActivity(nuevo);
                     }
@@ -209,6 +225,14 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                         }
                         con.hacerconexionGenerica("updateRecorrido", envios);
                         envios.clear();
+                        ArrayList<Integer> datosTrueEnBD =new ArrayList<>();
+                        for(int i=0;i<4;i++){
+                            datosTrueEnBD.add(0);
+                        }
+                        for(int i=0;i<recomendaciones.size();i++){
+                            datosTrueEnBD.set(recomendaciones.get(i),1);
+                        }
+                        con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
                         finish();
                     }
                     else{
@@ -231,6 +255,14 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                                 envios.add(converToString(recomendaciones));
                                 con.hacerconexionGenerica("nuevoRecorrido",envios);
                                 envios.clear();
+                                ArrayList<Integer> datosTrueEnBD =new ArrayList<>();
+                                for(int i=0;i<4;i++){
+                                    datosTrueEnBD.add(0);
+                                }
+                                for(int i=0;i<recomendaciones.size();i++){
+                                    datosTrueEnBD.set(recomendaciones.get(i),1);
+                                }
+                                con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
                             }
 
                         }
@@ -243,6 +275,14 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                                 envios.add(converToString(recomendaciones));
                                 con.hacerconexionGenerica("nuevoRecorrido",envios);
                                 envios.clear();
+                                ArrayList<Integer> datosTrueEnBD =new ArrayList<>();
+                                for(int i=0;i<4;i++){
+                                    datosTrueEnBD.add(0);
+                                }
+                                for(int i=0;i<recomendaciones.size();i++){
+                                    datosTrueEnBD.set(recomendaciones.get(i),1);
+                                }
+                                con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
                             }
 
                         }

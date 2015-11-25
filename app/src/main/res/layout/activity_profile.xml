@@ -7,195 +7,215 @@
     tools:context="com.example.lrdzero.tfg.ProfileActivity"
     android:background="#FFFECF">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="Cerrar Sesión"
-            android:id="@+id/button"
-            android:textColor="#ffffffff"
-            android:background="#ffff3927"
-
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="right" />
+    <ScrollView
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:id="@+id/foto"
-                android:src="@drawable/camara"
-                android:layout_below="@+id/button"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="Cerrar Sesión"
+                android:id="@+id/button"
+                android:textColor="#ffffffff"
+                android:background="#ffff3927"
+
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="right" />
 
             <LinearLayout
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="165dp">
+                android:layout_height="147dp">
 
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Nombre:"
-                        android:id="@+id/textView19" />
-
-                    <TextView android:text="Nombre" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/nombre"
-                        android:textColor="#ff37000f"
-                        android:textSize="17sp"
-                        android:layout_alignTop="@+id/foto"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="15dp" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/edit"
-                        android:id="@+id/imageView9"
-                        android:layout_above="@+id/edad"
-                        android:layout_toRightOf="@+id/nombre"
-                        android:layout_toEndOf="@+id/nombre" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Edad:"
-                        android:id="@+id/textView20" />
-
-                    <TextView
-                        android:text="Edad"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/edad"
-                        android:textSize="17sp"
-                        android:textColor="#ff37000f"
-                        android:layout_below="@+id/nombre"
-                        android:layout_alignLeft="@+id/nombre"
-                        android:layout_alignStart="@+id/nombre"
-                        android:layout_marginLeft="40dp" />
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/edit"
-                        android:id="@+id/imageView10"
-                        android:layout_marginLeft="10dp"
-                        android:layout_alignBottom="@+id/edad"
-                        android:layout_toRightOf="@+id/nombre"
-                        android:layout_toEndOf="@+id/nombre" />
-                </LinearLayout>
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:id="@+id/foto"
+                    android:src="@drawable/camara"
+                    android:layout_below="@+id/button"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Correo electrónico:"
-                        android:id="@+id/textView21" />
+                    android:layout_height="165dp">
 
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="20dp"
+                        android:layout_marginTop="10dp">
 
                         <TextView
-                            android:text="data"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/passwd"
-                            android:textSize="17sp"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Nombre:"
+                            android:id="@+id/textView19" />
+
+                        <TextView android:text="Nombre" android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/nombre"
                             android:textColor="#ff37000f"
-                            android:layout_alignBottom="@+id/foto"
-                            android:layout_alignLeft="@+id/edad"
-                            android:layout_alignStart="@+id/edad"
-                            android:password="false"
-                            android:layout_marginLeft="10dp" />
+                            android:textSize="17sp"
+                            android:layout_alignTop="@+id/foto"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginLeft="15dp" />
 
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/edit"
-                            android:id="@+id/imageView11"
-                            android:layout_marginLeft="10dp"
-                            android:layout_alignTop="@+id/passwd"
-                            android:layout_toRightOf="@id/passwd"
-                            />
+                            android:id="@+id/imageView9"
+                            android:layout_above="@+id/edad"
+                            android:layout_toRightOf="@+id/nombre"
+                            android:layout_toEndOf="@+id/nombre" />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Edad:"
+                            android:id="@+id/textView20" />
+
+                        <TextView
+                            android:text="Edad"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/edad"
+                            android:textSize="17sp"
+                            android:textColor="#ff37000f"
+                            android:layout_below="@+id/nombre"
+                            android:layout_alignLeft="@+id/nombre"
+                            android:layout_alignStart="@+id/nombre"
+                            android:layout_marginLeft="40dp" />
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/edit"
+                            android:id="@+id/imageView10"
+                            android:layout_marginLeft="10dp"
+                            android:layout_alignBottom="@+id/edad"
+                            android:layout_toRightOf="@+id/nombre"
+                            android:layout_toEndOf="@+id/nombre" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Correo electrónico:"
+                            android:id="@+id/textView21" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:text="data"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/passwd"
+                                android:textSize="17sp"
+                                android:textColor="#ff37000f"
+                                android:layout_alignBottom="@+id/foto"
+                                android:layout_alignLeft="@+id/edad"
+                                android:layout_alignStart="@+id/edad"
+                                android:password="false"
+                                android:layout_marginLeft="10dp" />
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/edit"
+                                android:id="@+id/imageView11"
+                                android:layout_marginLeft="10dp"
+                                android:layout_alignTop="@+id/passwd"
+                                android:layout_toRightOf="@id/passwd"
+                                />
+                        </LinearLayout>
+
+                    </LinearLayout>
                 </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="255dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mis Recorridos"
+                        android:id="@+id/button2"
+                        android:layout_gravity="center_horizontal" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="preferencias"
+                        android:id="@+id/button3"
+                        android:layout_gravity="center_horizontal" />
+                </LinearLayout>
+
+                <TextView
+                    android:text="Mis estadísticas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/estadisticas"
+                    android:textColor="#ff37000f"
+                    android:textSize="18sp"
+                    android:layout_below="@+id/foto"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="center_horizontal" />
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:id="@+id/imageestadisticas"
+                    android:src="@drawable/estadisticas"
+                    android:layout_below="@+id/estadisticas"
+                    android:layout_alignLeft="@+id/estadisticas"
+                    android:layout_alignStart="@+id/estadisticas"
+                    android:adjustViewBounds="true"
+                    android:layout_gravity="center_horizontal" />
+
             </LinearLayout>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="255dp">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Crear Mis Recorridos"
-                android:id="@+id/button2"
-                android:layout_below="@+id/foto"
-                android:layout_centerHorizontal="true" />
-
-            <TextView
-                android:text="Mis estadísticas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/estadisticas"
-                android:textColor="#ff37000f"
-                android:textSize="18sp"
-                android:layout_below="@+id/foto"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="center_horizontal" />
-
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:id="@+id/imageestadisticas"
-                android:src="@drawable/estadisticas"
-                android:layout_below="@+id/estadisticas"
-                android:layout_alignLeft="@+id/estadisticas"
-                android:layout_alignStart="@+id/estadisticas"
-                android:adjustViewBounds="true"
-                android:layout_gravity="center_horizontal" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

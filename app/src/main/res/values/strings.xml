@@ -27,6 +27,11 @@
         <item>Movilidad reducida</item>
 
     </string-array>
+    <string-array name="recomendadoUser">
+        <item>Problemas Cardiovasculares</item>
+        <item>Movilidad reducida</item>
+
+    </string-array>
     <string-array name="dificultades">
         <item>Fácil</item>
         <item>Medio</item>
