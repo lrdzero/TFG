@@ -328,8 +328,6 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
             cargado=true;
 
 
-
-
         }
 
 
