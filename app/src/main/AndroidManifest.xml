@@ -97,7 +97,8 @@
         </activity>
         <activity
             android:name=".Seguimiento"
-            android:label="@string/title_activity_seguimiento" >
+            android:label="@string/title_activity_seguimiento"
+            android:screenOrientation="portrait" >
         </activity>
 
     </application>
