@@ -237,7 +237,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
                 public void onClick(View v) {
 
                     dt.clear();
-                    Toast.makeText(RecorridosParaUsuario.this,"El nombre es: "+txt1.getText().toString(),Toast.LENGTH_LONG).show();
+
 
                     dt = con.cargaDeRutas(txt1.getText().toString());
 

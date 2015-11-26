@@ -101,6 +101,7 @@ public class ProfileActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent n = new Intent(ProfileActivity.this, HerramientaNuevaRuta.class);
+                n.putExtra("creador",Name);
                 startActivity(n);
             }
         });

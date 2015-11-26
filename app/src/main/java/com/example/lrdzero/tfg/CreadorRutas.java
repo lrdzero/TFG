@@ -116,27 +116,32 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                 break;
 
             case R.id.imagenCheck:
-                ArrayList<String> relacion = new ArrayList<>();
-                if(!modif) {
+                if(!nombreRuta.getText().toString().matches("")) {
+                    ArrayList<String> relacion = new ArrayList<>();
+                    if (!modif) {
 
-                    relacion.add(nombreRuta.getText().toString());
-                    relacion.add(Integer.toString(retos.size()));
-                    if(retos.isEmpty()) {
-                        con.nuevaRuta(nombreRuta.getText().toString(),nombreRecorrido,historia.getText().toString());
+                        relacion.add(nombreRuta.getText().toString());
+                        relacion.add(Integer.toString(retos.size()));
+                        if (retos.isEmpty()) {
+                            con.nuevaRuta(nombreRuta.getText().toString(), nombreRecorrido, historia.getText().toString());
+                        }
+                        con.hacerconexionGenerica("actualizaReco", relacion);
+                    } else {
+
+                        relacion.add(nombreRecorrido);
+                        relacion.add(Integer.toString(retos.size()));
+                        con.hacerconexionGenerica("actualizarReco", relacion);
+                        relacion.clear();
+                        relacion.add(myName);
+                        relacion.add(nombreRuta.getText().toString());
+                        relacion.add(Integer.toString(retos.size()));
+                        con.hacerconexionGenerica("actualizarRuta", relacion);
                     }
-                    con.hacerconexionGenerica("actualizaReco", relacion);
+                    finish();
                 }
                 else{
-                    relacion.add(nombreRecorrido);
-                    relacion.add(Integer.toString(retos.size()));
-                    con.hacerconexionGenerica("actualizarReco", relacion);
-                    relacion.clear();
-                    relacion.add(myName);
-                    relacion.add(nombreRuta.getText().toString());
-                    relacion.add(Integer.toString(retos.size()));
-                    con.hacerconexionGenerica("actualizarRuta",relacion);
+                    Toast.makeText(CreadorRutas.this,"Campos sin rellenar",Toast.LENGTH_LONG).show();
                 }
-                    finish();
                 break;
 
             case R.id.maprutas:

@@ -11,7 +11,7 @@
     <com.example.lrdzero.tfg.HorizontalListView
         android:layout_width="400dp"
         android:layout_height="120dp"
-        android:id="@+id/listView3"
+        android:id="@+id/listaMochila"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -22,7 +22,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Mochila"
         android:id="@+id/textView8"
-        android:layout_above="@+id/listView3"
+        android:layout_above="@+id/listaMochila"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

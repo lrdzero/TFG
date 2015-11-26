@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -59,8 +60,9 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
 
     }
     public void ListView(){
-        adapter= new PlaceList();
-        mochila = (HorizontalListView) findViewById(R.id.listView3);
+
+
+        mochila = (HorizontalListView) findViewById(R.id.listaMochila);
         mochila.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {

@@ -36,6 +36,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
     private ImageView imgna;
     private boolean modif;
     private int tutorial=1;
+    private String nombreCreador="defecto";
     private String nombreRc;
     private ArrayList<String> recomendaModifi;
 
@@ -91,6 +92,8 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
         }
         else{
             tutorial=getIntent().getExtras().getInt("tutorial");
+            nombreCreador=getIntent().getExtras().getString("creador");
+
         }
 
         Create();
@@ -255,12 +258,13 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
         }
         else {
             if (btn1.isChecked()) {
-                ;
+
                 if (retos.isEmpty()) {
                     envios.add(nombreRecorrido.getText().toString());
                     envios.add(brevDescripcionRecorrido.getText().toString());
                     envios.add("1");
                     envios.add(converToString(recomendaciones));
+                    envios.add(nombreCreador);
                     con.hacerconexionGenerica("nuevoRecorrido", envios);
                     envios.clear();
                     con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
@@ -273,6 +277,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                     envios.add(brevDescripcionRecorrido.getText().toString());
                     envios.add("0");
                     envios.add(converToString(recomendaciones));
+                    envios.add(nombreCreador);
                     con.hacerconexionGenerica("nuevoRecorrido", envios);
                     envios.clear();
                     con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
@@ -342,6 +347,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                     envios.add(brevDescripcionRecorrido.getText().toString());
                     envios.add("1");
                     envios.add(converToString(recomendaciones));
+                    envios.add(nombreCreador);
                     con.hacerconexionGenerica("nuevoRecorrido", envios);
                     envios.clear();
                     con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
@@ -355,6 +361,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                     envios.add(brevDescripcionRecorrido.getText().toString());
                     envios.add("0");
                     envios.add(converToString(recomendaciones));
+                    envios.add(nombreCreador);
                     con.hacerconexionGenerica("nuevoRecorrido", envios);
                     envios.clear();
                     con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());

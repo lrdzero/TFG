@@ -25,6 +25,7 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
 
     private ArrayList<String> envios=new ArrayList<String>();
     private Conexion con;
+    private String usuarioCreador="defecto";
 
     @Override
     public void onResume(){
@@ -44,6 +45,7 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
 
 
         con = new Conexion();
+        usuarioCreador=getIntent().getExtras().getString("creador");
         nuevo.setOnClickListener(this);
 
         listo.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +64,7 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
 
                 Intent nuevo = new Intent(HerramientaNuevaRuta.this,CrearNuevoRecorrido.class);
                 nuevo.putExtra("Modif",false);
-
+                nuevo.putExtra("creador",usuarioCreador);
                 nuevo.putExtra("tutorial",recorridos.getCount());
                 startActivity(nuevo);
                 break;
@@ -71,7 +73,7 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
     }
 
     public void CargarLista(){
-            dt=con.cargaDeRecorridos(3);
+            dt=con.cargaDeRecorridos(3,usuarioCreador);
 
 
     }
@@ -122,6 +124,7 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
 
                     Intent nuevo = new Intent(HerramientaNuevaRuta.this,CrearNuevoRecorrido.class);
                     nuevo.putExtra("Modif",true);
+
                     nuevo.putExtra("nombre",currentData.getName());
 
                     startActivity(nuevo);

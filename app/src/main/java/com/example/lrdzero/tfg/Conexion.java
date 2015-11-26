@@ -302,7 +302,7 @@ public class Conexion {
 
         return dt;
     }
-    public ArrayList<DatosRyR> cargaDeRecorridos(int tipo){
+    public ArrayList<DatosRyR> cargaDeRecorridos(int tipo,String usuario){
         ArrayList<DatosRyR> dt = new ArrayList<DatosRyR>();
         DatosRyR nm = new DatosRyR();
         try{
@@ -311,6 +311,7 @@ public class Conexion {
             if(in.readUTF().equals("continua")){
                 try{
                     out.writeUTF(Integer.toString(tipo));
+                    out.writeUTF(usuario);
                     object = objectInput.readObject();
                     listReception= (ArrayList<String>) object;
                 } catch (ClassNotFoundException e1) {

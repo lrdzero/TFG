@@ -62,7 +62,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
 
     private void ListaView(){
         adapter= new PlaceList();
-        lista2 = (HorizontalListView) findViewById(R.id.listView3);
+        lista2 = (HorizontalListView) findViewById(R.id.listaMochila);
         lista2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {

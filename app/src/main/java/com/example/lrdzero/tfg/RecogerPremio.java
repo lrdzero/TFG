@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -29,6 +30,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         image.setOnClickListener(this);
 
         loadItems();
+
         ListaView();
     }
 
@@ -81,8 +83,11 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
 
     }
     private void ListaView(){
+
         adapter= new PlaceList();
-        lista2 = (HorizontalListView) findViewById(R.id.listView3);
+
+        lista2 = (HorizontalListView) findViewById(R.id.listaMochila);
+
         lista2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -90,6 +95,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
                 AlertDialog.Builder dialogo1 = new AlertDialog.Builder(RecogerPremio.this);
                 dialogo1.setTitle("Importante");
                 dialogo1.setMessage("¿ Quieres utilizar este Item ?");
+
                 dialogo1.setCancelable(false);
                 dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
@@ -107,7 +113,9 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
 
             }
         });
+
         lista2.setAdapter(adapter);
+
     }
     public void aceptar(Items aBorrar) {
         final Items aB =aBorrar;

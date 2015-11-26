@@ -22,6 +22,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
     private Button cultura,ejercicio;
     private String name;
     private Conexion con;
+    private DatosRyR datosUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         cultura.setOnClickListener(this);
         ejercicio.setOnClickListener(this);
         name= getIntent().getExtras().getString("NombreUser");
+
     }
 
     public void onClick(View v) {
@@ -79,16 +81,13 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
 
     }
     public void generarBuilder(final int tipo){
-        final DatosRyR datosUser;
-
 
         datosUser=con.buscarUsuario(name);
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final ArrayList<Integer> aux = new ArrayList<>();
         final ArrayList<Integer> aux2 = new ArrayList<>();
         final int variable=tipo;
-        Toast.makeText(SeleccionRecorridos.this,"Pref1 "+datosUser.getPreferenciaUser1(),Toast.LENGTH_LONG).show();
+
         //Toast.makeText(SeleccionRecorridos.this,"Por favor rellene información adicional en su perfil (Preferencias)",Toast.LENGTH_LONG).show();
         if(datosUser.getPreferenciaUser1().equals("2")&&datosUser.getPreferenciaUser2().equals("2")){
             builder.setTitle("Es necesaria más información").setMessage("Es necesario que especifique sus preferencias.\n\tPor favor acceda al perfil")
