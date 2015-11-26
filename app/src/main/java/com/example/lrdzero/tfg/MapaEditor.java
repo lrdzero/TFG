@@ -194,21 +194,20 @@ public class MapaEditor extends Activity implements GooglePlayServicesClient.Con
                     ArrayList<Tramo> datos =ruta.getTramos();
 
 
-
+                JSONObject ori = new JSONObject();
+                int tamanio=datos.size();
                     for(int i=0;i< datos.size();i++){
-                        JSONObject ori = new JSONObject();
-
                         Double latitudO=datos.get(i).getOrigen().latitude;
                         Double longitudO = datos.get(i).getOrigen().longitude;
                         Double latitudF=datos.get(i).getFinal().latitude;
                         Double longitudF = datos.get(i).getFinal().longitude;
                         try {
-                            ori.put("Ruta",name);
-                            ori.put("latitudO",latitudO);
-                            ori.put("longitudO",longitudO);
-                            ori.put("latitudF", latitudF);
-                            ori.put("longitudF", longitudF);
-                            ori.put("posicion", i);
+                            ori.put("Ruta"+i,name);
+                            ori.put("latitudO"+i,latitudO);
+                            ori.put("longitudO"+i,longitudO);
+                            ori.put("latitudF"+i, latitudF);
+                            ori.put("longitudF"+i, longitudF);
+                            ori.put("posicion"+i, i);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -222,9 +221,10 @@ public class MapaEditor extends Activity implements GooglePlayServicesClient.Con
                             e.printStackTrace();
                         }
 
-                         con.hacerConexionJSON("Mapeado", ori);
-                    }
 
+                    }
+                Toast.makeText(MapaEditor.this,"Tamanio"+Integer.toString(tamanio),Toast.LENGTH_LONG).show();
+                con.hacerConexionJSON("Mapeado", ori,tamanio);
                 Toast.makeText(MapaEditor.this,"Termino envio",Toast.LENGTH_LONG).show();
 
                 finish();

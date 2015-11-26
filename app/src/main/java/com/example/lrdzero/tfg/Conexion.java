@@ -212,17 +212,19 @@ public class Conexion {
         return respuesta;
     }
 
-    public void hacerConexionJSON(String name, JSONObject obj){
+    public void hacerConexionJSON(String name, JSONObject obj, int tamanio){
         ArrayList<String> envio = new ArrayList<>();
-        try {
-            envio.add(obj.getString("Ruta"));
-            envio.add(Double.toString(obj.getDouble("latitudO")));
-            envio.add(Double.toString(obj.getDouble("longitudO")));
-            envio.add(Double.toString(obj.getDouble("latitudF")));
-            envio.add(Double.toString(obj.getDouble("longitudF")));
-            envio.add(Integer.toString(obj.getInt("posicion")));
-        } catch (JSONException e) {
-            e.printStackTrace();
+        for(int i=0;i<tamanio;i++) {
+            try {
+                envio.add(obj.getString("Ruta"+i));
+                envio.add(Double.toString(obj.getDouble("latitudO" + i)));
+                envio.add(Double.toString(obj.getDouble("longitudO" + i)));
+                envio.add(Double.toString(obj.getDouble("latitudF" + i)));
+                envio.add(Double.toString(obj.getDouble("longitudF" + i)));
+                envio.add(Integer.toString(obj.getInt("posicion" + i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         hacerconexionGenerica(name,envio);
 
