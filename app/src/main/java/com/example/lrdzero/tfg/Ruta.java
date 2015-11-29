@@ -12,6 +12,8 @@ import java.util.ArrayList;
 public class Ruta {
     private String nombreRuta;
     ArrayList<Tramo> tramos= new ArrayList<>();
+    ArrayList<Reto> retos = new ArrayList<>();
+
 
     public Ruta(String nombre){
         nombreRuta=nombre;
@@ -59,6 +61,17 @@ public class Ruta {
             return null;
     }
 
+    public void setRetos(ArrayList<Reto> list){
+        retos=list;
+    }
+
+    public void addReto(Reto r){
+        retos.add(r);
+    }
+
+    public ArrayList<Reto> getRetos(){
+        return retos;
+    }
 
 
 
