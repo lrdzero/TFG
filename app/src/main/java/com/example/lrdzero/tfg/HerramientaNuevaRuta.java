@@ -45,7 +45,8 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
 
 
         con = new Conexion();
-        usuarioCreador=getIntent().getExtras().getString("creador");
+        //usuarioCreador=getIntent().getExtras().getString("creador");
+        usuarioCreador="l";
         nuevo.setOnClickListener(this);
 
         listo.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +125,7 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
 
                     Intent nuevo = new Intent(HerramientaNuevaRuta.this,CrearNuevoRecorrido.class);
                     nuevo.putExtra("Modif",true);
-
+                    nuevo.putExtra("creador",usuarioCreador);
                     nuevo.putExtra("nombre",currentData.getName());
 
                     startActivity(nuevo);

@@ -53,10 +53,16 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         switch (v.getId()) {
             case R.id.buttonCulture:
                 Intent n = new Intent(SeleccionRecorridos.this,RetoCultural.class);
+                n.putExtra("nombreUser",name);
+                n.putExtra("nombreRecorrido","recorridodefecto");
+                n.putExtra("nombreRuta","rutadefecto");
                 startActivity(n);
                 break;
             case R.id.buttonEjercicio:
                 Intent n2 = new Intent(SeleccionRecorridos.this, RetoDeportivo.class);
+                n2.putExtra("nombreUser",name);
+                n2.putExtra("nombreRecorrido","recorridodefecto");
+                n2.putExtra("nombreRuta","rutadefecto");
                 startActivity(n2);
                 break;
             case R.id.imageView2:
@@ -128,14 +134,19 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             dificultad = aux;
-                            final Intent nueva;
-                            nueva = new Intent(SeleccionRecorridos.this, RecorridosParaUsuario.class);
-                            nueva.putExtra("tipo", variable);
-                            nueva.putExtra("edad", datosUser.getNumber());
-                            nueva.putExtra("pref1", datosUser.getPreferenciaUser1());
-                            nueva.putExtra("pref2", datosUser.getPreferenciaUser2());
-                            nueva.putExtra("dificultad", Integer.toString(dificultad.get(0)));
-                            startActivity(nueva);
+                            if(dificultad.size()==1) {
+                                final Intent nueva;
+                                nueva = new Intent(SeleccionRecorridos.this, RecorridosParaUsuario.class);
+                                nueva.putExtra("tipo", variable);
+                                nueva.putExtra("edad", datosUser.getNumber());
+                                nueva.putExtra("pref1", datosUser.getPreferenciaUser1());
+                                nueva.putExtra("pref2", datosUser.getPreferenciaUser2());
+                                nueva.putExtra("dificultad", Integer.toString(dificultad.get(0) + 1));
+                                startActivity(nueva);
+                            }
+                            else{
+                                Toast.makeText(SeleccionRecorridos.this,"Debe seleccionar una unica dificultad.",Toast.LENGTH_LONG).show();
+                            }
                             // User clicked OK, so save the mSelectedItems results somewhere
                             // or return them to the component that opened the dialog
 

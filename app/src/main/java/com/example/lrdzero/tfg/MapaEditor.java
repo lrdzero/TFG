@@ -48,6 +48,8 @@ public class MapaEditor extends Activity implements GooglePlayServicesClient.Con
     private boolean retos;
     private String name;
     private String namereto;
+    private ArrayList<Tramo> tramosOF=new ArrayList<Tramo>();
+    private int tamanio;
 
     //ArrayList<Array> ArrayTramos = new ArrayList<>();
     static private final int GET_TEXT_REQUEST_CODE = 2;
@@ -91,6 +93,7 @@ public class MapaEditor extends Activity implements GooglePlayServicesClient.Con
         googleMap.setMyLocationEnabled(true);
         mLocationClient = new LocationClient(getApplicationContext(), this, this);
         mLocationClient.connect();
+        tamanio = getIntent().getExtras().getInt("tamanioRuta");
         ruta = new Ruta("ruta a");
 
         if(carga) {
@@ -98,7 +101,18 @@ public class MapaEditor extends Activity implements GooglePlayServicesClient.Con
             confirmar.setVisibility(View.INVISIBLE);
 
         }
-            ruta.setTramos(con.cargarVisionRuta(name));
+            //ruta.setTramos(con.cargarVisionRuta(name));
+        for(int i=0;i<tamanio;i++){
+            double oriLat=getIntent().getExtras().getDouble("tramoLatOrigen"+i);
+            double oriLong=getIntent().getExtras().getDouble("tramoLongOrigen"+i);
+            double endLat=getIntent().getExtras().getDouble("tramoLatFinal"+i);
+            double endLong=getIntent().getExtras().getDouble("tramoLongFinal"+i);
+            LatLng nuevoInicio = new LatLng(oriLat,oriLong);
+            LatLng nuevoFinal = new LatLng(endLat,endLong);
+            Tramo nuevo = new Tramo(nuevoInicio,nuevoFinal);
+            tramosOF.add(nuevo);
+        }
+        ruta.setTramos(tramosOF);
 
 
 

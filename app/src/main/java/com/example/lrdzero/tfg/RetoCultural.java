@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 
 public class RetoCultural extends Activity implements View.OnClickListener {
@@ -24,11 +26,16 @@ public class RetoCultural extends Activity implements View.OnClickListener {
     private ListView lista;
     private HorizontalListView lista2;
     private ArrayAdapter<Items> adapter;
-    private TextView pregunta, introduzcion;
+    private TextView pregunta;
+    private String respuestaCorrecta;
     private Button respuesta;
     private RadioButton resp1,resp2,resp3,resp4;
     private RadioGroup group1,group2;
     private AlertDialog alert;
+    private Conexion con;
+    private String nueva = "da";
+    private String otra = "ad";
+    private ArrayList<String> construyeRespuesta=new ArrayList<String>();
 
 
     private static int selected =0 ;
@@ -38,18 +45,24 @@ public class RetoCultural extends Activity implements View.OnClickListener {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reto_cultural);
-
-        group1 =(RadioGroup) findViewById(R.id.rGroup1);
-        group2 =(RadioGroup) findViewById(R.id.rGroup2);
+        con=new Conexion();
+        //group1 =(RadioGroup) findViewById(R.id.rGroup1);
+        //group2 =(RadioGroup) findViewById(R.id.rGroup2);
         resp1 = (RadioButton) findViewById(R.id.responseA);
         resp2 = (RadioButton) findViewById(R.id.responseB);
         resp3 = (RadioButton) findViewById(R.id.responseC);
         resp4 = (RadioButton) findViewById(R.id.responseD);
+        pregunta =(TextView) findViewById(R.id.pregunta);
         respuesta = (Button) findViewById(R.id.buttonResponse);
 
+        DatosRyR dt =con.buscarDatosRetoCultural("retoCultural");
 
-        //loadItems();
-        //ListaView();
+        pregunta.setText(dt.getDescription());
+        respuestaCorrecta =dt.getRespuesta();
+        resp1.setText(dt.getOther());
+        resp2.setText(dt.getNumber());
+        resp3.setText(dt.getAdic());
+        resp4.setText(dt.getAux());
 
         resp1.setOnClickListener(this);
         resp2.setOnClickListener(this);
@@ -133,23 +146,44 @@ public class RetoCultural extends Activity implements View.OnClickListener {
     public void onClick(View v){
         switch (v.getId()){
             case R.id.responseA:
-                group2.clearCheck();
-                selected=1;
+               construyeRespuesta.add("A");
+                resp1.setEnabled(false);
                 break;
             case R.id.responseB:
-                group2.clearCheck();
-                selected=2;
+               // group2.clearCheck();
+                construyeRespuesta.add("B");
                 break;
             case R.id.responseC:
-                group1.clearCheck();
-                selected=3;
+                //group1.clearCheck();
+                construyeRespuesta.add("C");
                 break;
             case R.id.responseD:
-                group1.clearCheck();
-                selected=4;
+                //group1.clearCheck();
+                construyeRespuesta.add("D");
                 break;
             case R.id.buttonResponse:
-                    Toast.makeText(RetoCultural.this,"Tu respuesta ha sido "+ selected,Toast.LENGTH_LONG).show();
+                //String.
+                //construyeRespuesta.
+                Collections.sort(construyeRespuesta);
+                String comparador="";
+                for(int i=0;i<construyeRespuesta.size();i++){
+                    comparador+=construyeRespuesta.get(i);
+                }
+
+                        Toast.makeText(RetoCultural.this, "La respuesta es " + respuestaCorrecta, Toast.LENGTH_LONG).show();
+                        Toast.makeText(RetoCultural.this, "Tu respuesta ha sido " + comparador, Toast.LENGTH_LONG).show();
+
+                construyeRespuesta.clear();
+                comparador="";
+                resp1.setEnabled(true);
+                resp1.setChecked(false);
+                    resp2.setEnabled(true);
+                    resp2.setChecked(false);
+                    resp3.setEnabled(true);
+                    resp3.setChecked(false);
+                    resp4.setEnabled(true);
+                    resp4.setChecked(false);
+                    //construyeRespuesta="";
                 break;
         }
 

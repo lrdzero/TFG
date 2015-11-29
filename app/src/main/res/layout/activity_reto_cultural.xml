@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Aqui se muestra un texto en el que se describe cierta información sobre el monumento o lugar de interes cultural y por que motivo se comienza a plantear la pregunta"
+            android:text="Responde a la siguiente pregunta:"
             android:id="@+id/textView9"
             android:layout_gravity="center_vertical"
             android:textColor="#ff14ff8e" />
@@ -67,7 +67,7 @@
             android:layout_height="75dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Pregunta de prueba recogida desde la terminal o servidor que se planteará al usuario"
-            android:id="@+id/textView10"
+            android:id="@+id/pregunta"
             android:layout_gravity="center_horizontal"
             android:textColor="#ff23ff81"
             android:background="@color/dim_foreground_disabled_material_dark" />
@@ -87,23 +87,17 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
 
-                    <RadioGroup
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:id="@+id/rGroup1">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New RadioButton"
+                        android:id="@+id/responseA" />
 
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/responseA" />
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/responseB" />
-                    </RadioGroup>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New RadioButton"
+                        android:id="@+id/responseB" />
 
                 </LinearLayout>
 
@@ -119,23 +113,17 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
 
-                    <RadioGroup
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:id="@+id/rGroup2">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New RadioButton"
+                        android:id="@+id/responseC" />
 
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/responseC" />
-
-                        <RadioButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="New RadioButton"
-                            android:id="@+id/responseD" />
-                    </RadioGroup>
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New RadioButton"
+                        android:id="@+id/responseD" />
 
                 </LinearLayout>
             </LinearLayout>

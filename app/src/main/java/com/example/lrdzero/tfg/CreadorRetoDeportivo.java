@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,10 +13,14 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -27,6 +32,7 @@ public class CreadorRetoDeportivo extends Activity {
     private ArrayList<Integer> dificultades = new ArrayList<>();
     private String nombreRecorrido, descripRecorrido, nombreRuta;
     private Conexion con;
+    private ArrayList<Items> dt = new ArrayList<Items>();
     private ArrayList<String> envio = new ArrayList<String>();
     private String name;
     private DatosRyR miDato = new DatosRyR();
@@ -35,8 +41,10 @@ public class CreadorRetoDeportivo extends Activity {
     private static final int PICK_IMAGE=200;
     private Uri fileUri = Uri.parse("vacio");
     private static String nameFile;
-    private ImageView camara;
+    private boolean seleccionado=false;
+
     private String nombre;
+    private String creador;
     @Override
     public void onResume(){
         super.onResume();
@@ -52,6 +60,7 @@ public class CreadorRetoDeportivo extends Activity {
         nombreRuta=getIntent().getExtras().getString("RutaName");
         con=new Conexion();
 
+        creador=getIntent().getExtras().getString("creador");
         if(lyout) {
             setContentView(R.layout.activity_creador_reto_deportivo);
             metodosDeportivos(modifi,getBaseContext());
@@ -110,6 +119,7 @@ public class CreadorRetoDeportivo extends Activity {
         final EditText tiempo =(EditText) findViewById(R.id.editText3);
         final EditText recomp =(EditText)findViewById(R.id.editTextPruevaDeportivaRecompensa);
         final ImageView camara=(ImageView) findViewById(R.id.imagenCamaraPruevaDeportiva);
+        final ImageView item =(ImageView) findViewById(R.id.imagenItem);
         nombre=nombreDeporti.getText().toString();
         nameFile=getIntent().getExtras().getString("nombrefile");
         Toast.makeText(CreadorRetoDeportivo.this,nombre,Toast.LENGTH_LONG).show();
@@ -128,6 +138,13 @@ public class CreadorRetoDeportivo extends Activity {
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
                 startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+                //mostrarElecciones().show();
+            }
+        });
+        item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarElecciones(nombreDeporti.getText().toString()).show();
             }
         });
         dificultad.setOnClickListener(new View.OnClickListener() {
@@ -184,14 +201,14 @@ public class CreadorRetoDeportivo extends Activity {
             descripcion.setText(miDato.getDescription());
             tiempo.setText(miDato.getNumber());
             recomp.setText(miDato.getLargeDescription());
-            dificultad.setEnabled(false);
+            //dificultad.setEnabled(false);
 
 
             crear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")||dificultades.isEmpty()) {
+                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")||dificultades.isEmpty()||!seleccionado) {
                         Toast.makeText(c, "Hay campos sin rellenar", Toast.LENGTH_LONG).show();
                     } else {
 
@@ -201,7 +218,7 @@ public class CreadorRetoDeportivo extends Activity {
                         envio.add(tiempo.getText().toString());
                         envio.add(recomp.getText().toString());
                         if(!dificultades.isEmpty()){
-                            envio.add(Integer.toString(dificultades.get(0)));
+                            envio.add(Integer.toString(dificultades.get(0)+1));
                         }
                         envio.add(fileUri.toString());
                         int resultado = con.hacerconexionGenerica("updateReto", envio);
@@ -222,7 +239,7 @@ public class CreadorRetoDeportivo extends Activity {
             crear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")) {
+                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")||!seleccionado) {
                         Toast.makeText(c, "Hay campos sin rellenar", Toast.LENGTH_LONG).show();
                     } else {
                         envio.add(nombreRecorrido);
@@ -233,7 +250,7 @@ public class CreadorRetoDeportivo extends Activity {
                         envio.add(tiempo.getText().toString());
                         envio.add(recomp.getText().toString());
                         envio.add(fileUri.toString());
-                        envio.add(Integer.toString(dificultades.get(0)));
+                        envio.add(Integer.toString(dificultades.get(0)+1));
                         int resultado = con.hacerconexionGenerica("crearRetoNuevo", envio);
                         envio.clear();
                         if (resultado == -1) {
@@ -265,9 +282,10 @@ public class CreadorRetoDeportivo extends Activity {
         final ImageView borrarC =(ImageView) findViewById(R.id.borraC);
         final ImageView borrarD =(ImageView) findViewById(R.id.borraD);
         final ImageView camara=(ImageView) findViewById(R.id.imagenCameraCultural);
+
         nameFile=getIntent().getExtras().getString("nombrefile");
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-
+        mostrarCamera().show();
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         camara.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,7 +348,7 @@ public class CreadorRetoDeportivo extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 dificultades = aux;
-                                Toast.makeText(CreadorRetoDeportivo.this,Integer.toString(dificultades.get(0)),Toast.LENGTH_LONG).show();
+                                Toast.makeText(CreadorRetoDeportivo.this,Integer.toString(dificultades.get(0)+1),Toast.LENGTH_LONG).show();
                                 // User clicked OK, so save the mSelectedItems results somewhere
                                 // or return them to the component that opened the dialog
 
@@ -363,7 +381,7 @@ public class CreadorRetoDeportivo extends Activity {
             respC.setText(nuevo.getAdic());
             respD.setText(nuevo.getAux());
             descRecom.setText(nuevo.getLargeDescription());
-            dificultad.setEnabled(false);
+            //dificultad.setEnabled(false);
 
             crear.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -377,7 +395,7 @@ public class CreadorRetoDeportivo extends Activity {
                     envio.add(respC.getText().toString());
                     envio.add(respD.getText().toString());
                     envio.add(descRecom.getText().toString());
-                    envio.add(Integer.toString(dificultades.get(0)));
+                    envio.add(Integer.toString(dificultades.get(0)+1));
                     String Respuesta="";
                     if(btnA.isChecked()==true){
                         //envio.add("A");
@@ -432,7 +450,7 @@ public class CreadorRetoDeportivo extends Activity {
                             envio.add(respC.getText().toString());
                             envio.add(respD.getText().toString());
                             envio.add(descRecom.getText().toString());
-                            envio.add(Integer.toString(dificultades.get(0)));
+                            envio.add(Integer.toString(dificultades.get(0)+1));
                             String Respuesta="";
                             if(btnA.isChecked()==true){
                                 //envio.add("A");
@@ -523,5 +541,91 @@ public class CreadorRetoDeportivo extends Activity {
                 });
         return builder;
     }
+    private AlertDialog.Builder mostrarElecciones(String nombreReto){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        if(!nombreReto.matches("")) {
+            PlaceList adapter = new PlaceList();
+            dt.add(new Items("zapatillas", R.drawable.zapatillas, nombreReto));
 
+            builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+        }
+        else{
+            builder.setTitle("Error").setMessage("Introduzca un nombre para el reto").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+        }
+        return builder;
+
+    }
+    public class PlaceList extends ArrayAdapter<Items> {
+        Items currentData;
+        public PlaceList(){
+            super(CreadorRetoDeportivo.this, R.layout.activity_lista_horizontal_mochila, dt);
+        }
+
+        public View getView(int position,View convertView, ViewGroup parent){
+
+
+            View intenView=convertView;
+            if(intenView == null){
+                intenView = getLayoutInflater().inflate(R.layout.activity_lista_horizontal_mochila,parent,false);
+            }
+
+            final ImageView img = (ImageView) intenView.findViewById(R.id.ItemImage);
+            TextView txt1 = (TextView) intenView.findViewById(R.id.ItemText);
+            final CheckBox check = (CheckBox) intenView.findViewById(R.id.CheckItem);
+
+            currentData = dt.get(position);
+
+            img.setImageResource(currentData.getImage());
+            txt1.setText(currentData.getName());
+            img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(CreadorRetoDeportivo.this);
+                    builder.setTitle("¿Confimar?").setMessage("Desea asignar este Item al reto")
+                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                        Toast.makeText(CreadorRetoDeportivo.this,Integer.toString(R.drawable.aniadiritem),Toast.LENGTH_LONG).show();
+                                    envio.add(currentData.getName());
+                                    envio.add(currentData.getNombreReto());
+                                    envio.add(Integer.toString(currentData.getImage()));
+                                    con.hacerconexionGenerica("insertPremio", envio);
+                                    envio.clear();
+                                    seleccionado=true;
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+
+                    builder.show();
+                }
+            });
+
+
+
+            return intenView;
+        }
+
+        public String getNombre(){return currentData.getName();}
+
+    }
 }

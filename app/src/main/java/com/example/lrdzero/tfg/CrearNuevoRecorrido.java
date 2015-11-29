@@ -18,6 +18,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 
 
@@ -93,6 +95,9 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
         else{
             tutorial=getIntent().getExtras().getInt("tutorial");
             nombreCreador=getIntent().getExtras().getString("creador");
+            if(tutorial==0){
+                generarTutorial().show();
+            }
 
         }
 
@@ -339,6 +344,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
             nuevo.putExtra("RecNombre", nombreRecorrido.getText().toString());
             nuevo.putExtra("drescrip", brevDescripcionRecorrido.getText().toString());
             nuevo.putExtra("modif", false);
+            nuevo.putExtra("creador",nombreCreador);
             nuevo.putExtra("tutorial", listaRetos.getCount());
             if (btn1.isChecked()) {
                 nuevo.putExtra("tipo", true);
@@ -377,9 +383,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
 
         adapter=new PlaceList();
         listaRetos.setAdapter(adapter);
-        if(tutorial==0){
-            generarTutorial().show();
-        }
+
 
     }
 
@@ -423,16 +427,71 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                     n.putExtra("tipo", false);
                     n.putExtra("nombre", nombre.getText().toString());
                     n.putExtra("retos", false);
+                    Ruta ruta = new Ruta("ruta a");
+                    ruta.setTramos(con.cargarVisionRuta(nombre.getText().toString()));
+                    //Toast.makeText(CrearNuevoRecorrido.this,"Entro correctamente 1",Toast.LENGTH_LONG).show();
+                    ArrayList<Tramo> tramos = ruta.getTramos();
+                    n.putExtra("tamanioRuta", tramos.size());
+
+
+                    for (int i = 0; i < tramos.size(); i++) {
+                        LatLng origen = tramos.get(i).getOrigen();
+                        LatLng end = tramos.get(i).getFinal();
+                        String n1 ="tramoLatOrigen"+Integer.toString(i);
+                        String n2 ="tramoLongOrigen"+Integer.toString(i);
+                        String n3 ="tramoLatFinal"+Integer.toString(i);
+                        String n4 ="tramoLongFinal"+Integer.toString(i);
+                        //Toast.makeText(CrearNuevoRecorrido.this,n1,Toast.LENGTH_LONG).show();
+
+                        //Toast.makeText(CrearNuevoRecorrido.this,Double.toString(end.latitude),Toast.LENGTH_LONG).show();
+                        n.putExtra(n1, origen.latitude);
+                        n.putExtra(n2,origen.longitude);
+                        n.putExtra(n3,end.latitude);
+                        n.putExtra(n4,end.longitude);
+                    }
                     startActivity(n);
                 }
             });
             marcaretos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent n = new Intent(CrearNuevoRecorrido.this,marca_retos.class);
-                    n.putExtra("tipo",false);
-                    n.putExtra("nombre",nombre.getText().toString());
-                    n.putExtra("retos",false);
+                    Intent n = new Intent(CrearNuevoRecorrido.this, marca_retos.class);
+                    n.putExtra("tipo", false);
+                    n.putExtra("nombre", nombre.getText().toString());
+                    n.putExtra("retos", false);
+                    Ruta ruta = new Ruta("ruta a");
+                    ruta.setTramos(con.cargarVisionRuta(nombre.getText().toString()));
+                    //Toast.makeText(CrearNuevoRecorrido.this,"Entro correctamente 1",Toast.LENGTH_LONG).show();
+                    ArrayList<Tramo> tramos = ruta.getTramos();
+                    n.putExtra("tamanioRuta", tramos.size());
+
+
+                    for (int i = 0; i < tramos.size(); i++) {
+                        LatLng origen = tramos.get(i).getOrigen();
+                        LatLng end = tramos.get(i).getFinal();
+                        String n1 ="tramoLatOrigen"+Integer.toString(i);
+                        String n2 ="tramoLongOrigen"+Integer.toString(i);
+                        String n3 ="tramoLatFinal"+Integer.toString(i);
+                        String n4 ="tramoLongFinal"+Integer.toString(i);
+                        //Toast.makeText(CrearNuevoRecorrido.this,n1,Toast.LENGTH_LONG).show();
+
+                        //Toast.makeText(CrearNuevoRecorrido.this,Double.toString(end.latitude),Toast.LENGTH_LONG).show();
+                        n.putExtra(n1, origen.latitude);
+                        n.putExtra(n2, origen.longitude);
+                        n.putExtra(n3, end.latitude);
+                        n.putExtra(n4,end.longitude);
+                    }
+                    ArrayList<DatosRyR> retosRuta = con.cargaDeRetos(nombre.getText().toString());
+                    n.putExtra("tamanioRetos",retosRuta.size());
+
+                    for(int i=0;i<retosRuta.size();i++){
+                        n.putExtra("nombreReto"+i,retosRuta.get(i).getName());
+                        n.putExtra("position"+i,retosRuta.get(i).getPosition());
+                    }
+
+                    //Toast.makeText(CrearNuevoRecorrido.this,"Entro correctamente2",Toast.LENGTH_LONG).show();
+
+
                     startActivity(n);
                 }
             });
@@ -440,20 +499,20 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                 @Override
                 public void onClick(View v) {
 
-                    Intent n = new Intent(CrearNuevoRecorrido.this,CreadorRutas.class);
-                    n.putExtra("RecNombre",nombreRecorrido.getText().toString());
-                    n.putExtra("drescrip",brevDescripcionRecorrido.getText().toString());
-                    n.putExtra("modif",true);
-                    if(btn1.isChecked()==true){
-                        n.putExtra("tipo",true);
+                    Intent n = new Intent(CrearNuevoRecorrido.this, CreadorRutas.class);
+                    n.putExtra("RecNombre", nombreRecorrido.getText().toString());
+                    n.putExtra("drescrip", brevDescripcionRecorrido.getText().toString());
+                    n.putExtra("modif", true);
+                    n.putExtra("creador", nombreCreador);
+                    if (btn1.isChecked() == true) {
+                        n.putExtra("tipo", true);
+                    } else {
+                        n.putExtra("tipo", false);
                     }
-                    else{
-                        n.putExtra("tipo",false);
-                    }
-                    n.putExtra("name",currentData.getName());
+                    n.putExtra("name", currentData.getName());
 
                     startActivity(n);
-                    Log.e("Recargo rutas:","lanzamiento");
+                    Log.e("Recargo rutas:", "lanzamiento");
 
                 }
             });

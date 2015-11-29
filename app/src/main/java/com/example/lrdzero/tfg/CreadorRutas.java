@@ -32,6 +32,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
     private Conexion con;
     private boolean modif;
     private String myName;
+    private String creadorName;
     private int tutorial=1;
 
     @Override
@@ -78,12 +79,16 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         con = new Conexion();
         Log.e("vAMOS", Boolean.toString(modif));
+        creadorName =getIntent().getExtras().getString("creador");
         if(modif){
             myName=getIntent().getExtras().getString("name");
             nombreRuta.setText(myName);
         }
         else{
             tutorial=getIntent().getExtras().getInt("tutorial");
+            if(tutorial==0){
+                generarTutorial().show();
+            }
         }
         Creador();
         Visualizar();
@@ -108,6 +113,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                     nuevo.putExtra("descrip", descRecorrido);
                     nuevo.putExtra("RutaName", nombreRuta.getText().toString());
                     nuevo.putExtra("modifi",false);
+                    nuevo.putExtra("creador",creadorName);
                     double numero = Math.random() * 5000;
                     int n2= (int) numero;
                     nuevo.putExtra("nombrefile", Integer.toString(n2));
@@ -169,9 +175,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
     public void Visualizar(){
         adapter=new PlaceList();
         lista.setAdapter(adapter);
-        if(tutorial==0){
-            generarTutorial().show();
-        }
+
 
 
     }
@@ -227,6 +231,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                     al.putExtra("RutaName", nombreRuta.getText().toString());
                     al.putExtra("modifi", true);
                     al.putExtra("nombreReto", currentData.getName());
+                    al.putExtra("creador",creadorName);
                     double numero = Math.random() * 5000;
                     int n2= (int) numero;
                     al.putExtra("nombrefile",Integer.toString(n2));

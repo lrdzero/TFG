@@ -21,13 +21,30 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     private PlaceList adapter;
     private HorizontalListView lista2;
     private ImageView image;
+    private String nombreReto;
+    private Conexion con;
+    private ArrayList<String> datosMochila;
+    private ArrayList<String> datosPremio;
+    private ArrayList<String> envio = new ArrayList<String>();
+    private String nameRuta,nameUser,nameRecorrido;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recoger_premio);
         image = (ImageView) findViewById(R.id.imageView14);
+        nombreReto=getIntent().getExtras().getString("nombreReto");
+        con = new Conexion();
+        datosMochila = con.cargarMochila(nombreReto);
 
+
+
+        nameUser=getIntent().getExtras().getString("nombreUser");
+        nameRecorrido=getIntent().getExtras().getString("nombreRecorrido");
+        nameRuta=getIntent().getExtras().getString("nombreRuta");
+        datosPremio = con.cargarPremio(nombreReto);
+        //image.setImageDrawable(Integer.valueOf(datosPremio.get(1)));
         image.setOnClickListener(this);
+
 
         loadItems();
 
@@ -37,9 +54,19 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     public void onClick(View v){
         switch (v.getId()){
             case R.id.imageView14:
-                dt.add(new Items("Premio 1",R.drawable.premiodefecto));
+
+                dt.add(new Items(datosPremio.get(0), Integer.valueOf(datosPremio.get(1)), nombreReto));
                 adapter.notifyDataSetChanged();
-                finish();
+                envio.add(nameUser);
+                envio.add(nameRuta);
+                envio.add(nombreReto);
+                envio.add(nameRecorrido);
+                envio.add(datosPremio.get(0));
+                envio.add(datosPremio.get(1));
+                con.hacerconexionGenerica("insertMochila", envio);
+                envio.clear();
+
+
                 break;
         }
     }
@@ -75,10 +102,15 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     }
 
     public void loadItems(){
-        dt.add(new Items("nombre 1",R.drawable.busto ));
-        dt.add(new Items("nombre 2",R.drawable.busto ));
-        dt.add(new Items("nombre 3",R.drawable.busto ));
-        dt.add(new Items("nombre 4",R.drawable.busto ));
+        if(!datosMochila.isEmpty()){
+            for(int i=0;i<datosMochila.size();i=i+2){
+                dt.add(new Items(datosMochila.get(i),Integer.valueOf(datosMochila.get(i+1)),nombreReto));
+            }
+        }
+        //dt.add(new Items("nombre 1",R.drawable.busto,"vacio" ));
+        //dt.add(new Items("nombre 2",R.drawable.busto ,"vacio"));
+        //dt.add(new Items("nombre 3",R.drawable.busto,"vacio" ));
+        //dt.add(new Items("nombre 4",R.drawable.busto,"vacio" ));
 
 
     }

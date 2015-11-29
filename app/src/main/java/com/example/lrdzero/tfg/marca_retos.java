@@ -48,6 +48,8 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
     private boolean retos;
     private String name;
     ListView listretos= null;
+    private ArrayList<Tramo> tramosOF=new ArrayList<Tramo>();
+    private int tamanio;
 
 
     //ArrayList<Array> ArrayTramos = new ArrayList<>();
@@ -91,6 +93,7 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
         googleMap.setMyLocationEnabled(true);
         mLocationClient = new LocationClient(getApplicationContext(), this, this);
         mLocationClient.connect();
+        tamanio = getIntent().getExtras().getInt("tamanioRuta");
         ruta = new Ruta(name);
 
         if(carga) {
@@ -103,10 +106,34 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
 
 
 
+
         googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
+
                                              @Override
                                              public void onMapLoaded() {
-
+                                                 for(int i=0;i<tamanio;i++){
+                                                     double oriLat=getIntent().getExtras().getDouble("tramoLatOrigen"+i);
+                                                     double oriLong=getIntent().getExtras().getDouble("tramoLongOrigen"+i);
+                                                     double endLat=getIntent().getExtras().getDouble("tramoLatFinal"+i);
+                                                     double endLong=getIntent().getExtras().getDouble("tramoLongFinal"+i);
+                                                     LatLng nuevoInicio = new LatLng(oriLat,oriLong);
+                                                     LatLng nuevoFinal = new LatLng(endLat,endLong);
+                                                     Tramo nuevo = new Tramo(nuevoInicio,nuevoFinal);
+                                                     tramosOF.add(nuevo);
+                                                 }
+                                                 ruta.setTramos(tramosOF);
+                                                 int tamanioRetos = getIntent().getExtras().getInt("tamanioRetos");
+                                                 ArrayList<Reto> retosRuta = new ArrayList<Reto>();
+                                                 for(int i=0;i<tamanioRetos;i++){
+                                                     String nombre =getIntent().getExtras().getString("nombreReto" + i);
+                                                     int position = getIntent().getExtras().getInt("position"+i);
+                                                     Log.i("Prueba", Integer.toString(position));
+                                                     Reto nuevo = new Reto(nombre,googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(position)).title("prueba")),position);
+                                                     //nuevo.setPunto(position);
+                                                     //nuevo.setNombre(nombre);
+                                                     ruta.addReto(nuevo);
+                                                     //retosRuta.add(nuevo);
+                                                 }
                                                  //LatLng loc;
                                                  new CargaRuta().execute();
 
@@ -151,6 +178,7 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
                         ori.put("latitudF" + i, latitudF);
                         ori.put("longitudF" + i, longitudF);
                         ori.put("posicion" + i, i);
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -220,7 +248,14 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
 
         @Override
         protected Void doInBackground(Void... params) {
-            ruta.setTramos(con.cargarVisionRuta(name));
+            //ruta.setTramos(con.cargarVisionRuta(name));
+
+
+
+            //ruta.setRetos(retosRuta);
+            
+            //Toast.makeText(marca_retos.this,"TU PUTA MADRE",Toast.LENGTH_LONG).show();
+
             return null;
         }
 
@@ -281,8 +316,8 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
                     .position(ruta.getPoints().get(2))
                     .title("prueba")), 2));
             ra.addReto(new Reto("prueba2", googleMap.addMarker(new MarkerOptions()
-                    .position(ruta.getPoints().get(10))
-                    .title("prueba2")), 18));
+                    .position(ruta.getPoints().get(1))
+                    .title("prueba2")), 1));
 
 
 
