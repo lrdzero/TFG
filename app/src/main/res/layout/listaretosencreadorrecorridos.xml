@@ -39,14 +39,24 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:id="@+id/imagenEliminar"
+                        android:layout_marginLeft="10dp"
                         android:src="@drawable/error" />
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:id="@+id/enroutar"
-                android:adjustViewBounds="true"
-                android:src="@drawable/f0907" />
+                <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/enroutar"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/f0907" />
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/marcaretos"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/marcador" />
 
         </LinearLayout>
 

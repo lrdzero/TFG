@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -81,6 +83,8 @@ public class MapaEditor extends Activity implements GooglePlayServicesClient.Con
         Button confirmar= (Button)findViewById(R.id.confirmar);
         Button deshacer= (Button)findViewById(R.id.deshacer);
 
+
+
         con = new Conexion();
         googleMap = mapView.getMap();
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -92,8 +96,7 @@ public class MapaEditor extends Activity implements GooglePlayServicesClient.Con
         if(carga) {
             confirmar.setEnabled(false);
             confirmar.setVisibility(View.INVISIBLE);
-            deshacer.setEnabled(false);
-            deshacer.setVisibility(View.INVISIBLE);
+
         }
             ruta.setTramos(con.cargarVisionRuta(name));
 
@@ -146,7 +149,7 @@ public class MapaEditor extends Activity implements GooglePlayServicesClient.Con
                     if (inicio != null) {
                         Toast.makeText(getApplication(), inicio.toString(), Toast.LENGTH_SHORT).show();
                         loc = inicio;
-                        Log.i("inicio null", "ultimo");
+                       // Log.i("inicio null", "ultimo");
                         new LongOperation().execute(loc, latLng);
                         inicio = null;
 
@@ -154,12 +157,12 @@ public class MapaEditor extends Activity implements GooglePlayServicesClient.Con
                         Marker marker = googleMap.addMarker(new MarkerOptions()
                                 .position(latLng)
                                 .title("Inicio"));
-                        Log.i("vacio", "ultimo");
+                        //Log.i("vacio", "ultimo");
                         inicio = latLng;
                     } else {
                         loc = ruta.getLastPoint();
                         new LongOperation().execute(loc, latLng);
-                        Log.i("normal" + ruta.getLastPoint().toString(), "ultimo");
+                        //Log.i("normal" + ruta.getLastPoint().toString(), "ultimo");
                     }
 
                     Toast.makeText(getApplication(), String.valueOf(latLng), Toast.LENGTH_SHORT).show();
@@ -183,49 +186,52 @@ public class MapaEditor extends Activity implements GooglePlayServicesClient.Con
             });
 
 
+
+
         }
+
 
 
         confirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                    //llevar a cabo la recogida de los datos.
-                    ArrayList<Tramo> datos =ruta.getTramos();
+                //llevar a cabo la recogida de los datos.
+                ArrayList<Tramo> datos = ruta.getTramos();
 
 
                 JSONObject ori = new JSONObject();
-                int tamanio=datos.size();
-                    for(int i=0;i< datos.size();i++){
-                        Double latitudO=datos.get(i).getOrigen().latitude;
-                        Double longitudO = datos.get(i).getOrigen().longitude;
-                        Double latitudF=datos.get(i).getFinal().latitude;
-                        Double longitudF = datos.get(i).getFinal().longitude;
-                        try {
-                            ori.put("Ruta"+i,name);
-                            ori.put("latitudO"+i,latitudO);
-                            ori.put("longitudO"+i,longitudO);
-                            ori.put("latitudF"+i, latitudF);
-                            ori.put("longitudF"+i, longitudF);
-                            ori.put("posicion"+i, i);
+                int tamanio = datos.size();
+                for (int i = 0; i < datos.size(); i++) {
+                    Double latitudO = datos.get(i).getOrigen().latitude;
+                    Double longitudO = datos.get(i).getOrigen().longitude;
+                    Double latitudF = datos.get(i).getFinal().latitude;
+                    Double longitudF = datos.get(i).getFinal().longitude;
+                    try {
+                        ori.put("Ruta" + i, name);
+                        ori.put("latitudO" + i, latitudO);
+                        ori.put("longitudO" + i, longitudO);
+                        ori.put("latitudF" + i, latitudF);
+                        ori.put("longitudF" + i, longitudF);
+                        ori.put("posicion" + i, i);
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            Double imprime = ori.getDouble("longitudO");
-
-                            String imprime2 = ori.toString();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                Toast.makeText(MapaEditor.this,"Tamanio"+Integer.toString(tamanio),Toast.LENGTH_LONG).show();
-                con.hacerConexionJSON("Mapeado", ori,tamanio);
-                Toast.makeText(MapaEditor.this,"Termino envio",Toast.LENGTH_LONG).show();
+                    try {
+                        Double imprime = ori.getDouble("longitudO");
+
+                        String imprime2 = ori.toString();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+                Toast.makeText(MapaEditor.this, "Tamanio" + Integer.toString(tamanio), Toast.LENGTH_LONG).show();
+                con.hacerConexionJSON("Mapeado", ori, tamanio);
+                Toast.makeText(MapaEditor.this, "Termino envio", Toast.LENGTH_LONG).show();
 
                 finish();
 
@@ -237,11 +243,13 @@ public class MapaEditor extends Activity implements GooglePlayServicesClient.Con
         deshacer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    ruta.removeTramo();
-                    new RefreshTramos().execute();
+                ruta.removeTramo();
+                new RefreshTramos().execute();
 
             }
         });
+
+
 
     }
 

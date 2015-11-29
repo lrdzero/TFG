@@ -409,6 +409,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
             ImageView modifi =(ImageView) intenView.findViewById(R.id.btnEditar);
             ImageView eliminar =(ImageView) intenView.findViewById(R.id.imagenEliminar);
             ImageView enrutar =(ImageView) intenView.findViewById(R.id.enroutar);
+            ImageView marcaretos =(ImageView) intenView.findViewById(R.id.marcaretos);
 
             nombre.setText(currentData.getName());
             descr.setText(currentData.getLargeDescription());
@@ -418,7 +419,17 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
             enrutar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent n = new Intent(CrearNuevoRecorrido.this,MapaEditor.class);
+                    Intent n = new Intent(CrearNuevoRecorrido.this, MapaEditor.class);
+                    n.putExtra("tipo", false);
+                    n.putExtra("nombre", nombre.getText().toString());
+                    n.putExtra("retos", false);
+                    startActivity(n);
+                }
+            });
+            marcaretos.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent n = new Intent(CrearNuevoRecorrido.this,marca_retos.class);
                     n.putExtra("tipo",false);
                     n.putExtra("nombre",nombre.getText().toString());
                     n.putExtra("retos",false);

@@ -17,20 +17,37 @@
         android:layout_height="wrap_content"
         android:text="confirmado"
         android:id="@+id/confirmar"
-        android:layout_below="@+id/mi_mapa"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="46dp" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:id="@+id/linearLayout4"
+        android:layout_above="@+id/confirmar"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/deshacer"
+            android:text="Deshacer"
+            />
+    </LinearLayout>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Deshacer"
-        android:id="@+id/deshacer"
-        android:layout_below="@+id/confirmar"
-        android:layout_alignLeft="@+id/confirmar"
-        android:layout_alignStart="@+id/confirmar"
-        android:layout_alignRight="@+id/confirmar"
-        android:layout_alignEnd="@+id/confirmar" />
+        android:text="Pulse en el mapa para crear tramos"
+        android:id="@+id/textView11"
+        android:layout_below="@+id/mi_mapa"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>

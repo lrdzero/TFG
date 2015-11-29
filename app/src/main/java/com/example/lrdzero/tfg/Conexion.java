@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class Conexion {
 
     private Socket sk;
-    private String ip="87.222.129.100";
+    private String ip="95.16.50.226";
     private int port=7;
     private DataInputStream in;
     private DataOutputStream out;
@@ -142,7 +142,7 @@ public class Conexion {
                 // TODO Auto-generated catch block
                     e1.printStackTrace();
                  }
-               Log.e("CARGA DE RETOS",Integer.toString(listReception.size()));
+               Log.e("CARGA DE RETOS", Integer.toString(listReception.size()));
                for(int i=0;i<listReception.size();i=i+5){
 
                    String nombre =listReception.get(i);

@@ -100,7 +100,10 @@
             android:label="@string/title_activity_seguimiento"
             android:screenOrientation="portrait" >
         </activity>
-
+        <activity
+            android:name=".marca_retos"
+            android:label="@string/title_activity_marca_retos" >
+        </activity>
     </application>
 
 </manifest>

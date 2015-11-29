@@ -221,7 +221,6 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                 pasa.reset();
                 pasa.cancel();
 
-
                 sig.setEnabled(false);
                 sig.setVisibility(View.INVISIBLE);
                 if (googleMap != null) {
