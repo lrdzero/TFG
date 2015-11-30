@@ -36,6 +36,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
     private String creadorName;
     private int tutorial=1;
     private MediaPlayer mp;
+    private MediaPlayer error;
 
     @Override
     public void onResume(){
@@ -80,6 +81,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
         check.setOnClickListener(this);
         mapa.setEnabled(false);
         mapa.setVisibility(View.INVISIBLE);
+
         //mapa.setOnClickListener(this);
 
 
@@ -99,6 +101,8 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
             }
         }
         mp = MediaPlayer.create(this,R.raw.brico);
+        error=MediaPlayer.create(this,R.raw.alert);
+
         Creador();
         Visualizar();
         mp.setLooping(true);
@@ -111,6 +115,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
             case R.id.imagenNuevoReto:
                 if(nombreRuta.getText().toString().matches("")){
                     Toast.makeText(CreadorRutas.this,"El nombre de la ruta no puede estar vacio",Toast.LENGTH_LONG).show();
+                    error.start();
                 }
                 else {
                     if(retos.isEmpty()) {
@@ -158,12 +163,14 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                 }
                 else{
                     Toast.makeText(CreadorRutas.this,"Campos sin rellenar",Toast.LENGTH_LONG).show();
+                    error.start();
                 }
                 break;
 
             case R.id.maprutas:
                 if(nombreRuta.getText().toString().matches("")){
                     Toast.makeText(CreadorRutas.this,"El nombre de la ruta no puede estar vacio",Toast.LENGTH_LONG).show();
+                    error.start();
                 }
                 else{
                     con.nuevaRuta(nombreRuta.getText().toString(), historia.getText().toString(), "");

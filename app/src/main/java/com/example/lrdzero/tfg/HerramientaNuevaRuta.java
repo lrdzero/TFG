@@ -34,8 +34,7 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
         CargarLista();
         Visualizar();
        // mp = MediaPlayer.create(this,R.raw.brico);
-        mp.setLooping(true);
-        mp.start();
+
     }
     public void onPause(){
         super.onPause();
@@ -60,8 +59,8 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
 
 
         con = new Conexion();
-        //usuarioCreador=getIntent().getExtras().getString("creador");
-        usuarioCreador="l";
+        usuarioCreador=getIntent().getExtras().getString("creador");
+        //usuarioCreador="l";
         nuevo.setOnClickListener(this);
 
         listo.setOnClickListener(new View.OnClickListener() {
@@ -73,8 +72,8 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
         CargarLista();
         Visualizar();
 
-        mp.setLooping(true);
-        mp.start();
+        //mp.setLooping(true);
+        //mp.start();
     }
 
     public void onClick(View v){
@@ -99,6 +98,8 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
     public void Visualizar(){
         adapter = new PlaceList();
         recorridos.setAdapter(adapter);
+        mp.setLooping(true);
+        mp.start();
 
     }
     public void actualizar(){

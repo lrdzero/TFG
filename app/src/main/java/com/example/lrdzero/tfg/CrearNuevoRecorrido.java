@@ -44,6 +44,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
     private String nombreRc;
     private ArrayList<String> recomendaModifi;
     private MediaPlayer mp;
+    private MediaPlayer error;
     @Override
     public void onResume(){
         super.onResume();
@@ -86,8 +87,8 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
         con=new Conexion();
         modif=getIntent().getExtras().getBoolean("Modif");
 
-        mp =MediaPlayer.create(this,R.raw.brico);
-
+        mp =MediaPlayer.create(this, R.raw.brico);
+        error=MediaPlayer.create(this,R.raw.alert);
 
         if(modif){
             nombreRc=getIntent().getExtras().getString("nombre");
@@ -189,7 +190,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
     public void onClick(View v){
         switch (v.getId()){
             case R.id.botonRecomendado:
-                Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "click", Toast.LENGTH_SHORT).show();
                 final AlertDialog.Builder builder = new AlertDialog.Builder(CrearNuevoRecorrido.this);
                 // Set the dialog title
                 //Log.i("title", "prog");
@@ -201,7 +202,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                     recomendacion3="";
                     recomendacion4="";
                     if(recomendaModifi.get(0).equals("1")){recomendacion1="Niño";}
-                    if(recomendaModifi.get(1).equals("1")){recomendacion2="Adulto";}
+                    if(recomendaModifi.get(1).equals("1")){recomendacion2="Adultos";}
                     if(recomendaModifi.get(2).equals("1")){recomendacion3="Problemas Cardiovasculares";}
                     if(recomendaModifi.get(3).equals("1")){recomendacion4="Problemas de movilidad";}
                     builder.setTitle("Advertencia")
@@ -242,12 +243,14 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                         llevaACaboModificacion();
                     }
                     else{
+                        error.start();
                         Toast.makeText(CrearNuevoRecorrido.this,"Campos sin rellenar: Recomendaciones",Toast.LENGTH_LONG).show();
                     }
                 }
                 else{
                     if(nombreRecorrido.getText().toString().matches("")||brevDescripcionRecorrido.getText().toString().matches("")||recomendaciones.isEmpty()){
                         Toast.makeText(CrearNuevoRecorrido.this,"Debe rellenar los campos Nombre, Descripcion y Recomendado para.",Toast.LENGTH_LONG).show();
+                        error.start();
                     }
                     else{
                         llevaACaboListo();
@@ -275,9 +278,11 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
         }
         if(datosTrueEnBD.get(0)==0&&datosTrueEnBD.get(1)==0){
             Toast.makeText(CrearNuevoRecorrido.this,"Debe especificar si es para niños o adultos.",Toast.LENGTH_LONG).show();
+            error.start();
         }
         else if(datosTrueEnBD.get(0)==1&&datosTrueEnBD.get(1)==1){
             Toast.makeText(CrearNuevoRecorrido.this,"Solo puede ser para niños o para adultos.",Toast.LENGTH_LONG).show();
+            error.start();
         }
         else {
             if (btn1.isChecked()) {
@@ -308,6 +313,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
 
             } else {
                 Toast.makeText(CrearNuevoRecorrido.this, "Debe elegir un tipo de Recorrido", Toast.LENGTH_LONG).show();
+                error.start();
             }
 
 
@@ -324,9 +330,11 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
         }
         if(datosTrueEnBD.get(0)==0&&datosTrueEnBD.get(1)==0){
             Toast.makeText(CrearNuevoRecorrido.this,"Debe especificar si es para niños o adultos.",Toast.LENGTH_LONG).show();
+            error.start();
         }
         else if(datosTrueEnBD.get(0)==1&&datosTrueEnBD.get(1)==1){
             Toast.makeText(CrearNuevoRecorrido.this,"Solo puede ser para niños o para adultos.",Toast.LENGTH_LONG).show();
+            error.start();
         }
         else {
             envios.clear();
@@ -352,9 +360,11 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
         }
         if(datosTrueEnBD.get(0)==0&&datosTrueEnBD.get(1)==0){
             Toast.makeText(CrearNuevoRecorrido.this,"Debe especificar si es para niños o adultos.",Toast.LENGTH_LONG).show();
+            error.start();
         }
         else if(datosTrueEnBD.get(0)==1&&datosTrueEnBD.get(1)==1){
             Toast.makeText(CrearNuevoRecorrido.this,"Solo puede ser para niños o para adultos.",Toast.LENGTH_LONG).show();
+            error.start();
         }
         else {
 

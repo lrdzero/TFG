@@ -37,6 +37,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
     private Conexion con;
     private String nombreAuxiliar;
     private MediaPlayer mp;
+    private MediaPlayer error;
     private ArrayList<String> construyeRespuesta=new ArrayList<String>();
     private String nombreRecorrido,nombreRuta,creador;
 
@@ -206,7 +207,10 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                     startActivity(premio);
                 }
                 else{
+                    error=MediaPlayer.create(this,R.raw.alert);
+                    error.start();
                     Toast.makeText(RetoCultural.this,"Respuesta Incorrecta",Toast.LENGTH_LONG).show();
+
                 }
 
                 construyeRespuesta.clear();
