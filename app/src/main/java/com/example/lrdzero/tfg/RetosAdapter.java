@@ -106,7 +106,7 @@ public class RetosAdapter extends BaseAdapter {
 
                 if(r.getPoints().size()>0) {
                     mItems.get(arg).setLocation(r.getPoints().get(barra.getProgress()));
-                    //mItems.get(arg).setPunto(barra.getProgress());
+                    mItems.get(arg).setPunto(barra.getProgress());
                 }
             }
         });

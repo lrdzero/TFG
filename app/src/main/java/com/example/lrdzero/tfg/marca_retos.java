@@ -145,27 +145,7 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
                                                      ra.addReto(retosRuta.get(i));
                                                  }
                                                  new  RefreshTramos().execute();
-                                                 //ra.addReto(nuevo);
-                                                 /*
-                                                 Log.i("test", "nuevo" + String.valueOf(ruta.getPoints().size()));
-                                                 ra.addReto(new Reto("prueba", googleMap.addMarker(new MarkerOptions()
-                                                         .position(ruta.getPoints().get(2))
-                                                         .title("prueba")), 2));
-                                                 ra.addReto(new Reto("prueba2", googleMap.addMarker(new MarkerOptions()
-                                                         .position(ruta.getPoints().get(1))
-                                                         .title("prueba2")), 1));
-                                                 */
-                                                 //LatLng loc;
-                                                 //new CargaRuta().execute();
 
-                                                 //if (googleMap != null) {
-
-
-
-                                                     //ruta.addTramo(new Tramo(new LatLng(2.33, 2.33), new LatLng(2.33, 2.33)));
-
-
-                                                 //}
                                              }
                                          }
         );
@@ -215,7 +195,7 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
 
 
                 }
-                for(int i=0;i<3;i++){
+                for(int i=0;i<retosRuta.size();i++){
                     Reto n = (Reto) ra.getItem(i);
                     posiciones.add(n.getNombre());
                     posiciones.add(Integer.toString(n.getPunto()));
