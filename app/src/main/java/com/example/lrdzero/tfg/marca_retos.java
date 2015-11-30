@@ -139,6 +139,12 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
                                                      //retosRuta.add(nuevo);
                                                  }
                                                  ra = new RetosAdapter(getApplicationContext(), ruta);
+                                                 listretos.setAdapter(ra);
+                                                 listretos.setFooterDividersEnabled(true);
+                                                 for(int i=0;i<retosRuta.size();i++){
+                                                     ra.addReto(retosRuta.get(i));
+                                                 }
+                                                 new  RefreshTramos().execute();
                                                  //ra.addReto(nuevo);
                                                  /*
                                                  Log.i("test", "nuevo" + String.valueOf(ruta.getPoints().size()));
@@ -150,7 +156,7 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
                                                          .title("prueba2")), 1));
                                                  */
                                                  //LatLng loc;
-                                                 new CargaRuta().execute();
+                                                 //new CargaRuta().execute();
 
                                                  //if (googleMap != null) {
 
@@ -332,11 +338,8 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
             Toast.makeText(getApplication(), String.valueOf(ruta.getPoints().size()), Toast.LENGTH_LONG).show();
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 17.0f));
 
-            listretos.setAdapter(ra);
-            listretos.setFooterDividersEnabled(true);
-            for(int i=0;i<retosRuta.size();i++){
-                ra.addReto(retosRuta.get(i));
-            }
+
+
 
 
 
@@ -346,7 +349,7 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
 
         @Override
         protected void onPreExecute() {
-            googleMap.clear();
+            //googleMap.clear();
         }
 
         @Override

@@ -88,13 +88,7 @@ public class RetosAdapter extends BaseAdapter {
         barra.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                Log.i("prueba", String.valueOf(r.getPoints().size()));
 
-
-                if(r.getPoints().size()>0) {
-                    mItems.get(arg).setLocation(r.getPoints().get(barra.getProgress()));
-                    //mItems.get(arg).setPunto(barra.getProgress());
-                }
 
 
 
@@ -107,7 +101,13 @@ public class RetosAdapter extends BaseAdapter {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                Log.i("prueba", String.valueOf(r.getPoints().size()));
 
+
+                if(r.getPoints().size()>0) {
+                    mItems.get(arg).setLocation(r.getPoints().get(barra.getProgress()));
+                    //mItems.get(arg).setPunto(barra.getProgress());
+                }
             }
         });
 
