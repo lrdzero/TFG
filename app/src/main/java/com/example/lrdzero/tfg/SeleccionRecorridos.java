@@ -3,6 +3,7 @@ package com.example.lrdzero.tfg;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -23,6 +24,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
     private String name;
     private Conexion con;
     private DatosRyR datosUser;
+    private MediaPlayer error;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         Rc2 = (ImageView) findViewById(R.id.imageView3);
         con =new Conexion();
 
-
+        error=MediaPlayer.create(this,R.raw.alert);
         User.setOnClickListener(this);
         Rc1.setOnClickListener(this);
         Rc2.setOnClickListener(this);
@@ -53,10 +55,16 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         switch (v.getId()) {
             case R.id.buttonCulture:
                 Intent n = new Intent(SeleccionRecorridos.this,RetoCultural.class);
+                n.putExtra("nombreUser",name);
+                n.putExtra("nombreRecorrido","l");
+                n.putExtra("nombreRuta","l");
                 startActivity(n);
                 break;
             case R.id.buttonEjercicio:
                 Intent n2 = new Intent(SeleccionRecorridos.this, RetoDeportivo.class);
+                n2.putExtra("nombreUser",name);
+                n2.putExtra("nombreRecorrido","recorridodefecto");
+                n2.putExtra("nombreRuta","rutadefecto");
                 startActivity(n2);
                 break;
             case R.id.imageView2:
@@ -90,6 +98,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
 
         //Toast.makeText(SeleccionRecorridos.this,"Por favor rellene información adicional en su perfil (Preferencias)",Toast.LENGTH_LONG).show();
         if(datosUser.getPreferenciaUser1().equals("2")&&datosUser.getPreferenciaUser2().equals("2")){
+            error.start();
             builder.setTitle("Es necesaria más información").setMessage("Es necesario que especifique sus preferencias.\n\tPor favor acceda al perfil")
             .setPositiveButton("Ir a mi perfil", new DialogInterface.OnClickListener() {
                 @Override
@@ -128,14 +137,19 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             dificultad = aux;
-                            final Intent nueva;
-                            nueva = new Intent(SeleccionRecorridos.this, RecorridosParaUsuario.class);
-                            nueva.putExtra("tipo", variable);
-                            nueva.putExtra("edad", datosUser.getNumber());
-                            nueva.putExtra("pref1", datosUser.getPreferenciaUser1());
-                            nueva.putExtra("pref2", datosUser.getPreferenciaUser2());
-                            nueva.putExtra("dificultad", Integer.toString(dificultad.get(0)));
-                            startActivity(nueva);
+                            if(dificultad.size()==1) {
+                                final Intent nueva;
+                                nueva = new Intent(SeleccionRecorridos.this, RecorridosParaUsuario.class);
+                                nueva.putExtra("tipo", variable);
+                                nueva.putExtra("edad", datosUser.getNumber());
+                                nueva.putExtra("pref1", datosUser.getPreferenciaUser1());
+                                nueva.putExtra("pref2", datosUser.getPreferenciaUser2());
+                                nueva.putExtra("dificultad", Integer.toString(dificultad.get(0) + 1));
+                                startActivity(nueva);
+                            }
+                            else{
+                                Toast.makeText(SeleccionRecorridos.this,"Debe seleccionar una unica dificultad.",Toast.LENGTH_LONG).show();
+                            }
                             // User clicked OK, so save the mSelectedItems results somewhere
                             // or return them to the component that opened the dialog
 

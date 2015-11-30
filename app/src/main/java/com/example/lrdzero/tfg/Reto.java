@@ -15,6 +15,7 @@ public class Reto {
     private LatLng location;
 
 
+    public Reto(){}
     public Reto(String n, Marker m, int pto){
         nombre=n;
         marcador=m;
@@ -24,12 +25,14 @@ public class Reto {
        location=loc;
         marcador.setPosition(loc);
     }
+    public void setNombre(String nom){nombre=nom;}
     public void setPunto(int pto){
         puntoruta=pto;
     }
     public String getNombre() {
         return nombre;
     }
+    public int getPunto(){return puntoruta;}
     public int getMarkerLocation(){
         return puntoruta;
     }

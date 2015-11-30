@@ -2,6 +2,9 @@ package com.example.lrdzero.tfg;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -10,9 +13,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -20,26 +26,80 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     private ArrayList<Items> dt = new ArrayList<Items>();
     private PlaceList adapter;
     private HorizontalListView lista2;
-    private ImageView image;
+    private ImageView image,foto;
+    private String nombreReto;
+    private Conexion con;
+    private ArrayList<String> datosMochila;
+    private ArrayList<String> datosPremio;
+    private ArrayList<String> envio = new ArrayList<String>();
+    private String nameRuta,nameUser,nameRecorrido;
+    private LinearLayout lt;
+    private Uri fileUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recoger_premio);
-        image = (ImageView) findViewById(R.id.imageView14);
 
+        setContentView(R.layout.activity_recoger_premio);
+        final View v= new View(getApplicationContext());
+        //foto = (ImageView) findViewById(R.id.laFoto);
+        image = (ImageView) findViewById(R.id.imageView14);
+        lt =(LinearLayout)findViewById(R.id.myLinear);
+        //fileUri = Uri.parse();
+        //image.setImageURI(fileUri);
+        MediaPlayer mp = MediaPlayer.create(this,R.raw.tada);
+
+
+        nombreReto=getIntent().getExtras().getString("nombreReto");
+
+        con = new Conexion();
+        datosMochila = con.cargarMochila(nombreReto);
+
+
+
+        nameUser=getIntent().getExtras().getString("nombreUser");
+        nameRecorrido=getIntent().getExtras().getString("nombreRecorrido");
+        nameRuta=getIntent().getExtras().getString("nombreRuta");
+        datosPremio = con.cargarPremio(nombreReto);
+        //lt.setBackgroundResource(Integer.valueOf(datosMochila.get(1)));
+        fileUri = Uri.parse(datosPremio.get(2));
+        //image.setImageResource(fileUri.describeContents());
+        Drawable yourDrawable;
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(fileUri);
+            yourDrawable = Drawable.createFromStream(inputStream, fileUri.toString() );
+        } catch (FileNotFoundException e) {
+            yourDrawable = getResources().getDrawable(R.drawable.imagendefecto);
+        }
+        lt.setBackgroundDrawable(yourDrawable);
+        //image.setImageURI(fileUri);
+
+        image.setImageResource(Integer.valueOf(datosPremio.get(1)));
         image.setOnClickListener(this);
+
 
         loadItems();
 
         ListaView();
+        mp.start();
     }
 
     public void onClick(View v){
         switch (v.getId()){
             case R.id.imageView14:
-                dt.add(new Items("Premio 1",R.drawable.premiodefecto));
+
+                dt.add(new Items(datosPremio.get(0), Integer.valueOf(datosPremio.get(1)), nombreReto));
                 adapter.notifyDataSetChanged();
-                finish();
+                envio.add(nameUser);
+                envio.add(nameRuta);
+                envio.add(nombreReto);
+                envio.add(nameRecorrido);
+                envio.add(datosPremio.get(0));
+                envio.add(datosPremio.get(1));
+                con.hacerconexionGenerica("insertMochila", envio);
+                envio.clear();
+
+
                 break;
         }
     }
@@ -75,10 +135,15 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     }
 
     public void loadItems(){
-        dt.add(new Items("nombre 1",R.drawable.busto ));
-        dt.add(new Items("nombre 2",R.drawable.busto ));
-        dt.add(new Items("nombre 3",R.drawable.busto ));
-        dt.add(new Items("nombre 4",R.drawable.busto ));
+        if(!datosMochila.isEmpty()){
+            for(int i=0;i<datosMochila.size();i=i+2){
+                dt.add(new Items(datosMochila.get(i),Integer.valueOf(datosMochila.get(i+1)),nombreReto));
+            }
+        }
+        //dt.add(new Items("nombre 1",R.drawable.busto,"vacio" ));
+        //dt.add(new Items("nombre 2",R.drawable.busto ,"vacio"));
+        //dt.add(new Items("nombre 3",R.drawable.busto,"vacio" ));
+        //dt.add(new Items("nombre 4",R.drawable.busto,"vacio" ));
 
 
     }

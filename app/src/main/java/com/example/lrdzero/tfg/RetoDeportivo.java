@@ -3,6 +3,7 @@ package com.example.lrdzero.tfg;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -24,12 +25,24 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
     private PlaceList adapter;
     private Button go;
     private Conexion con;
+    private DatosRyR datosReto;
+    private String nameUser,nameRecorrido,nameRuta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reto_deportivo);
         TextView desafio =(TextView) findViewById(R.id.desafio);
         con=new Conexion();
+        nameUser=getIntent().getExtras().getString("nombreUser");
+        nameRecorrido = getIntent().getExtras().getString("nombreRecorrido");
+        nameRuta =getIntent().getExtras().getString("nombreRuta");
+        datosReto = con.buscarDatosRetoDeportivo("unreco");
+        if(datosReto==null){
+            Toast.makeText(RetoDeportivo.this,"ERROR EN OBTENCION",Toast.LENGTH_LONG).show();
+        }
+        else{
+            desafio.setText(datosReto.getDescription());
+        }
         go=(Button) findViewById(R.id.buttonStart);
 
 
@@ -45,6 +58,11 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
         switch(v.getId()){
             case R.id.buttonStart:
                     Intent nuevo = new Intent(RetoDeportivo.this,CronometroDeporte.class);
+                    nuevo.putExtra("nombreReto",datosReto.getName());
+                    nuevo.putExtra("tiempo",datosReto.getNumber());
+                    nuevo.putExtra("nombreUser",nameUser);
+                    nuevo.putExtra("nombreRecorrido",nameRecorrido);
+                    nuevo.putExtra("nombreRuta",nameRuta);
                     startActivity(nuevo);
 
                 break;
@@ -63,7 +81,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
 
 
         mochila = (HorizontalListView) findViewById(R.id.listaMochila);
-        mochila.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*mochila.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 final Items currentData = (Items) mochila.getItemAtPosition(position);
@@ -87,6 +105,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
 
             }
         });
+        */
         mochila.setAdapter(adapter);
     }
     public class PlaceList extends ArrayAdapter<Items> {
@@ -103,7 +122,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
                 intenView = getLayoutInflater().inflate(R.layout.activity_lista_horizontal_mochila,parent,false);
             }
 
-            ImageView img = (ImageView) intenView.findViewById(R.id.ItemImage);
+            final ImageView img = (ImageView) intenView.findViewById(R.id.ItemImage);
             TextView txt1 = (TextView) intenView.findViewById(R.id.ItemText);
 
 

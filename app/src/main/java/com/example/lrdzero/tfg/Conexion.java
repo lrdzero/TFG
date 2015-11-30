@@ -143,7 +143,7 @@ public class Conexion {
                     e1.printStackTrace();
                  }
                Log.e("CARGA DE RETOS", Integer.toString(listReception.size()));
-               for(int i=0;i<listReception.size();i=i+5){
+               for(int i=0;i<listReception.size();i=i+6){
 
                    String nombre =listReception.get(i);
                    Log.e("LISRECEPTION: ",listReception.get(i));
@@ -152,10 +152,14 @@ public class Conexion {
                    String desp =listReception.get(i+2);
                    String num = listReception.get(i+3);
                    String foto =listReception.get(i+4);
+                   String position=listReception.get(i+5);
+
                    Log.e("CARGA DE URI:",foto);
                    Uri una = Uri.parse(foto);
+                   DatosRyR nuevo =new DatosRyR(nombre,num,brevDes,"Alguien",R.drawable.premiodefecto,desp,una);
+                   nuevo.setPosition(Integer.valueOf(position));
 
-                   respuesta.add(new DatosRyR(nombre,num,brevDes,"Alguien",R.drawable.premiodefecto,desp,una));
+                   respuesta.add(nuevo);
 
 
 
@@ -337,7 +341,50 @@ public class Conexion {
         }
         return dt;
     }
+    public ArrayList<String> cargarPremio(String nombreReto){
+        ArrayList<String> respuesta=new ArrayList<String>();
+        try{
+            conectar();
+            out.writeUTF("buscarPremio");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(nombreReto);
+                try{
+                    object = objectInput.readObject();
+                    respuesta= (ArrayList<String>) object;
 
+                } catch (ClassNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+            cerrar();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return respuesta;
+    }
+    public ArrayList<String> cargarMochila(String nombreRuta){
+        ArrayList<String> respuesta=new ArrayList<String>();
+        try{
+            conectar();
+            out.writeUTF("buscarMochila");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(nombreRuta);
+                try{
+                    object = objectInput.readObject();
+                    respuesta= (ArrayList<String>) object;
+
+                } catch (ClassNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+            cerrar();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return respuesta;
+    }
     public DatosRyR buscarDatosRetoDeportivo(String name){
         DatosRyR nuvo = new DatosRyR();
         try{
@@ -413,6 +460,7 @@ public class Conexion {
                 nuvo.setNumber(listReception.get(4));
                 nuvo.setAdic(listReception.get(5));
                 nuvo.setAux(listReception.get(6));
+                nuvo.setRespuesta(listReception.get(7));
             }
             cerrar();
         }catch (IOException e){

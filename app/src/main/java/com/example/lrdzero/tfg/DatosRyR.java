@@ -18,6 +18,8 @@ public class DatosRyR {
     private Uri uri;
     private String preferenciaUser1;
     private String preferenciaUser2;
+    private String respuesta;
+    private int position;
 
 
     public DatosRyR(){
@@ -36,6 +38,8 @@ public class DatosRyR {
 
 
     }
+    public void setPosition(int i){this.position=i;}
+    public void setRespuesta(String n){this.respuesta=n;}
     public void setPreferenciaUser1(String n){this.preferenciaUser1=n;}
     public void setPreferenciaUser2(String n){this.preferenciaUser2=n;}
     public void setUri(Uri n){this.uri =n;}
@@ -48,6 +52,8 @@ public class DatosRyR {
     public void setImage(int n){this.image=n;}
     public void setLargeDescription(String n){this.largeDescription=n;}
 
+    public int getPosition(){return position;}
+    public String getRespuesta(){return respuesta;}
     public String getPreferenciaUser1(){return preferenciaUser1;}
     public String getPreferenciaUser2(){return preferenciaUser2;}
     public Uri getUri(){return uri;}

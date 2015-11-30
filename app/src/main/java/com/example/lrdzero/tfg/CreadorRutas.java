@@ -3,6 +3,7 @@ package com.example.lrdzero.tfg;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
@@ -32,32 +33,41 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
     private Conexion con;
     private boolean modif;
     private String myName;
+    private String creadorName;
     private int tutorial=1;
+    private MediaPlayer mp;
+    private MediaPlayer error;
 
     @Override
     public void onResume(){
         super.onResume();
         Creador();
         Visualizar();
+        mp.setLooping(true);
+        mp.start();
 
     }
     @Override
     public void onPause(){
         super.onPause();
+        mp.setLooping(false);
+        mp.stop();
 
     }
     @Override
     public void onDestroy(){
         super.onDestroy();
+        mp.setLooping(false);
+        mp.stop();
 
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creador_rutas);
-        tipo=getIntent().getExtras().getBoolean("tipo");
-        nombreRecorrido=getIntent().getExtras().getString("RecNombre");
-        descRecorrido=getIntent().getExtras().getString("drescrip");
+        tipo = getIntent().getExtras().getBoolean("tipo");
+        nombreRecorrido = getIntent().getExtras().getString("RecNombre");
+        descRecorrido = getIntent().getExtras().getString("drescrip");
         modif=getIntent().getExtras().getBoolean("modif");
 
         check=(ImageView) findViewById(R.id.imagenCheck);
@@ -71,6 +81,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
         check.setOnClickListener(this);
         mapa.setEnabled(false);
         mapa.setVisibility(View.INVISIBLE);
+
         //mapa.setOnClickListener(this);
 
 
@@ -78,15 +89,24 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         con = new Conexion();
         Log.e("vAMOS", Boolean.toString(modif));
+        creadorName =getIntent().getExtras().getString("creador");
         if(modif){
             myName=getIntent().getExtras().getString("name");
             nombreRuta.setText(myName);
         }
         else{
             tutorial=getIntent().getExtras().getInt("tutorial");
+            if(tutorial==0){
+                generarTutorial().show();
+            }
         }
+        mp = MediaPlayer.create(this,R.raw.brico);
+        error=MediaPlayer.create(this,R.raw.alert);
+
         Creador();
         Visualizar();
+        mp.setLooping(true);
+        mp.start();
     }
 
     public void onClick(View v){
@@ -95,6 +115,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
             case R.id.imagenNuevoReto:
                 if(nombreRuta.getText().toString().matches("")){
                     Toast.makeText(CreadorRutas.this,"El nombre de la ruta no puede estar vacio",Toast.LENGTH_LONG).show();
+                    error.start();
                 }
                 else {
                     if(retos.isEmpty()) {
@@ -108,6 +129,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                     nuevo.putExtra("descrip", descRecorrido);
                     nuevo.putExtra("RutaName", nombreRuta.getText().toString());
                     nuevo.putExtra("modifi",false);
+                    nuevo.putExtra("creador",creadorName);
                     double numero = Math.random() * 5000;
                     int n2= (int) numero;
                     nuevo.putExtra("nombrefile", Integer.toString(n2));
@@ -141,12 +163,14 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                 }
                 else{
                     Toast.makeText(CreadorRutas.this,"Campos sin rellenar",Toast.LENGTH_LONG).show();
+                    error.start();
                 }
                 break;
 
             case R.id.maprutas:
                 if(nombreRuta.getText().toString().matches("")){
                     Toast.makeText(CreadorRutas.this,"El nombre de la ruta no puede estar vacio",Toast.LENGTH_LONG).show();
+                    error.start();
                 }
                 else{
                     con.nuevaRuta(nombreRuta.getText().toString(), historia.getText().toString(), "");
@@ -169,9 +193,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
     public void Visualizar(){
         adapter=new PlaceList();
         lista.setAdapter(adapter);
-        if(tutorial==0){
-            generarTutorial().show();
-        }
+
 
 
     }
@@ -227,6 +249,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                     al.putExtra("RutaName", nombreRuta.getText().toString());
                     al.putExtra("modifi", true);
                     al.putExtra("nombreReto", currentData.getName());
+                    al.putExtra("creador",creadorName);
                     double numero = Math.random() * 5000;
                     int n2= (int) numero;
                     al.putExtra("nombrefile",Integer.toString(n2));
