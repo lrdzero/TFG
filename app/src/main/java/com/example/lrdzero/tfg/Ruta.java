@@ -13,6 +13,7 @@ public class Ruta {
     private String nombreRuta;
     ArrayList<Tramo> tramos= new ArrayList<>();
     ArrayList<Reto> retos = new ArrayList<>();
+    ArrayList<LatLng> points = new ArrayList<>();
 
 
     public Ruta(String nombre){
@@ -32,6 +33,7 @@ public class Ruta {
 
     public void setTramos(ArrayList<Tramo> t){
         tramos=t;
+        CalculaPoints();
     }
 
     public ArrayList<Tramo> getTramos(){
@@ -41,8 +43,8 @@ public class Ruta {
         return tramos.get(0).getOrigen();
     }
 
-    public ArrayList<LatLng> getPoints(){
-        ArrayList<LatLng> points= new ArrayList<>();
+    public void CalculaPoints(){
+        points.clear();
         Directions dir = new Directions();
 
 
@@ -51,6 +53,9 @@ public class Ruta {
             points.addAll(dir.getDirection(doc));
         }
 
+    }
+
+    public ArrayList<LatLng> getPoints(){
         return points;
     }
 
