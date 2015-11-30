@@ -35,7 +35,8 @@
         android:id="@+id/scrollView2"
         android:layout_below="@+id/mi_mapa"
 
-        android:layout_centerHorizontal="true" >
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/confirmar">
 
         <ListView
             android:layout_width="fill_parent"

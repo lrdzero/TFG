@@ -58,6 +58,7 @@ public class RetosAdapter extends BaseAdapter {
         return arg0;
     }
 
+
     @Override
     public View getView(final int arg, View convertView, final ViewGroup parent) {
         // TODO Auto-generated method stub
@@ -83,15 +84,17 @@ public class RetosAdapter extends BaseAdapter {
         barra.setMax(r.getPoints().size() - 1);
         barra.setProgress(mItems.get(arg).getMarkerLocation());
 
-        ;
+
         barra.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 Log.i("prueba", String.valueOf(r.getPoints().size()));
 
 
-                if(r.getPoints().size()>0)
-                 mItems.get(arg).setLocation(r.getPoints().get(barra.getProgress()));
+                if(r.getPoints().size()>0) {
+                    mItems.get(arg).setLocation(r.getPoints().get(barra.getProgress()));
+                    //mItems.get(arg).setPunto(barra.getProgress());
+                }
 
 
 

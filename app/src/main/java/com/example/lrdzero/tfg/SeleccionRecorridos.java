@@ -54,8 +54,8 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
             case R.id.buttonCulture:
                 Intent n = new Intent(SeleccionRecorridos.this,RetoCultural.class);
                 n.putExtra("nombreUser",name);
-                n.putExtra("nombreRecorrido","recorridodefecto");
-                n.putExtra("nombreRuta","rutadefecto");
+                n.putExtra("nombreRecorrido","l");
+                n.putExtra("nombreRuta","l");
                 startActivity(n);
                 break;
             case R.id.buttonEjercicio:

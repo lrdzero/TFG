@@ -49,7 +49,9 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
     private String name;
     ListView listretos= null;
     private ArrayList<Tramo> tramosOF=new ArrayList<Tramo>();
+    ArrayList<Reto> retosRuta = new ArrayList<Reto>();
     private int tamanio;
+    private RetosAdapter ra;
 
 
     //ArrayList<Array> ArrayTramos = new ArrayList<>();
@@ -111,9 +113,10 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
 
                                              @Override
                                              public void onMapLoaded() {
+
                                                  for(int i=0;i<tamanio;i++){
-                                                     double oriLat=getIntent().getExtras().getDouble("tramoLatOrigen"+i);
-                                                     double oriLong=getIntent().getExtras().getDouble("tramoLongOrigen"+i);
+                                                     double oriLat=getIntent().getExtras().getDouble("tramoLatOrigen" + i);
+                                                     double oriLong=getIntent().getExtras().getDouble("tramoLongOrigen" + i);
                                                      double endLat=getIntent().getExtras().getDouble("tramoLatFinal"+i);
                                                      double endLong=getIntent().getExtras().getDouble("tramoLongFinal"+i);
                                                      LatLng nuevoInicio = new LatLng(oriLat,oriLong);
@@ -123,7 +126,7 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
                                                  }
                                                  ruta.setTramos(tramosOF);
                                                  int tamanioRetos = getIntent().getExtras().getInt("tamanioRetos");
-                                                 ArrayList<Reto> retosRuta = new ArrayList<Reto>();
+
                                                  for(int i=0;i<tamanioRetos;i++){
                                                      String nombre =getIntent().getExtras().getString("nombreReto" + i);
                                                      int position = getIntent().getExtras().getInt("position"+i);
@@ -131,9 +134,21 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
                                                      Reto nuevo = new Reto(nombre,googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(position)).title("prueba")),position);
                                                      //nuevo.setPunto(position);
                                                      //nuevo.setNombre(nombre);
+                                                     retosRuta.add(nuevo);
                                                      ruta.addReto(nuevo);
                                                      //retosRuta.add(nuevo);
                                                  }
+                                                 ra = new RetosAdapter(getApplicationContext(), ruta);
+                                                 //ra.addReto(nuevo);
+                                                 /*
+                                                 Log.i("test", "nuevo" + String.valueOf(ruta.getPoints().size()));
+                                                 ra.addReto(new Reto("prueba", googleMap.addMarker(new MarkerOptions()
+                                                         .position(ruta.getPoints().get(2))
+                                                         .title("prueba")), 2));
+                                                 ra.addReto(new Reto("prueba2", googleMap.addMarker(new MarkerOptions()
+                                                         .position(ruta.getPoints().get(1))
+                                                         .title("prueba2")), 1));
+                                                 */
                                                  //LatLng loc;
                                                  new CargaRuta().execute();
 
@@ -162,7 +177,7 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
 
                 //llevar a cabo la recogida de los datos.
                 ArrayList<Tramo> datos = ruta.getTramos();
-
+                ArrayList<String> posiciones = new ArrayList<String>();
 
                 JSONObject ori = new JSONObject();
                 int tamanio = datos.size();
@@ -194,6 +209,14 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
 
 
                 }
+                for(int i=0;i<3;i++){
+                    Reto n = (Reto) ra.getItem(i);
+                    posiciones.add(n.getNombre());
+                    posiciones.add(Integer.toString(n.getPunto()));
+
+                }
+//Toast.makeText(marca_retos.this, "Tamanio" + Integer.toString(tamanio), Toast.LENGTH_LONG).show();
+                con.hacerconexionGenerica("updateRetoPost",posiciones);
                 Toast.makeText(marca_retos.this, "Tamanio" + Integer.toString(tamanio), Toast.LENGTH_LONG).show();
                 con.hacerConexionJSON("Mapeado", ori, tamanio);
                 Toast.makeText(marca_retos.this, "Termino envio", Toast.LENGTH_LONG).show();
@@ -253,7 +276,7 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
 
 
             //ruta.setRetos(retosRuta);
-            
+
             //Toast.makeText(marca_retos.this,"TU PUTA MADRE",Toast.LENGTH_LONG).show();
 
             return null;
@@ -308,16 +331,12 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
             }
             Toast.makeText(getApplication(), String.valueOf(ruta.getPoints().size()), Toast.LENGTH_LONG).show();
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 17.0f));
-            RetosAdapter ra = new RetosAdapter(getApplicationContext(), ruta);
+
             listretos.setAdapter(ra);
             listretos.setFooterDividersEnabled(true);
-            Log.i("test", "nuevo" + String.valueOf(ruta.getPoints().size()));
-            ra.addReto(new Reto("prueba", googleMap.addMarker(new MarkerOptions()
-                    .position(ruta.getPoints().get(2))
-                    .title("prueba")), 2));
-            ra.addReto(new Reto("prueba2", googleMap.addMarker(new MarkerOptions()
-                    .position(ruta.getPoints().get(1))
-                    .title("prueba2")), 1));
+            for(int i=0;i<retosRuta.size();i++){
+                ra.addReto(retosRuta.get(i));
+            }
 
 
 

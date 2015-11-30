@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,6 +26,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class CreadorRetoDeportivo extends Activity {
@@ -42,12 +44,27 @@ public class CreadorRetoDeportivo extends Activity {
     private Uri fileUri = Uri.parse("vacio");
     private static String nameFile;
     private boolean seleccionado=false;
+    private MediaPlayer mp;
 
     private String nombre;
     private String creador;
     @Override
     public void onResume(){
         super.onResume();
+        mp.setLooping(true);
+        mp.start();
+
+    }
+    public void onPause(){
+        super.onPause();
+        mp.setLooping(false);
+        mp.stop();
+
+    }
+    public void onDestroy(){
+        super.onDestroy();
+        mp.setLooping(false);
+        mp.stop();
 
     }
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +76,7 @@ public class CreadorRetoDeportivo extends Activity {
         descripRecorrido=getIntent().getExtras().getString("descrip");
         nombreRuta=getIntent().getExtras().getString("RutaName");
         con=new Conexion();
-
+        mp =MediaPlayer.create(this,R.raw.brico);
         creador=getIntent().getExtras().getString("creador");
         if(lyout) {
             setContentView(R.layout.activity_creador_reto_deportivo);
@@ -71,7 +88,8 @@ public class CreadorRetoDeportivo extends Activity {
         }
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
 
-
+        mp.setLooping(true);
+        mp.start();
     }
     private static Uri getOutputMediaFileUri(int type){
         return Uri.fromFile(getOutputMediaFile(type));
@@ -282,6 +300,8 @@ public class CreadorRetoDeportivo extends Activity {
         final ImageView borrarC =(ImageView) findViewById(R.id.borraC);
         final ImageView borrarD =(ImageView) findViewById(R.id.borraD);
         final ImageView camara=(ImageView) findViewById(R.id.imagenCameraCultural);
+        final ArrayList<String> respuesta = new ArrayList<String>();
+        final ImageView item =(ImageView) findViewById(R.id.imagenItemCultural);
 
         nameFile=getIntent().getExtras().getString("nombrefile");
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
@@ -295,6 +315,12 @@ public class CreadorRetoDeportivo extends Activity {
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 
                 startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+            }
+        });
+        item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarElecciones(nombre.getText().toString()).show();
             }
         });
         borrarA.setOnClickListener(new View.OnClickListener() {
@@ -386,45 +412,58 @@ public class CreadorRetoDeportivo extends Activity {
             crear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    envio.add(nam);
-                    envio.add(nombre.getText().toString());
-                    envio.add(Pregunta.getText().toString());
-                    envio.add(respA.getText().toString());
-                    envio.add(respB.getText().toString());
-                    envio.add(respC.getText().toString());
-                    envio.add(respD.getText().toString());
-                    envio.add(descRecom.getText().toString());
-                    envio.add(Integer.toString(dificultades.get(0)+1));
-                    String Respuesta="";
-                    if(btnA.isChecked()==true){
-                        //envio.add("A");
-                        Respuesta+="A";
+                    if(nombre.getText().toString().matches("")||Pregunta.getText().toString().matches("")||descRecom.getText().toString().matches("")||respA.getText().toString().matches("")||respB.getText().toString().matches("")||respC.getText().toString().matches("")||respD.getText().toString().matches("")||dificultades.isEmpty()){
+                        Toast.makeText(c,"Hay campos sin rellenar, o dificultad sin asignar",Toast.LENGTH_LONG).show();
                     }
-                    if(btnB.isChecked()==true){
-                        //envio.add("B");
-                        Respuesta+="B";
-                    }
-                    if(btnC.isChecked()==true){
-                        //envio.add("C");
-                        Respuesta+="C";
-                    }
-                    if(btnD.isChecked()==true){
-                        //envio.add("D");
-                        Respuesta+="D";
-                    }
-                    envio.add(Respuesta);
-                    envio.add(fileUri.toString());
-                    int resultado = con.hacerconexionGenerica("updateRetoCultural",envio);
-                    envio.clear();
-                    if(resultado==-1){
-                        finish();
-                    }
-                    else{
-                        Toast.makeText(c, "Error en insercion reto", Toast.LENGTH_LONG).show();
-                    }
+                    else {
+                        if ((btnA.isChecked() == false) && (btnB.isChecked() == false) && (btnC.isChecked() == false) && (btnD.isChecked() == false)) {
+                            Toast.makeText(c, "No ha seleccionado una respuesta", Toast.LENGTH_LONG).show();
+                        } else {
+                            envio.add(nam);
+                            envio.add(nombre.getText().toString());
+                            envio.add(Pregunta.getText().toString());
+                            envio.add(descRecom.getText().toString());
+                            envio.add(respA.getText().toString());
+                            envio.add(respB.getText().toString());
+                            envio.add(respC.getText().toString());
+                            envio.add(respD.getText().toString());
 
 
+                            if(btnA.isChecked()==true){
+                                //envio.add("A");
+                                respuesta.add("A");
+                            }
+                            if(btnB.isChecked()==true){
+                                //envio.add("B");
+                                respuesta.add("B");
+                            }
+                            if(btnC.isChecked()==true){
+                                //envio.add("C");
+                                respuesta.add("C");
+                            }
+                            if(btnD.isChecked()==true){
+                                //envio.add("D");
+                                respuesta.add("D");
+                            }
+                            String auxiliar="";
+                            Collections.sort(respuesta);
+                            for(int i=0;i<respuesta.size();i++){
+                                auxiliar+=respuesta.get(i);
+                            }
+                            envio.add(auxiliar);
+                            envio.add(Integer.toString(dificultades.get(0)+1));
+                            envio.add(fileUri.toString());
+                            int resultado = con.hacerconexionGenerica("updateRetoCultural", envio);
+                            envio.clear();
+                            if (resultado == -1) {
+                                finish();
+                            } else {
+                                Toast.makeText(c, "Error en insercion reto", Toast.LENGTH_LONG).show();
+                            }
+
+
+                        }
+                    }
                 }
             });
         }
@@ -433,7 +472,7 @@ public class CreadorRetoDeportivo extends Activity {
                 @Override
                 public void onClick(View v) {
                     if(nombre.getText().toString().matches("")||Pregunta.getText().toString().matches("")||descRecom.getText().toString().matches("")||respA.getText().toString().matches("")||respB.getText().toString().matches("")||respC.getText().toString().matches("")||respD.getText().toString().matches("")||dificultades.isEmpty()){
-                        Toast.makeText(c,"Hay campos sin rellenar",Toast.LENGTH_LONG).show();
+                        Toast.makeText(c,"Hay campos sin rellenar, o dificultad sin asignar",Toast.LENGTH_LONG).show();
                     }
                     else{
                         if((btnA.isChecked()==false)&&(btnB.isChecked()==false)&&(btnC.isChecked()==false)&&(btnD.isChecked()==false)){
@@ -451,24 +490,28 @@ public class CreadorRetoDeportivo extends Activity {
                             envio.add(respD.getText().toString());
                             envio.add(descRecom.getText().toString());
                             envio.add(Integer.toString(dificultades.get(0)+1));
-                            String Respuesta="";
                             if(btnA.isChecked()==true){
                                 //envio.add("A");
-                                Respuesta+="A";
+                                respuesta.add("A");
                             }
                             if(btnB.isChecked()==true){
                                 //envio.add("B");
-                                Respuesta+="B";
+                                respuesta.add("B");
                             }
                             if(btnC.isChecked()==true){
                                 //envio.add("C");
-                                Respuesta+="C";
+                                respuesta.add("C");
                             }
                             if(btnD.isChecked()==true){
                                 //envio.add("D");
-                                Respuesta+="D";
+                                respuesta.add("D");
                             }
-                            envio.add(Respuesta);
+                            String auxiliar="";
+                            Collections.sort(respuesta);
+                            for(int i=0;i<respuesta.size();i++){
+                                auxiliar+=respuesta.get(i);
+                            }
+                            envio.add(auxiliar);
                             envio.add(fileUri.toString());
                             int resultado = con.hacerconexionGenerica("crearRetoNuevoCultural",envio);
                             envio.clear();
@@ -545,8 +588,9 @@ public class CreadorRetoDeportivo extends Activity {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if(!nombreReto.matches("")) {
             PlaceList adapter = new PlaceList();
-            dt.add(new Items("zapatillas", R.drawable.zapatillas, nombreReto));
-
+            if(dt.isEmpty()) {
+                dt.add(new Items("zapatillas", R.drawable.zapatillas, nombreReto));
+            }
             builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -586,7 +630,7 @@ public class CreadorRetoDeportivo extends Activity {
 
             final ImageView img = (ImageView) intenView.findViewById(R.id.ItemImage);
             TextView txt1 = (TextView) intenView.findViewById(R.id.ItemText);
-            final CheckBox check = (CheckBox) intenView.findViewById(R.id.CheckItem);
+            //final CheckBox check = (CheckBox) intenView.findViewById(R.id.CheckItem);
 
             currentData = dt.get(position);
 
@@ -604,7 +648,9 @@ public class CreadorRetoDeportivo extends Activity {
                                     envio.add(currentData.getName());
                                     envio.add(currentData.getNombreReto());
                                     envio.add(Integer.toString(currentData.getImage()));
+                                    envio.add(fileUri.toString());
                                     con.hacerconexionGenerica("insertPremio", envio);
+
                                     envio.clear();
                                     seleccionado=true;
                                 }

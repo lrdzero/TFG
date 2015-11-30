@@ -32,6 +32,7 @@ public class Reto {
     public String getNombre() {
         return nombre;
     }
+    public int getPunto(){return puntoruta;}
     public int getMarkerLocation(){
         return puntoruta;
     }

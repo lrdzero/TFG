@@ -23,7 +23,8 @@
                 android:orientation="horizontal"
                 android:layout_width="350dp"
                 android:layout_height="300dp"
-                android:background="@drawable/imagendeporte">
+                android:background="@drawable/imagendeporte"
+                android:id="@+id/myLinear">
 
                 <ImageView
                     android:layout_width="148dp"

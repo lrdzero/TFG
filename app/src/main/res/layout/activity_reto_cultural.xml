@@ -8,134 +8,133 @@
     android:background="@drawable/bustogriego">
 
 
-    <com.example.lrdzero.tfg.HorizontalListView
-        android:layout_width="400dp"
-        android:layout_height="120dp"
-        android:id="@+id/listaMochila"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Mochila"
-        android:id="@+id/textView8"
-        android:layout_above="@+id/listaMochila"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="500dp"
-        android:layout_height="200dp"
+        android:id="@+id/scrollView7"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/linearLayout3">
-
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView6"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/guia"
-            android:adjustViewBounds="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Responde a la siguiente pregunta:"
-            android:id="@+id/textView9"
-            android:layout_gravity="center_vertical"
-            android:textColor="#ff14ff8e" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="500dp"
-        android:layout_height="200dp"
-        android:layout_below="@+id/linearLayout3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:weightSum="1">
-
-        <TextView
-            android:layout_width="341dp"
-            android:layout_height="75dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Pregunta de prueba recogida desde la terminal o servidor que se planteará al usuario"
-            android:id="@+id/pregunta"
-            android:layout_gravity="center_horizontal"
-            android:textColor="#ff23ff81"
-            android:background="@color/dim_foreground_disabled_material_dark" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="180dp"
-                android:layout_height="wrap_content">
+                android:layout_width="400dp"
+                android:layout_height="200dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/linearLayout3">
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView6"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/guia"
+                    android:adjustViewBounds="true" />
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New RadioButton"
-                        android:id="@+id/responseA" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New RadioButton"
-                        android:id="@+id/responseB" />
-
-                </LinearLayout>
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Responde a la siguiente pregunta:"
+                    android:id="@+id/textView9"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#ff14ff8e"
+                    android:background="@color/dim_foreground_disabled_material_dark" />
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                android:orientation="vertical"
+                android:layout_width="500dp"
+                android:layout_height="300dp"
+                android:layout_below="@+id/linearLayout3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="350dp"
+                    android:layout_height="120dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:id="@+id/pregunta"
+                    android:background="@color/dim_foreground_disabled_material_dark" />
 
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent">
+                    android:layout_height="wrap_content">
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New RadioButton"
-                        android:id="@+id/responseC" />
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content">
 
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New RadioButton"
-                        android:id="@+id/responseD" />
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
 
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="New RadioButton"
+                                android:id="@+id/responseA" />
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="New RadioButton"
+                                android:id="@+id/responseB" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent">
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="New RadioButton"
+                                android:id="@+id/responseC" />
+
+                            <RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="New RadioButton"
+                                android:id="@+id/responseD" />
+
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Responder"
+                    android:id="@+id/buttonResponse"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="120dp" />
+
             </LinearLayout>
+
         </LinearLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Responder"
-            android:id="@+id/buttonResponse"
-            android:layout_gravity="center_horizontal" />
-
-    </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

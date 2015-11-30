@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +44,8 @@ import java.util.Random;
 public class Seguimiento  extends Activity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
     private GoogleMap googleMap;
     MapView mapView;
+    MediaPlayer media;
+
 
     LocationClient mLocationClient;
 
@@ -62,18 +66,23 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         super.onResume();
         mapView.onResume();
         mLocationClient.connect();
+        media.setLooping(true);
+        media.start();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
+        media.setLooping(false);
+        media.stop();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mapView.onPause();
+        media.stop();
     }
 
     @Override
@@ -81,7 +90,9 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seguimiento);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
+        media= MediaPlayer.create(this,R.raw.frog);
+        media.setLooping(true);
+        media.start();
 
         mapView = (MapView) findViewById(R.id.gmap);
         mapView.onCreate(savedInstanceState);

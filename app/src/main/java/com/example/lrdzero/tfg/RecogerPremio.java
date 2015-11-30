@@ -2,6 +2,8 @@ package com.example.lrdzero.tfg;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,19 +23,31 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     private ArrayList<Items> dt = new ArrayList<Items>();
     private PlaceList adapter;
     private HorizontalListView lista2;
-    private ImageView image;
+    private ImageView image,foto;
     private String nombreReto;
     private Conexion con;
     private ArrayList<String> datosMochila;
     private ArrayList<String> datosPremio;
     private ArrayList<String> envio = new ArrayList<String>();
     private String nameRuta,nameUser,nameRecorrido;
+    private LinearLayout lt;
+    private Uri fileUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recoger_premio);
+        final View v= new View(getApplicationContext());
+        //foto = (ImageView) findViewById(R.id.laFoto);
         image = (ImageView) findViewById(R.id.imageView14);
+        lt =(LinearLayout)findViewById(R.id.myLinear);
+        //fileUri = Uri.parse();
+        //image.setImageURI(fileUri);
+        MediaPlayer mp = MediaPlayer.create(this,R.raw.tada);
+        mp.start();
+
         nombreReto=getIntent().getExtras().getString("nombreReto");
+
         con = new Conexion();
         datosMochila = con.cargarMochila(nombreReto);
 
@@ -42,6 +57,12 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         nameRecorrido=getIntent().getExtras().getString("nombreRecorrido");
         nameRuta=getIntent().getExtras().getString("nombreRuta");
         datosPremio = con.cargarPremio(nombreReto);
+        //lt.setBackgroundResource(Integer.valueOf(datosMochila.get(1)));
+        //fileUri = Uri.parse(datosPremio.get(2));
+        //image.setImageResource(fileUri.describeContents());
+
+        //foto.setImageURI(fileUri);
+
         //image.setImageDrawable(Integer.valueOf(datosPremio.get(1)));
         image.setOnClickListener(this);
 

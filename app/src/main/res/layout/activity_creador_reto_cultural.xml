@@ -1,235 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="#FFFECF">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:weightSum="1">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView6"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="40dp">
+            android:layout_height="fill_parent"
+            android:weightSum="1"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Nombre:"
-                android:id="@+id/textNombreReto" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Nombre:"
+                    android:id="@+id/textNombreReto" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/editText"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Su prueba o pregunta:"
+                    android:id="@+id/textPregunta" />
+
+            </LinearLayout>
 
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:ems="10"
-                android:id="@+id/editText"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="40dp">
+                android:id="@+id/editPregunta"
+                android:text="Introduzca pregunta" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Su prueba o pregunta:"
-                android:id="@+id/textPregunta" />
-
-        </LinearLayout>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/editPregunta"
-            android:text="Introduzca pregunta" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Respuestas: "
-            android:id="@+id/textRespuesta" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.30">
+                android:text="Respuestas: "
+                android:id="@+id/textRespuesta" />
 
             <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.30">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A"
+                        android:id="@+id/radioButtonA"
+                        android:checked="false" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="B"
+                        android:id="@+id/radioButtonB"
+                        android:checked="false" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="C"
+                        android:id="@+id/radioButtonC"
+                        android:checked="false" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="D"
+                        android:id="@+id/radioButtonD"
+                        android:checked="false"
+                        android:layout_marginTop="10dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:layout_width="180dp"
+                            android:layout_height="26dp"
+                            android:id="@+id/editTextA"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="10dp"
+                            android:text="Respuesta A"
+                            android:textSize="10dp" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:id="@+id/borrarA"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/error" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp">
+
+                        <EditText
+                            android:layout_width="180dp"
+                            android:layout_height="30dp"
+                            android:id="@+id/editTextB"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="10dp"
+                            android:text="Respuesta B" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:id="@+id/borraB"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/error" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/editTextC"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="0dp"
+                            android:textSize="10dp"
+                            android:text="Respuesta C" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:id="@+id/borraC"
+                            android:src="@drawable/error" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="26dp"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:layout_width="180dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/editTextD"
+                            android:layout_gravity="center_horizontal"
+                            android:textSize="10dp"
+                            android:text="Respuesta D" />
+
+                        <ImageView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            android:id="@+id/borraD"
+                            android:src="@drawable/error" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="vertical">
+                android:text="Dificultad"
+                android:id="@+id/botonDifucultad"
+                android:layout_gravity="center_horizontal" />
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="A"
-                    android:id="@+id/radioButtonA"
-                    android:checked="false" />
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/imagenCameraCultural"
+                android:adjustViewBounds="true"
+                android:src="@drawable/camara"
+                android:layout_gravity="center_horizontal" />
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="B"
-                    android:id="@+id/radioButtonB"
-                    android:checked="false" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Descripción Recompensa"
+                android:id="@+id/textView16"
+                android:layout_marginTop="10dp" />
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="C"
-                    android:id="@+id/radioButtonC"
-                    android:checked="false" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText2" />
 
-                <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="D"
-                    android:id="@+id/radioButtonD"
-                    android:checked="false"
-                    android:layout_marginTop="10dp" />
-            </LinearLayout>
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/imagenItemCultural"
+                android:adjustViewBounds="true"
+                android:src="@drawable/aniadiritem"
+                android:layout_gravity="center_horizontal" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="26dp"
-                    android:layout_marginTop="10dp">
-
-                    <EditText
-                        android:layout_width="180dp"
-                        android:layout_height="26dp"
-                        android:id="@+id/editTextA"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="10dp"
-                        android:text="Respuesta A"
-                        android:textSize="10dp" />
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:id="@+id/borrarA"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/error" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="26dp">
-
-                    <EditText
-                        android:layout_width="180dp"
-                        android:layout_height="30dp"
-                        android:id="@+id/editTextB"
-                        android:layout_gravity="center_horizontal"
-                        android:textSize="10dp"
-                        android:text="Respuesta B" />
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:id="@+id/borraB"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/error" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="10dp">
-
-                    <EditText
-                        android:layout_width="180dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/editTextC"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="0dp"
-                        android:textSize="10dp"
-                        android:text="Respuesta C" />
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:id="@+id/borraC"
-                        android:src="@drawable/error" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="26dp"
-                    android:layout_marginTop="10dp">
-
-                    <EditText
-                        android:layout_width="180dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/editTextD"
-                        android:layout_gravity="center_horizontal"
-                        android:textSize="10dp"
-                        android:text="Respuesta D" />
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:id="@+id/borraD"
-                        android:src="@drawable/error" />
-                </LinearLayout>
-
-            </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Crear"
+                android:id="@+id/botonCrear"
+                android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
+    </ScrollView>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Dificultad"
-            android:id="@+id/botonDifucultad"
-            android:layout_gravity="center_horizontal" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Descripción Recompensa"
-            android:id="@+id/textView16"
-            android:layout_marginTop="10dp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/editText2" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/imagenCameraCultural"
-            android:adjustViewBounds="true"
-            android:src="@drawable/camara"
-            android:layout_gravity="center_horizontal" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Crear"
-            android:id="@+id/botonCrear"
-            android:layout_gravity="center_horizontal" />
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

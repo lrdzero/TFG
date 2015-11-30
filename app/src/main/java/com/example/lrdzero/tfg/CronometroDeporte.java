@@ -2,6 +2,7 @@ package com.example.lrdzero.tfg;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -19,6 +20,23 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
     private String nombreReto;
     private int tiempo;
     private String nameUser,nameRuta,nameRecorrido;
+    private MediaPlayer mp;
+
+    public void onResume(){
+        super.onResume();
+        mp.setLooping(true);
+        mp.start();
+    }
+    public void onPause(){
+        super.onPause();
+        mp.setLooping(false);
+        mp.stop();
+    }
+    public void onDestroy(){
+        super.onDestroy();
+        mp.setLooping(false);
+        mp.stop();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,9 +53,10 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
         crono.setBase(SystemClock.elapsedRealtime());
         crono.start();
 
-
+        mp = MediaPlayer.create(this,R.raw.deport);
         end.setOnClickListener(this);
-
+        mp.setLooping(true);
+        mp.start();
 
     }
 

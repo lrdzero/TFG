@@ -33,11 +33,6 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal" />
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/CheckItem"
-            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
 </RelativeLayout>

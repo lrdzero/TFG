@@ -2,6 +2,7 @@ package com.example.lrdzero.tfg;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -26,12 +27,24 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
     private ArrayList<String> envios=new ArrayList<String>();
     private Conexion con;
     private String usuarioCreador="defecto";
-
+    private MediaPlayer mp;
     @Override
     public void onResume(){
         super.onResume();
         CargarLista();
         Visualizar();
+        mp.setLooping(true);
+        mp.start();
+    }
+    public void onPause(){
+        super.onPause();
+        mp.setLooping(false);
+        mp.stop();
+    }
+    public void onDestroy(){
+        super.onDestroy();
+        mp.setLooping(false);
+        mp.stop();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +55,12 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
         recorridos=(ListView) findViewById(R.id.listView4);
         nuevo=(ImageView) findViewById(R.id.imageNuevoRecorrido);
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
+        mp = MediaPlayer.create(this,R.raw.brico);
 
 
         con = new Conexion();
-        //usuarioCreador=getIntent().getExtras().getString("creador");
-        usuarioCreador="l";
+        usuarioCreador=getIntent().getExtras().getString("creador");
+        //usuarioCreador="l";
         nuevo.setOnClickListener(this);
 
         listo.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +71,9 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
         });
         CargarLista();
         Visualizar();
+
+        mp.setLooping(true);
+        mp.start();
     }
 
     public void onClick(View v){

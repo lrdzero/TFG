@@ -193,7 +193,7 @@ public class MapaEditor extends Activity implements GooglePlayServicesClient.Con
                 public void onMapClick(LatLng latLng) {
                     LatLng loc;
                     googleMap.addMarker(new MarkerOptions().position(latLng));
-                    con.updateRetoPos(nombreRto, latLng.latitude, latLng.longitude);
+                    //con.updateRetoPos(nombreRto, latLng.latitude, latLng.longitude);
                     Toast.makeText(MapaEditor.this, "Posicion de reto asignada", Toast.LENGTH_LONG).show();
                     finish();
                 }

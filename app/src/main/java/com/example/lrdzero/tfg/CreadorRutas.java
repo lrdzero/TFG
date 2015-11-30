@@ -3,6 +3,7 @@ package com.example.lrdzero.tfg;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
@@ -34,31 +35,38 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
     private String myName;
     private String creadorName;
     private int tutorial=1;
+    private MediaPlayer mp;
 
     @Override
     public void onResume(){
         super.onResume();
         Creador();
         Visualizar();
+        mp.setLooping(true);
+        mp.start();
 
     }
     @Override
     public void onPause(){
         super.onPause();
+        mp.setLooping(false);
+        mp.stop();
 
     }
     @Override
     public void onDestroy(){
         super.onDestroy();
+        mp.setLooping(false);
+        mp.stop();
 
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_creador_rutas);
-        tipo=getIntent().getExtras().getBoolean("tipo");
-        nombreRecorrido=getIntent().getExtras().getString("RecNombre");
-        descRecorrido=getIntent().getExtras().getString("drescrip");
+        tipo = getIntent().getExtras().getBoolean("tipo");
+        nombreRecorrido = getIntent().getExtras().getString("RecNombre");
+        descRecorrido = getIntent().getExtras().getString("drescrip");
         modif=getIntent().getExtras().getBoolean("modif");
 
         check=(ImageView) findViewById(R.id.imagenCheck);
@@ -90,8 +98,11 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                 generarTutorial().show();
             }
         }
+        mp = MediaPlayer.create(this,R.raw.brico);
         Creador();
         Visualizar();
+        mp.setLooping(true);
+        mp.start();
     }
 
     public void onClick(View v){

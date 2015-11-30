@@ -3,8 +3,10 @@ package com.example.lrdzero.tfg;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -41,17 +43,30 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
     private String nombreCreador="defecto";
     private String nombreRc;
     private ArrayList<String> recomendaModifi;
-
+    private MediaPlayer mp;
     @Override
     public void onResume(){
         super.onResume();
         Create();
         Visualizar();
+        mp.setLooping(true);
+        mp.start();
+    }
+    public void onPause(){
+        super.onPause();
+        mp.setLooping(false);
+        mp.stop();
+    }
+    public void onDestroy(){
+        super.onDestroy();
+        mp.setLooping(false);
+        mp.stop();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_nuevo_recorrido);
+
 
         recomen = (Button) findViewById(R.id.botonRecomendado);
         listaRetos=(ListView) findViewById(R.id.listView5);
@@ -70,6 +85,8 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         con=new Conexion();
         modif=getIntent().getExtras().getBoolean("Modif");
+
+        mp =MediaPlayer.create(this,R.raw.brico);
 
 
         if(modif){
@@ -105,7 +122,8 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
             Visualizar();
 
 
-
+        mp.setLooping(true);
+        mp.start();
 
 
 
