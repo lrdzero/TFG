@@ -2,6 +2,7 @@ package com.example.lrdzero.tfg;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -36,6 +39,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_recoger_premio);
         final View v= new View(getApplicationContext());
         //foto = (ImageView) findViewById(R.id.laFoto);
@@ -44,7 +48,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         //fileUri = Uri.parse();
         //image.setImageURI(fileUri);
         MediaPlayer mp = MediaPlayer.create(this,R.raw.tada);
-        mp.start();
+
 
         nombreReto=getIntent().getExtras().getString("nombreReto");
 
@@ -58,18 +62,26 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         nameRuta=getIntent().getExtras().getString("nombreRuta");
         datosPremio = con.cargarPremio(nombreReto);
         //lt.setBackgroundResource(Integer.valueOf(datosMochila.get(1)));
-        //fileUri = Uri.parse(datosPremio.get(2));
+        fileUri = Uri.parse(datosPremio.get(2));
         //image.setImageResource(fileUri.describeContents());
+        Drawable yourDrawable;
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(fileUri);
+            yourDrawable = Drawable.createFromStream(inputStream, fileUri.toString() );
+        } catch (FileNotFoundException e) {
+            yourDrawable = getResources().getDrawable(R.drawable.imagendefecto);
+        }
+        lt.setBackgroundDrawable(yourDrawable);
+        //image.setImageURI(fileUri);
 
-        //foto.setImageURI(fileUri);
-
-        //image.setImageDrawable(Integer.valueOf(datosPremio.get(1)));
+        image.setImageResource(Integer.valueOf(datosPremio.get(1)));
         image.setOnClickListener(this);
 
 
         loadItems();
 
         ListaView();
+        mp.start();
     }
 
     public void onClick(View v){
