@@ -45,6 +45,7 @@ public class CreadorRetoDeportivo extends Activity {
     private static String nameFile;
     private boolean seleccionado=false;
     private MediaPlayer mp;
+    private MediaPlayer error;
 
     private String nombre;
     private String creador;
@@ -76,7 +77,8 @@ public class CreadorRetoDeportivo extends Activity {
         descripRecorrido=getIntent().getExtras().getString("descrip");
         nombreRuta=getIntent().getExtras().getString("RutaName");
         con=new Conexion();
-        mp =MediaPlayer.create(this,R.raw.brico);
+        mp =MediaPlayer.create(this, R.raw.brico);
+        error=MediaPlayer.create(this, R.raw.alert);
         creador=getIntent().getExtras().getString("creador");
         if(lyout) {
             setContentView(R.layout.activity_creador_reto_deportivo);
@@ -87,6 +89,7 @@ public class CreadorRetoDeportivo extends Activity {
             metodosCulturales(modifi,getBaseContext());
         }
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
+
 
         mp.setLooping(true);
         mp.start();
@@ -228,6 +231,7 @@ public class CreadorRetoDeportivo extends Activity {
 
                     if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")||dificultades.isEmpty()||!seleccionado) {
                         Toast.makeText(c, "Hay campos sin rellenar", Toast.LENGTH_LONG).show();
+                        error.start();
                     } else {
 
                         envio.add(nam);
@@ -245,6 +249,7 @@ public class CreadorRetoDeportivo extends Activity {
                             finish();
                         } else {
                             Toast.makeText(c, "Error en insercion reto", Toast.LENGTH_LONG).show();
+                            error.start();
                         }
                     }
                 }
@@ -259,6 +264,7 @@ public class CreadorRetoDeportivo extends Activity {
                 public void onClick(View v) {
                     if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")||!seleccionado) {
                         Toast.makeText(c, "Hay campos sin rellenar", Toast.LENGTH_LONG).show();
+                        error.start();
                     } else {
                         envio.add(nombreRecorrido);
                         envio.add(descripRecorrido);
@@ -275,6 +281,7 @@ public class CreadorRetoDeportivo extends Activity {
                             finish();
                         } else {
                             Toast.makeText(c, "Error en insercion reto", Toast.LENGTH_LONG).show();
+                            error.start();
                         }
                     }
                 }
@@ -374,7 +381,7 @@ public class CreadorRetoDeportivo extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 dificultades = aux;
-                                Toast.makeText(CreadorRetoDeportivo.this,Integer.toString(dificultades.get(0)+1),Toast.LENGTH_LONG).show();
+                                //Toast.makeText(CreadorRetoDeportivo.this,Integer.toString(dificultades.get(0)+1),Toast.LENGTH_LONG).show();
                                 // User clicked OK, so save the mSelectedItems results somewhere
                                 // or return them to the component that opened the dialog
 
@@ -414,10 +421,12 @@ public class CreadorRetoDeportivo extends Activity {
                 public void onClick(View v) {
                     if(nombre.getText().toString().matches("")||Pregunta.getText().toString().matches("")||descRecom.getText().toString().matches("")||respA.getText().toString().matches("")||respB.getText().toString().matches("")||respC.getText().toString().matches("")||respD.getText().toString().matches("")||dificultades.isEmpty()){
                         Toast.makeText(c,"Hay campos sin rellenar, o dificultad sin asignar",Toast.LENGTH_LONG).show();
+                        error.start();
                     }
                     else {
                         if ((btnA.isChecked() == false) && (btnB.isChecked() == false) && (btnC.isChecked() == false) && (btnD.isChecked() == false)) {
                             Toast.makeText(c, "No ha seleccionado una respuesta", Toast.LENGTH_LONG).show();
+                            error.start();
                         } else {
                             envio.add(nam);
                             envio.add(nombre.getText().toString());
@@ -459,6 +468,7 @@ public class CreadorRetoDeportivo extends Activity {
                                 finish();
                             } else {
                                 Toast.makeText(c, "Error en insercion reto", Toast.LENGTH_LONG).show();
+                                error.start();
                             }
 
 
@@ -473,10 +483,12 @@ public class CreadorRetoDeportivo extends Activity {
                 public void onClick(View v) {
                     if(nombre.getText().toString().matches("")||Pregunta.getText().toString().matches("")||descRecom.getText().toString().matches("")||respA.getText().toString().matches("")||respB.getText().toString().matches("")||respC.getText().toString().matches("")||respD.getText().toString().matches("")||dificultades.isEmpty()){
                         Toast.makeText(c,"Hay campos sin rellenar, o dificultad sin asignar",Toast.LENGTH_LONG).show();
+                        error.start();
                     }
                     else{
                         if((btnA.isChecked()==false)&&(btnB.isChecked()==false)&&(btnC.isChecked()==false)&&(btnD.isChecked()==false)){
                             Toast.makeText(c,"No ha seleccionado una respuesta",Toast.LENGTH_LONG).show();
+                            error.start();
                         }
                         else{
                             envio.add(nombreRecorrido);
@@ -520,6 +532,7 @@ public class CreadorRetoDeportivo extends Activity {
                             }
                             else{
                                 Toast.makeText(c, "Error en insercion reto", Toast.LENGTH_LONG).show();
+                                error.start();
                             }
                         }
                     }
@@ -604,6 +617,7 @@ public class CreadorRetoDeportivo extends Activity {
             });
         }
         else{
+            error.start();
             builder.setTitle("Error").setMessage("Introduzca un nombre para el reto").setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

@@ -3,6 +3,7 @@ package com.example.lrdzero.tfg;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -23,6 +24,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
     private String name;
     private Conexion con;
     private DatosRyR datosUser;
+    private MediaPlayer error;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         Rc2 = (ImageView) findViewById(R.id.imageView3);
         con =new Conexion();
 
-
+        error=MediaPlayer.create(this,R.raw.alert);
         User.setOnClickListener(this);
         Rc1.setOnClickListener(this);
         Rc2.setOnClickListener(this);
@@ -96,6 +98,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
 
         //Toast.makeText(SeleccionRecorridos.this,"Por favor rellene información adicional en su perfil (Preferencias)",Toast.LENGTH_LONG).show();
         if(datosUser.getPreferenciaUser1().equals("2")&&datosUser.getPreferenciaUser2().equals("2")){
+            error.start();
             builder.setTitle("Es necesaria más información").setMessage("Es necesario que especifique sus preferencias.\n\tPor favor acceda al perfil")
             .setPositiveButton("Ir a mi perfil", new DialogInterface.OnClickListener() {
                 @Override
