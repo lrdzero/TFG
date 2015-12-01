@@ -2,6 +2,7 @@ package com.example.lrdzero.tfg;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +37,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     private String nameRuta,nameUser,nameRecorrido;
     private LinearLayout lt;
     private Uri fileUri;
+    private boolean insertado=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +45,10 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
 
         setContentView(R.layout.activity_recoger_premio);
         final View v= new View(getApplicationContext());
-        //foto = (ImageView) findViewById(R.id.laFoto);
+        Button volver = (Button) findViewById(R.id.volverMapa);
         image = (ImageView) findViewById(R.id.imageView14);
         lt =(LinearLayout)findViewById(R.id.myLinear);
-        //fileUri = Uri.parse();
-        //image.setImageURI(fileUri);
+
         MediaPlayer mp = MediaPlayer.create(this,R.raw.tada);
 
 
@@ -61,9 +63,9 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         nameRecorrido=getIntent().getExtras().getString("nombreRecorrido");
         nameRuta=getIntent().getExtras().getString("nombreRuta");
         datosPremio = con.cargarPremio(nombreReto);
-        //lt.setBackgroundResource(Integer.valueOf(datosMochila.get(1)));
+
         fileUri = Uri.parse(datosPremio.get(2));
-        //image.setImageResource(fileUri.describeContents());
+
         Drawable yourDrawable;
         try {
             InputStream inputStream = getContentResolver().openInputStream(fileUri);
@@ -72,10 +74,11 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
             yourDrawable = getResources().getDrawable(R.drawable.imagendefecto);
         }
         lt.setBackgroundDrawable(yourDrawable);
-        //image.setImageURI(fileUri);
+
 
         image.setImageResource(Integer.valueOf(datosPremio.get(1)));
         image.setOnClickListener(this);
+        volver.setOnClickListener(this);
 
 
         loadItems();
@@ -96,10 +99,34 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
                 envio.add(nameRecorrido);
                 envio.add(datosPremio.get(0));
                 envio.add(datosPremio.get(1));
-                con.hacerconexionGenerica("insertMochila", envio);
+                int cont =con.hacerconexionGenerica("insertMochila", envio);
+                if(cont==0){
+                    Toast.makeText(RecogerPremio.this,"Error al insertar a mochila",Toast.LENGTH_LONG).show();
+                }
+                else{
+                    insertado=true;
+                }
                 envio.clear();
 
 
+                break;
+
+            case R.id.volverMapa:
+                    if(insertado){
+                        Intent i = getIntent();
+                        // Le metemos el resultado que queremos mandar a la
+                        // actividad principal.
+                        i.putExtra("RESULTADO", 1);
+                        // Establecemos el resultado, y volvemos a la actividad
+                        // principal. La variable que introducimos en primer lugar
+                        // "RESULT_OK" es de la propia actividad, no tenemos que
+                        // declararla nosotros.
+                        setResult(RESULT_OK, i);
+                        finish();
+                    }
+                else{
+                        Toast.makeText(RecogerPremio.this,"Debes recoger el premio.",Toast.LENGTH_LONG).show();
+                    }
                 break;
         }
     }
@@ -207,4 +234,5 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         adapter.notifyDataSetChanged();
 
     }
+
 }

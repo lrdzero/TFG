@@ -63,7 +63,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
                     nuevo.putExtra("nombreUser",nameUser);
                     nuevo.putExtra("nombreRecorrido",nameRecorrido);
                     nuevo.putExtra("nombreRuta",nameRuta);
-                    startActivity(nuevo);
+                    startActivityForResult(nuevo,1);
 
                 break;
         }
@@ -163,5 +163,27 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
     public void aceptar2(){
         adapter.notifyDataSetChanged();
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Comprobamos si el resultado de la segunda actividad es "RESULT_CANCELED".
+        if (resultCode == RESULT_CANCELED) {
+            // Si es así mostramos mensaje de cancelado por pantalla.
+            Toast.makeText(this, "Resultado cancelado", Toast.LENGTH_SHORT)
+                    .show();
+        } else {
+            // De lo contrario, recogemos el resultado de la segunda actividad.
+            String resultado = data.getExtras().getString("RESULTADO");
+            // Y tratamos el resultado en función de si se lanzó para rellenar el
+            // nombre o el apellido.
+            switch (requestCode) {
+                case 1:
+                    finish();
+                    break;
+
+
+            }
+        }
     }
 }

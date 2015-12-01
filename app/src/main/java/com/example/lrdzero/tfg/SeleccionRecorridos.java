@@ -141,7 +141,9 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
                                 final Intent nueva;
                                 nueva = new Intent(SeleccionRecorridos.this, RecorridosParaUsuario.class);
                                 nueva.putExtra("tipo", variable);
+                                nueva.putExtra("creador",datosUser.getName());
                                 nueva.putExtra("edad", datosUser.getNumber());
+                                nueva.putExtra("sexo",datosUser.getAdic());
                                 nueva.putExtra("pref1", datosUser.getPreferenciaUser1());
                                 nueva.putExtra("pref2", datosUser.getPreferenciaUser2());
                                 nueva.putExtra("dificultad", Integer.toString(dificultad.get(0) + 1));

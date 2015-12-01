@@ -4,13 +4,18 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.lrdzero.tfg.RecogerPremio">
+    tools:context="com.example.lrdzero.tfg.RecogerPremio"
+    android:background="#FFFECF">
 
 
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView4" >
+        android:id="@+id/scrollView4"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:orientation="vertical"
@@ -22,7 +27,7 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:background="@drawable/imagendeporte"
                 android:id="@+id/myLinear"
@@ -49,7 +54,9 @@
                         android:adjustViewBounds="true"
                         android:layout_centerVertical="true"
                         android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" />
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
 
                     <TextView
                         android:layout_width="80dp"
@@ -78,7 +85,7 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="match_parent"
+                android:layout_width="627dp"
                 android:layout_height="match_parent">
 
                 <TextView
@@ -96,6 +103,13 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
             </LinearLayout>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Volver"
+                android:id="@+id/volverMapa"
+                android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
 

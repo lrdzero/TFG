@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AnalogClock;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.Toast;
 
 
 public class CronometroDeporte extends Activity implements View.OnClickListener {
@@ -69,9 +70,42 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
                 premio.putExtra("nombreReto",nombreReto);
                 premio.putExtra("nombreUser",nameUser);
                 premio.putExtra("nombreRecorrido",nameRecorrido);
-                premio.putExtra("nombreRuta",nameRuta);
-                startActivity(premio);
+                premio.putExtra("nombreRuta", nameRuta);
+
+                startActivityForResult(premio, 1);
+
                 break;
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Comprobamos si el resultado de la segunda actividad es "RESULT_CANCELED".
+        if (resultCode == RESULT_CANCELED) {
+            // Si es así mostramos mensaje de cancelado por pantalla.
+            Toast.makeText(this, "Resultado cancelado", Toast.LENGTH_SHORT)
+                    .show();
+        } else {
+            // De lo contrario, recogemos el resultado de la segunda actividad.
+            String resultado = data.getExtras().getString("RESULTADO");
+            // Y tratamos el resultado en función de si se lanzó para rellenar el
+            // nombre o el apellido.
+            switch (requestCode) {
+                case 1:
+                    Intent i = getIntent();
+                    // Le metemos el resultado que queremos mandar a la
+                    // actividad principal.
+                    i.putExtra("RESULTADO", 1);
+                    // Establecemos el resultado, y volvemos a la actividad
+                    // principal. La variable que introducimos en primer lugar
+                    // "RESULT_OK" es de la propia actividad, no tenemos que
+                    // declararla nosotros.
+                    setResult(RESULT_OK, i);
+                    finish();
+                    break;
+
+
+            }
         }
     }
 }

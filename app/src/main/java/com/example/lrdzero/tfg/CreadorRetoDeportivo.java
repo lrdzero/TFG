@@ -248,7 +248,7 @@ public class CreadorRetoDeportivo extends Activity {
                         if (resultado == -1) {
                             finish();
                         } else {
-                            Toast.makeText(c, "Error en insercion reto", Toast.LENGTH_LONG).show();
+                            Toast.makeText(c, "Error updateo", Toast.LENGTH_LONG).show();
                             error.start();
                         }
                     }
@@ -603,6 +603,9 @@ public class CreadorRetoDeportivo extends Activity {
             PlaceList adapter = new PlaceList();
             if(dt.isEmpty()) {
                 dt.add(new Items("zapatillas", R.drawable.zapatillas, nombreReto));
+                dt.add(new Items("pesas",R.drawable.pesas,nombreReto));
+                dt.add(new Items("libro",R.drawable.libro,nombreReto));
+                dt.add(new Items("brújula",R.drawable.brujula,nombreReto));
             }
             builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
                 @Override

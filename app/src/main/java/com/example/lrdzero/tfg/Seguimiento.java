@@ -56,10 +56,19 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
     private boolean carga;
     private boolean retos;
     private String name;
+    private String creador,nombreRecorrido,nombreRuta,sexo,edad;
     ArrayList<LatLng> PtosRecorridos;
     boolean inicio=false;
     boolean cargado=false;
     Circle circulo;
+
+    private ImageView parpadoder;
+    private ImageView parpadoiz;
+    private ImageView brazoDer;
+    private ImageView brazoIz;
+    private ImageView cuerpo;
+    private ImageView boca;
+    private ImageView ojos;
 
     //ArrayList<Array> ArrayTramos = new ArrayList<>();
 
@@ -93,8 +102,17 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         setContentView(R.layout.seguimiento);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         media= MediaPlayer.create(this,R.raw.frog);
-        media.setLooping(true);
-        media.start();
+
+
+        //Carga Avatar
+        parpadoder =(ImageView) findViewById(R.id.parpder);
+        parpadoiz=(ImageView) findViewById(R.id.parpizq);
+        brazoDer =(ImageView) findViewById(R.id.brazoder);
+        brazoIz=(ImageView) findViewById(R.id.brazoizq);
+        cuerpo =(ImageView) findViewById(R.id.cabeza);
+        boca = (ImageView)findViewById(R.id.bocaverde);
+        ojos = (ImageView)findViewById(R.id.ojos);
+
 
         mapView = (MapView) findViewById(R.id.gmap);
         mapView.onCreate(savedInstanceState);
@@ -103,8 +121,13 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         carga = getIntent().getExtras().getBoolean("tipo");
         name = getIntent().getExtras().getString("nombre");
         retos = getIntent().getExtras().getBoolean("retos");
+        nombreRecorrido=getIntent().getExtras().getString("nombreRecorrido");
+        nombreRuta=getIntent().getExtras().getString("nombreRuta");
+        sexo=getIntent().getExtras().getString("sexo");
+        edad=getIntent().getExtras().getString("edad");
+        creador=getIntent().getExtras().getString("creador");
 
-
+        adaptacion(sexo,edad);
         con = new Conexion();
         googleMap = mapView.getMap();
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -129,6 +152,8 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         sig.setVisibility(View.INVISIBLE);
         sig.setAdjustViewBounds(true);
 
+        media.setLooping(true);
+        media.start();
 
         //ruta.setTramos(con.cargarVisionRuta(name));
         PtosRecorridos=ruta.getPoints();
@@ -436,5 +461,69 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         return 6372.8 * c;
     }
 
+    private void adaptacion(String sexo,String edad){
+
+        if(sexo.equals("H")){
+            if(Integer.valueOf((edad))<18){
+                boca.setImageResource(R.drawable.boca_n);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_n);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_n);
+                brazoIz.setImageResource(R.drawable.manoizq);
+                brazoDer.setImageResource(R.drawable.manoder);
+                cuerpo.setImageResource(R.drawable.cuerpo_n);
+            }
+            else if(Integer.valueOf(edad)>=18&&Integer.valueOf(edad)<57) {
+                boca.setImageResource(R.drawable.boca);
+                ojos.setImageResource(R.drawable.ojos);
+                //insertaMujer();
+                parpadoder.setImageResource(R.drawable.parpadoder);
+                parpadoiz.setImageResource(R.drawable.parpadoizq);
+                brazoIz.setImageResource(R.drawable.manoizq);
+                brazoDer.setImageResource(R.drawable.manoder);
+                cuerpo.setImageResource(R.drawable.cuerpo);
+            }
+            else{
+                boca.setImageResource(R.drawable.boca_a);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_a);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_a);
+                brazoIz.setImageResource(R.drawable.manoizq_a);
+                brazoDer.setImageResource(R.drawable.manoder_a);
+                cuerpo.setImageResource(R.drawable.cuerpo_a);
+            }
+        }
+        else{
+            if(Integer.valueOf((edad))<18){
+                boca.setImageResource(R.drawable.boca_h_n);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_h_n);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_h_n);
+                brazoIz.setImageResource(R.drawable.manoizq_h_n);
+                brazoDer.setImageResource(R.drawable.manoder_h_n);
+                cuerpo.setImageResource(R.drawable.cuerpo_h_n);
+            }
+            else if(Integer.valueOf(edad)>=18&&Integer.valueOf(edad)<57) {
+                boca.setImageResource(R.drawable.boca_h);
+                ojos.setImageResource(R.drawable.ojos);
+                //insertaMujer();
+                parpadoder.setImageResource(R.drawable.parpadoder_h);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_h);
+                brazoIz.setImageResource(R.drawable.manoizq_h);
+                brazoDer.setImageResource(R.drawable.manoder_h);
+                cuerpo.setImageResource(R.drawable.cuerpo_h);
+            }
+            else{
+                boca.setImageResource(R.drawable.boca_h_a);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_h_a);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_h_a);
+                brazoIz.setImageResource(R.drawable.manoizq_h_a);
+                brazoDer.setImageResource(R.drawable.manoder_h_a);
+                cuerpo.setImageResource(R.drawable.cuerpo_h_a);
+            }
+
+        }
+    }
 }
 

@@ -204,7 +204,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                     premio.putExtra("nombreRecorrido",nombreRecorrido);
                     premio.putExtra("nombreRuta",nombreRuta);
                     premio.putExtra("nombreReto",nombreAuxiliar);
-                    startActivity(premio);
+                    startActivityForResult(premio,1);
                 }
                 else{
                     error=MediaPlayer.create(this,R.raw.alert);
@@ -253,5 +253,27 @@ public class RetoCultural extends Activity implements View.OnClickListener {
     public void aceptar2(){
         adapter.notifyDataSetChanged();
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Comprobamos si el resultado de la segunda actividad es "RESULT_CANCELED".
+        if (resultCode == RESULT_CANCELED) {
+            // Si es así mostramos mensaje de cancelado por pantalla.
+            Toast.makeText(this, "Resultado cancelado", Toast.LENGTH_SHORT)
+                    .show();
+        } else {
+            // De lo contrario, recogemos el resultado de la segunda actividad.
+            String resultado = data.getExtras().getString("RESULTADO");
+            // Y tratamos el resultado en función de si se lanzó para rellenar el
+            // nombre o el apellido.
+            switch (requestCode) {
+                case 1:
+                    finish();
+                    break;
+
+
+            }
+        }
     }
 }

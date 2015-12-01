@@ -50,8 +50,17 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
     private static int port=7;
     private static String ip="192.168.1.33";
     private String selected;
-    private String nombreABuscar;
+    private String nombreABuscar,creador;
     private int tipo;
+    private String sexo,edad;
+
+    private ImageView parpadoder;
+    private ImageView parpadoiz;
+    private ImageView brazoDer;
+    private ImageView brazoIz;
+    private ImageView cuerpo;
+    private ImageView boca;
+    private ImageView ojos;
 
     private Conexion con;
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
@@ -62,8 +71,8 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
         tituloRecorrido =(TextView) findViewById(R.id.TextoRecorrido);
         ImageView bi = (ImageView)findViewById(R.id.brazoizq);
-        final ImageView boca = (ImageView)findViewById(R.id.bocaverde);
-        final ImageView ojos = (ImageView)findViewById(R.id.ojos);
+
+
         textoGuia =(TextView) findViewById(R.id.textodinamico);
         final RelativeLayout tdin =(RelativeLayout)findViewById(R.id.relativetexto);
         tdin.setVisibility(View.INVISIBLE);
@@ -72,6 +81,15 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         sig =(ImageView) findViewById(R.id.siguiente);
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
+
+        parpadoder =(ImageView) findViewById(R.id.parpder);
+        parpadoiz=(ImageView) findViewById(R.id.parpizq);
+        brazoDer =(ImageView) findViewById(R.id.brazoder);
+        brazoIz=(ImageView) findViewById(R.id.brazoizq);
+        cuerpo =(ImageView) findViewById(R.id.cabeza);
+        boca = (ImageView)findViewById(R.id.bocaverde);
+        ojos = (ImageView)findViewById(R.id.ojos);
+
 
         sig.setEnabled(false);
         sig.setVisibility(View.INVISIBLE);
@@ -82,6 +100,12 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         recorr =true;
         con = new  Conexion();
         tipo=getIntent().getExtras().getInt("tipo");
+        sexo=getIntent().getExtras().getString("sexo");
+        edad=getIntent().getExtras().getString("edad");
+        creador=getIntent().getExtras().getString("creador");
+
+        adaptacion(sexo,edad);
+
         Create();
 
 
@@ -173,8 +197,9 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
     }
 
     public void Create(){
-        String edad,pref1,pref2,dificultad;
+        String edad, pref1,pref2,dificultad;
         edad=getIntent().getExtras().getString("edad");
+
         pref1 = getIntent().getExtras().getString("pref1");
         pref2 =getIntent().getExtras().getString("pref2");
         dificultad=getIntent().getExtras().getString("dificultad");
@@ -277,7 +302,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
             }
 
             ImageView img = (ImageView) intenView.findViewById(R.id.imageView8);
-            TextView txt1 = (TextView) intenView.findViewById(R.id.NombreRecorrido);
+            final TextView txt1 = (TextView) intenView.findViewById(R.id.NombreRecorrido);
             TextView txt2 = (TextView) intenView.findViewById(R.id.nRutas);
             TextView txt3 = (TextView) intenView.findViewById(R.id.textView7);
 
@@ -294,6 +319,11 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
                     mp.putExtra("tipo", true);
                     mp.putExtra("nombre", currentData.getName());
                     mp.putExtra("retos", false);
+                    mp.putExtra("creador",creador);
+                    mp.putExtra("sexo",sexo);
+                    mp.putExtra("edad",edad);
+                    mp.putExtra("nombreRecorrido",nombreABuscar);
+                    mp.putExtra("nombreRuta",txt1.getText().toString());
                     Ruta ruta = new Ruta("ruta a");
                     ruta.setTramos(con.cargarVisionRuta(currentData.getName()));
                     ArrayList<Tramo> tramos = ruta.getTramos();
@@ -409,5 +439,69 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         super.onBackPressed();
 
         overridePendingTransition(R.anim.animstart, R.anim.animend);
+    }
+    private void adaptacion(String sexo,String edad){
+
+        if(sexo.equals("H")){
+            if(Integer.valueOf((edad))<18){
+                boca.setImageResource(R.drawable.boca_n);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_n);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_n);
+                brazoIz.setImageResource(R.drawable.manoizq);
+                brazoDer.setImageResource(R.drawable.manoder);
+                cuerpo.setImageResource(R.drawable.cuerpo_n);
+            }
+            else if(Integer.valueOf(edad)>=18&&Integer.valueOf(edad)<57) {
+                boca.setImageResource(R.drawable.boca);
+                ojos.setImageResource(R.drawable.ojos);
+                //insertaMujer();
+                parpadoder.setImageResource(R.drawable.parpadoder);
+                parpadoiz.setImageResource(R.drawable.parpadoizq);
+                brazoIz.setImageResource(R.drawable.manoizq);
+                brazoDer.setImageResource(R.drawable.manoder);
+                cuerpo.setImageResource(R.drawable.cuerpo);
+            }
+            else{
+                boca.setImageResource(R.drawable.boca_a);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_a);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_a);
+                brazoIz.setImageResource(R.drawable.manoizq_a);
+                brazoDer.setImageResource(R.drawable.manoder_a);
+                cuerpo.setImageResource(R.drawable.cuerpo_a);
+            }
+        }
+        else{
+            if(Integer.valueOf((edad))<18){
+                boca.setImageResource(R.drawable.boca_h_n);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_h_n);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_h_n);
+                brazoIz.setImageResource(R.drawable.manoizq_h_n);
+                brazoDer.setImageResource(R.drawable.manoder_h_n);
+                cuerpo.setImageResource(R.drawable.cuerpo_h_n);
+            }
+            else if(Integer.valueOf(edad)>=18&&Integer.valueOf(edad)<57) {
+                boca.setImageResource(R.drawable.boca_h);
+                ojos.setImageResource(R.drawable.ojos);
+                //insertaMujer();
+                parpadoder.setImageResource(R.drawable.parpadoder_h);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_h);
+                brazoIz.setImageResource(R.drawable.manoizq_h);
+                brazoDer.setImageResource(R.drawable.manoder_h);
+                cuerpo.setImageResource(R.drawable.cuerpo_h);
+            }
+            else{
+                boca.setImageResource(R.drawable.boca_h_a);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_h_a);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_h_a);
+                brazoIz.setImageResource(R.drawable.manoizq_h_a);
+                brazoDer.setImageResource(R.drawable.manoder_h_a);
+                cuerpo.setImageResource(R.drawable.cuerpo_h_a);
+            }
+
+        }
     }
 }

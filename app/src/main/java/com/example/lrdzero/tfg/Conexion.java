@@ -514,8 +514,9 @@ public class Conexion {
                 n.setName(listReception.get(0));
                 n.setDescription(listReception.get(1));
                 n.setNumber(listReception.get(2));
-                n.setPreferenciaUser1(listReception.get(3));
-                n.setPreferenciaUser2(listReception.get(4));
+                n.setAdic(listReception.get(3));
+                n.setPreferenciaUser1(listReception.get(4));
+                n.setPreferenciaUser2(listReception.get(5));
             }
             cerrar();
         }catch (IOException e){
