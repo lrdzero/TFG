@@ -45,7 +45,9 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
     private GoogleMap googleMap;
     MapView mapView;
     MediaPlayer media;
-
+    private ArrayList<Tramo> tramosOF=new ArrayList<Tramo>();
+    ArrayList<Reto> retosRuta = new ArrayList<Reto>();
+    private int tamanio;
 
     LocationClient mLocationClient;
 
@@ -121,14 +123,14 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         RelativeLayout tdin = (RelativeLayout)findViewById(R.id.relativetexto);
 
 
-
+        tamanio = getIntent().getExtras().getInt("tamanioRuta");
 
         sig.setEnabled(false);
         sig.setVisibility(View.INVISIBLE);
         sig.setAdjustViewBounds(true);
 
 
-        ruta.setTramos(con.cargarVisionRuta(name));
+        //ruta.setTramos(con.cargarVisionRuta(name));
         PtosRecorridos=ruta.getPoints();
 
 
@@ -148,6 +150,28 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
 
             @Override
             public void onMyLocationChange(Location location) {
+                for(int i=0;i<tamanio;i++){
+                    double oriLat=getIntent().getExtras().getDouble("tramoLatOrigen" + i);
+                    double oriLong=getIntent().getExtras().getDouble("tramoLongOrigen" + i);
+                    double endLat=getIntent().getExtras().getDouble("tramoLatFinal"+i);
+                    double endLong=getIntent().getExtras().getDouble("tramoLongFinal"+i);
+                    LatLng nuevoInicio = new LatLng(oriLat,oriLong);
+                    LatLng nuevoFinal = new LatLng(endLat,endLong);
+                    Tramo nuevo = new Tramo(nuevoInicio,nuevoFinal);
+                    tramosOF.add(nuevo);
+                }
+                ruta.setTramos(tramosOF);
+                int tamanioRetos = getIntent().getExtras().getInt("tamanioRetos");
+
+                for(int i=0;i<tamanioRetos;i++){
+                    String nombre =getIntent().getExtras().getString("nombreReto" + i);
+                    int position = getIntent().getExtras().getInt("position"+i);
+                    Log.i("Prueba", Integer.toString(position));
+                    Reto nuevo = new Reto(nombre,googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(position)).title("prueba")),position);
+
+                    ruta.addReto(nuevo);
+
+                }
                 if(cargado){
                     LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
                     if(circulo!=null)

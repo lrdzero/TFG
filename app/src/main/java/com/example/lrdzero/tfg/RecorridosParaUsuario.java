@@ -24,6 +24,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -292,6 +294,34 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
                     mp.putExtra("tipo", true);
                     mp.putExtra("nombre", currentData.getName());
                     mp.putExtra("retos", false);
+                    Ruta ruta = new Ruta("ruta a");
+                    ruta.setTramos(con.cargarVisionRuta(currentData.getName()));
+                    ArrayList<Tramo> tramos = ruta.getTramos();
+                    mp.putExtra("tamanioRuta", tramos.size());
+
+
+                    for (int i = 0; i < tramos.size(); i++) {
+                        LatLng origen = tramos.get(i).getOrigen();
+                        LatLng end = tramos.get(i).getFinal();
+                        String n1 = "tramoLatOrigen" + Integer.toString(i);
+                        String n2 = "tramoLongOrigen" + Integer.toString(i);
+                        String n3 = "tramoLatFinal" + Integer.toString(i);
+                        String n4 = "tramoLongFinal" + Integer.toString(i);
+                        //Toast.makeText(CrearNuevoRecorrido.this,n1,Toast.LENGTH_LONG).show();
+
+                        //Toast.makeText(CrearNuevoRecorrido.this,Double.toString(end.latitude),Toast.LENGTH_LONG).show();
+                        mp.putExtra(n1, origen.latitude);
+                        mp.putExtra(n2, origen.longitude);
+                        mp.putExtra(n3, end.latitude);
+                        mp.putExtra(n4, end.longitude);
+                    }
+                    ArrayList<DatosRyR> retosRuta = con.cargaDeRetos(currentData.getName());
+                    mp.putExtra("tamanioRetos", retosRuta.size());
+
+                    for (int i = 0; i < retosRuta.size(); i++) {
+                        mp.putExtra("nombreReto" + i, retosRuta.get(i).getName());
+                        mp.putExtra("position" + i, retosRuta.get(i).getPosition());
+                    }
                     startActivity(mp);
                 }
             });

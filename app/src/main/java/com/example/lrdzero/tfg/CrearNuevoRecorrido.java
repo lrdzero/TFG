@@ -465,17 +465,17 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                     for (int i = 0; i < tramos.size(); i++) {
                         LatLng origen = tramos.get(i).getOrigen();
                         LatLng end = tramos.get(i).getFinal();
-                        String n1 ="tramoLatOrigen"+Integer.toString(i);
-                        String n2 ="tramoLongOrigen"+Integer.toString(i);
-                        String n3 ="tramoLatFinal"+Integer.toString(i);
-                        String n4 ="tramoLongFinal"+Integer.toString(i);
+                        String n1 = "tramoLatOrigen" + Integer.toString(i);
+                        String n2 = "tramoLongOrigen" + Integer.toString(i);
+                        String n3 = "tramoLatFinal" + Integer.toString(i);
+                        String n4 = "tramoLongFinal" + Integer.toString(i);
                         //Toast.makeText(CrearNuevoRecorrido.this,n1,Toast.LENGTH_LONG).show();
 
                         //Toast.makeText(CrearNuevoRecorrido.this,Double.toString(end.latitude),Toast.LENGTH_LONG).show();
                         n.putExtra(n1, origen.latitude);
-                        n.putExtra(n2,origen.longitude);
-                        n.putExtra(n3,end.latitude);
-                        n.putExtra(n4,end.longitude);
+                        n.putExtra(n2, origen.longitude);
+                        n.putExtra(n3, end.latitude);
+                        n.putExtra(n4, end.longitude);
                     }
                     startActivity(n);
                 }
@@ -497,30 +497,34 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                     for (int i = 0; i < tramos.size(); i++) {
                         LatLng origen = tramos.get(i).getOrigen();
                         LatLng end = tramos.get(i).getFinal();
-                        String n1 ="tramoLatOrigen"+Integer.toString(i);
-                        String n2 ="tramoLongOrigen"+Integer.toString(i);
-                        String n3 ="tramoLatFinal"+Integer.toString(i);
-                        String n4 ="tramoLongFinal"+Integer.toString(i);
+                        String n1 = "tramoLatOrigen" + Integer.toString(i);
+                        String n2 = "tramoLongOrigen" + Integer.toString(i);
+                        String n3 = "tramoLatFinal" + Integer.toString(i);
+                        String n4 = "tramoLongFinal" + Integer.toString(i);
                         //Toast.makeText(CrearNuevoRecorrido.this,n1,Toast.LENGTH_LONG).show();
 
                         //Toast.makeText(CrearNuevoRecorrido.this,Double.toString(end.latitude),Toast.LENGTH_LONG).show();
                         n.putExtra(n1, origen.latitude);
                         n.putExtra(n2, origen.longitude);
                         n.putExtra(n3, end.latitude);
-                        n.putExtra(n4,end.longitude);
+                        n.putExtra(n4, end.longitude);
                     }
                     ArrayList<DatosRyR> retosRuta = con.cargaDeRetos(nombre.getText().toString());
-                    n.putExtra("tamanioRetos",retosRuta.size());
+                    n.putExtra("tamanioRetos", retosRuta.size());
 
-                    for(int i=0;i<retosRuta.size();i++){
-                        n.putExtra("nombreReto"+i,retosRuta.get(i).getName());
-                        n.putExtra("position"+i,retosRuta.get(i).getPosition());
+                    for (int i = 0; i < retosRuta.size(); i++) {
+                        n.putExtra("nombreReto" + i, retosRuta.get(i).getName());
+                        n.putExtra("position" + i, retosRuta.get(i).getPosition());
                     }
 
                     //Toast.makeText(CrearNuevoRecorrido.this,"Entro correctamente2",Toast.LENGTH_LONG).show();
 
+                    if (ruta.getTramos().size() == 0) {
+                        Toast.makeText(CrearNuevoRecorrido.this, "La ruta aún no se ha creado o especificado.", Toast.LENGTH_LONG).show();
 
-                    startActivity(n);
+                    } else {
+                        startActivity(n);
+                    }
                 }
             });
             modifi.setOnClickListener(new View.OnClickListener() {

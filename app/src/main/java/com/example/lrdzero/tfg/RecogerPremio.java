@@ -162,7 +162,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
                 dialogo1.setMessage("¿ Quieres utilizar este Item ?");
 
                 dialogo1.setCancelable(false);
-                dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                dialogo1.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
 
                         aceptar(currentData);
@@ -187,13 +187,13 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         Toast t=Toast.makeText(this,"Se mostrará una pista ya sea mediante toast o por medio de otro Dialog", Toast.LENGTH_SHORT);
         t.show();
         AlertDialog.Builder dialogo2 = new AlertDialog.Builder(RecogerPremio.this);
-        dialogo2.setTitle("Pista");
-        dialogo2.setMessage("Pista util para responder a la pregunta");
+        dialogo2.setTitle("Descripción");
+        dialogo2.setMessage(aB.getName());
         dialogo2.setCancelable(false);
         dialogo2.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {
-                dt.remove(aB);
-                aceptar2();
+
+                //aceptar2();
             }
         });
 
