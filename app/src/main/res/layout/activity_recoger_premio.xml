@@ -33,13 +33,93 @@
                 android:id="@+id/myLinear"
                 android:layout_weight="1.50">
 
-                <ImageView
-                    android:layout_width="148dp"
-                    android:layout_height="159dp"
-                    android:id="@+id/imageView12"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/guia"
-                    android:adjustViewBounds="true" />
+                <RelativeLayout
+                    android:layout_width="160dp"
+                    android:layout_height="170dp"
+                    android:id="@+id/Avatar"
+                    android:src="@drawable/guia2"
+
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="26dp"
+                    android:layout_marginStart="26dp"
+                    android:layout_gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/cabeza"
+                        android:src="@drawable/cuerpo"
+                        android:contentDescription="cabeza"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ojos"
+                        android:src="@drawable/ojos"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/bocaroja"
+                        android:src="@drawable/boca_roja"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/bocaverde"
+                        android:src="@drawable/boca"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/brazoizq"
+                        android:src="@drawable/manoizq"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/brazoder"
+                        android:src="@drawable/manoder"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/parpizq"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/parpadoizq"
+                        />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/parpder"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:src="@drawable/parpadoder"
+                        />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="fill_parent"
@@ -52,24 +132,28 @@
                         android:layout_gravity="center_vertical"
                         android:src="@drawable/bocadillo"
                         android:adjustViewBounds="true"
-                        android:layout_centerVertical="true"
+                        android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true" />
+                        android:layout_marginTop="93dp" />
 
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Bien hecho, hemos conseguido una pieza importante para nuestro objetivo. No olvides llevarla a la mochila"
+                        android:text="¡¡¡Bien hecho!!!"
                         android:id="@+id/textView12"
-                        android:layout_gravity="right"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="5dp"
+
+
+                        android:gravity="center"
+                        android:layout_alignBottom="@+id/imageView13"
                         android:layout_alignTop="@+id/imageView13"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true" />
+                        android:layout_alignLeft="@+id/imageView13"
+                        android:layout_alignRight="@+id/imageView13"
+                        />
 
                     <ImageView
                         android:layout_width="100dp"
