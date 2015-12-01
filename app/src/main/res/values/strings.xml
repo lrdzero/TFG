@@ -13,6 +13,8 @@
     <string name="title_activity_listas_con_imagen">ListasConImagen</string>
     <string name="title_activity_Herramientas_Autor">HerramientasAutor</string>
     <string name="title_activity_Nuevos_Retos">CreadorRetos</string>
+
+    <string name="title_activity_reto_cultural">CreadorRetos</string>
     <string-array name="discapacidades">
         <item>Ninguna</item>
         <item>Dificultad auditiva</item>

@@ -45,10 +45,10 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
         nameRecorrido = getIntent().getExtras().getString("nombreRecorrido");
         nameRuta =getIntent().getExtras().getString("nombreRuta");
         datosReto = con.buscarDatosRetoDeportivo("unreco");
-        sexo =getIntent().getExtras().getString("sexo");
-        edad=getIntent().getExtras().getString("edad");
+        //sexo =getIntent().getExtras().getString("sexo");
+        //edad=getIntent().getExtras().getString("edad");
 
-        adaptacion(sexo,edad);
+        //adaptacion(sexo,edad);
         if(datosReto==null){
             Toast.makeText(RetoDeportivo.this,"ERROR EN OBTENCION",Toast.LENGTH_LONG).show();
         }
