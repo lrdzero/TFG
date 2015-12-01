@@ -24,30 +24,13 @@
 
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="400dp"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:id="@+id/linearLayout3">
 
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView6"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/guia"
-                    android:adjustViewBounds="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Responde a la siguiente pregunta:"
-                    android:id="@+id/textView9"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="#ff14ff8e"
-                    android:background="@color/dim_foreground_disabled_material_dark" />
             </LinearLayout>
 
             <LinearLayout
@@ -136,5 +119,103 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="160dp"
+        android:layout_height="170dp"
+        android:id="@+id/Avatar"
+        android:src="@drawable/guia2"
+
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cabeza"
+            android:src="@drawable/cuerpo"
+            android:contentDescription="cabeza"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ojos"
+            android:src="@drawable/ojos"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bocaroja"
+            android:src="@drawable/boca_roja"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bocaverde"
+            android:src="@drawable/boca"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/brazoizq"
+            android:src="@drawable/manoizq"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/brazoder"
+            android:src="@drawable/manoder"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/parpizq"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/parpadoizq"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/parpder"
+            android:src="@drawable/parpadoder"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Responde a la siguiente pregunta:"
+        android:id="@+id/textView9"
+        android:layout_gravity="center_vertical"
+        android:textColor="#ff14ff8e"
+        android:background="@color/dim_foreground_disabled_material_dark"
+        android:layout_alignBottom="@+id/Avatar"
+        android:layout_toRightOf="@+id/Avatar"
+        android:layout_toEndOf="@+id/Avatar"
+        android:layout_marginBottom="57dp" />
 
 </RelativeLayout>
