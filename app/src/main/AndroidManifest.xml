@@ -73,9 +73,9 @@
         </activity>
         <activity
             android:name=".RecogerPremio"
-            android:label="@string/title_activity_recoger_premio"
-            android:screenOrientation="landscape"
-                >
+            android:label="@string/title_activity_recoger_premio">
+            <!-- android:screenOrientation="landscape"-->
+
         </activity>
         <activity
             android:name=".MapaEditor"

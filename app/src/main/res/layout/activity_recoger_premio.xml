@@ -37,7 +37,7 @@
                     android:layout_width="160dp"
                     android:layout_height="170dp"
                     android:id="@+id/Avatar"
-                    android:src="@drawable/guia2"
+
 
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
@@ -45,7 +45,6 @@
                     android:layout_marginLeft="26dp"
                     android:layout_marginStart="26dp"
                     android:layout_gravity="center_vertical">
-
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -119,6 +118,8 @@
                         android:layout_alignParentStart="true"
                         android:src="@drawable/parpadoder"
                         />
+
+
                 </RelativeLayout>
 
                 <RelativeLayout

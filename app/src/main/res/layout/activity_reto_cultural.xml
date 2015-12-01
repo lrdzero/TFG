@@ -124,7 +124,7 @@
         android:layout_width="160dp"
         android:layout_height="170dp"
         android:id="@+id/Avatar"
-        android:src="@drawable/guia2"
+
 
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -198,10 +198,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/parpder"
-            android:src="@drawable/parpadoder"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:src="@drawable/parpadoder"
+            />
+
     </RelativeLayout>
 
     <TextView

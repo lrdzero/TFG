@@ -57,6 +57,14 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         Button volver = (Button) findViewById(R.id.volverMapa);
         image = (ImageView) findViewById(R.id.imageView14);
         lt =(LinearLayout)findViewById(R.id.myLinear);
+        //Carga Avatar
+        parpadoder =(ImageView) findViewById(R.id.parpder);
+        parpadoiz=(ImageView) findViewById(R.id.parpizq);
+        brazoDer =(ImageView) findViewById(R.id.brazoder);
+        brazoIz=(ImageView) findViewById(R.id.brazoizq);
+        cuerpo =(ImageView) findViewById(R.id.cabeza);
+        boca = (ImageView)findViewById(R.id.bocaverde);
+        ojos = (ImageView)findViewById(R.id.ojos);
 
         MediaPlayer mp = MediaPlayer.create(this,R.raw.tada);
 
@@ -73,6 +81,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         nameRuta=getIntent().getExtras().getString("nombreRuta");
         edad=getIntent().getExtras().getString("edad");
         sexo=getIntent().getExtras().getString("sexo");
+        //Toast.makeText()
         adaptacion(sexo,edad);
         datosPremio = con.cargarPremio(nombreReto);
 

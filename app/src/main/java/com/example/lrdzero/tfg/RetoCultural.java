@@ -74,6 +74,15 @@ public class RetoCultural extends Activity implements View.OnClickListener {
         con=new Conexion();
         //group1 =(RadioGroup) findViewById(R.id.rGroup1);
         //group2 =(RadioGroup) findViewById(R.id.rGroup2);
+        //Carga Avatar
+        parpadoder =(ImageView) findViewById(R.id.parpder);
+        parpadoiz=(ImageView) findViewById(R.id.parpizq);
+        brazoDer =(ImageView) findViewById(R.id.brazoder);
+        brazoIz=(ImageView) findViewById(R.id.brazoizq);
+        cuerpo =(ImageView) findViewById(R.id.cabeza);
+        boca = (ImageView)findViewById(R.id.bocaverde);
+        ojos = (ImageView)findViewById(R.id.ojos);
+
         resp1 = (RadioButton) findViewById(R.id.responseA);
         resp2 = (RadioButton) findViewById(R.id.responseB);
         resp3 = (RadioButton) findViewById(R.id.responseC);
@@ -85,6 +94,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
         creador=getIntent().getExtras().getString("nombreUser");
         edad=getIntent().getExtras().getString("edad");
         sexo=getIntent().getExtras().getString("sexo");
+        //Toast.makeText(RetoCultural.this,sexo,Toast.LENGTH_LONG).show();
         adaptacion(sexo,edad);
         DatosRyR dt =con.buscarDatosRetoCultural("retoCultural");
         nombreAuxiliar=dt.getName();

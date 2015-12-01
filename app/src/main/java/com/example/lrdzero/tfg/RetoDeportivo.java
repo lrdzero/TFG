@@ -40,15 +40,24 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reto_deportivo);
         TextView desafio =(TextView) findViewById(R.id.desafio);
+        //Carga Avatar
+        parpadoder =(ImageView) findViewById(R.id.parpder);
+        parpadoiz=(ImageView) findViewById(R.id.parpizq);
+        brazoDer =(ImageView) findViewById(R.id.brazoder);
+        brazoIz=(ImageView) findViewById(R.id.brazoizq);
+        cuerpo =(ImageView) findViewById(R.id.cabeza);
+        boca = (ImageView)findViewById(R.id.bocaverde);
+        ojos = (ImageView)findViewById(R.id.ojos);
+
         con=new Conexion();
         nameUser=getIntent().getExtras().getString("nombreUser");
         nameRecorrido = getIntent().getExtras().getString("nombreRecorrido");
         nameRuta =getIntent().getExtras().getString("nombreRuta");
         datosReto = con.buscarDatosRetoDeportivo("unreco");
-        //sexo =getIntent().getExtras().getString("sexo");
-        //edad=getIntent().getExtras().getString("edad");
+        sexo =getIntent().getExtras().getString("sexo");
+        edad=getIntent().getExtras().getString("edad");
 
-        //adaptacion(sexo,edad);
+        adaptacion(sexo,edad);
         if(datosReto==null){
             Toast.makeText(RetoDeportivo.this,"ERROR EN OBTENCION",Toast.LENGTH_LONG).show();
         }
@@ -75,6 +84,8 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
                     nuevo.putExtra("nombreUser",nameUser);
                     nuevo.putExtra("nombreRecorrido",nameRecorrido);
                     nuevo.putExtra("nombreRuta",nameRuta);
+                    nuevo.putExtra("sexo",sexo);
+                    nuevo.putExtra("edad",edad);
                     startActivityForResult(nuevo,1);
 
                 break;

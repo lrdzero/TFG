@@ -22,7 +22,7 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
     private int tiempo;
     private String nameUser,nameRuta,nameRecorrido;
     private MediaPlayer mp;
-
+    private String sexo,edad;
     public void onResume(){
         super.onResume();
         mp.setLooping(true);
@@ -48,6 +48,8 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
         nameUser=getIntent().getExtras().getString("nombreUser");
         nameRecorrido=getIntent().getExtras().getString("nombreRecorrido");
         nameRuta=getIntent().getExtras().getString("nombreRuta");
+        sexo=getIntent().getExtras().getString("sexo");
+        edad=getIntent().getExtras().getString("edad");
 
         tiempo=getIntent().getExtras().getInt("tiempo");
 
@@ -71,6 +73,8 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
                 premio.putExtra("nombreUser",nameUser);
                 premio.putExtra("nombreRecorrido",nameRecorrido);
                 premio.putExtra("nombreRuta", nameRuta);
+                premio.putExtra("edad",edad);
+                premio.putExtra("sexo",sexo);
 
                 startActivityForResult(premio, 1);
 
