@@ -34,12 +34,20 @@ public class RetoCultural extends Activity implements View.OnClickListener {
     private RadioButton resp1,resp2,resp3,resp4;
     private RadioGroup group1,group2;
     private AlertDialog alert;
+    private String edad,sexo;
     private Conexion con;
     private String nombreAuxiliar;
     private MediaPlayer mp;
     private MediaPlayer error;
     private ArrayList<String> construyeRespuesta=new ArrayList<String>();
     private String nombreRecorrido,nombreRuta,creador;
+    private ImageView parpadoder;
+    private ImageView parpadoiz;
+    private ImageView brazoDer;
+    private ImageView brazoIz;
+    private ImageView cuerpo;
+    private ImageView boca;
+    private ImageView ojos;
 
     private static int selected =0 ;
     public void onResume(){
@@ -75,7 +83,9 @@ public class RetoCultural extends Activity implements View.OnClickListener {
         nombreRecorrido=getIntent().getExtras().getString("nombreRecorrido");
         nombreRuta=getIntent().getExtras().getString("nombreRuta");
         creador=getIntent().getExtras().getString("nombreUser");
-
+        edad=getIntent().getExtras().getString("edad");
+        sexo=getIntent().getExtras().getString("sexo");
+        adaptacion(sexo,edad);
         DatosRyR dt =con.buscarDatosRetoCultural("retoCultural");
         nombreAuxiliar=dt.getName();
 
@@ -204,6 +214,8 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                     premio.putExtra("nombreRecorrido",nombreRecorrido);
                     premio.putExtra("nombreRuta",nombreRuta);
                     premio.putExtra("nombreReto",nombreAuxiliar);
+                    premio.putExtra("edad",edad);
+                    premio.putExtra("sexo",sexo);
                     startActivityForResult(premio,1);
                 }
                 else{
@@ -274,6 +286,70 @@ public class RetoCultural extends Activity implements View.OnClickListener {
 
 
             }
+        }
+    }
+    private void adaptacion(String sexo,String edad){
+
+        if(sexo.equals("H")){
+            if(Integer.valueOf((edad))<18){
+                boca.setImageResource(R.drawable.boca_n);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_n);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_n);
+                brazoIz.setImageResource(R.drawable.manoizq);
+                brazoDer.setImageResource(R.drawable.manoder);
+                cuerpo.setImageResource(R.drawable.cuerpo_n);
+            }
+            else if(Integer.valueOf(edad)>=18&&Integer.valueOf(edad)<57) {
+                boca.setImageResource(R.drawable.boca);
+                ojos.setImageResource(R.drawable.ojos);
+                //insertaMujer();
+                parpadoder.setImageResource(R.drawable.parpadoder);
+                parpadoiz.setImageResource(R.drawable.parpadoizq);
+                brazoIz.setImageResource(R.drawable.manoizq);
+                brazoDer.setImageResource(R.drawable.manoder);
+                cuerpo.setImageResource(R.drawable.cuerpo);
+            }
+            else{
+                boca.setImageResource(R.drawable.boca_a);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_a);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_a);
+                brazoIz.setImageResource(R.drawable.manoizq_a);
+                brazoDer.setImageResource(R.drawable.manoder_a);
+                cuerpo.setImageResource(R.drawable.cuerpo_a);
+            }
+        }
+        else{
+            if(Integer.valueOf((edad))<18){
+                boca.setImageResource(R.drawable.boca_h_n);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_h_n);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_h_n);
+                brazoIz.setImageResource(R.drawable.manoizq_h_n);
+                brazoDer.setImageResource(R.drawable.manoder_h_n);
+                cuerpo.setImageResource(R.drawable.cuerpo_h_n);
+            }
+            else if(Integer.valueOf(edad)>=18&&Integer.valueOf(edad)<57) {
+                boca.setImageResource(R.drawable.boca_h);
+                ojos.setImageResource(R.drawable.ojos);
+                //insertaMujer();
+                parpadoder.setImageResource(R.drawable.parpadoder_h);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_h);
+                brazoIz.setImageResource(R.drawable.manoizq_h);
+                brazoDer.setImageResource(R.drawable.manoder_h);
+                cuerpo.setImageResource(R.drawable.cuerpo_h);
+            }
+            else{
+                boca.setImageResource(R.drawable.boca_h_a);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_h_a);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_h_a);
+                brazoIz.setImageResource(R.drawable.manoizq_h_a);
+                brazoDer.setImageResource(R.drawable.manoder_h_a);
+                cuerpo.setImageResource(R.drawable.cuerpo_h_a);
+            }
+
         }
     }
 }

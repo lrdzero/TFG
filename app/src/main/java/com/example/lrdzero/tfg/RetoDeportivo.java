@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-
+//push
 public class RetoDeportivo extends Activity implements View.OnClickListener{
     private HorizontalListView mochila;
     private ArrayList<Items> dt = new ArrayList<Items>();
@@ -26,7 +26,15 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
     private Button go;
     private Conexion con;
     private DatosRyR datosReto;
-    private String nameUser,nameRecorrido,nameRuta;
+    private String nameUser,nameRecorrido,nameRuta,sexo,edad;
+    private ImageView parpadoder;
+    private ImageView parpadoiz;
+    private ImageView brazoDer;
+    private ImageView brazoIz;
+    private ImageView cuerpo;
+    private ImageView boca;
+    private ImageView ojos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +45,10 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
         nameRecorrido = getIntent().getExtras().getString("nombreRecorrido");
         nameRuta =getIntent().getExtras().getString("nombreRuta");
         datosReto = con.buscarDatosRetoDeportivo("unreco");
+        sexo =getIntent().getExtras().getString("sexo");
+        edad=getIntent().getExtras().getString("edad");
+
+        adaptacion(sexo,edad);
         if(datosReto==null){
             Toast.makeText(RetoDeportivo.this,"ERROR EN OBTENCION",Toast.LENGTH_LONG).show();
         }
@@ -184,6 +196,70 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
 
 
             }
+        }
+    }
+    private void adaptacion(String sexo,String edad){
+
+        if(sexo.equals("H")){
+            if(Integer.valueOf((edad))<18){
+                boca.setImageResource(R.drawable.boca_n);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_n);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_n);
+                brazoIz.setImageResource(R.drawable.manoizq);
+                brazoDer.setImageResource(R.drawable.manoder);
+                cuerpo.setImageResource(R.drawable.cuerpo_n);
+            }
+            else if(Integer.valueOf(edad)>=18&&Integer.valueOf(edad)<57) {
+                boca.setImageResource(R.drawable.boca);
+                ojos.setImageResource(R.drawable.ojos);
+                //insertaMujer();
+                parpadoder.setImageResource(R.drawable.parpadoder);
+                parpadoiz.setImageResource(R.drawable.parpadoizq);
+                brazoIz.setImageResource(R.drawable.manoizq);
+                brazoDer.setImageResource(R.drawable.manoder);
+                cuerpo.setImageResource(R.drawable.cuerpo);
+            }
+            else{
+                boca.setImageResource(R.drawable.boca_a);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_a);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_a);
+                brazoIz.setImageResource(R.drawable.manoizq_a);
+                brazoDer.setImageResource(R.drawable.manoder_a);
+                cuerpo.setImageResource(R.drawable.cuerpo_a);
+            }
+        }
+        else{
+            if(Integer.valueOf((edad))<18){
+                boca.setImageResource(R.drawable.boca_h_n);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_h_n);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_h_n);
+                brazoIz.setImageResource(R.drawable.manoizq_h_n);
+                brazoDer.setImageResource(R.drawable.manoder_h_n);
+                cuerpo.setImageResource(R.drawable.cuerpo_h_n);
+            }
+            else if(Integer.valueOf(edad)>=18&&Integer.valueOf(edad)<57) {
+                boca.setImageResource(R.drawable.boca_h);
+                ojos.setImageResource(R.drawable.ojos);
+                //insertaMujer();
+                parpadoder.setImageResource(R.drawable.parpadoder_h);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_h);
+                brazoIz.setImageResource(R.drawable.manoizq_h);
+                brazoDer.setImageResource(R.drawable.manoder_h);
+                cuerpo.setImageResource(R.drawable.cuerpo_h);
+            }
+            else{
+                boca.setImageResource(R.drawable.boca_h_a);
+                ojos.setImageResource(R.drawable.ojos);
+                parpadoder.setImageResource(R.drawable.parpadoder_h_a);
+                parpadoiz.setImageResource(R.drawable.parpadoizq_h_a);
+                brazoIz.setImageResource(R.drawable.manoizq_h_a);
+                brazoDer.setImageResource(R.drawable.manoder_h_a);
+                cuerpo.setImageResource(R.drawable.cuerpo_h_a);
+            }
+
         }
     }
 }

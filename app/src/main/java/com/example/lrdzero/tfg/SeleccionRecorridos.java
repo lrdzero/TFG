@@ -55,16 +55,22 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         switch (v.getId()) {
             case R.id.buttonCulture:
                 Intent n = new Intent(SeleccionRecorridos.this,RetoCultural.class);
+                datosUser=con.buscarUsuario(name);
                 n.putExtra("nombreUser",name);
                 n.putExtra("nombreRecorrido","l");
                 n.putExtra("nombreRuta","l");
+                n.putExtra("edad", datosUser.getNumber());
+                n.putExtra("sexo",datosUser.getAdic());
                 startActivity(n);
                 break;
             case R.id.buttonEjercicio:
                 Intent n2 = new Intent(SeleccionRecorridos.this, RetoDeportivo.class);
+                datosUser=con.buscarUsuario(name);
                 n2.putExtra("nombreUser",name);
                 n2.putExtra("nombreRecorrido","recorridodefecto");
                 n2.putExtra("nombreRuta","rutadefecto");
+                n2.putExtra("edad", datosUser.getNumber());
+                n2.putExtra("sexo",datosUser.getAdic());
                 startActivity(n2);
                 break;
             case R.id.imageView2:
