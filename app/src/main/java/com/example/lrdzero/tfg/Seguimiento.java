@@ -221,6 +221,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                                     int index;
                                     if((index=ruta.existsRetoIn(puntoactual))!=-1) {
                                         String nombre =ruta.getRetos().get(index).getNombre();
+                                        if(tipoRecorrido==0){
                                         Intent i = new Intent(getApplicationContext(),RetoCultural.class);
                                         i.putExtra("nombreUser",creador);
                                         i.putExtra("nombreRecorrido",nombreRecorrido);
@@ -229,7 +230,17 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                                         i.putExtra("edad", edad);
                                         i.putExtra("sexo",sexo);
                                         startActivity(i);
-
+                                        }
+                                        else{
+                                            Intent i = new Intent(getApplicationContext(),RetoDeportivo.class);
+                                            i.putExtra("nombreUser",creador);
+                                            i.putExtra("nombreRecorrido",nombreRecorrido);
+                                            i.putExtra("nombreRuta",nombreRuta);
+                                            i.putExtra("nombreReto",nombre);
+                                            i.putExtra("edad", edad);
+                                            i.putExtra("sexo",sexo);
+                                            startActivity(i);
+                                        }
                                     }
 
                                 }

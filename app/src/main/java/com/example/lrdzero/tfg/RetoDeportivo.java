@@ -53,7 +53,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
         nameUser=getIntent().getExtras().getString("nombreUser");
         nameRecorrido = getIntent().getExtras().getString("nombreRecorrido");
         nameRuta =getIntent().getExtras().getString("nombreRuta");
-        nombreReto = getIntent().getExtras().getString("nombreReto");
+        nombreReto=getIntent().getExtras().getString("nombreReto");
         datosReto = con.buscarDatosRetoDeportivo(nombreReto);
         sexo =getIntent().getExtras().getString("sexo");
         edad=getIntent().getExtras().getString("edad");

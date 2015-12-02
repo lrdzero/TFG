@@ -173,11 +173,13 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         Intent nueva;
         switch (v.getId()) {
             case R.id.siguiente:
+                /*
                 Intent mp = new Intent(RecorridosParaUsuario.this,Seguimiento.class);
                 mp.putExtra("tipo",true);
                 mp.putExtra("nombre",nombreABuscar);
                 startActivity(mp);
                 break;
+                */
             case R.id.button2:
                 tituloRecorrido.setText(TITULO);
 
