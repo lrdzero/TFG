@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -48,6 +50,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
     private ImageView cuerpo;
     private ImageView boca;
     private ImageView ojos;
+    Animation anim;
 
     private static int selected =0 ;
     public void onResume(){
@@ -215,10 +218,16 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                     comparador+=construyeRespuesta.get(i);
                 }
 
-                        Toast.makeText(RetoCultural.this, "La respuesta es " + respuestaCorrecta, Toast.LENGTH_LONG).show();
-                        Toast.makeText(RetoCultural.this, "Tu respuesta ha sido " + comparador, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(RetoCultural.this, "La respuesta es " + respuestaCorrecta, Toast.LENGTH_LONG).show();
+                       // Toast.makeText(RetoCultural.this, "Tu respuesta ha sido " + comparador, Toast.LENGTH_LONG).show();
+                //anim = AnimationUtils.loadAnimation(getApplicationContext(),
+                  //      R.anim.fade_in);
+                ImageView resultado = (ImageView) findViewById(R.id.resultado);
+             //   resultado.setImageDrawable(getDrawable(R.drawable.fallo));
+
                 if(comparador.equals(respuestaCorrecta)){
-                    Toast.makeText(RetoCultural.this,"Respuesta Correcta",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(RetoCultural.this,"Respuesta Correcta",Toast.LENGTH_LONG).show();
+
                     Intent premio = new Intent(RetoCultural.this,RecogerPremio.class);
                     premio.putExtra("nombreUser",creador);
                     premio.putExtra("nombreRecorrido",nombreRecorrido);
@@ -226,6 +235,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                     premio.putExtra("nombreReto",nombreAuxiliar);
                     premio.putExtra("edad",edad);
                     premio.putExtra("sexo",sexo);
+
                     startActivityForResult(premio,1);
                 }
                 else{
