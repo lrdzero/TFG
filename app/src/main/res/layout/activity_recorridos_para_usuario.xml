@@ -148,16 +148,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/TextoRecorrido" />
 
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/siguiente"
-        android:src="@drawable/flecha"
-        android:adjustViewBounds="true"
-        android:layout_marginRight="10dp"
-        android:layout_below="@+id/relativetexto"
-        android:layout_alignRight="@+id/relativetexto"
-        android:layout_alignEnd="@+id/relativetexto" />
+
 
 
 </RelativeLayout>

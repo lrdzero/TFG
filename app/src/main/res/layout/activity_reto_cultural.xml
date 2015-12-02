@@ -225,7 +225,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Responde a la siguiente pregunta:"
         android:id="@+id/textView9"
-        android:layout_gravity="center_vertical"
+        android:layout_gravity="center"
         android:textColor="#ff14ff8e"
         android:background="@color/dim_foreground_disabled_material_dark"
         android:layout_alignBottom="@+id/Avatar"

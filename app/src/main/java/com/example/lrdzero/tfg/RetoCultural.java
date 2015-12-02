@@ -226,6 +226,11 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                 ImageView resultado = (ImageView) findViewById(R.id.resultado);
                 resultado.bringToFront();
 
+                ImageView brazoizq=(ImageView)findViewById(R.id.brazoizq);
+                ImageView brazoder=(ImageView)findViewById(R.id.brazoder);
+                ImageView parpadoizq=(ImageView)findViewById(R.id.parpizq);
+                ImageView parpadoder=(ImageView)findViewById(R.id.parpder);
+
 
                 if(comparador.equals(respuestaCorrecta)){
                     //Toast.makeText(RetoCultural.this,"Respuesta Correcta",Toast.LENGTH_LONG).show();

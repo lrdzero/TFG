@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <rotate
+        android:fillAfter="true"
+        android:fillEnabled="true"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:duration="300"
+        android:fromDegrees="0"
+        android:toDegrees="25"
+        android:pivotX="41%"
+        android:pivotY="60%"
+
+        />
+
+</set>

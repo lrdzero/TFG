@@ -96,11 +96,9 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         }
         lt.setBackgroundDrawable(yourDrawable);
 
-
         image.setImageResource(Integer.valueOf(datosPremio.get(1)));
         image.setOnClickListener(this);
         volver.setOnClickListener(this);
-
 
         loadItems();
 
