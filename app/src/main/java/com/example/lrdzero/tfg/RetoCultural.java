@@ -265,7 +265,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                     brazoizq.startAnimation(izq);
                     brazoder.startAnimation(der);
                     boca.startAnimation(bocaanim);
-                    resultado.setImageDrawable(getDrawable(R.drawable.correcto));
+                    resultado.setImageResource(R.drawable.correcto);
                     resultado.startAnimation(anim);
                     anim.setAnimationListener(new Animation.AnimationListener() {
                         @Override
@@ -294,7 +294,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
 
 
                     //Toast.makeText(RetoCultural.this,"Respuesta Incorrecta",Toast.LENGTH_LONG).show();
-                    resultado.setImageDrawable(getDrawable(R.drawable.fallo));
+                    resultado.setImageResource(R.drawable.fallo);
                     resultado.startAnimation(anim);
 
                 }
