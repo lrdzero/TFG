@@ -23,7 +23,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static com.example.lrdzero.tfg.R.drawable.fallo;
+
 
 
 public class RetoCultural extends Activity implements View.OnClickListener {
@@ -223,13 +223,25 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                        // Toast.makeText(RetoCultural.this, "Tu respuesta ha sido " + comparador, Toast.LENGTH_LONG).show();
                 anim = AnimationUtils.loadAnimation(getApplicationContext(),
                         R.anim.animacionreto);
+                Animation izq = AnimationUtils.loadAnimation(getApplicationContext(),
+                        R.anim.animcelebra);
+                Animation der = AnimationUtils.loadAnimation(getApplicationContext(),
+                    R.anim.animcelebrader);
+                Animation pizq = AnimationUtils.loadAnimation(getApplicationContext(),
+                        R.anim.animtristeizq);
+                Animation pder = AnimationUtils.loadAnimation(getApplicationContext(),
+                        R.anim.animtristeder);
+
                 ImageView resultado = (ImageView) findViewById(R.id.resultado);
+
                 resultado.bringToFront();
 
                 ImageView brazoizq=(ImageView)findViewById(R.id.brazoizq);
                 ImageView brazoder=(ImageView)findViewById(R.id.brazoder);
                 ImageView parpadoizq=(ImageView)findViewById(R.id.parpizq);
                 ImageView parpadoder=(ImageView)findViewById(R.id.parpder);
+
+
 
 
                 if(comparador.equals(respuestaCorrecta)){
@@ -243,6 +255,8 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                     premio.putExtra("edad",edad);
                     premio.putExtra("sexo", sexo);
 
+                    brazoizq.startAnimation(izq);
+                    brazoder.startAnimation(der);
                     resultado.setImageDrawable(getDrawable(R.drawable.correcto));
                     resultado.startAnimation(anim);
                     anim.setAnimationListener(new Animation.AnimationListener() {
@@ -267,8 +281,9 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                 else{
                     error=MediaPlayer.create(this,R.raw.alert);
                     error.start();
+                    parpadoizq.startAnimation(der);
                     //Toast.makeText(RetoCultural.this,"Respuesta Incorrecta",Toast.LENGTH_LONG).show();
-                    resultado.setImageDrawable(getDrawable(fallo));
+                    resultado.setImageDrawable(getDrawable(R.drawable.fallo));
                     resultado.startAnimation(anim);
 
                 }
