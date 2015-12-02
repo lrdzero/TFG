@@ -281,7 +281,10 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                 else{
                     error=MediaPlayer.create(this,R.raw.alert);
                     error.start();
-                    parpadoizq.startAnimation(der);
+                    parpadoizq.startAnimation(pizq);
+                    parpadoder.startAnimation(pder);
+
+
                     //Toast.makeText(RetoCultural.this,"Respuesta Incorrecta",Toast.LENGTH_LONG).show();
                     resultado.setImageDrawable(getDrawable(R.drawable.fallo));
                     resultado.startAnimation(anim);
