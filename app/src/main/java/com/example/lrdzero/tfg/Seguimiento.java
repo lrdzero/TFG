@@ -57,6 +57,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
     private boolean carga;
     private boolean retos;
     private String name;
+    private int tipoRecorrido;
     private String creador,nombreRecorrido,nombreRuta,sexo,edad;
     ArrayList<LatLng> PtosRecorridos;
     int puntoactual=0;
@@ -128,6 +129,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         sexo=getIntent().getExtras().getString("sexo");
         edad=getIntent().getExtras().getString("edad");
         creador=getIntent().getExtras().getString("creador");
+        tipoRecorrido=getIntent().getExtras().getInt("tipoRecorrido");
 
         adaptacion(sexo,edad);
         con = new Conexion();
@@ -220,6 +222,11 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                                     if((index=ruta.existsRetoIn(puntoactual))!=-1) {
                                         ruta.getRetos().get(index);
                                         Intent i = new Intent(getApplicationContext(),RetoCultural.class);
+                                        i.putExtra("nombreUser",creador);
+                                        i.putExtra("nombreRecorrido",nombreRecorrido);
+                                        i.putExtra("nombreRuta",nombreRuta);
+                                        i.putExtra("edad", edad);
+                                        i.putExtra("sexo",sexo);
                                         startActivity(i);
 
                                     }

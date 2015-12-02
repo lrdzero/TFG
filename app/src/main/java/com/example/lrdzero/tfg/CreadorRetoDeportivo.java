@@ -86,7 +86,7 @@ public class CreadorRetoDeportivo extends Activity {
         }
         else{
             setContentView(R.layout.activity_creador_reto_cultural);
-            metodosCulturales(modifi,getBaseContext());
+            metodosCulturales(modifi, getBaseContext());
         }
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
 
@@ -311,7 +311,7 @@ public class CreadorRetoDeportivo extends Activity {
         final ImageView item =(ImageView) findViewById(R.id.imagenItemCultural);
 
         nameFile=getIntent().getExtras().getString("nombrefile");
-        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+        //fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
         mostrarCamera().show();
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         camara.setOnClickListener(new View.OnClickListener() {
@@ -600,13 +600,14 @@ public class CreadorRetoDeportivo extends Activity {
     private AlertDialog.Builder mostrarElecciones(String nombreReto){
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if(!nombreReto.matches("")) {
-            PlaceList adapter = new PlaceList();
             if(dt.isEmpty()) {
                 dt.add(new Items("zapatillas", R.drawable.zapatillas, nombreReto));
                 dt.add(new Items("pesas",R.drawable.pesas,nombreReto));
                 dt.add(new Items("libro",R.drawable.libro,nombreReto));
                 dt.add(new Items("brújula",R.drawable.brujula,nombreReto));
             }
+            final PlaceList adapter = new PlaceList();
+
             builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -649,7 +650,7 @@ public class CreadorRetoDeportivo extends Activity {
             TextView txt1 = (TextView) intenView.findViewById(R.id.ItemText);
             //final CheckBox check = (CheckBox) intenView.findViewById(R.id.CheckItem);
 
-            currentData = dt.get(position);
+           final Items currentData = dt.get(position);
 
             img.setImageResource(currentData.getImage());
             txt1.setText(currentData.getName());
@@ -657,11 +658,11 @@ public class CreadorRetoDeportivo extends Activity {
                 @Override
                 public void onClick(View v) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(CreadorRetoDeportivo.this);
-                    builder.setTitle("¿Confimar?").setMessage("Desea asignar este Item al reto")
+                    builder.setTitle("¿Confimar?").setMessage("Desea asignar este Item al reto"+currentData.getName())
                             .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                        Toast.makeText(CreadorRetoDeportivo.this,Integer.toString(R.drawable.aniadiritem),Toast.LENGTH_LONG).show();
+                                    Toast.makeText(CreadorRetoDeportivo.this, Integer.toString(R.drawable.aniadiritem), Toast.LENGTH_LONG).show();
                                     envio.add(currentData.getName());
                                     envio.add(currentData.getNombreReto());
                                     envio.add(Integer.toString(currentData.getImage()));
@@ -669,7 +670,7 @@ public class CreadorRetoDeportivo extends Activity {
                                     con.hacerconexionGenerica("insertPremio", envio);
 
                                     envio.clear();
-                                    seleccionado=true;
+                                    seleccionado = true;
                                 }
                             })
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {

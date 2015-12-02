@@ -91,10 +91,10 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         ojos = (ImageView)findViewById(R.id.ojos);
 
 
-        sig.setEnabled(false);
-        sig.setVisibility(View.INVISIBLE);
+       // sig.setEnabled(false);
+        //sig.setVisibility(View.INVISIBLE);
 
-        sig.setAdjustViewBounds(true);
+        //sig.setAdjustViewBounds(true);
        // sig.setOnClickListener(this);
         textoGuia.setText(TITULO4);
         recorr =true;
@@ -104,7 +104,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         edad=getIntent().getExtras().getString("edad");
         creador=getIntent().getExtras().getString("creador");
 
-        adaptacion(sexo,edad);
+        //adaptacion(sexo,edad);
 
         Create();
 
@@ -129,8 +129,8 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                sig.setVisibility(View.VISIBLE);
-                sig.startAnimation(PasaTexto());
+                //sig.setVisibility(View.VISIBLE);
+                //sig.startAnimation(PasaTexto());
                 boca.clearAnimation();
 
             }
@@ -324,6 +324,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
                     mp.putExtra("edad",edad);
                     mp.putExtra("nombreRecorrido",nombreABuscar);
                     mp.putExtra("nombreRuta",txt1.getText().toString());
+                    mp.putExtra("tipoRecorrido",tipo);
                     Ruta ruta = new Ruta("ruta a");
                     ruta.setTramos(con.cargarVisionRuta(currentData.getName()));
                     ArrayList<Tramo> tramos = ruta.getTramos();
