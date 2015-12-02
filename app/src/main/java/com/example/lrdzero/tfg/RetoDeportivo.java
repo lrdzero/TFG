@@ -26,7 +26,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
     private Button go;
     private Conexion con;
     private DatosRyR datosReto;
-    private String nameUser,nameRecorrido,nameRuta,sexo,edad;
+    private String nameUser,nameRecorrido,nameRuta,sexo,edad,nombreReto;
     private ImageView parpadoder;
     private ImageView parpadoiz;
     private ImageView brazoDer;
@@ -53,7 +53,8 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
         nameUser=getIntent().getExtras().getString("nombreUser");
         nameRecorrido = getIntent().getExtras().getString("nombreRecorrido");
         nameRuta =getIntent().getExtras().getString("nombreRuta");
-        datosReto = con.buscarDatosRetoDeportivo("unreco");
+        nombreReto=getIntent().getExtras().getString("nombreReto");
+        datosReto = con.buscarDatosRetoDeportivo(nombreReto);
         sexo =getIntent().getExtras().getString("sexo");
         edad=getIntent().getExtras().getString("edad");
 

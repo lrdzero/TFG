@@ -57,6 +57,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
     private boolean carga;
     private boolean retos;
     private String name;
+    private int tipoRecorrido;
     private String creador,nombreRecorrido,nombreRuta,sexo,edad;
     ArrayList<LatLng> PtosRecorridos;
     int puntoactual=0;
@@ -128,6 +129,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         sexo=getIntent().getExtras().getString("sexo");
         edad=getIntent().getExtras().getString("edad");
         creador=getIntent().getExtras().getString("creador");
+        tipoRecorrido=getIntent().getExtras().getInt("tipoRecorrido");
 
         adaptacion(sexo,edad);
         con = new Conexion();
@@ -218,10 +220,27 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                                     Toast.makeText(getApplication(), String.valueOf(puntoactual) , Toast.LENGTH_SHORT).show();
                                     int index;
                                     if((index=ruta.existsRetoIn(puntoactual))!=-1) {
-                                        ruta.getRetos().get(index);
+                                        String nombre =ruta.getRetos().get(index).getNombre();
+                                        if(tipoRecorrido==0){
                                         Intent i = new Intent(getApplicationContext(),RetoCultural.class);
+                                        i.putExtra("nombreUser",creador);
+                                        i.putExtra("nombreRecorrido",nombreRecorrido);
+                                        i.putExtra("nombreRuta",nombreRuta);
+                                        i.putExtra("nombreReto",nombre);
+                                        i.putExtra("edad", edad);
+                                        i.putExtra("sexo",sexo);
                                         startActivity(i);
-
+                                        }
+                                        else{
+                                            Intent i = new Intent(getApplicationContext(),RetoDeportivo.class);
+                                            i.putExtra("nombreUser",creador);
+                                            i.putExtra("nombreRecorrido",nombreRecorrido);
+                                            i.putExtra("nombreRuta",nombreRuta);
+                                            i.putExtra("nombreReto",nombre);
+                                            i.putExtra("edad", edad);
+                                            i.putExtra("sexo",sexo);
+                                            startActivity(i);
+                                        }
                                     }
 
                                 }

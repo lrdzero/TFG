@@ -43,7 +43,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
     private MediaPlayer mp;
     private MediaPlayer error;
     private ArrayList<String> construyeRespuesta=new ArrayList<String>();
-    private String nombreRecorrido,nombreRuta,creador;
+    private String nombreRecorrido,nombreRuta,creador,nombreReto;
     private ImageView parpadoder;
     private ImageView parpadoiz;
     private ImageView brazoDer;
@@ -98,9 +98,10 @@ public class RetoCultural extends Activity implements View.OnClickListener {
         creador=getIntent().getExtras().getString("nombreUser");
         edad=getIntent().getExtras().getString("edad");
         sexo=getIntent().getExtras().getString("sexo");
+        nombreReto=getIntent().getExtras().getString("nombreReto");
         //Toast.makeText(RetoCultural.this,sexo,Toast.LENGTH_LONG).show();
         adaptacion(sexo,edad);
-        DatosRyR dt =con.buscarDatosRetoCultural("retoCultural");
+        DatosRyR dt =con.buscarDatosRetoCultural(nombreReto);
         nombreAuxiliar=dt.getName();
 
         pregunta.setText(dt.getDescription());
@@ -264,7 +265,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                     brazoizq.startAnimation(izq);
                     brazoder.startAnimation(der);
                     boca.startAnimation(bocaanim);
-                    resultado.setImageDrawable(getDrawable(R.drawable.correcto));
+                    resultado.setImageResource(R.drawable.correcto);
                     resultado.startAnimation(anim);
                     anim.setAnimationListener(new Animation.AnimationListener() {
                         @Override
@@ -293,7 +294,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
 
 
                     //Toast.makeText(RetoCultural.this,"Respuesta Incorrecta",Toast.LENGTH_LONG).show();
-                    resultado.setImageDrawable(getDrawable(R.drawable.fallo));
+                    resultado.setImageResource(R.drawable.fallo);
                     resultado.startAnimation(anim);
 
                 }
