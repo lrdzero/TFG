@@ -231,6 +231,8 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                         R.anim.animtristeizq);
                 Animation pder = AnimationUtils.loadAnimation(getApplicationContext(),
                         R.anim.animtristeder);
+                Animation bocaanim = AnimationUtils.loadAnimation(getApplicationContext(),
+                        R.anim.animabreboca);
 
                 ImageView resultado = (ImageView) findViewById(R.id.resultado);
 
@@ -240,6 +242,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                 ImageView brazoder=(ImageView)findViewById(R.id.brazoder);
                 ImageView parpadoizq=(ImageView)findViewById(R.id.parpizq);
                 ImageView parpadoder=(ImageView)findViewById(R.id.parpder);
+                ImageView boca=(ImageView)findViewById(R.id.bocaverde);
 
 
 
@@ -257,6 +260,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
 
                     brazoizq.startAnimation(izq);
                     brazoder.startAnimation(der);
+                    boca.startAnimation(bocaanim);
                     resultado.setImageDrawable(getDrawable(R.drawable.correcto));
                     resultado.startAnimation(anim);
                     anim.setAnimationListener(new Animation.AnimationListener() {
