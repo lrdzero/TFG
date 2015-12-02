@@ -311,7 +311,7 @@ public class CreadorRetoDeportivo extends Activity {
         final ImageView item =(ImageView) findViewById(R.id.imagenItemCultural);
 
         nameFile=getIntent().getExtras().getString("nombrefile");
-        //fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
         mostrarCamera().show();
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         camara.setOnClickListener(new View.OnClickListener() {
