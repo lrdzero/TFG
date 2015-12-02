@@ -21,8 +21,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+
+import static com.example.lrdzero.tfg.R.drawable.fallo;
 
 
 public class RetoCultural extends Activity implements View.OnClickListener {
@@ -220,28 +221,50 @@ public class RetoCultural extends Activity implements View.OnClickListener {
 
                         //Toast.makeText(RetoCultural.this, "La respuesta es " + respuestaCorrecta, Toast.LENGTH_LONG).show();
                        // Toast.makeText(RetoCultural.this, "Tu respuesta ha sido " + comparador, Toast.LENGTH_LONG).show();
-                //anim = AnimationUtils.loadAnimation(getApplicationContext(),
-                  //      R.anim.fade_in);
+                anim = AnimationUtils.loadAnimation(getApplicationContext(),
+                        R.anim.animacionreto);
                 ImageView resultado = (ImageView) findViewById(R.id.resultado);
-             //   resultado.setImageDrawable(getDrawable(R.drawable.fallo));
+                resultado.bringToFront();
+
 
                 if(comparador.equals(respuestaCorrecta)){
                     //Toast.makeText(RetoCultural.this,"Respuesta Correcta",Toast.LENGTH_LONG).show();
 
-                    Intent premio = new Intent(RetoCultural.this,RecogerPremio.class);
+                    final Intent premio = new Intent(RetoCultural.this,RecogerPremio.class);
                     premio.putExtra("nombreUser",creador);
                     premio.putExtra("nombreRecorrido",nombreRecorrido);
                     premio.putExtra("nombreRuta",nombreRuta);
                     premio.putExtra("nombreReto",nombreAuxiliar);
                     premio.putExtra("edad",edad);
-                    premio.putExtra("sexo",sexo);
+                    premio.putExtra("sexo", sexo);
 
-                    startActivityForResult(premio,1);
+                    resultado.setImageDrawable(getDrawable(R.drawable.correcto));
+                    resultado.startAnimation(anim);
+                    anim.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            startActivityForResult(premio, 1);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+
+
                 }
                 else{
                     error=MediaPlayer.create(this,R.raw.alert);
                     error.start();
-                    Toast.makeText(RetoCultural.this,"Respuesta Incorrecta",Toast.LENGTH_LONG).show();
+                    //Toast.makeText(RetoCultural.this,"Respuesta Incorrecta",Toast.LENGTH_LONG).show();
+                    resultado.setImageDrawable(getDrawable(fallo));
+                    resultado.startAnimation(anim);
 
                 }
 
