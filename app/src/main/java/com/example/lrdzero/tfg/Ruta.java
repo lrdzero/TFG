@@ -78,6 +78,14 @@ public class Ruta {
     }
 
 
+    public int existsRetoIn(int puntoactual) {
+        int index=-1;
+        for(int i=0;i<retos.size();i++){
+            if(retos.get(i).getPunto()==puntoactual)
+                index=i;
 
+        }
 
+        return index;
+    }
 }

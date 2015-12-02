@@ -233,8 +233,11 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                         R.anim.animtristeder);
                 Animation bocaanim = AnimationUtils.loadAnimation(getApplicationContext(),
                         R.anim.animabreboca);
+                bocaanim.setFillEnabled(true);
+                bocaanim.setFillAfter(true);
 
                 ImageView resultado = (ImageView) findViewById(R.id.resultado);
+
 
                 resultado.bringToFront();
 

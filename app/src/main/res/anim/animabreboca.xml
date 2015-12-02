@@ -7,7 +7,7 @@
 
         android:fillEnabled="true"
         android:fromYDelta="0"
-        android:toYDelta="-40"
+        android:toYDelta="30"
 
 
         />

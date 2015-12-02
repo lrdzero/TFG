@@ -2,6 +2,7 @@ package com.example.lrdzero.tfg;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.location.Location;
@@ -58,6 +59,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
     private String name;
     private String creador,nombreRecorrido,nombreRuta,sexo,edad;
     ArrayList<LatLng> PtosRecorridos;
+    int puntoactual=0;
     boolean inicio=false;
     boolean cargado=false;
     Circle circulo;
@@ -147,6 +149,28 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
 
 
         tamanio = getIntent().getExtras().getInt("tamanioRuta");
+        for(int i=0;i<tamanio;i++){
+            double oriLat=getIntent().getExtras().getDouble("tramoLatOrigen" + i);
+            double oriLong=getIntent().getExtras().getDouble("tramoLongOrigen" + i);
+            double endLat=getIntent().getExtras().getDouble("tramoLatFinal"+i);
+            double endLong=getIntent().getExtras().getDouble("tramoLongFinal"+i);
+            LatLng nuevoInicio = new LatLng(oriLat,oriLong);
+            LatLng nuevoFinal = new LatLng(endLat,endLong);
+            Tramo nuevo = new Tramo(nuevoInicio,nuevoFinal);
+            tramosOF.add(nuevo);
+        }
+        ruta.setTramos(tramosOF);
+        int tamanioRetos = getIntent().getExtras().getInt("tamanioRetos");
+
+        for(int i=0;i<tamanioRetos;i++){
+            String nombre =getIntent().getExtras().getString("nombreReto" + i);
+            int position = getIntent().getExtras().getInt("position"+i);
+            Log.i("Prueba", Integer.toString(position));
+            Reto nuevo = new Reto(nombre,googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(position)).title("prueba")),position);
+
+            ruta.addReto(nuevo);
+
+        }
 
         sig.setEnabled(false);
         sig.setVisibility(View.INVISIBLE);
@@ -175,40 +199,32 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
 
             @Override
             public void onMyLocationChange(Location location) {
-                for(int i=0;i<tamanio;i++){
-                    double oriLat=getIntent().getExtras().getDouble("tramoLatOrigen" + i);
-                    double oriLong=getIntent().getExtras().getDouble("tramoLongOrigen" + i);
-                    double endLat=getIntent().getExtras().getDouble("tramoLatFinal"+i);
-                    double endLong=getIntent().getExtras().getDouble("tramoLongFinal"+i);
-                    LatLng nuevoInicio = new LatLng(oriLat,oriLong);
-                    LatLng nuevoFinal = new LatLng(endLat,endLong);
-                    Tramo nuevo = new Tramo(nuevoInicio,nuevoFinal);
-                    tramosOF.add(nuevo);
-                }
-                ruta.setTramos(tramosOF);
-                int tamanioRetos = getIntent().getExtras().getInt("tamanioRetos");
 
-                for(int i=0;i<tamanioRetos;i++){
-                    String nombre =getIntent().getExtras().getString("nombreReto" + i);
-                    int position = getIntent().getExtras().getInt("position"+i);
-                    Log.i("Prueba", Integer.toString(position));
-                    Reto nuevo = new Reto(nombre,googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(position)).title("prueba")),position);
-
-                    ruta.addReto(nuevo);
-
-                }
                 if(cargado){
                     LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
                     if(circulo!=null)
                     circulo.setCenter(loc);
 
-                    if(inicio) {
-                        //Toast.makeText(getApplication(), "inicio" , Toast.LENGTH_SHORT).show();
+                    if(inicio){
+
                         if (haversine(PtosRecorridos.get(0), loc) > 0.006)
                             textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA");
                         else if (haversine(PtosRecorridos.get(0), loc) < haversine(PtosRecorridos.get(1), loc)) {
-                                if (PtosRecorridos.size() > 1)
+
+                                if (PtosRecorridos.size() > 1) {
+
                                     PtosRecorridos.remove(0);
+                                    puntoactual++;
+                                    Toast.makeText(getApplication(), String.valueOf(puntoactual) , Toast.LENGTH_SHORT).show();
+                                    int index;
+                                    if((index=ruta.existsRetoIn(puntoactual))!=-1) {
+                                        ruta.getRetos().get(index);
+                                        Intent i = new Intent(getApplicationContext(),RetoCultural.class);
+                                        startActivity(i);
+
+                                    }
+
+                                }
                                 else
                                     textoGuia.setText("FIN");
 
