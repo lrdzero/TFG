@@ -43,7 +43,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
     private MediaPlayer mp;
     private MediaPlayer error;
     private ArrayList<String> construyeRespuesta=new ArrayList<String>();
-    private String nombreRecorrido,nombreRuta,creador;
+    private String nombreRecorrido,nombreRuta,creador,nombreReto;
     private ImageView parpadoder;
     private ImageView parpadoiz;
     private ImageView brazoDer;
@@ -98,9 +98,10 @@ public class RetoCultural extends Activity implements View.OnClickListener {
         creador=getIntent().getExtras().getString("nombreUser");
         edad=getIntent().getExtras().getString("edad");
         sexo=getIntent().getExtras().getString("sexo");
+        nombreReto=getIntent().getExtras().getString("nombreReto");
         //Toast.makeText(RetoCultural.this,sexo,Toast.LENGTH_LONG).show();
         adaptacion(sexo,edad);
-        DatosRyR dt =con.buscarDatosRetoCultural("retoCultural");
+        DatosRyR dt =con.buscarDatosRetoCultural(nombreReto);
         nombreAuxiliar=dt.getName();
 
         pregunta.setText(dt.getDescription());

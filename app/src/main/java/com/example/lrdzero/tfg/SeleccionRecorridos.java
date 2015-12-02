@@ -61,6 +61,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
                 n.putExtra("nombreRuta","l");
                 n.putExtra("edad", datosUser.getNumber());
                 n.putExtra("sexo",datosUser.getAdic());
+                n.putExtra("nombreReto","retoCultural");
                 startActivity(n);
                 break;
             case R.id.buttonEjercicio:
@@ -71,6 +72,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
                 n2.putExtra("nombreRuta","rutadefecto");
                 n2.putExtra("edad", datosUser.getNumber());
                 n2.putExtra("sexo",datosUser.getAdic());
+                n2.putExtra("nombreReto","unreto");
                 startActivity(n2);
                 break;
             case R.id.imageView2:
@@ -150,6 +152,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
                                 nueva.putExtra("creador",datosUser.getName());
                                 nueva.putExtra("edad", datosUser.getNumber());
                                 nueva.putExtra("sexo",datosUser.getAdic());
+
                                 nueva.putExtra("pref1", datosUser.getPreferenciaUser1());
                                 nueva.putExtra("pref2", datosUser.getPreferenciaUser2());
                                 nueva.putExtra("dificultad", Integer.toString(dificultad.get(0) + 1));

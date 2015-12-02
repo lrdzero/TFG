@@ -220,11 +220,12 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                                     Toast.makeText(getApplication(), String.valueOf(puntoactual) , Toast.LENGTH_SHORT).show();
                                     int index;
                                     if((index=ruta.existsRetoIn(puntoactual))!=-1) {
-                                        ruta.getRetos().get(index);
+                                        String nombre =ruta.getRetos().get(index).getNombre();
                                         Intent i = new Intent(getApplicationContext(),RetoCultural.class);
                                         i.putExtra("nombreUser",creador);
                                         i.putExtra("nombreRecorrido",nombreRecorrido);
                                         i.putExtra("nombreRuta",nombreRuta);
+                                        i.putExtra("nombreReto",nombre);
                                         i.putExtra("edad", edad);
                                         i.putExtra("sexo",sexo);
                                         startActivity(i);
