@@ -300,11 +300,7 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
         protected void onPostExecute(PolylineOptions result) {
 
             googleMap.addPolyline(result);
-            if(ruta.getTramos().size()>0) {
-                Marker marker = googleMap.addMarker(new MarkerOptions()
-                        .position(ruta.getFirstPoint())
-                        .title("Inicio"));
-            }
+
 
 
             LatLng loc;
@@ -315,7 +311,7 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
                 loc = ruta.getFirstPoint();
 
             }
-            Toast.makeText(getApplication(), String.valueOf(ruta.getPoints().size()), Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplication(), String.valueOf(ruta.getMiniPoints().size()), Toast.LENGTH_LONG).show();
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 17.0f));
 
 

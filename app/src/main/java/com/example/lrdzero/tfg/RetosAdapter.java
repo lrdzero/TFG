@@ -81,7 +81,7 @@ public class RetosAdapter extends BaseAdapter {
         final TextView nombre = (TextView) convertView.findViewById(R.id.nomreto);
         nombre.setText(mItems.get(arg).getNombre());
         final SeekBar barra = (SeekBar) convertView.findViewById(R.id.seekBar);
-        barra.setMax(r.getPoints().size() - 1);
+        barra.setMax(r.getMiniPoints().size() - 1);
         barra.setProgress(mItems.get(arg).getMarkerLocation());
 
 
@@ -105,7 +105,7 @@ public class RetosAdapter extends BaseAdapter {
 
 
                 if(r.getPoints().size()>0) {
-                    mItems.get(arg).setLocation(r.getPoints().get(barra.getProgress()));
+                    mItems.get(arg).setLocation(r.getMiniPoints().get(barra.getProgress()));
                     mItems.get(arg).setPunto(barra.getProgress());
                 }
             }

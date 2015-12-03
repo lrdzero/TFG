@@ -191,7 +191,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         media.start();
 
         //ruta.setTramos(con.cargarVisionRuta(name));
-        PtosRecorridos=ruta.getPoints();
+        PtosRecorridos=ruta.getMiniPoints();
 
 
 
@@ -203,8 +203,8 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
 
                 if(cargado){
                     LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-                    if(circulo!=null)
-                        circulo.setCenter(loc);
+                   // if(circulo!=null)
+                      //  circulo.setCenter(loc);
 
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
 
@@ -212,13 +212,12 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                         Toast.makeText(getApplication(),"punto actual "+String.valueOf(puntoactual) , Toast.LENGTH_SHORT).show();
                         if (haversine(PtosRecorridos.get(0), loc) > 0.01)
                             textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA");
-                        else if (haversine(PtosRecorridos.get(0), loc) < haversine(PtosRecorridos.get(1), loc)) {
+                        else if (haversine(PtosRecorridos.get(0), loc) <= haversine(PtosRecorridos.get(1), loc)) {
                             textoGuia.setText("Ya has completado un "+puntoactual*100/ruta.getPoints().size()+"%");
                             if (PtosRecorridos.size() > 1) {
-
                                 PtosRecorridos.remove(0);
                                 puntoactual++;
-                                markerLastPoint.setPosition(ruta.getPoints().get(puntoactual));
+                                markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
 
                                 int index;
                                 if((index=ruta.existsRetoIn(puntoactual))!=-1) {
@@ -310,7 +309,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
             @Override
             public void onMapClick(LatLng latLng) {
                 puntoactual++;
-                markerLastPoint.setPosition(ruta.getPoints().get(puntoactual));
+                markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
                 Toast.makeText(getApplication(),String.valueOf(puntoactual) , Toast.LENGTH_SHORT).show();
 
             }

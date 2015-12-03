@@ -14,6 +14,7 @@ public class Ruta {
     ArrayList<Tramo> tramos= new ArrayList<>();
     ArrayList<Reto> retos = new ArrayList<>();
     ArrayList<LatLng> points = new ArrayList<>();
+    ArrayList<LatLng> minipoints = new ArrayList<>();
 
 
     public Ruta(String nombre){
@@ -54,8 +55,10 @@ public class Ruta {
 
         ArrayList<LatLng> aux = new ArrayList<>();
         for(int i=0;i<points.size()-1;i++){
-            if(measure(points.get(i),points.get(i+1))>2)
-                aux.addAll(Divide(measure(points.get(i),points.get(i+1)),points.get(i),points.get(i+1)));
+            if(measure(points.get(i),points.get(i+1))>2) {
+                aux.addAll(Divide(measure(points.get(i), points.get(i + 1)), points.get(i), points.get(i + 1)));
+                Log.i("puntos",String.valueOf(i)+"+dist:"+String.valueOf(measure(points.get(i),points.get(i+1))));
+            }
             else
                 aux.add(points.get(i));
 
@@ -63,7 +66,7 @@ public class Ruta {
         }
         aux.add(points.get(points.size()-1));
 
-        points=aux;
+        minipoints=aux;
 
 
 
@@ -74,8 +77,8 @@ public class Ruta {
         double lon1=l1.longitude;
         double lat2=l2.latitude;
         double lon2=l2.longitude;
-        double x=Math.abs(lat2-lat1);
-        double y=Math.abs(lon2-lon1);
+        double x=(lat2-lat1);
+        double y=(lon2-lon1);
         int divisiones = (int) (distancia/2)+1;
         for(int j=0;j<divisiones;j++)
             aux2.add(new LatLng(lat1+((x/divisiones)*j),lon1+((y/divisiones)*j)));
@@ -135,7 +138,10 @@ public class Ruta {
                 index=i;
 
         }
-
         return index;
+    }
+
+    public ArrayList<LatLng> getMiniPoints() {
+        return minipoints;
     }
 }
