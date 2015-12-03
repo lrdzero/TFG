@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -29,7 +30,6 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -194,20 +194,6 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
 
 
 
-        // Register for network location updates
-        if (null != mLocationManager
-                .getProvider(LocationManager.NETWORK_PROVIDER)) {
-            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, POLLING_FREQ,MIN_DISTANCE, (android.location.LocationListener) mLocationListener);
-        }
-
-        // Register for GPS location updates
-        if (null != mLocationManager
-                .getProvider(LocationManager.GPS_PROVIDER)) {
-            mLocationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER, POLLING_FREQ,
-                    MIN_DISTANCE, (android.location.LocationListener) mLocationListener);
-        }
-
         mLocationListener = new LocationListener() {
 
             // Called back when location changes
@@ -300,6 +286,21 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
 
             }
         });*/
+        mLocationManager=(LocationManager) this.getSystemService(LOCATION_SERVICE);
+        // Register for network location updates
+        if (null != mLocationManager
+                .getProvider(LocationManager.NETWORK_PROVIDER)) {
+            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, POLLING_FREQ,MIN_DISTANCE, mLocationListener);
+        }
+
+        // Register for GPS location updates
+        if (null != mLocationManager
+                .getProvider(LocationManager.GPS_PROVIDER)) {
+            mLocationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER, POLLING_FREQ,
+                    MIN_DISTANCE, mLocationListener);
+        }
+
 
 
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
