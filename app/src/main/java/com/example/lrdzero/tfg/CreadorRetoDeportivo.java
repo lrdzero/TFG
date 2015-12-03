@@ -262,7 +262,7 @@ public class CreadorRetoDeportivo extends Activity {
             crear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")||!seleccionado) {
+                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")||!seleccionado||dificultades.isEmpty()) {
                         Toast.makeText(c, "Hay campos sin rellenar", Toast.LENGTH_LONG).show();
                         error.start();
                     } else {

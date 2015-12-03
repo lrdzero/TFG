@@ -45,6 +45,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
     private final static String TITULO4 ="Selecciona el recorrido en el que quieras participar y pulsa la imagen";
     private ListView listView;
     private ArrayAdapter<DatosRyR>  adapter,adapter2;
+    private String musica;
 
     private static Socket sk;
     private static int port=7;
@@ -103,6 +104,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         sexo=getIntent().getExtras().getString("sexo");
         edad=getIntent().getExtras().getString("edad");
         creador=getIntent().getExtras().getString("creador");
+        musica=getIntent().getExtras().getString("musica");
 
         //adaptacion(sexo,edad);
 
@@ -327,6 +329,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
                     mp.putExtra("nombreRecorrido",nombreABuscar);
                     mp.putExtra("nombreRuta",txt1.getText().toString());
                     mp.putExtra("tipoRecorrido",tipo);
+                    mp.putExtra("musica",musica);
                     Ruta ruta = new Ruta("ruta a");
                     ruta.setTramos(con.cargarVisionRuta(currentData.getName()));
                     ArrayList<Tramo> tramos = ruta.getTramos();

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -25,6 +26,8 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
     private Conexion con;
     private DatosRyR datosUser;
     private MediaPlayer error;
+    private MediaPlayer miMusic;
+    private String musica="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,9 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         cultura.setOnClickListener(this);
         ejercicio.setOnClickListener(this);
         name= getIntent().getExtras().getString("NombreUser");
+
+
+
 
     }
 
@@ -91,7 +97,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
             case R.id.imageView:
                 nueva = new Intent(SeleccionRecorridos.this, ProfileActivity.class);
                 nueva.putExtra("NombreUser",name);
-                startActivity(nueva);
+                startActivityForResult(nueva,1);
                 break;
         }
 
@@ -152,7 +158,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
                                 nueva.putExtra("creador",datosUser.getName());
                                 nueva.putExtra("edad", datosUser.getNumber());
                                 nueva.putExtra("sexo",datosUser.getAdic());
-
+                                nueva.putExtra("musica",musica);
                                 nueva.putExtra("pref1", datosUser.getPreferenciaUser1());
                                 nueva.putExtra("pref2", datosUser.getPreferenciaUser2());
                                 nueva.putExtra("dificultad", Integer.toString(dificultad.get(0) + 1));
@@ -177,7 +183,36 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
             builder.show();
         }
     }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // Comprobamos si el resultado de la segunda actividad es "RESULT_CANCELED".
+        if (resultCode == RESULT_CANCELED) {
+            // Si es así mostramos mensaje de cancelado por pantalla.
+            Toast.makeText(this, "Resultado cancelado", Toast.LENGTH_SHORT)
+                    .show();
+        } else {
+            // De lo contrario, recogemos el resultado de la segunda actividad.
+            String resultado = data.getExtras().getString("RESULTADO");
+            // Y tratamos el resultado en función de si se lanzó para rellenar el
+            // nombre o el apellido.
+            switch (requestCode) {
+                case 1:
+                    musica= data.getExtras().getString("musica");
+                    if(musica.matches("")){
+                        //musica="default";
+                        Toast.makeText(SeleccionRecorridos.this,musica,Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(SeleccionRecorridos.this, "La musica es " + musica, Toast.LENGTH_LONG).show();
+                    }
 
+                    //finish();
+                    break;
+
+
+            }
+        }
+    }
 
 
 

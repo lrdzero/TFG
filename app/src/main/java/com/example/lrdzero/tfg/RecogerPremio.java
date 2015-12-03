@@ -133,6 +133,8 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
                     insertado=true;
                 }
                 envio.clear();
+                image.setVisibility(View.INVISIBLE);
+                image.setEnabled(false);
 
 
                 break;

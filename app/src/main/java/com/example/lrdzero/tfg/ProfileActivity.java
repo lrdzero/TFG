@@ -44,6 +44,7 @@ public class ProfileActivity extends Activity {
     private ArrayList<Integer> pref = new ArrayList<Integer>();
     private ImageView editName,editEdad,editContrasenia;
     private TextView nom,ed,contr;
+    private String musicaSelected="";
 
     protected void onDestroy(){
         super.onDestroy();
@@ -98,6 +99,16 @@ public class ProfileActivity extends Activity {
         cerrarsesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent i = getIntent();
+                // Le metemos el resultado que queremos mandar a la
+                // actividad principal.
+                i.putExtra("RESULTADO", 1);
+                i.putExtra("musica",musicaSelected);
+                // Establecemos el resultado, y volvemos a la actividad
+                // principal. La variable que introducimos en primer lugar
+                // "RESULT_OK" es de la propia actividad, no tenemos que
+                // declararla nosotros.
+                setResult(RESULT_OK, i);
                 finish();
             }
         });
@@ -424,15 +435,13 @@ public class ProfileActivity extends Activity {
             Toast.makeText(ProfileActivity.this,"Paht "+path.toString(),Toast.LENGTH_LONG).show();
             musc.add(path.toString());
             musc.add(Name);
-            int r=con.hacerconexionGenerica("musicaUsuario",musc);
+            int r=con.hacerconexionGenerica("musicaUsuario", musc);
             if(r==0){
                 Toast.makeText(ProfileActivity.this,"Error en inserción de musica.",Toast.LENGTH_SHORT).show();
             }
             else {
                 musc.clear();
-                MediaPlayer miMusic = MediaPlayer.create(ProfileActivity.this, path);
-
-                miMusic.start();
+                musicaSelected=path.toString();
             }
         }
         else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {

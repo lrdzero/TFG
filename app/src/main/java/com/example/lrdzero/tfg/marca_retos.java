@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -87,6 +88,7 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
         retos = getIntent().getExtras().getBoolean("retos");
         Button confirmar= (Button)findViewById(R.id.confirmar);
         listretos = (ListView)findViewById(R.id.listretosedit);
+        ScrollView sb = (ScrollView) findViewById(R.id.scroll);
 
 
         con = new Conexion();

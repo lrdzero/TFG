@@ -9,6 +9,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -54,6 +55,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
     private static final long POLLING_FREQ = 1000;
     private static final float MIN_DISTANCE = 1.0f;
     Marker markerLastPoint;
+    private String musica;
 
     // Reference to the LocationManager and LocationListener
     private LocationManager mLocationManager;
@@ -113,7 +115,8 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seguimiento);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        media= MediaPlayer.create(this,R.raw.frog);
+
+
 
 
         //Carga Avatar
@@ -139,7 +142,14 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         edad=getIntent().getExtras().getString("edad");
         creador=getIntent().getExtras().getString("creador");
         tipoRecorrido=getIntent().getExtras().getInt("tipoRecorrido");
-
+        musica=getIntent().getExtras().getString("musica");
+        if(musica.matches("")){
+            media= MediaPlayer.create(this,R.raw.frog);
+        }
+       else{
+           Uri uri = Uri.parse(musica);
+          media=MediaPlayer.create(this,uri);
+        }
         adaptacion(sexo,edad);
         con = new Conexion();
         googleMap = mapView.getMap();
