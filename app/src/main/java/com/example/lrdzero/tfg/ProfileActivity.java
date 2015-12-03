@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class ProfileActivity extends Activity {
     ArrayList<Integer> Discapacidades = new ArrayList<>();
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
     public static final int MEDIA_TYPE_IMAGE = 1;
+    public static final int MEDIA_TYPE_AUDIO=123;
     private static final int PICK_IMAGE=200;
     private Uri fileUri;
     private String Name;
@@ -61,6 +63,7 @@ public class ProfileActivity extends Activity {
         Button cerrarsesion = (Button)findViewById(R.id.button);
         Button discHerr = (Button)findViewById(R.id.button2);
         Button preferencias =(Button)findViewById(R.id.button3);
+        ImageView musica = (ImageView) findViewById(R.id.notaMusical);
 
 
         con = new Conexion();
@@ -103,6 +106,13 @@ public class ProfileActivity extends Activity {
                 Intent n = new Intent(ProfileActivity.this, HerramientaNuevaRuta.class);
                 n.putExtra("creador",Name);
                 startActivity(n);
+            }
+        });
+        musica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent music = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(music,MEDIA_TYPE_AUDIO);
             }
         });
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -407,7 +417,17 @@ public class ProfileActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         ImageView iv = (ImageView)findViewById(R.id.foto);
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if (requestCode== MEDIA_TYPE_AUDIO){
+            ArrayList<String> musc = new ArrayList<>();
+            Uri path = data.getData();
+            Toast.makeText(ProfileActivity.this,"Paht "+path.toString(),Toast.LENGTH_LONG).show();
+            musc.add(path.toString());
+            con.hacerconexionGenerica("musicaUsuario",musc);
+            MediaPlayer miMusic = MediaPlayer.create(ProfileActivity.this,path);
+
+            miMusic.start();
+        }
+        else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 // Image captured and saved to fileUri specified in the Intent
                 //Log.i("Camara", String.valueOf(data));
@@ -438,6 +458,7 @@ public class ProfileActivity extends Activity {
                 Toast.makeText(this,"Error al recoger la imagen", Toast.LENGTH_LONG).show();
 
             }
+
         }
 
     }

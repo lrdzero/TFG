@@ -127,6 +127,21 @@ public class Conexion {
         return respuesta;
     }
 
+    public String obtenerMusicaUsuario(String usuario){
+        String uri="";
+        try{
+            conectar();
+            out.writeUTF("buscarMusica");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(usuario);
+                uri+=in.readUTF();
+            }
+            cerrar();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return uri;
+    }
    public ArrayList<DatosRyR> cargaDeRetos(String name){
        ArrayList<DatosRyR> respuesta = new ArrayList<DatosRyR>();
 
