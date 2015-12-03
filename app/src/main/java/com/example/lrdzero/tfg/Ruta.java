@@ -52,19 +52,51 @@ public class Ruta {
             points.addAll(dir.getDirection(doc));
         }
 
+        ArrayList<LatLng> aux = new ArrayList<>();
         for(int i=0;i<points.size()-1;i++){
-            //if(measure(points.get(i),points.get(i+1)>2)
+            if(measure(points.get(i),points.get(i+1))>2)
+                aux.addAll(Divide(measure(points.get(i),points.get(i+1)),points.get(i),points.get(i+1)));
+            else
+                aux.add(points.get(i));
+
 
         }
+        aux.add(points.get(points.size()-1));
+
+        points=aux;
+
 
 
     }
+    private ArrayList<LatLng> Divide(double distancia,LatLng l1, LatLng l2) {
+        ArrayList<LatLng> aux2 = new ArrayList<>();
+        double lat1=l1.latitude;
+        double lon1=l1.longitude;
+        double lat2=l2.latitude;
+        double lon2=l2.longitude;
+        double x=Math.abs(lat2-lat1);
+        double y=Math.abs(lon2-lon1);
+        int divisiones = (int) (distancia/2)+1;
+        for(int j=0;j<divisiones;j++)
+            aux2.add(new LatLng(lat1+((x/divisiones)*j),lon1+((y/divisiones)*j)));
 
-    public double measure(double lat1, double lon1, double lat2,double lon2){  // generally used geo measurement function
+
+
+        return aux2;
+
+    }
+
+
+
+    public double measure(LatLng l1,LatLng l2){  // generally used geo measurement function
+        double lat1=l1.latitude;
+        double lon1=l1.longitude;
+        double lat2=l2.latitude;
+        double lon2=l2.longitude;
         double R = 6378.137; // Radius of earth in KM
         double dLat = (lat2 - lat1) * Math.PI / 180;
         double dLon = (lon2 - lon1) * Math.PI / 180;
-        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+       double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
                 Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
                         Math.sin(dLon/2) * Math.sin(dLon/2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
