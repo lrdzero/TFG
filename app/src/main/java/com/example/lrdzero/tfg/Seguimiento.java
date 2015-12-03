@@ -56,6 +56,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
     private static final float MIN_DISTANCE = 1.0f;
     Marker markerLastPoint;
     private String musica;
+    TextView textoGuia;
 
     // Reference to the LocationManager and LocationListener
     private LocationManager mLocationManager;
@@ -162,7 +163,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         ImageView bi = (ImageView)findViewById(R.id.brazoizq);
         final ImageView boca = (ImageView)findViewById(R.id.bocaverde);
         final ImageView ojos = (ImageView)findViewById(R.id.ojos);
-        final TextView textoGuia =(TextView) findViewById(R.id.textodinamico);
+        textoGuia =(TextView) findViewById(R.id.textodinamico);
         textoGuia.setText("Bienvenido a la ruta "+name);
 
         final ImageView sig =(ImageView) findViewById(R.id.siguiente);
@@ -219,46 +220,17 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
 
                     if(inicio){
+                        if(measure(PtosRecorridos.get(0),PtosRecorridos.get(1))<1){
+                            if (haversine(PtosRecorridos.get(1), loc) < 0.01)
+                                avance();
 
-                        if (haversine(PtosRecorridos.get(1), loc) < 0.01){
+
+                        }
+                        else if (haversine(PtosRecorridos.get(1),loc) < haversine(PtosRecorridos.get(0),loc)){
 
 
+                                avance();
 
-                            textoGuia.setText("Ya has completado un "+puntoactual*100/ruta.getPoints().size()+"%");
-                            if (PtosRecorridos.size() > 1) {
-                                PtosRecorridos.remove(0);
-                                puntoactual++;
-                                markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
-
-                                int index;
-                                if((index=ruta.existsRetoIn(puntoactual))!=-1) {
-                                    Toast.makeText(getApplication(),"reto "+String.valueOf(index) , Toast.LENGTH_SHORT).show();
-                                    String nombre =ruta.getRetos().get(index).getNombre();
-                                    if(tipoRecorrido==0){
-                                        Intent i = new Intent(getApplicationContext(),RetoCultural.class);
-                                        i.putExtra("nombreUser",creador);
-                                        i.putExtra("nombreRecorrido",nombreRecorrido);
-                                        i.putExtra("nombreRuta",nombreRuta);
-                                        i.putExtra("nombreReto",nombre);
-                                        i.putExtra("edad", edad);
-                                        i.putExtra("sexo",sexo);
-                                        startActivity(i);
-                                    }
-                                    else{
-                                        Intent i = new Intent(getApplicationContext(),RetoDeportivo.class);
-                                        i.putExtra("nombreUser",creador);
-                                        i.putExtra("nombreRecorrido",nombreRecorrido);
-                                        i.putExtra("nombreRuta",nombreRuta);
-                                        i.putExtra("nombreReto",nombre);
-                                        i.putExtra("edad", edad);
-                                        i.putExtra("sexo",sexo);
-                                        startActivity(i);
-                                    }
-                                }
-
-                            }
-                            else
-                                textoGuia.setText("FIN");
 
 
                         }
@@ -398,6 +370,44 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         textoGuia.startAnimation(a);
 
 
+    }
+
+    private void avance() {
+        textoGuia.setText("Ya has completado un "+puntoactual*100/ruta.getPoints().size()+"%");
+        if (PtosRecorridos.size() > 1) {
+            PtosRecorridos.remove(0);
+            puntoactual++;
+            markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
+
+            int index;
+            if((index=ruta.existsRetoIn(puntoactual))!=-1) {
+                Toast.makeText(getApplication(),"reto "+String.valueOf(index) , Toast.LENGTH_SHORT).show();
+                String nombre =ruta.getRetos().get(index).getNombre();
+                if(tipoRecorrido==0){
+                    Intent i = new Intent(getApplicationContext(),RetoCultural.class);
+                    i.putExtra("nombreUser",creador);
+                    i.putExtra("nombreRecorrido",nombreRecorrido);
+                    i.putExtra("nombreRuta",nombreRuta);
+                    i.putExtra("nombreReto",nombre);
+                    i.putExtra("edad", edad);
+                    i.putExtra("sexo",sexo);
+                    startActivity(i);
+                }
+                else{
+                    Intent i = new Intent(getApplicationContext(),RetoDeportivo.class);
+                    i.putExtra("nombreUser",creador);
+                    i.putExtra("nombreRecorrido",nombreRecorrido);
+                    i.putExtra("nombreRuta",nombreRuta);
+                    i.putExtra("nombreReto",nombre);
+                    i.putExtra("edad", edad);
+                    i.putExtra("sexo",sexo);
+                    startActivity(i);
+                }
+            }
+
+        }
+        else
+            textoGuia.setText("FIN");
     }
 
     @Override
@@ -546,6 +556,22 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         double a = Math.sin(dLat / 2)*Math.sin(dLat / 2) + Math.sin(dLon / 2)*Math.sin(dLon / 2)*Math.cos(lat1)*Math.cos(lat2);
         double c = 2 * Math.asin(Math.sqrt(a));
         return 6372.8 * c;
+    }
+
+    public double measure(LatLng l1,LatLng l2){  // generally used geo measurement function
+        double lat1=l1.latitude;
+        double lon1=l1.longitude;
+        double lat2=l2.latitude;
+        double lon2=l2.longitude;
+        double R = 6378.137; // Radius of earth in KM
+        double dLat = (lat2 - lat1) * Math.PI / 180;
+        double dLon = (lon2 - lon1) * Math.PI / 180;
+        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                        Math.sin(dLon/2) * Math.sin(dLon/2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double d = R * c;
+        return d * 1000; // meters
     }
 
     private void adaptacion(String sexo,String edad){
