@@ -252,12 +252,12 @@ public class Conexion {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
-                for(int i=0;i<listReception.size();i=i+2){
+                for(int i=0;i<listReception.size();i=i+3){
                     String nombre=listReception.get(i);
                     String historia=listReception.get(i+1);
-                   // String nRetos=listReception.get(i+2);
+                    String nRetos=listReception.get(i+2);
                     Uri n =null;
-                    dt.add(new DatosRyR(nombre,"","","",R.drawable.recorridodefecto,historia,n));
+                    dt.add(new DatosRyR(nombre,nRetos,"","",R.drawable.recorridodefecto,historia,n));
                 }
             }
             else{

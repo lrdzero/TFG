@@ -147,7 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/cabeza"
-            android:src="@drawable/cuerpo"
+            android:src="@drawable/cuerpo_leon"
             android:contentDescription="cabeza"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
@@ -156,7 +156,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ojos"
-            android:src="@drawable/ojos"
+            android:src="@drawable/ojos_leon"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -165,7 +165,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bocaroja"
-            android:src="@drawable/boca_roja"
+            android:src="@drawable/labio_superior"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
 
@@ -173,17 +173,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/bocaverde"
-            android:src="@drawable/boca"
+            android:src="@drawable/labio_inferior"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dientes"
+            android:src="@drawable/dientes"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/brazoizq"
-            android:src="@drawable/manoizq"
+
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -192,7 +199,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/brazoder"
-            android:src="@drawable/manoder"
+
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -205,7 +212,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:src="@drawable/parpadoizq"
+
             />
         <ImageView
             android:layout_width="wrap_content"
@@ -214,7 +221,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:src="@drawable/parpadoder"
+
             />
 
     </RelativeLayout>

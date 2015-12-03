@@ -23,6 +23,7 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
     private String nameUser,nameRuta,nameRecorrido;
     private MediaPlayer mp;
     private String sexo,edad;
+    private int tipoReto;
     public void onResume(){
         super.onResume();
         mp.setLooping(true);
@@ -50,7 +51,7 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
         nameRuta=getIntent().getExtras().getString("nombreRuta");
         sexo=getIntent().getExtras().getString("sexo");
         edad=getIntent().getExtras().getString("edad");
-
+        tipoReto=getIntent().getExtras().getInt("tipoReto");
         tiempo=getIntent().getExtras().getInt("tiempo");
 
         crono.setBase(SystemClock.elapsedRealtime());
@@ -68,14 +69,14 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
         switch (v.getId()){
             case R.id.botonEnd:
                 crono.stop();
-                Intent premio = new Intent(CronometroDeporte.this,RecogerPremio.class);
+                Intent premio = new Intent(CronometroDeporte.this, RecogerPremio.class);
                 premio.putExtra("nombreReto",nombreReto);
                 premio.putExtra("nombreUser",nameUser);
                 premio.putExtra("nombreRecorrido",nameRecorrido);
                 premio.putExtra("nombreRuta", nameRuta);
                 premio.putExtra("edad",edad);
                 premio.putExtra("sexo",sexo);
-
+                premio.putExtra("tipoReto",tipoReto);
                 startActivityForResult(premio, 1);
 
                 break;
@@ -111,5 +112,27 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
 
             }
         }
+    }
+    public static int getSecondsFromDurationString(String value){
+
+        String [] parts = value.split(":");
+
+        // Wrong format, no value for you.
+        if(parts.length < 2 || parts.length > 3)
+            return 0;
+
+        int seconds = 0, minutes = 0, hours = 0;
+
+        if(parts.length == 2){
+            seconds = Integer.parseInt(parts[1]);
+            minutes = Integer.parseInt(parts[0]);
+        }
+        else if(parts.length == 3){
+            seconds = Integer.parseInt(parts[2]);
+            minutes = Integer.parseInt(parts[1]);
+            hours = Integer.parseInt(parts[1]);
+        }
+
+        return seconds + (minutes*60) + (hours*3600);
     }
 }

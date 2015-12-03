@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     private LinearLayout lt;
     private Uri fileUri;
     private String edad,sexo;
+    private int tipoReto;
     private boolean insertado=false;
 
     private ImageView parpadoder;
@@ -47,6 +49,8 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     private ImageView cuerpo;
     private ImageView boca;
     private ImageView ojos;
+    private ImageView bocaRoja;
+    private ImageView dientes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,9 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         cuerpo =(ImageView) findViewById(R.id.cabeza);
         boca = (ImageView)findViewById(R.id.bocaverde);
         ojos = (ImageView)findViewById(R.id.ojos);
+        bocaRoja =(ImageView)findViewById(R.id.bocaroja);
+        dientes =(ImageView)findViewById(R.id.dientesP);
+        tipoReto=getIntent().getExtras().getInt("tipoReto");
 
         MediaPlayer mp = MediaPlayer.create(this,R.raw.tada);
 
@@ -205,7 +212,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
                 final Items currentData = (Items) lista2.getItemAtPosition(position);
                 AlertDialog.Builder dialogo1 = new AlertDialog.Builder(RecogerPremio.this);
                 dialogo1.setTitle("Importante");
-                dialogo1.setMessage("¿ Quieres utilizar este Item ?");
+                dialogo1.setMessage("¿ Ver este Item?");
 
                 dialogo1.setCancelable(false);
                 dialogo1.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -230,8 +237,8 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     }
     public void aceptar(Items aBorrar) {
         final Items aB =aBorrar;
-        Toast t=Toast.makeText(this,"Se mostrará una pista ya sea mediante toast o por medio de otro Dialog", Toast.LENGTH_SHORT);
-        t.show();
+       // Toast t=Toast.makeText(this,"Se mostrará una pista ya sea mediante toast o por medio de otro Dialog", Toast.LENGTH_SHORT);
+        //t.show();
         AlertDialog.Builder dialogo2 = new AlertDialog.Builder(RecogerPremio.this);
         dialogo2.setTitle("Descripción");
         dialogo2.setMessage(aB.getName());
@@ -254,67 +261,70 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
 
     }
     private void adaptacion(String sexo,String edad){
+        if(tipoReto==0) {
 
-        if(sexo.equals("H")){
-            if(Integer.valueOf((edad))<18){
-                boca.setImageResource(R.drawable.boca_n);
-                ojos.setImageResource(R.drawable.ojos);
-                parpadoder.setImageResource(R.drawable.parpadoder_n);
-                parpadoiz.setImageResource(R.drawable.parpadoizq_n);
-                brazoIz.setImageResource(R.drawable.manoizq);
-                brazoDer.setImageResource(R.drawable.manoder);
-                cuerpo.setImageResource(R.drawable.cuerpo_n);
-            }
-            else if(Integer.valueOf(edad)>=18&&Integer.valueOf(edad)<57) {
-                boca.setImageResource(R.drawable.boca);
-                ojos.setImageResource(R.drawable.ojos);
-                //insertaMujer();
-                parpadoder.setImageResource(R.drawable.parpadoder);
-                parpadoiz.setImageResource(R.drawable.parpadoizq);
-                brazoIz.setImageResource(R.drawable.manoizq);
-                brazoDer.setImageResource(R.drawable.manoder);
-                cuerpo.setImageResource(R.drawable.cuerpo);
-            }
-            else{
-                boca.setImageResource(R.drawable.boca_a);
-                ojos.setImageResource(R.drawable.ojos);
-                parpadoder.setImageResource(R.drawable.parpadoder_a);
-                parpadoiz.setImageResource(R.drawable.parpadoizq_a);
-                brazoIz.setImageResource(R.drawable.manoizq_a);
-                brazoDer.setImageResource(R.drawable.manoder_a);
-                cuerpo.setImageResource(R.drawable.cuerpo_a);
+            if (sexo.equals("H")) {
+                if (Integer.valueOf((edad)) < 18) {
+                    boca.setImageResource(R.drawable.boca_n);
+                    ojos.setImageResource(R.drawable.ojos);
+                    parpadoder.setImageResource(R.drawable.parpadoder_n);
+                    parpadoiz.setImageResource(R.drawable.parpadoizq_n);
+                    brazoIz.setImageResource(R.drawable.manoizq);
+                    brazoDer.setImageResource(R.drawable.manoder);
+                    cuerpo.setImageResource(R.drawable.cuerpo_n);
+                } else if (Integer.valueOf(edad) >= 18 && Integer.valueOf(edad) < 57) {
+                    boca.setImageResource(R.drawable.boca);
+                    ojos.setImageResource(R.drawable.ojos);
+                    parpadoder.setImageResource(R.drawable.parpadoder);
+                    parpadoiz.setImageResource(R.drawable.parpadoizq);
+                    brazoIz.setImageResource(R.drawable.manoizq);
+                    brazoDer.setImageResource(R.drawable.manoder);
+                    cuerpo.setImageResource(R.drawable.cuerpo);
+                } else {
+                    boca.setImageResource(R.drawable.boca_a);
+                    ojos.setImageResource(R.drawable.ojos);
+                    parpadoder.setImageResource(R.drawable.parpadoder_a);
+                    parpadoiz.setImageResource(R.drawable.parpadoizq_a);
+                    brazoIz.setImageResource(R.drawable.manoizq_a);
+                    brazoDer.setImageResource(R.drawable.manoder_a);
+                    cuerpo.setImageResource(R.drawable.cuerpo_a);
+                }
+            } else {
+                if (Integer.valueOf((edad)) < 18) {
+                    boca.setImageResource(R.drawable.boca_h_n);
+                    ojos.setImageResource(R.drawable.ojos);
+                    parpadoder.setImageResource(R.drawable.parpadoder_h_n);
+                    parpadoiz.setImageResource(R.drawable.parpadoizq_h_n);
+                    brazoIz.setImageResource(R.drawable.manoizq_h_n);
+                    brazoDer.setImageResource(R.drawable.manoder_h_n);
+                    cuerpo.setImageResource(R.drawable.cuerpo_h_n);
+                } else if (Integer.valueOf(edad) >= 18 && Integer.valueOf(edad) < 57) {
+                    boca.setImageResource(R.drawable.boca_h);
+                    ojos.setImageResource(R.drawable.ojos);
+                    //insertaMujer();
+                    parpadoder.setImageResource(R.drawable.parpadoder_h);
+                    parpadoiz.setImageResource(R.drawable.parpadoizq_h);
+                    brazoIz.setImageResource(R.drawable.manoizq_h);
+                    brazoDer.setImageResource(R.drawable.manoder_h);
+                    cuerpo.setImageResource(R.drawable.cuerpo_h);
+                } else {
+                    boca.setImageResource(R.drawable.boca_h_a);
+                    ojos.setImageResource(R.drawable.ojos);
+                    parpadoder.setImageResource(R.drawable.parpadoder_h_a);
+                    parpadoiz.setImageResource(R.drawable.parpadoizq_h_a);
+                    brazoIz.setImageResource(R.drawable.manoizq_h_a);
+                    brazoDer.setImageResource(R.drawable.manoder_h_a);
+                    cuerpo.setImageResource(R.drawable.cuerpo_h_a);
+                }
+
             }
         }
         else{
-            if(Integer.valueOf((edad))<18){
-                boca.setImageResource(R.drawable.boca_h_n);
-                ojos.setImageResource(R.drawable.ojos);
-                parpadoder.setImageResource(R.drawable.parpadoder_h_n);
-                parpadoiz.setImageResource(R.drawable.parpadoizq_h_n);
-                brazoIz.setImageResource(R.drawable.manoizq_h_n);
-                brazoDer.setImageResource(R.drawable.manoder_h_n);
-                cuerpo.setImageResource(R.drawable.cuerpo_h_n);
-            }
-            else if(Integer.valueOf(edad)>=18&&Integer.valueOf(edad)<57) {
-                boca.setImageResource(R.drawable.boca_h);
-                ojos.setImageResource(R.drawable.ojos);
-                //insertaMujer();
-                parpadoder.setImageResource(R.drawable.parpadoder_h);
-                parpadoiz.setImageResource(R.drawable.parpadoizq_h);
-                brazoIz.setImageResource(R.drawable.manoizq_h);
-                brazoDer.setImageResource(R.drawable.manoder_h);
-                cuerpo.setImageResource(R.drawable.cuerpo_h);
-            }
-            else{
-                boca.setImageResource(R.drawable.boca_h_a);
-                ojos.setImageResource(R.drawable.ojos);
-                parpadoder.setImageResource(R.drawable.parpadoder_h_a);
-                parpadoiz.setImageResource(R.drawable.parpadoizq_h_a);
-                brazoIz.setImageResource(R.drawable.manoizq_h_a);
-                brazoDer.setImageResource(R.drawable.manoder_h_a);
-                cuerpo.setImageResource(R.drawable.cuerpo_h_a);
-            }
-
+            boca.setImageResource(R.drawable.labio_inferior);
+            cuerpo.setImageResource(R.drawable.cuerpo_leon);
+            bocaRoja.setImageResource(R.drawable.labio_superior);
+            ojos.setImageResource(R.drawable.ojos_leon);
+            dientes.setImageResource(R.drawable.dientes);
         }
     }
 }

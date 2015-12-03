@@ -157,6 +157,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                         relacion.add(myName);
                         relacion.add(nombreRuta.getText().toString());
                         relacion.add(Integer.toString(retos.size()));
+                        relacion.add(historia.getText().toString());
                         con.hacerconexionGenerica("actualizarRuta", relacion);
                     }
                     finish();
@@ -224,7 +225,8 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
 
             descp.setText(currentData.getName());
             img.setImageURI(currentData.getUri());
-
+            pickPos.setVisibility(View.INVISIBLE);
+            pickPos.setEnabled(false);
             pickPos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -290,7 +292,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
         builder.setTitle("Tutorial")
                 .setMessage("Bienvenido al tutorial:\n Para Crear una Ruta nueva Rellene los campos necesarios: 1) Una vez hecho esto pulse \"Listo\", le devolverá a la pantalla anterior y allí podrá asignar la ruta pulsando el icono \"mapa\".\n" +
                         "2) Si por el contrario desea crear los Retos para esta ruta pulse el botón \"+\" y continue.\n"
-                        +"3) Para asignar un recorrido primero deberá haber creado la ruta en google Maps como se dice en el punto 1 y acceder al Reto mediante el editor, despues pulsar el icono \"mapa\"")
+                        +"3) Para asignar un recorrido primero deberá haber creado la ruta en google Maps como se dice en el punto 1, despues pulsar el icono \"Posición\"")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

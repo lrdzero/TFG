@@ -87,6 +87,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
                     nuevo.putExtra("nombreRuta",nameRuta);
                     nuevo.putExtra("sexo",sexo);
                     nuevo.putExtra("edad",edad);
+                    nuevo.putExtra("tipoReto",0);
                     startActivityForResult(nuevo,1);
 
                 break;

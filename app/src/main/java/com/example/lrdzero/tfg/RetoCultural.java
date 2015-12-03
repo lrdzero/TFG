@@ -100,7 +100,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
         sexo=getIntent().getExtras().getString("sexo");
         nombreReto=getIntent().getExtras().getString("nombreReto");
         //Toast.makeText(RetoCultural.this,sexo,Toast.LENGTH_LONG).show();
-        adaptacion(sexo,edad);
+        //adaptacion(sexo,edad);
         DatosRyR dt =con.buscarDatosRetoCultural(nombreReto);
         nombreAuxiliar=dt.getName();
 
@@ -261,7 +261,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                     premio.putExtra("nombreReto",nombreAuxiliar);
                     premio.putExtra("edad",edad);
                     premio.putExtra("sexo", sexo);
-
+                    premio.putExtra("tipoReto",1);
                     brazoizq.startAnimation(izq);
                     brazoder.startAnimation(der);
                     boca.startAnimation(bocaanim);

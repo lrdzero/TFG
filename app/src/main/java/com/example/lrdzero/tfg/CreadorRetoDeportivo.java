@@ -143,7 +143,7 @@ public class CreadorRetoDeportivo extends Activity {
         final ImageView item =(ImageView) findViewById(R.id.imagenItem);
         nombre=nombreDeporti.getText().toString();
         nameFile=getIntent().getExtras().getString("nombrefile");
-        Toast.makeText(CreadorRetoDeportivo.this,nombre,Toast.LENGTH_LONG).show();
+        //Toast.makeText(CreadorRetoDeportivo.this,nombre,Toast.LENGTH_LONG).show();
 
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
         mostrarCamera().show();
@@ -194,7 +194,7 @@ public class CreadorRetoDeportivo extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 dificultades = aux;
-                                Toast.makeText(CreadorRetoDeportivo.this, Integer.toString(dificultades.get(0)), Toast.LENGTH_LONG).show();
+                                //Toast.makeText(CreadorRetoDeportivo.this, Integer.toString(dificultades.get(0)), Toast.LENGTH_LONG).show();
                                 // User clicked OK, so save the mSelectedItems results somewhere
                                 // or return them to the component that opened the dialog
 
@@ -551,10 +551,11 @@ public class CreadorRetoDeportivo extends Activity {
                 //  fileUri, Toast.LENGTH_LONG).show();
 
 
-                Toast.makeText(CreadorRetoDeportivo.this,fileUri.toString(), Toast.LENGTH_LONG).show();
+               // Toast.makeText(CreadorRetoDeportivo.this,fileUri.toString(), Toast.LENGTH_LONG).show();
                 finish();
                 startActivity(getIntent());
             } else if (resultCode != RESULT_CANCELED){
+
                 Toast.makeText(this,"Error al capturar la imagen", Toast.LENGTH_LONG).show();
                 // Image capture failed, advise user
             }
@@ -662,7 +663,7 @@ public class CreadorRetoDeportivo extends Activity {
                             .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(CreadorRetoDeportivo.this, Integer.toString(R.drawable.aniadiritem), Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(CreadorRetoDeportivo.this, Integer.toString(R.drawable.aniadiritem), Toast.LENGTH_LONG).show();
                                     envio.add(currentData.getName());
                                     envio.add(currentData.getNombreReto());
                                     envio.add(Integer.toString(currentData.getImage()));

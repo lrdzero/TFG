@@ -41,8 +41,8 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
     private boolean recorr;
     private final static String TITULO ="Recorridos para tí";
     private final static String TITULO2 ="Rutas Disponibles";
-    private final static String TITULO3 ="HAGAMOSLO. Selecciona una ruta en la que quieras participar";
-    private final static String TITULO4 ="Selecciona el recorrido en el que quieras participar";
+    private final static String TITULO3 ="HAGÁMOSLO. Pulsa la imagen de ruta en la que quieras participar";
+    private final static String TITULO4 ="Selecciona el recorrido en el que quieras participar y pulsa la imagen";
     private ListView listView;
     private ArrayAdapter<DatosRyR>  adapter,adapter2;
 
