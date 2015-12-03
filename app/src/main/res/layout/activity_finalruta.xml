@@ -99,7 +99,6 @@
         android:text="Medium Text"
         android:id="@+id/textView8"
         android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/Avatar"
-        android:layout_alignEnd="@+id/Avatar" />
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

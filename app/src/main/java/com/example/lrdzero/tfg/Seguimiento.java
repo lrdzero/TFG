@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -49,6 +51,12 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
     private ArrayList<Tramo> tramosOF=new ArrayList<Tramo>();
     ArrayList<Reto> retosRuta = new ArrayList<Reto>();
     private int tamanio;
+    private static final long POLLING_FREQ = 2000;
+    private static final float MIN_DISTANCE = 10.0f;
+
+    // Reference to the LocationManager and LocationListener
+    private LocationManager mLocationManager;
+    private LocationListener mLocationListener;
 
     LocationClient mLocationClient;
 
@@ -185,43 +193,49 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         PtosRecorridos=ruta.getPoints();
 
 
-        googleMap.setOnMapLoadedCallback(new GoogleMap.OnMapLoadedCallback() {
-                                             @Override
-                                             public void onMapLoaded() {
 
+        // Register for network location updates
+        if (null != mLocationManager
+                .getProvider(LocationManager.NETWORK_PROVIDER)) {
+            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, POLLING_FREQ,MIN_DISTANCE, (android.location.LocationListener) mLocationListener);
+        }
 
+        // Register for GPS location updates
+        if (null != mLocationManager
+                .getProvider(LocationManager.GPS_PROVIDER)) {
+            mLocationManager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER, POLLING_FREQ,
+                    MIN_DISTANCE, (android.location.LocationListener) mLocationListener);
+        }
 
+        mLocationListener = new LocationListener() {
 
-                                             }
-                                         }
-        );
+            // Called back when location changes
 
+            public void onLocationChanged(Location location) {
 
-        googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-
-            @Override
-            public void onMyLocationChange(Location location) {
 
                 if(cargado){
                     LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
                     if(circulo!=null)
-                    circulo.setCenter(loc);
+                        circulo.setCenter(loc);
 
                     if(inicio){
 
-                        if (haversine(PtosRecorridos.get(0), loc) > 0.006)
+                        if (haversine(PtosRecorridos.get(0), loc) > 0.01)
                             textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA");
                         else if (haversine(PtosRecorridos.get(0), loc) < haversine(PtosRecorridos.get(1), loc)) {
+                            textoGuia.setText("Ya has completado un "+puntoactual*100/ruta.getPoints().size()+"%");
+                            if (PtosRecorridos.size() > 1) {
 
-                                if (PtosRecorridos.size() > 1) {
-
-                                    PtosRecorridos.remove(0);
-                                    puntoactual++;
-                                    Toast.makeText(getApplication(), String.valueOf(puntoactual) , Toast.LENGTH_SHORT).show();
-                                    int index;
-                                    if((index=ruta.existsRetoIn(puntoactual))!=-1) {
-                                        String nombre =ruta.getRetos().get(index).getNombre();
-                                        if(tipoRecorrido==0){
+                                PtosRecorridos.remove(0);
+                                puntoactual++;
+                                Toast.makeText(getApplication(),"punto actual "+String.valueOf(puntoactual) , Toast.LENGTH_SHORT).show();
+                                int index;
+                                if((index=ruta.existsRetoIn(puntoactual))!=-1) {
+                                    Toast.makeText(getApplication(),"reto "+String.valueOf(index) , Toast.LENGTH_SHORT).show();
+                                    String nombre =ruta.getRetos().get(index).getNombre();
+                                    if(tipoRecorrido==0){
                                         Intent i = new Intent(getApplicationContext(),RetoCultural.class);
                                         i.putExtra("nombreUser",creador);
                                         i.putExtra("nombreRecorrido",nombreRecorrido);
@@ -230,50 +244,69 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                                         i.putExtra("edad", edad);
                                         i.putExtra("sexo",sexo);
                                         startActivity(i);
-                                        }
-                                        else{
-                                            Intent i = new Intent(getApplicationContext(),RetoDeportivo.class);
-                                            i.putExtra("nombreUser",creador);
-                                            i.putExtra("nombreRecorrido",nombreRecorrido);
-                                            i.putExtra("nombreRuta",nombreRuta);
-                                            i.putExtra("nombreReto",nombre);
-                                            i.putExtra("edad", edad);
-                                            i.putExtra("sexo",sexo);
-                                            startActivity(i);
-                                        }
                                     }
-
+                                    else{
+                                        Intent i = new Intent(getApplicationContext(),RetoDeportivo.class);
+                                        i.putExtra("nombreUser",creador);
+                                        i.putExtra("nombreRecorrido",nombreRecorrido);
+                                        i.putExtra("nombreRuta",nombreRuta);
+                                        i.putExtra("nombreReto",nombre);
+                                        i.putExtra("edad", edad);
+                                        i.putExtra("sexo",sexo);
+                                        startActivity(i);
+                                    }
                                 }
-                                else
-                                    textoGuia.setText("FIN");
+
+                            }
+                            else
+                                textoGuia.setText("FIN");
 
 
                         }
                     }
                     else {
-                        if (haversine(loc, ruta.getFirstPoint()) < 0.006) {
+                        if (haversine(loc, ruta.getFirstPoint()) < 0.01) {
                             inicio = true;
                             textoGuia.setText("Listo, Dale a comenzar");
 
                         }
-                       // Toast.makeText(getApplication(), "aun no esta dentro" , Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getApplication(), "aun no esta dentro" , Toast.LENGTH_SHORT).show();
                     }
 
 
 
                 }
+
             }
-        });
+
+            public void onStatusChanged(String provider, int status,
+                                        Bundle extras) {
+                // NA
+            }
+
+            public void onProviderEnabled(String provider) {
+                // NA
+            }
+
+            public void onProviderDisabled(String provider) {
+                // NA
+            }
+        };
+       /* googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+
+            @Override
+            public void onMyLocationChange(Location location) {
+
+
+            }
+        });*/
 
 
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
 
-
-                double hav= haversine(ruta.getLastPoint(), latLng);
-                Toast.makeText(getApplication(), Double.toString(hav) , Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(getApplication(),String.valueOf(puntoactual) , Toast.LENGTH_SHORT).show();
 
             }
         });
