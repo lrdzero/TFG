@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -112,7 +113,7 @@ public class ProfileActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent music = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(music,MEDIA_TYPE_AUDIO);
+                startActivityForResult(music, MEDIA_TYPE_AUDIO);
             }
         });
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -422,10 +423,17 @@ public class ProfileActivity extends Activity {
             Uri path = data.getData();
             Toast.makeText(ProfileActivity.this,"Paht "+path.toString(),Toast.LENGTH_LONG).show();
             musc.add(path.toString());
-            con.hacerconexionGenerica("musicaUsuario",musc);
-            MediaPlayer miMusic = MediaPlayer.create(ProfileActivity.this,path);
+            musc.add(Name);
+            int r=con.hacerconexionGenerica("musicaUsuario",musc);
+            if(r==0){
+                Toast.makeText(ProfileActivity.this,"Error en inserción de musica.",Toast.LENGTH_SHORT).show();
+            }
+            else {
+                musc.clear();
+                MediaPlayer miMusic = MediaPlayer.create(ProfileActivity.this, path);
 
-            miMusic.start();
+                miMusic.start();
+            }
         }
         else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
