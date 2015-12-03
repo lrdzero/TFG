@@ -209,10 +209,11 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
 
                     if(inicio){
-                        Toast.makeText(getApplication(),"punto actual "+String.valueOf(puntoactual) , Toast.LENGTH_SHORT).show();
-                        if (haversine(PtosRecorridos.get(0), loc) > 0.01)
-                            textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA");
-                        else if (haversine(PtosRecorridos.get(0), loc) <= haversine(PtosRecorridos.get(1), loc)) {
+
+                        if (haversine(PtosRecorridos.get(1), loc) < 0.01){
+
+
+
                             textoGuia.setText("Ya has completado un "+puntoactual*100/ruta.getPoints().size()+"%");
                             if (PtosRecorridos.size() > 1) {
                                 PtosRecorridos.remove(0);
@@ -251,6 +252,8 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
 
 
                         }
+                        else
+                             textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA");
                     }
                     else {
                         if (haversine(loc, ruta.getFirstPoint()) < 0.01) {
@@ -308,9 +311,9 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                puntoactual++;
+                //puntoactual++;
                 markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
-                Toast.makeText(getApplication(),String.valueOf(puntoactual) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication(),String.valueOf(haversine(latLng,ruta.getMiniPoints().get(puntoactual))) , Toast.LENGTH_SHORT).show();
 
             }
         });
