@@ -51,8 +51,9 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
     private ArrayList<Tramo> tramosOF=new ArrayList<Tramo>();
     ArrayList<Reto> retosRuta = new ArrayList<Reto>();
     private int tamanio;
-    private static final long POLLING_FREQ = 2000;
-    private static final float MIN_DISTANCE = 10.0f;
+    private static final long POLLING_FREQ = 1000;
+    private static final float MIN_DISTANCE = 1.0f;
+    Marker markerLastPoint;
 
     // Reference to the LocationManager and LocationListener
     private LocationManager mLocationManager;
@@ -200,14 +201,15 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
 
             public void onLocationChanged(Location location) {
 
-
                 if(cargado){
                     LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
                     if(circulo!=null)
                         circulo.setCenter(loc);
 
-                    if(inicio){
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
 
+                    if(inicio){
+                        Toast.makeText(getApplication(),"punto actual "+String.valueOf(puntoactual) , Toast.LENGTH_SHORT).show();
                         if (haversine(PtosRecorridos.get(0), loc) > 0.01)
                             textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA");
                         else if (haversine(PtosRecorridos.get(0), loc) < haversine(PtosRecorridos.get(1), loc)) {
@@ -216,7 +218,8 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
 
                                 PtosRecorridos.remove(0);
                                 puntoactual++;
-                                Toast.makeText(getApplication(),"punto actual "+String.valueOf(puntoactual) , Toast.LENGTH_SHORT).show();
+                                markerLastPoint.setPosition(ruta.getPoints().get(puntoactual));
+
                                 int index;
                                 if((index=ruta.existsRetoIn(puntoactual))!=-1) {
                                     Toast.makeText(getApplication(),"reto "+String.valueOf(index) , Toast.LENGTH_SHORT).show();
@@ -306,7 +309,8 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-
+                puntoactual++;
+                markerLastPoint.setPosition(ruta.getPoints().get(puntoactual));
                 Toast.makeText(getApplication(),String.valueOf(puntoactual) , Toast.LENGTH_SHORT).show();
 
             }
@@ -362,7 +366,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                     // googleMap.addMarker(new MarkerOptions().position(loc));
 
                     //Toast.makeText(getApplication(), circulo.getCenter().toString() , Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplication(), Integer.toString(ruta.getTramos().size()) , Toast.LENGTH_SHORT).show();
+                   Toast.makeText(getApplication(), Integer.toString(ruta.getPoints().size()) , Toast.LENGTH_SHORT).show();
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
                     //textoGuia.setText(Integer.toString(ruta.getPoints().size()));
 
@@ -449,8 +453,10 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
             if (ruta.getTramos().size() > 0) {
                 circulo = googleMap.addCircle(new CircleOptions()
                         .center(ruta.getFirstPoint())
-                        .radius(6)
+                        .radius(10)
                         .strokeColor(Color.RED));
+                markerLastPoint=googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(puntoactual)).title("prueba"));
+
 
             }
             cargado=true;
