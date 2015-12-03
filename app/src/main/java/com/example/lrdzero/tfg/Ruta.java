@@ -64,7 +64,8 @@ public class Ruta {
 
 
         }
-        aux.add(points.get(points.size()-1));
+        if(points.size()>0)
+          aux.add(points.get(points.size()-1));
 
         minipoints=aux;
 

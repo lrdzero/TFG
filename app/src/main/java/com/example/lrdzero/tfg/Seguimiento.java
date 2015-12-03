@@ -177,7 +177,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
             String nombre =getIntent().getExtras().getString("nombreReto" + i);
             int position = getIntent().getExtras().getInt("position"+i);
             Log.i("Prueba", Integer.toString(position));
-            Reto nuevo = new Reto(nombre,googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(position)).title("prueba")),position);
+            Reto nuevo = new Reto(nombre,googleMap.addMarker(new MarkerOptions().position(ruta.getMiniPoints().get(position)).title("prueba")),position);
 
             ruta.addReto(nuevo);
 
