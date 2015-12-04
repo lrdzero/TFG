@@ -53,11 +53,12 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
     private ArrayList<Tramo> tramosOF=new ArrayList<Tramo>();
     ArrayList<Reto> retosRuta = new ArrayList<Reto>();
     private int tamanio;
-    private static final long POLLING_FREQ = 1000;
-    private static final float MIN_DISTANCE = 1.0f;
+    private static final long POLLING_FREQ = 2000;
+    private static final float MIN_DISTANCE = 3.0f;
     Marker markerLastPoint;
     private String musica;
     TextView textoGuia;
+    ArrayList<Circle> circulos = new ArrayList<>();
 
     // Reference to the LocationManager and LocationListener
     private LocationManager mLocationManager;
@@ -93,23 +94,23 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         super.onResume();
         mapView.onResume();
         mLocationClient.connect();
-        media.setLooping(true);
-        media.start();
+//        media.setLooping(true);
+    //    media.start();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
-        media.setLooping(false);
-        media.stop();
+    //    media.setLooping(false);
+    //    media.stop();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mapView.onPause();
-        media.stop();
+     //   mapView.onPause();
+     //   media.stop();
     }
 
     @Override
@@ -145,7 +146,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         creador=getIntent().getExtras().getString("creador");
         tipoRecorrido=getIntent().getExtras().getInt("tipoRecorrido");
         //musica=getIntent().getExtras().getString("musica");
-        musica=con.obtenerMusicaUsuario(creador);
+        /*musica=con.obtenerMusicaUsuario(creador);
         if(musica.matches("")){
             media= MediaPlayer.create(this,R.raw.frog);
         }
@@ -160,7 +161,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                 media= MediaPlayer.create(this,R.raw.frog);
             }
 
-        }
+        }*/
         adaptacion(sexo,edad);
         con = new Conexion();
         googleMap = mapView.getMap();
@@ -208,8 +209,8 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         sig.setVisibility(View.INVISIBLE);
         sig.setAdjustViewBounds(true);
 
-        media.setLooping(true);
-        media.start();
+       // media.setLooping(true);
+       // media.start();
 
         //ruta.setTramos(con.cargarVisionRuta(name));
         PtosRecorridos=ruta.getMiniPoints();
@@ -230,27 +231,25 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
 
                     if(inicio){
-                        if(measure(PtosRecorridos.get(0),PtosRecorridos.get(1))<1){
-                            if (haversine(PtosRecorridos.get(1), loc) < 0.01)
+                        if(measure(PtosRecorridos.get(1),loc)<10) {
+                            textoGuia.setText("Ya has completado un "+puntoactual*100/ruta.getMiniPoints().size()+"%");
+
+
+
+                             if (measure(PtosRecorridos.get(1), loc) < measure(PtosRecorridos.get(0), loc)) {
                                 avance();
+                            }
 
-
-                        }
-                        else if (haversine(PtosRecorridos.get(1),loc) < haversine(PtosRecorridos.get(0),loc)){
-
-
-                                avance();
-
-
+                               // textoGuia.setText("Ya has completado un "+puntoactual*100/ruta.getMiniPoints().size()+"%");
 
                         }
                         else
                              textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA");
                     }
                     else {
-                        if (haversine(loc, ruta.getFirstPoint()) < 0.01) {
+                        if (measure(loc, ruta.getFirstPoint()) < 10) {
                             inicio = true;
-                            textoGuia.setText("Listo, Dale a comenzar");
+                            textoGuia.setText("Listo, Comencemos");
 
                         }
                         // Toast.makeText(getApplication(), "aun no esta dentro" , Toast.LENGTH_SHORT).show();
@@ -310,7 +309,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
             }
         });
         final Animation pasa = PasaTexto();
-        final Animation a = new AlphaAnimation(0,  1);
+        final Animation a = new AlphaAnimation(0,1);
         Interpolator i = new Interpolator() {
             @Override
             public float getInterpolation(float input) {
@@ -360,7 +359,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                     // googleMap.addMarker(new MarkerOptions().position(loc));
 
                     //Toast.makeText(getApplication(), circulo.getCenter().toString() , Toast.LENGTH_SHORT).show();
-                   Toast.makeText(getApplication(), Integer.toString(ruta.getPoints().size()) , Toast.LENGTH_SHORT).show();
+                   Toast.makeText(getApplication(), Integer.toString(ruta.getMiniPoints().size()) , Toast.LENGTH_SHORT).show();
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
                     //textoGuia.setText(Integer.toString(ruta.getPoints().size()));
 
@@ -383,11 +382,14 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
     }
 
     private void avance() {
-        textoGuia.setText("Ya has completado un "+puntoactual*100/ruta.getPoints().size()+"%");
+        //textoGuia.setText("Ya has completado un "+puntoactual*100/ruta.getMiniPoints().size()+"%");
+
         if (PtosRecorridos.size() > 1) {
             PtosRecorridos.remove(0);
             puntoactual++;
+            textoGuia.setText("quedan "+PtosRecorridos.size()+" puntos");
             markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
+            circulos.remove(0);
 
             int index;
             if((index=ruta.existsRetoIn(puntoactual))!=-1) {
@@ -487,11 +489,22 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                         .center(ruta.getFirstPoint())
                         .radius(10)
                         .strokeColor(Color.RED));
-                markerLastPoint=googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(puntoactual)).title("prueba"));
+                markerLastPoint=googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(puntoactual)).title(String.valueOf(puntoactual)));
 
 
             }
             cargado=true;
+            for(int i=0;i<ruta.getMiniPoints().size();i++){
+                circulos.add( googleMap.addCircle(new CircleOptions()
+                        .center(ruta.getMiniPoints().get(i))
+                        .fillColor(Color.BLUE)
+                        .radius(0.5)
+                        .strokeColor(Color.BLUE)));
+
+            }
+            markerLastPoint=googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(puntoactual)).title("prueba"));
+
+
 
 
         }

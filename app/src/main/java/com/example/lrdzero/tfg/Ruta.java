@@ -55,13 +55,10 @@ public class Ruta {
 
         ArrayList<LatLng> aux = new ArrayList<>();
         for(int i=0;i<points.size()-1;i++){
-            if(measure(points.get(i),points.get(i+1))>2) {
+            if(measure(points.get(i),points.get(i+1))>3) {
                 aux.addAll(Divide(measure(points.get(i), points.get(i + 1)), points.get(i), points.get(i + 1)));
                 Log.i("puntos",String.valueOf(i)+"+dist:"+String.valueOf(measure(points.get(i),points.get(i+1))));
             }
-            else
-                aux.add(points.get(i));
-
 
         }
         if(points.size()>0)
