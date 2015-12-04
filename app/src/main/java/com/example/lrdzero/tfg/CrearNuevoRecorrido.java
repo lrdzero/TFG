@@ -50,18 +50,18 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
         super.onResume();
         Create();
         Visualizar();
-        mp.setLooping(true);
-        mp.start();
+        //mp.setLooping(true);
+        //mp.start();
     }
     public void onPause(){
         super.onPause();
-        mp.setLooping(false);
-        mp.stop();
+       // mp.setLooping(false);
+        //mp.stop();
     }
     public void onDestroy(){
         super.onDestroy();
-        mp.setLooping(false);
-        mp.stop();
+       // mp.setLooping(false);
+       // mp.stop();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +124,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
 
 
         mp.setLooping(true);
-        mp.start();
+        //mp.start();
 
 
 
@@ -315,7 +315,11 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                 Toast.makeText(CrearNuevoRecorrido.this, "Debe elegir un tipo de Recorrido", Toast.LENGTH_LONG).show();
                 error.start();
             }
+            Intent i = getIntent();
 
+            i.putExtra("RESULTADO", 1);
+            //i.putExtra("musica",musicaSelected);
+            setResult(RESULT_OK, i);
 
             finish();
         }
@@ -347,6 +351,11 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
             con.hacerconexionGenerica("updateRecorrido", envios);
             envios.clear();
             con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
+            Intent i = getIntent();
+
+            i.putExtra("RESULTADO", 1);
+            //i.putExtra("musica",musicaSelected);
+            setResult(RESULT_OK, i);
             finish();
         }
     }
@@ -386,7 +395,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                     envios.clear();
                     con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
                 }
-                startActivity(nuevo);
+                startActivityForResult(nuevo, 1);
 
             } else if (btn2.isChecked()) {
                 nuevo.putExtra("tipo", false);
@@ -400,7 +409,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                     envios.clear();
                     con.updateRecorridoPreferencias("updateRecorridoPreferencias", datosTrueEnBD, nombreRecorrido.getText().toString());
                 }
-                startActivity(nuevo);
+                startActivityForResult(nuevo, 1);
             } else {
                 Toast.makeText(CrearNuevoRecorrido.this, "Debe elegir un tipo de Recorrido", Toast.LENGTH_LONG).show();
             }
@@ -543,7 +552,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                     }
                     n.putExtra("name", currentData.getName());
 
-                    startActivity(n);
+                    startActivityForResult(n, 1);
                     Log.e("Recargo rutas:", "lanzamiento");
 
                 }
@@ -574,6 +583,27 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
             return intenView;
         }
 
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_CANCELED) {
+
+            Toast.makeText(this, "Resultado cancelado", Toast.LENGTH_SHORT)
+                    .show();
+        } else {
+
+            String resultado = data.getExtras().getString("RESULTADO");
+
+            switch (requestCode) {
+                case 1:
+                    Toast.makeText(CrearNuevoRecorrido.this,"Ruta creada con exito",Toast.LENGTH_LONG).show();
+                    //finish();
+                    break;
+
+
+            }
+        }
     }
 
 

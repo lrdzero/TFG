@@ -43,22 +43,22 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
         super.onResume();
         Creador();
         Visualizar();
-        mp.setLooping(true);
-        mp.start();
+       // mp.setLooping(true);
+        //mp.start();
 
     }
     @Override
     public void onPause(){
         super.onPause();
-        mp.setLooping(false);
-        mp.stop();
+       // mp.setLooping(false);
+       // mp.stop();
 
     }
     @Override
     public void onDestroy(){
         super.onDestroy();
-        mp.setLooping(false);
-        mp.stop();
+       // mp.setLooping(false);
+       // mp.stop();
 
     }
     @Override
@@ -105,8 +105,8 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
 
         Creador();
         Visualizar();
-        mp.setLooping(true);
-        mp.start();
+        //mp.setLooping(true);
+        //mp.start();
     }
 
     public void onClick(View v){
@@ -133,7 +133,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                     double numero = Math.random() * 5000;
                     int n2= (int) numero;
                     nuevo.putExtra("nombrefile", Integer.toString(n2));
-                    startActivity(nuevo);
+                    startActivityForResult(nuevo, 1);
                 }
                 break;
 
@@ -160,6 +160,11 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                         relacion.add(historia.getText().toString());
                         con.hacerconexionGenerica("actualizarRuta", relacion);
                     }
+                    Intent i = getIntent();
+
+                    i.putExtra("RESULTADO", 1);
+                    //i.putExtra("musica",musicaSelected);
+                    setResult(RESULT_OK, i);
                     finish();
                 }
                 else{
@@ -256,7 +261,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                     int n2= (int) numero;
                     al.putExtra("nombrefile",Integer.toString(n2));
 
-                    startActivity(al);
+                    startActivityForResult(al, 1);
 
 
                 }
@@ -300,6 +305,27 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                     }
                 });
         return builder;
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_CANCELED) {
+
+            Toast.makeText(this, "Resultado cancelado", Toast.LENGTH_SHORT)
+                    .show();
+        } else {
+
+            String resultado = data.getExtras().getString("RESULTADO");
+
+            switch (requestCode) {
+                case 1:
+                    Toast.makeText(CreadorRutas.this,"Reto creado con exito",Toast.LENGTH_LONG).show();
+                    //finish();
+                    break;
+
+
+            }
+        }
     }
 
 }

@@ -38,13 +38,13 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
     }
     public void onPause(){
         super.onPause();
-        mp.setLooping(false);
-        mp.stop();
+        //mp.setLooping(false);
+        //mp.stop();
     }
     public void onDestroy(){
         super.onDestroy();
-        mp.setLooping(false);
-        mp.stop();
+        //mp.setLooping(false);
+        //mp.stop();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +72,8 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
         CargarLista();
         Visualizar();
 
-        //mp.setLooping(true);
-        //mp.start();
+        mp.setLooping(true);
+        mp.start();
     }
 
     public void onClick(View v){

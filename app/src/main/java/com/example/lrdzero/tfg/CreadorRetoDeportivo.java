@@ -53,19 +53,19 @@ public class CreadorRetoDeportivo extends Activity {
     public void onResume(){
         super.onResume();
         mp.setLooping(true);
-        mp.start();
+        //mp.start();
 
     }
     public void onPause(){
         super.onPause();
-        mp.setLooping(false);
-        mp.stop();
+       // mp.setLooping(false);
+        //mp.stop();
 
     }
     public void onDestroy(){
         super.onDestroy();
-        mp.setLooping(false);
-        mp.stop();
+        //mp.setLooping(false);
+       // mp.stop();
 
     }
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +92,7 @@ public class CreadorRetoDeportivo extends Activity {
 
 
         mp.setLooping(true);
-        mp.start();
+        //mp.start();
     }
     private static Uri getOutputMediaFileUri(int type){
         return Uri.fromFile(getOutputMediaFile(type));
@@ -246,6 +246,11 @@ public class CreadorRetoDeportivo extends Activity {
                         int resultado = con.hacerconexionGenerica("updateReto", envio);
                         envio.clear();
                         if (resultado == -1) {
+                            Intent i = getIntent();
+
+                            i.putExtra("RESULTADO", 1);
+                            //i.putExtra("musica",musicaSelected);
+                            setResult(RESULT_OK, i);
                             finish();
                         } else {
                             Toast.makeText(c, "Error updateo", Toast.LENGTH_LONG).show();
@@ -278,11 +283,17 @@ public class CreadorRetoDeportivo extends Activity {
                         int resultado = con.hacerconexionGenerica("crearRetoNuevo", envio);
                         envio.clear();
                         if (resultado == -1) {
+                            Intent i = getIntent();
+
+                            i.putExtra("RESULTADO", 1);
+                            //i.putExtra("musica",musicaSelected);
+                            setResult(RESULT_OK, i);
                             finish();
                         } else {
                             Toast.makeText(c, "Error en insercion reto", Toast.LENGTH_LONG).show();
                             error.start();
                         }
+
                     }
                 }
             });
@@ -465,6 +476,11 @@ public class CreadorRetoDeportivo extends Activity {
                             int resultado = con.hacerconexionGenerica("updateRetoCultural", envio);
                             envio.clear();
                             if (resultado == -1) {
+                                Intent i = getIntent();
+
+                                i.putExtra("RESULTADO", 1);
+                                //i.putExtra("musica",musicaSelected);
+                                setResult(RESULT_OK, i);
                                 finish();
                             } else {
                                 Toast.makeText(c, "Error en insercion reto", Toast.LENGTH_LONG).show();
@@ -528,6 +544,11 @@ public class CreadorRetoDeportivo extends Activity {
                             int resultado = con.hacerconexionGenerica("crearRetoNuevoCultural",envio);
                             envio.clear();
                             if(resultado==-1){
+                                Intent i = getIntent();
+
+                                i.putExtra("RESULTADO", 1);
+                                //i.putExtra("musica",musicaSelected);
+                                setResult(RESULT_OK, i);
                                 finish();
                             }
                             else{
