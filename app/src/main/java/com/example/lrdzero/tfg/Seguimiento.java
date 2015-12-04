@@ -42,6 +42,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -143,13 +144,22 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         edad=getIntent().getExtras().getString("edad");
         creador=getIntent().getExtras().getString("creador");
         tipoRecorrido=getIntent().getExtras().getInt("tipoRecorrido");
-        musica=getIntent().getExtras().getString("musica");
+        //musica=getIntent().getExtras().getString("musica");
+        musica=con.obtenerMusicaUsuario(creador);
         if(musica.matches("")){
             media= MediaPlayer.create(this,R.raw.frog);
         }
        else{
-           Uri uri = Uri.parse(musica);
-          media=MediaPlayer.create(this,uri);
+
+            File f = new File(musica);
+            if(f.exists()==true){
+                Uri uri = Uri.parse(musica);
+                media=MediaPlayer.create(this,uri);
+            }
+            else{
+                media= MediaPlayer.create(this,R.raw.frog);
+            }
+
         }
         adaptacion(sexo,edad);
         con = new Conexion();
