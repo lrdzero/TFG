@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TFG.iml" filepath="$PROJECT_DIR$/TFG.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TFGFinal.iml" filepath="$PROJECT_DIR$/TFGFinal.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
-

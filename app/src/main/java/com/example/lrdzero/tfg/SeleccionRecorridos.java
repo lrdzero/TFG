@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 
 
@@ -48,6 +49,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         cultura.setOnClickListener(this);
         ejercicio.setOnClickListener(this);
         name= getIntent().getExtras().getString("NombreUser");
+
 
 
 
@@ -155,7 +157,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
                                 final Intent nueva;
                                 nueva = new Intent(SeleccionRecorridos.this, RecorridosParaUsuario.class);
                                 nueva.putExtra("tipo", variable);
-                                nueva.putExtra("creador",datosUser.getName());
+                                nueva.putExtra("creador",name);
                                 nueva.putExtra("edad", datosUser.getNumber());
                                 nueva.putExtra("sexo",datosUser.getAdic());
                                 nueva.putExtra("musica",musica);

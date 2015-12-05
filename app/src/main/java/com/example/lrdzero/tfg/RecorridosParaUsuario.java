@@ -106,7 +106,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         creador=getIntent().getExtras().getString("creador");
         musica=getIntent().getExtras().getString("musica");
 
-        //adaptacion(sexo,edad);
+        adaptacion(sexo,edad);
 
         Create();
 

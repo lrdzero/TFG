@@ -685,6 +685,7 @@ public class CreadorRetoDeportivo extends Activity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     //Toast.makeText(CreadorRetoDeportivo.this, Integer.toString(R.drawable.aniadiritem), Toast.LENGTH_LONG).show();
+
                                     envio.add(currentData.getName());
                                     envio.add(currentData.getNombreReto());
                                     envio.add(Integer.toString(currentData.getImage()));

@@ -118,9 +118,21 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                     error.start();
                 }
                 else {
-                    if(retos.isEmpty()) {
+                    if(modif){
+                        ArrayList<String> relacion = new ArrayList<>();
+                        relacion.add(nombreRecorrido);
+                        relacion.add(Integer.toString(retos.size()));
+                        con.hacerconexionGenerica("actualizarReco", relacion);
+                        relacion.clear();
+                        relacion.add(myName);
+                        relacion.add(nombreRuta.getText().toString());
+                        relacion.add(Integer.toString(retos.size()));
+                        relacion.add(historia.getText().toString());
+                        con.hacerconexionGenerica("actualizarRuta", relacion);
+                    }
+                    else if(retos.isEmpty()&&!con.existeRuta(nombreRuta.getText().toString())) {
                         Log.e("ERRORRORORORO","VUELVO A ENTRAR");
-                      con.nuevaRuta(nombreRuta.getText().toString(),nombreRecorrido,historia.getText().toString());
+                      int r=con.nuevaRuta(nombreRuta.getText().toString(),nombreRecorrido,historia.getText().toString());
                     }
 
                     Intent nuevo = new Intent(CreadorRutas.this, CreadorRetoDeportivo.class);

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class Conexion {
 
     private Socket sk;
-    private String ip="217.216.101.222";
+    private String ip="87.217.1.46";
     private int port=7;
     private DataInputStream in;
     private DataOutputStream out;
@@ -126,15 +126,45 @@ public class Conexion {
         }
         return respuesta;
     }
+    public boolean existeRecorrido(String nombreRecorrido){
+        boolean resultado=false;
+        try{
+            conectar();
+            out.writeUTF("comprobarRecorrido");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(nombreRecorrido);
+                resultado=in.readBoolean();
+            }
+            cerrar();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return resultado;
+    }
+    public boolean existeRuta(String nombreRuta){
+        boolean resultado=false;
+        try{
+            conectar();
+            out.writeUTF("comprobarRuta");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(nombreRuta);
+                resultado=in.readBoolean();
+            }
+            cerrar();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
 
+        return resultado;
+    }
     public String obtenerMusicaUsuario(String usuario){
-        String uri="";
+        String uri=null;
         try{
             conectar();
             out.writeUTF("buscarMusica");
             if(in.readUTF().equals("continua")){
                 out.writeUTF(usuario);
-                uri+=in.readUTF();
+                uri=in.readUTF();
             }
             cerrar();
         }catch(IOException e){

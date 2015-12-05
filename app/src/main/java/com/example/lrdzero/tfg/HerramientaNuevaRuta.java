@@ -38,13 +38,12 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
     }
     public void onPause(){
         super.onPause();
-        mp.setLooping(false);
-        mp.stop();
+
     }
     public void onDestroy(){
         super.onDestroy();
-        mp.setLooping(false);
-        mp.stop();
+
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +59,13 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
 
         con = new Conexion();
         usuarioCreador=getIntent().getExtras().getString("creador");
-        //usuarioCreador="l";
+       // usuarioCreador="l";
         nuevo.setOnClickListener(this);
 
         listo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.stop();
                 finish();
             }
         });
@@ -84,7 +84,7 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
                 nuevo.putExtra("Modif",false);
                 nuevo.putExtra("creador",usuarioCreador);
                 nuevo.putExtra("tutorial",recorridos.getCount());
-                startActivity(nuevo);
+                startActivityForResult(nuevo, 1);
                 break;
         }
 
@@ -176,5 +176,26 @@ public class HerramientaNuevaRuta extends Activity implements View.OnClickListen
             return intenView;
         }
 
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_CANCELED) {
+
+            Toast.makeText(this, "Resultado cancelado", Toast.LENGTH_SHORT)
+                    .show();
+        } else {
+
+            String resultado = data.getExtras().getString("RESULTADO");
+
+            switch (requestCode) {
+                case 1:
+                    Toast.makeText(HerramientaNuevaRuta.this,"Recorrido Creado con exito",Toast.LENGTH_LONG).show();
+                    //finish();
+                    break;
+
+
+            }
+        }
     }
 }
