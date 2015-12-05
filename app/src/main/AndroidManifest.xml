@@ -74,8 +74,7 @@
         <activity
             android:name=".RecogerPremio"
             android:label="@string/title_activity_recoger_premio"
-            android:screenOrientation="landscape">
-
+            android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name=".MapaEditor"
@@ -105,6 +104,8 @@
         <activity
             android:name=".marca_retos"
             android:label="@string/title_activity_marca_retos" >
+        </activity>
+        <activity android:name=".creador_recompensa" >
         </activity>
     </application>
 

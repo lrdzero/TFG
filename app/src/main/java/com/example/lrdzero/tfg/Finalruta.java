@@ -19,5 +19,6 @@ public class Finalruta extends AppCompatActivity {
         af.setFillEnabled(true);
         af.setFillAfter(true);
         avatar.startAnimation(af);
+
     }
 }

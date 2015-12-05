@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#FFFECF">
-
+    android:background="@drawable/madera">
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,12 +26,13 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp">
+                android:layout_height="40dp"
+                android:background="@color/ripple_material_dark">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceListItem"
                     android:text="Nombre:"
                     android:id="@+id/textNombreReto" />
 
@@ -48,12 +48,13 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
-                android:layout_height="40dp">
+                android:layout_height="40dp"
+             >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Su prueba o pregunta:"
                     android:id="@+id/textPregunta" />
 
@@ -63,12 +64,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editPregunta"
-                android:text="Introduzca pregunta" />
+                android:textAppearance="?android:attr/textAppearanceListItem"
+                android:text="Introduzca pregunta"
+                android:background="@color/ripple_material_dark"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Respuestas: "
                 android:id="@+id/textRespuesta" />
 
