@@ -193,6 +193,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
             tramosOF.add(nuevo);
         }
         ruta.setTramos(tramosOF);
+
         int tamanioRetos = getIntent().getExtras().getInt("tamanioRetos");
 
         for(int i=0;i<tamanioRetos;i++){
@@ -231,7 +232,8 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
 
                     if(inicio){
-                        if(measure(PtosRecorridos.get(1),loc)<10) {
+                        circulo.setCenter(loc);
+                        if(measure(PtosRecorridos.get(1),loc)<15) {
                             textoGuia.setText("Ya has completado un "+puntoactual*100/ruta.getMiniPoints().size()+"%");
 
 
@@ -247,7 +249,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                              textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA");
                     }
                     else {
-                        if (measure(loc, ruta.getFirstPoint()) < 10) {
+                        if (measure(loc, ruta.getFirstPoint()) < 15) {
                             inicio = true;
                             textoGuia.setText("Listo, Comencemos");
 
@@ -387,8 +389,9 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         if (PtosRecorridos.size() > 1) {
             PtosRecorridos.remove(0);
             puntoactual++;
-            textoGuia.setText("quedan "+PtosRecorridos.size()+" puntos");
+            textoGuia.setText("quedan "+PtosRecorridos.size() + " puntos");
             markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
+
             circulos.remove(0);
 
             int index;
@@ -487,7 +490,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
             if (ruta.getTramos().size() > 0) {
                 circulo = googleMap.addCircle(new CircleOptions()
                         .center(ruta.getFirstPoint())
-                        .radius(10)
+                        .radius(15)
                         .strokeColor(Color.RED));
                 markerLastPoint=googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(puntoactual)).title(String.valueOf(puntoactual)));
 

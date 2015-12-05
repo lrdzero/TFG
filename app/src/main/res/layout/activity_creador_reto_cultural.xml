@@ -96,14 +96,16 @@
                         android:layout_height="wrap_content"
                         android:text="B"
                         android:id="@+id/radioButtonB"
-                        android:checked="false" />
+                        android:checked="false"
+                        android:layout_marginTop="10dp"/>
 
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="C"
                         android:id="@+id/radioButtonC"
-                        android:checked="false" />
+                        android:checked="false"
+                        android:layout_marginTop="10dp"/>
 
                     <RadioButton
                         android:layout_width="wrap_content"
@@ -145,7 +147,8 @@
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="26dp">
+                        android:layout_height="26dp"
+                        android:layout_marginTop="10dp">
 
                         <EditText
                             android:layout_width="180dp"
