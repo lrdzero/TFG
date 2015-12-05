@@ -64,6 +64,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
         }
         else{
             desafio.setText(datosReto.getDescription());
+            Toast.makeText(RetoDeportivo.this,"Mi tiempo es "+datosReto.getNumber(),Toast.LENGTH_LONG).show();
         }
         go=(Button) findViewById(R.id.buttonStart);
 
@@ -197,6 +198,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
             // Si es así mostramos mensaje de cancelado por pantalla.
             Toast.makeText(this, "Resultado cancelado", Toast.LENGTH_SHORT)
                     .show();
+            finish();
         } else {
             // De lo contrario, recogemos el resultado de la segunda actividad.
             String resultado = data.getExtras().getString("RESULTADO");

@@ -105,8 +105,9 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         edad=getIntent().getExtras().getString("edad");
         creador=getIntent().getExtras().getString("creador");
         musica=getIntent().getExtras().getString("musica");
+        Toast.makeText(RecorridosParaUsuario.this,"Creador "+creador,Toast.LENGTH_LONG).show();
 
-        adaptacion(sexo,edad);
+        adaptacion(sexo, edad);
 
         Create();
 

@@ -49,6 +49,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         cultura.setOnClickListener(this);
         ejercicio.setOnClickListener(this);
         name= getIntent().getExtras().getString("NombreUser");
+        Toast.makeText(SeleccionRecorridos.this,"Nombre de usuario "+ name,Toast.LENGTH_LONG).show();
 
 
 

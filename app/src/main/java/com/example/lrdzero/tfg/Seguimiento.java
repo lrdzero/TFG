@@ -153,6 +153,14 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         edad=getIntent().getExtras().getString("edad");
         creador=getIntent().getExtras().getString("creador");
         tipoRecorrido=getIntent().getExtras().getInt("tipoRecorrido");
+        Toast.makeText(Seguimiento.this,"Variable name "+name,Toast.LENGTH_LONG).show();
+        Toast.makeText(Seguimiento.this,"Variable creador "+creador,Toast.LENGTH_LONG).show();
+        Toast.makeText(Seguimiento.this,"Variable nombreRecorrido "+nombreRecorrido,Toast.LENGTH_LONG).show();
+        Toast.makeText(Seguimiento.this,"Variable nombreRuta "+nombreRuta,Toast.LENGTH_LONG).show();
+        Toast.makeText(Seguimiento.this,"Variable sexo "+sexo,Toast.LENGTH_LONG).show();
+        Toast.makeText(Seguimiento.this,"Variable edad "+edad,Toast.LENGTH_LONG).show();
+        Toast.makeText(Seguimiento.this,"Variable tipoRecorrido "+Integer.toString(tipoRecorrido),Toast.LENGTH_LONG).show();
+
         //musica=getIntent().getExtras().getString("musica");
         /*musica=con.obtenerMusicaUsuario(creador);
         if(musica.matches("")){
@@ -171,7 +179,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
         }*/
 
-        adaptacion(sexo,edad);
+        adaptacion(sexo, edad);
         con = new Conexion();
         googleMap = mapView.getMap();
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -338,7 +346,33 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
             if((index=ruta.existsRetoIn(puntoactual))!=-1) {
                 Toast.makeText(getApplication(),"reto "+String.valueOf(index) , Toast.LENGTH_SHORT).show();
+
                 String nombre =ruta.getRetos().get(index).getNombre();
+                Toast.makeText(Seguimiento.this,"Nombre del reto "+  nombre,Toast.LENGTH_LONG).show();
+
+                //DatosRyR datosUser=con.buscarUsuario("l");
+                if(tipoRecorrido==1) {
+                    Intent n2 = new Intent(Seguimiento.this, RetoDeportivo.class);
+                    n2.putExtra("nombreUser", creador);
+                    n2.putExtra("nombreRecorrido", nombreRecorrido);
+                    n2.putExtra("nombreRuta", nombreRuta);
+                    n2.putExtra("edad", edad);
+                    n2.putExtra("sexo", sexo);
+                    n2.putExtra("nombreReto", nombre);
+                    startActivity(n2);
+                }
+                else if(tipoRecorrido==0){
+                    Intent n2 = new Intent(Seguimiento.this, RetoCultural.class);
+                    n2.putExtra("nombreUser", creador);
+                    n2.putExtra("nombreRecorrido", nombreRecorrido);
+                    n2.putExtra("nombreRuta", nombreRuta);
+                    n2.putExtra("edad", edad);
+                    n2.putExtra("sexo", sexo);
+                    n2.putExtra("nombreReto", nombre);
+                    startActivity(n2);
+                }
+
+                /*String nombre =ruta.getRetos().get(index).getNombre();
                 if(tipoRecorrido==0){
                     Intent i = new Intent(getApplicationContext(),RetoCultural.class);
                     i.putExtra("nombreUser",creador);
@@ -359,7 +393,9 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
                     i.putExtra("sexo",sexo);
                     startActivity(i);
                 }
+                */
             }
+
 
         }
         else
