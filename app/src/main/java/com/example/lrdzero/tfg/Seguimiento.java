@@ -43,7 +43,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.File;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -96,22 +95,22 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         mapView.onResume();
         mLocationClient.connect();
 //        media.setLooping(true);
-    //    media.start();
+        //    media.start();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
-    //    media.setLooping(false);
-    //    media.stop();
+        //    media.setLooping(false);
+        //    media.stop();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-     //   mapView.onPause();
-     //   media.stop();
+        //   mapView.onPause();
+        //   media.stop();
     }
 
     @Override
@@ -147,21 +146,22 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         creador=getIntent().getExtras().getString("creador");
         tipoRecorrido=getIntent().getExtras().getInt("tipoRecorrido");
         //musica=getIntent().getExtras().getString("musica");
-        con = new Conexion();
-        Toast.makeText(Seguimiento.this,"Creador es  "+creador,Toast.LENGTH_LONG).show();
-        musica=con.obtenerMusicaUsuario(creador);
-
-        if(musica.equals("")){
+        /*musica=con.obtenerMusicaUsuario(creador);
+        if(musica.matches("")){
             media= MediaPlayer.create(this,R.raw.frog);
-            Toast.makeText(Seguimiento.this,"Musica no seleccionada",Toast.LENGTH_LONG).show();
         }
-        else{
+       else{
+            File f = new File(musica);
+            if(f.exists()==true){
                 Uri uri = Uri.parse(musica);
                 media=MediaPlayer.create(this,uri);
-
-        }
+            }
+            else{
+                media= MediaPlayer.create(this,R.raw.frog);
+            }
+        }*/
         adaptacion(sexo,edad);
-
+        con = new Conexion();
         googleMap = mapView.getMap();
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         googleMap.setMyLocationEnabled(true);
@@ -191,6 +191,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
             tramosOF.add(nuevo);
         }
         ruta.setTramos(tramosOF);
+
         int tamanioRetos = getIntent().getExtras().getInt("tamanioRetos");
 
         for(int i=0;i<tamanioRetos;i++){
@@ -207,8 +208,8 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         sig.setVisibility(View.INVISIBLE);
         sig.setAdjustViewBounds(true);
 
-        media.setLooping(true);
-        media.start();
+        // media.setLooping(true);
+        // media.start();
 
         //ruta.setTramos(con.cargarVisionRuta(name));
         PtosRecorridos=ruta.getMiniPoints();
@@ -223,29 +224,30 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
 
                 if(cargado){
                     LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-                   // if(circulo!=null)
-                      //  circulo.setCenter(loc);
+                    // if(circulo!=null)
+                    //  circulo.setCenter(loc);
 
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
 
                     if(inicio){
-                        if(measure(PtosRecorridos.get(1),loc)<10) {
+                        circulo.setCenter(loc);
+                        if(measure(PtosRecorridos.get(1),loc)<15) {
                             textoGuia.setText("Ya has completado un "+puntoactual*100/ruta.getMiniPoints().size()+"%");
 
 
 
-                             if (measure(PtosRecorridos.get(1), loc) < measure(PtosRecorridos.get(0), loc)) {
+                            if (measure(PtosRecorridos.get(1), loc) < measure(PtosRecorridos.get(0), loc)) {
                                 avance();
                             }
 
-                               // textoGuia.setText("Ya has completado un "+puntoactual*100/ruta.getMiniPoints().size()+"%");
+                            // textoGuia.setText("Ya has completado un "+puntoactual*100/ruta.getMiniPoints().size()+"%");
 
                         }
                         else
-                             textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA");
+                            textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA");
                     }
                     else {
-                        if (measure(loc, ruta.getFirstPoint()) < 10) {
+                        if (measure(loc, ruta.getFirstPoint()) < 15) {
                             inicio = true;
                             textoGuia.setText("Listo, Comencemos");
 
@@ -272,11 +274,8 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
             }
         };
        /* googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-
             @Override
             public void onMyLocationChange(Location location) {
-
-
             }
         });*/
         mLocationManager=(LocationManager) this.getSystemService(LOCATION_SERVICE);
@@ -356,11 +355,12 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                     // googleMap.addMarker(new MarkerOptions().position(loc));
 
                     //Toast.makeText(getApplication(), circulo.getCenter().toString() , Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getApplication(), Integer.toString(ruta.getMiniPoints().size()), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplication(), Integer.toString(ruta.getMiniPoints().size()) , Toast.LENGTH_SHORT).show();
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
                     //textoGuia.setText(Integer.toString(ruta.getPoints().size()));
 
                     //ruta.addTramo(new Tramo(new LatLng(2.33, 2.33), new LatLng(2.33, 2.33)));
+
 
 
                 }
@@ -383,8 +383,9 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         if (PtosRecorridos.size() > 1) {
             PtosRecorridos.remove(0);
             puntoactual++;
-            textoGuia.setText("quedan " + PtosRecorridos.size() + " puntos");
+            textoGuia.setText("quedan "+PtosRecorridos.size() + " puntos");
             markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
+
             circulos.remove(0);
 
             int index;
@@ -483,7 +484,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
             if (ruta.getTramos().size() > 0) {
                 circulo = googleMap.addCircle(new CircleOptions()
                         .center(ruta.getFirstPoint())
-                        .radius(10)
+                        .radius(15)
                         .strokeColor(Color.RED));
                 markerLastPoint=googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(puntoactual)).title(String.valueOf(puntoactual)));
 
@@ -658,4 +659,3 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         }
     }
 }
-
