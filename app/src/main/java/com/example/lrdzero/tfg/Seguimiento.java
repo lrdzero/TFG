@@ -2,9 +2,11 @@ package com.example.lrdzero.tfg;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -46,7 +48,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Seguimiento  extends Activity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
+public class Seguimiento  extends Activity implements LocationListener, GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
     private GoogleMap googleMap;
     MapView mapView;
     MediaPlayer media;
@@ -78,6 +80,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
     boolean inicio=false;
     boolean cargado=false;
     Circle circulo;
+    String locationProvider;
 
     private ImageView parpadoder;
     private ImageView parpadoiz;
@@ -94,6 +97,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         super.onResume();
         mapView.onResume();
         mLocationClient.connect();
+        this.mLocationManager.requestLocationUpdates(this.locationProvider, 400, 1, this);
 //        media.setLooping(true);
         //    media.start();
     }
@@ -213,94 +217,28 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
         // media.setLooping(true);
         // media.start();
 
-        //ruta.setTramos(con.cargarVisionRuta(name));
+
         PtosRecorridos=ruta.getMiniPoints();
 
 
-
-        mLocationListener = new LocationListener() {
-
-            // Called back when location changes
-
-            public void onLocationChanged(Location location) {
-
-                if(cargado){
-                    LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-                    // if(circulo!=null)
-                    //  circulo.setCenter(loc);
-
-                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
-
-                    if(inicio){
-                        circulo.setCenter(loc);
-                        if(measure(PtosRecorridos.get(0),loc)<20) {
-                            textoGuia.setText(puntoactual*100/ruta.getMiniPoints().size()+"%");
+        this.mLocationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
 
 
-                            if (measure(PtosRecorridos.get(1), loc) <= measure(PtosRecorridos.get(0), loc)) {
-                                avance();
-                            }
+   	    //define the location manager criteria
+     	Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+
+        this.locationProvider = mLocationManager.getBestProvider(criteria, false);
+
+        Location location = mLocationManager.getLastKnownLocation(locationProvider);
 
 
-                        }
-                        else
-                            textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA");
-                    }
-                    else {
-                        if (measure(loc, ruta.getFirstPoint()) < 20) {
-                            inicio = true;
-                            textoGuia.setText("Listo, Comencemos");
+       	//initialize the location
+        	if(location != null) {
+         		    onLocationChanged(location);
+       		}
 
-                        }
-                    }
-
-
-
-                }
-
-            }
-
-            public void onStatusChanged(String provider, int status,
-                                        Bundle extras) {
-                // NA
-            }
-
-            public void onProviderEnabled(String provider) {
-                // NA
-            }
-
-            public void onProviderDisabled(String provider) {
-                // NA
-            }
-        };
-        googleMap.setOnMyLocationChangeListener((GoogleMap.OnMyLocationChangeListener) mLocationListener);
-      /* googleMap.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
-
-            @Override
-            public void onMyLocationChange(Location location) {
-                LatLng loc=new LatLng(location.getLatitude(),location.getLongitude());
-                if(measure(loc,ruta.getMiniPoints().get(puntoactual)<20)
-
-
-
-
-            }
-        });*/
-        mLocationManager=(LocationManager) this.getSystemService(LOCATION_SERVICE);
-        // Register for network location updates
-        if (null != mLocationManager
-                .getProvider(LocationManager.NETWORK_PROVIDER)) {
-            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, POLLING_FREQ,MIN_DISTANCE, mLocationListener);
-        }
-
-        // Register for GPS location updates
-        if (null != mLocationManager
-                .getProvider(LocationManager.GPS_PROVIDER)) {
-            mLocationManager.requestLocationUpdates(
-                    LocationManager.GPS_PROVIDER, POLLING_FREQ,
-                    MIN_DISTANCE, mLocationListener);
-        }
 
 
 
@@ -309,7 +247,7 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
             public void onMapClick(LatLng latLng) {
                 //puntoactual++;
                 markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
-                Toast.makeText(getApplication(),String.valueOf(haversine(latLng,ruta.getMiniPoints().get(puntoactual))) , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplication(),String.valueOf(measure(latLng, ruta.getMiniPoints().get(puntoactual))) , Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -455,6 +393,60 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        if(cargado){
+            LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+            // if(circulo!=null)
+            //  circulo.setCenter(loc);
+
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
+
+            if(inicio){
+                circulo.setCenter(loc);
+                if(measure(PtosRecorridos.get(0),loc)<20) {
+                    textoGuia.setText(puntoactual*100/ruta.getMiniPoints().size()+"%");
+
+
+
+                    if (measure(PtosRecorridos.get(1), loc) <= measure(PtosRecorridos.get(0), loc)) {
+                        avance();
+                    }
+
+
+                }
+                else
+                    textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA");
+            }
+            else {
+                if (measure(loc, ruta.getFirstPoint()) < 20) {
+                    inicio = true;
+                    textoGuia.setText("Listo, Comencemos");
+
+                }
+            }
+
+
+
+        }
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
 
     }
 
