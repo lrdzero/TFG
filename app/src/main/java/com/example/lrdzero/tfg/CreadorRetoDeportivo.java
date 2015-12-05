@@ -93,6 +93,7 @@ public class CreadorRetoDeportivo extends Activity {
 
         mp.setLooping(true);
         //mp.start();
+        //String dato;
     }
     private static Uri getOutputMediaFileUri(int type){
         return Uri.fromFile(getOutputMediaFile(type));

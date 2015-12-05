@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 
 public class Conexion {
-
+    //private int ent;
     private Socket sk;
     private String ip="87.217.1.46";
     private int port=7;

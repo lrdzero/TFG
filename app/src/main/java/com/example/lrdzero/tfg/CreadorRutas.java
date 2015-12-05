@@ -120,6 +120,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                 else {
                     if(modif){
                         ArrayList<String> relacion = new ArrayList<>();
+                       // String data;
                         relacion.add(nombreRecorrido);
                         relacion.add(Integer.toString(retos.size()));
                         con.hacerconexionGenerica("actualizarReco", relacion);

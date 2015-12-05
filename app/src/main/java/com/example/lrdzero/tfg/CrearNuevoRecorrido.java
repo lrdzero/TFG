@@ -24,7 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
-
+//haber si así
 public class CrearNuevoRecorrido extends Activity implements View.OnClickListener {
     private Button recomen;
     private ArrayList<Integer> recomendaciones = new ArrayList<>();
@@ -127,7 +127,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
         //mp.start();
 
 
-
+//heloos
     }
     private AlertDialog.Builder generarTutorial(){
         final AlertDialog.Builder builder = new AlertDialog.Builder(CrearNuevoRecorrido.this);
