@@ -35,6 +35,7 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.Circle;
@@ -106,6 +107,8 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
+        this.mLocationManager.removeUpdates(this);
+
         //    media.setLooping(false);
         //    media.stop();
     }
@@ -113,6 +116,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     @Override
     protected void onPause() {
         super.onPause();
+        this.mLocationManager.removeUpdates(this);
         //   mapView.onPause();
         //   media.stop();
     }
@@ -166,13 +170,16 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             }
 
         }*/
+
         adaptacion(sexo,edad);
         con = new Conexion();
         googleMap = mapView.getMap();
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        googleMap.setMyLocationEnabled(true);
+        googleMap.setMyLocationEnabled(false);
         mLocationClient = new LocationClient(getApplicationContext(), this, this);
         mLocationClient.connect();
+
+
 
         ruta = new Ruta(name);
         ImageView bi = (ImageView)findViewById(R.id.brazoizq);
@@ -322,7 +329,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             PtosRecorridos.remove(0);
             puntoactual++;
             textoGuia.setText("quedan "+PtosRecorridos.size() + " puntos");
-            markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
+           //markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
 
             circulos.get(0).setCenter(circulos.get(circulos.size() - 1).getCenter());
             circulos.remove(0);
@@ -400,8 +407,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     public void onLocationChanged(Location location) {
         if(cargado){
             LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-            // if(circulo!=null)
-            //  circulo.setCenter(loc);
+            markerLastPoint.setPosition(loc);
 
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
 
