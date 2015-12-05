@@ -254,7 +254,6 @@ public class Seguimiento  extends Activity implements GooglePlayServicesClient.C
                             textoGuia.setText("Listo, Comencemos");
 
                         }
-                        // Toast.makeText(getApplication(), "aun no esta dentro" , Toast.LENGTH_SHORT).show();
                     }
 
 
