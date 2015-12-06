@@ -99,10 +99,14 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Está claro que para petarte bien, es necesario hacer un poco de pesas "
-        android:id="@+id/textView8"
-        android:layout_centerVertical="true"
+        android:id="@+id/textitem"
+
         android:layout_centerHorizontal="true"
-        android:background="@color/ripple_material_dark"/>
+        android:background="@color/ripple_material_dark"
+        android:layout_above="@+id/Avatar"
+        android:layout_below="@+id/relativeLayout"
+        android:autoText="true"
+        android:gravity="center_vertical|center_horizontal" />
 
     <RelativeLayout
         android:layout_width="160dp"
@@ -114,8 +118,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView4"
-            android:src="@drawable/pesas"
+            android:id="@+id/item"
             android:contentDescription="cabeza"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
