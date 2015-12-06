@@ -93,6 +93,10 @@
             android:label="@string/title_activity_creador_reto_deportivo" >
         </activity>
         <activity
+            android:name=".Finalruta"
+            android:label="@string/title_activity_finalruta" >
+        </activity>
+        <activity
             android:name=".CreadorRutas"
             android:label="@string/title_activity_creador_rutas" >
         </activity>

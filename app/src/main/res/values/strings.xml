@@ -48,4 +48,5 @@
     <string name="title_activity_creador_rutas">CreadorRutas</string>
     <string name="title_activity_seguimiento" />
     <string name="title_activity_marca_retos">marca_retos</string>
+    <string name="title_activity_finalruta">title_activity_finalruta</string>
 </resources>

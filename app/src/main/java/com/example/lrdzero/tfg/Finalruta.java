@@ -95,6 +95,7 @@ public class Finalruta extends AppCompatActivity {
         });
         boca.startAnimation(habla());
         tv.startAnimation(Mostrar(flecha));
+        tv.setVisibility(View.VISIBLE);
 
     }
 
