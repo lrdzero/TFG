@@ -88,12 +88,12 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         nombreReto=getIntent().getExtras().getString("nombreReto");
 
         con = new Conexion();
-        datosMochila = con.cargarMochila(nameUser,nameRecorrido,nameRuta,nombreReto);
+        datosMochila = con.cargarMochila(nameUser,nameRecorrido,nameRuta);
 
 
 
 
-        //Toast.makeText()
+
         adaptacion(sexo,edad);
         datosPremio = con.cargarPremio(nombreReto);
 

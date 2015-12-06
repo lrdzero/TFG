@@ -408,7 +408,7 @@ public class Conexion {
         }
         return respuesta;
     }
-    public ArrayList<String> cargarMochila(String nombreCreador,String nombreRecorrido,String nombreRuta,String nombreReto){
+    public ArrayList<String> cargarMochila(String nombreCreador,String nombreRecorrido,String nombreRuta){
         ArrayList<String> respuesta=new ArrayList<String>();
         try{
             conectar();
@@ -417,7 +417,7 @@ public class Conexion {
                 out.writeUTF(nombreCreador);
                 out.writeUTF(nombreRecorrido);
                 out.writeUTF(nombreRuta);
-                out.writeUTF(nombreReto);
+
                 try{
                     object = objectInput.readObject();
                     respuesta= (ArrayList<String>) object;
