@@ -104,7 +104,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
             InputStream inputStream = getContentResolver().openInputStream(fileUri);
             yourDrawable = Drawable.createFromStream(inputStream, fileUri.toString() );
         } catch (FileNotFoundException e) {
-            yourDrawable = getResources().getDrawable(R.drawable.imagendefecto);
+            yourDrawable = getResources().getDrawable(R.drawable.pesas);
         }
 
         lt.setBackgroundDrawable(yourDrawable);
