@@ -5,7 +5,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.lrdzero.tfg.RetoCultural"
-    android:background="@drawable/bustogriego">
+    android:background="@drawable/rojo">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -35,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -60,6 +61,7 @@
                     android:layout_height="120dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Medium Text"
+                    android:gravity="center"
                     android:id="@+id/pregunta"
                     android:background="@color/dim_foreground_disabled_material_dark" />
 
@@ -78,13 +80,13 @@
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent">
 
-                            <RadioButton
+                            <CheckBox
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="New RadioButton"
                                 android:id="@+id/responseA" />
 
-                            <RadioButton
+                            <CheckBox
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="New RadioButton"
@@ -104,13 +106,13 @@
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent">
 
-                            <RadioButton
+                            <CheckBox
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="New RadioButton"
                                 android:id="@+id/responseC" />
 
-                            <RadioButton
+                            <CheckBox
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="New RadioButton"
@@ -123,6 +125,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="Responder"
                     android:id="@+id/buttonResponse"
                     android:layout_gravity="center_vertical"
@@ -226,15 +229,15 @@
 
     </RelativeLayout>
 
-    <TextView
+    TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Responde a la siguiente pregunta:"
         android:id="@+id/textView9"
         android:layout_gravity="center"
-        android:textColor="#ff14ff8e"
-        android:background="@color/dim_foreground_disabled_material_dark"
+
+
         android:layout_alignBottom="@+id/Avatar"
         android:layout_toRightOf="@+id/Avatar"
         android:layout_toEndOf="@+id/Avatar"
