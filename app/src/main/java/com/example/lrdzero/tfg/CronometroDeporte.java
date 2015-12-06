@@ -59,6 +59,7 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
         end.setVisibility(View.INVISIBLE);
 
         crono.setBase(SystemClock.elapsedRealtime());
+
         crono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
@@ -132,6 +133,7 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
                     // "RESULT_OK" es de la propia actividad, no tenemos que
                     // declararla nosotros.
                     setResult(RESULT_OK, i);
+                    crono.stop();
                     finish();
                     break;
 

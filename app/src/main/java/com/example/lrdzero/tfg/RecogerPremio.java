@@ -51,7 +51,12 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     private ImageView ojos;
     private ImageView bocaRoja;
     private ImageView dientes;
-
+    protected void onDestroy(){
+        super.onDestroy();
+    }
+    protected  void onPause(){
+        super.onPause();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,20 +79,20 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         tipoReto=getIntent().getExtras().getInt("tipoReto");
 
         MediaPlayer mp = MediaPlayer.create(this,R.raw.tada);
-
+        nameUser=getIntent().getExtras().getString("nombreUser");
+        nameRecorrido=getIntent().getExtras().getString("nombreRecorrido");
+        nameRuta = getIntent().getExtras().getString("nombreRuta");
+        edad=getIntent().getExtras().getString("edad");
+        sexo=getIntent().getExtras().getString("sexo");
 
         nombreReto=getIntent().getExtras().getString("nombreReto");
 
         con = new Conexion();
-        datosMochila = con.cargarMochila(nombreReto);
+        datosMochila = con.cargarMochila(nameUser,nameRecorrido,nameRuta,nombreReto);
 
 
 
-        nameUser=getIntent().getExtras().getString("nombreUser");
-        nameRecorrido=getIntent().getExtras().getString("nombreRecorrido");
-        nameRuta=getIntent().getExtras().getString("nombreRuta");
-        edad=getIntent().getExtras().getString("edad");
-        sexo=getIntent().getExtras().getString("sexo");
+
         //Toast.makeText()
         adaptacion(sexo,edad);
         datosPremio = con.cargarPremio(nombreReto);
@@ -101,9 +106,17 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         } catch (FileNotFoundException e) {
             yourDrawable = getResources().getDrawable(R.drawable.imagendefecto);
         }
+
         lt.setBackgroundDrawable(yourDrawable);
 
-        image.setImageResource(Integer.valueOf(datosPremio.get(1)));
+        yourDrawable.invalidateSelf();
+        if(datosPremio.get(4).equals("1")) {
+            image.setImageResource(Integer.valueOf(datosPremio.get(1)));
+        }
+        else{
+            Uri nuevo = Uri.parse(datosPremio.get(1));
+            image.setImageURI(nuevo);
+        }
         image.setOnClickListener(this);
         volver.setOnClickListener(this);
 
@@ -116,8 +129,17 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     public void onClick(View v){
         switch (v.getId()){
             case R.id.imageView14:
-
-                dt.add(new Items(datosPremio.get(0), Integer.valueOf(datosPremio.get(1)), nombreReto));
+                if(datosPremio.get(4).equals("1")) {
+                    dt.add(new Items(datosPremio.get(0), Integer.valueOf(datosPremio.get(1)), nombreReto, datosPremio.get(3)));
+                }
+                else if(datosPremio.get(4).equals("2")){
+                    Items n = new Items();
+                    n.setName(datosPremio.get(0));
+                    n.setSeconFoto(datosPremio.get(1));
+                    n.setNombreReto(nombreReto);
+                    n.setDescripcionRecompensa(datosPremio.get(3));
+                    dt.add(n);
+                }
                 adapter.notifyDataSetChanged();
                 envio.add(nameUser);
                 envio.add(nameRuta);
@@ -125,6 +147,13 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
                 envio.add(nameRecorrido);
                 envio.add(datosPremio.get(0));
                 envio.add(datosPremio.get(1));
+                envio.add(datosPremio.get(3));
+                if(datosPremio.get(4).equals("1")){
+                    envio.add("1");
+                }
+                else if(datosPremio.get(4).equals("2")){
+                    envio.add("2");
+                }
                 int cont =con.hacerconexionGenerica("insertMochila", envio);
                 if(cont==0){
                     Toast.makeText(RecogerPremio.this,"Error al insertar a mochila",Toast.LENGTH_LONG).show();
@@ -161,7 +190,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     public class PlaceList extends ArrayAdapter<Items> {
         Items currentData;
         public PlaceList(){
-            super(RecogerPremio.this,R.layout.activity_lista_horizontal_mochila,dt);
+            super(RecogerPremio.this, R.layout.activity_lista_horizontal_mochila, dt);
         }
 
         public View getView(int position,View convertView, ViewGroup parent){
@@ -177,8 +206,12 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
 
 
             currentData = dt.get(position);
-
-            img.setImageResource(currentData.getImage());
+            if(currentData.getImage()!=0) {
+                img.setImageResource(currentData.getImage());
+            }
+            else{
+                img.setImageURI(Uri.parse(currentData.getSeconFoto()));
+            }
             txt1.setText(currentData.getName());
 
 
@@ -190,11 +223,25 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     }
 
     public void loadItems(){
+        //Toast.makeText(RecogerPremio.this,"Entro en la carga",Toast.LENGTH_LONG).show();
+
         if(!datosMochila.isEmpty()){
-            for(int i=0;i<datosMochila.size();i=i+2){
-                dt.add(new Items(datosMochila.get(i),Integer.valueOf(datosMochila.get(i+1)),nombreReto));
+            for(int i=0;i<datosMochila.size();i=i+4){
+                if(datosMochila.get(i+3).equals("1")) {
+                    dt.add(new Items(datosMochila.get(i), Integer.valueOf(datosMochila.get(i+1)), nombreReto, datosMochila.get(i+2)));
+                }
+                else if(datosMochila.get(i+3).equals("2")){
+                    Items n = new Items();
+                    n.setName(datosMochila.get(i));
+                    n.setSeconFoto(datosMochila.get(i+1));
+                    n.setNombreReto(nombreReto);
+                    n.setDescripcionRecompensa(datosMochila.get(i+2));
+                    dt.add(n);
+                }
             }
+
         }
+
         //dt.add(new Items("nombre 1",R.drawable.busto,"vacio" ));
         //dt.add(new Items("nombre 2",R.drawable.busto ,"vacio"));
         //dt.add(new Items("nombre 3",R.drawable.busto,"vacio" ));
@@ -243,7 +290,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         //t.show();
         AlertDialog.Builder dialogo2 = new AlertDialog.Builder(RecogerPremio.this);
         dialogo2.setTitle("Descripción");
-        dialogo2.setMessage(aB.getName());
+        dialogo2.setMessage(aB.getDescripcionRecompensa());
         dialogo2.setCancelable(false);
         dialogo2.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {

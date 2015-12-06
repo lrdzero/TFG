@@ -408,13 +408,16 @@ public class Conexion {
         }
         return respuesta;
     }
-    public ArrayList<String> cargarMochila(String nombreRuta){
+    public ArrayList<String> cargarMochila(String nombreCreador,String nombreRecorrido,String nombreRuta,String nombreReto){
         ArrayList<String> respuesta=new ArrayList<String>();
         try{
             conectar();
             out.writeUTF("buscarMochila");
             if(in.readUTF().equals("continua")){
+                out.writeUTF(nombreCreador);
+                out.writeUTF(nombreRecorrido);
                 out.writeUTF(nombreRuta);
+                out.writeUTF(nombreReto);
                 try{
                     object = objectInput.readObject();
                     respuesta= (ArrayList<String>) object;
