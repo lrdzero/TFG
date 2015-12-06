@@ -113,6 +113,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Nombre Recompensa:"
+                android:id="@+id/textView27" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nombreRecompensaDeportiva" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Descripción Recompensa"
                 android:id="@+id/textRecompensaPruevaDeportiva"
                 android:layout_marginTop="10dp" />

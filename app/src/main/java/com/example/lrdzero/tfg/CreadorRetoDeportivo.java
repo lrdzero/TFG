@@ -142,6 +142,8 @@ public class CreadorRetoDeportivo extends Activity {
         final EditText recomp =(EditText)findViewById(R.id.editTextPruevaDeportivaRecompensa);
         final ImageView camara=(ImageView) findViewById(R.id.imagenCamaraPruevaDeportiva);
         final ImageView item =(ImageView) findViewById(R.id.imagenItem);
+        final EditText nombreRecompensa=(EditText) findViewById(R.id.nombreRecompensaDeportiva);
+
         nombre=nombreDeporti.getText().toString();
         nameFile=getIntent().getExtras().getString("nombrefile");
         //Toast.makeText(CreadorRetoDeportivo.this,nombre,Toast.LENGTH_LONG).show();
@@ -166,7 +168,24 @@ public class CreadorRetoDeportivo extends Activity {
         item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostrarElecciones(nombreDeporti.getText().toString()).show();
+
+                if(nombreDeporti.getText().toString().matches("")||recomp.getText().toString().matches("")||nombreRecompensa.getText().toString().matches("")){
+                    Toast.makeText(CreadorRetoDeportivo.this,"Nombre y descripción recompensa no pueden estar vacíos.",Toast.LENGTH_LONG).show();
+                }
+                else {
+                        Intent n = new Intent(CreadorRetoDeportivo.this,creador_recompensa.class);
+                        n.putExtra("nombrereto",nombreDeporti.getText().toString());
+                        n.putExtra("descripcion",recomp.getText().toString());
+                        n.putExtra("nombreRecompensa",nombreRecompensa.getText().toString());
+                        n.putExtra("uri",fileUri.toString());
+                        double numero = Math.random() * 5000;
+                         int n2= (int) numero;
+                        n.putExtra("nombrefile", Integer.toString(n2));
+                        seleccionado=true;
+                        startActivity(n);
+
+                    //mostrarElecciones(nombreDeporti.getText().toString(), recomp.getText().toString()).show();
+                }
             }
         });
         dificultad.setOnClickListener(new View.OnClickListener() {
@@ -222,7 +241,7 @@ public class CreadorRetoDeportivo extends Activity {
             nombreDeporti.setText(miDato.getName());
             descripcion.setText(miDato.getDescription());
             tiempo.setText(miDato.getNumber());
-            recomp.setText(miDato.getLargeDescription());
+            //recomp.setText(miDato.getLargeDescription());
             //dificultad.setEnabled(false);
 
 
@@ -321,6 +340,7 @@ public class CreadorRetoDeportivo extends Activity {
         final ImageView camara=(ImageView) findViewById(R.id.imagenCameraCultural);
         final ArrayList<String> respuesta = new ArrayList<String>();
         final ImageView item =(ImageView) findViewById(R.id.imagenItemCultural);
+        final EditText nombreRecompensa=(EditText) findViewById(R.id.nombreRecompensaCultural);
 
         nameFile=getIntent().getExtras().getString("nombrefile");
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
@@ -339,7 +359,21 @@ public class CreadorRetoDeportivo extends Activity {
         item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostrarElecciones(nombre.getText().toString()).show();
+                if(nombre.getText().toString().matches("")||descRecom.getText().toString().matches("")||nombreRecompensa.getText().toString().matches("")){
+                    Toast.makeText(CreadorRetoDeportivo.this,"Nombre y descripción de recompnesa no pueden estar vacíos.",Toast.LENGTH_LONG).show();
+                }
+                else {
+                    Intent n = new Intent(CreadorRetoDeportivo.this,creador_recompensa.class);
+                    n.putExtra("nombrereto",nombre.getText().toString());
+                    n.putExtra("descripcion",descRecom.getText().toString());
+                    n.putExtra("nombreRecompensa",nombreRecompensa.getText().toString());
+                    n.putExtra("uri",fileUri.toString());
+                    double numero = Math.random() * 5000;
+                    int n2= (int) numero;
+                    n.putExtra("nombrefile", Integer.toString(n2));
+                    startActivity(n);
+                   // mostrarElecciones(nombre.getText().toString(), descRecom.getText().toString()).show();
+                }
             }
         });
         borrarA.setOnClickListener(new View.OnClickListener() {
@@ -425,7 +459,7 @@ public class CreadorRetoDeportivo extends Activity {
             respB.setText(nuevo.getNumber());
             respC.setText(nuevo.getAdic());
             respD.setText(nuevo.getAux());
-            descRecom.setText(nuevo.getLargeDescription());
+            //descRecom.setText(nuevo.getLargeDescription());
             //dificultad.setEnabled(false);
 
             crear.setOnClickListener(new View.OnClickListener() {
@@ -620,14 +654,14 @@ public class CreadorRetoDeportivo extends Activity {
                 });
         return builder;
     }
-    private AlertDialog.Builder mostrarElecciones(String nombreReto){
+    private AlertDialog.Builder mostrarElecciones(String nombreReto,String descripcionRecompensa){
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if(!nombreReto.matches("")) {
             if(dt.isEmpty()) {
-                dt.add(new Items("zapatillas", R.drawable.zapatillas, nombreReto));
-                dt.add(new Items("pesas",R.drawable.pesas,nombreReto));
-                dt.add(new Items("libro",R.drawable.libro,nombreReto));
-                dt.add(new Items("brújula",R.drawable.brujula,nombreReto));
+                dt.add(new Items("zapatillas", R.drawable.zapatillas, nombreReto,descripcionRecompensa));
+                dt.add(new Items("pesas",R.drawable.pesas,nombreReto,descripcionRecompensa));
+                dt.add(new Items("libro",R.drawable.libro,nombreReto,descripcionRecompensa));
+                dt.add(new Items("brújula",R.drawable.brujula,nombreReto,descripcionRecompensa));
             }
             final PlaceList adapter = new PlaceList();
 
@@ -657,7 +691,7 @@ public class CreadorRetoDeportivo extends Activity {
     }
     public class PlaceList extends ArrayAdapter<Items> {
         Items currentData;
-        public PlaceList(){
+        public PlaceList() {
             super(CreadorRetoDeportivo.this, R.layout.activity_lista_horizontal_mochila, dt);
         }
 
@@ -691,6 +725,7 @@ public class CreadorRetoDeportivo extends Activity {
                                     envio.add(currentData.getNombreReto());
                                     envio.add(Integer.toString(currentData.getImage()));
                                     envio.add(fileUri.toString());
+                                    envio.add(currentData.getDescripcionRecompensa());
                                     con.hacerconexionGenerica("insertPremio", envio);
 
                                     envio.clear();
