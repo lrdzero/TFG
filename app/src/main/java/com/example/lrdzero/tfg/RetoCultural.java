@@ -100,7 +100,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
         sexo=getIntent().getExtras().getString("sexo");
         nombreReto=getIntent().getExtras().getString("nombreReto");
         //Toast.makeText(RetoCultural.this,sexo,Toast.LENGTH_LONG).show();
-        //adaptacion(sexo,edad);
+        adaptacion(sexo,edad);
         DatosRyR dt =con.buscarDatosRetoCultural(nombreReto);
         nombreAuxiliar=dt.getName();
 
@@ -124,8 +124,9 @@ public class RetoCultural extends Activity implements View.OnClickListener {
     }
 
     private void ListaView(){
+        /*
         adapter= new PlaceList();
-        lista2 = (HorizontalListView) findViewById(R.id.listaMochila);
+        //lista2 = (HorizontalListView) findViewById(R.id.listaMochila);
         lista2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -151,6 +152,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
             }
         });
         lista2.setAdapter(adapter);
+        */
     }
 
     public class PlaceList extends ArrayAdapter<Items> {

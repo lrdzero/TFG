@@ -123,7 +123,7 @@ public class CreadorRetoDeportivo extends Activity {
         if (type == MEDIA_TYPE_IMAGE){
 
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    nameFile+".jpg");
+                    nameFile+".png");
 
         }else {
             return null;

@@ -3,6 +3,8 @@ package com.example.lrdzero.tfg;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.media.MediaPlayer;
@@ -17,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +31,7 @@ import java.util.ArrayList;
 public class RecogerPremio extends Activity implements View.OnClickListener{
     private ArrayList<Items> dt = new ArrayList<Items>();
     private PlaceList adapter;
-    private HorizontalListView lista2;
+    private ListView lista2;
     private ImageView image,foto;
     private String nombreReto;
     private Conexion con;
@@ -42,6 +45,8 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     private int tipoReto;
     private boolean insertado=false;
 
+
+
     private ImageView parpadoder;
     private ImageView parpadoiz;
     private ImageView brazoDer;
@@ -51,6 +56,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     private ImageView ojos;
     private ImageView bocaRoja;
     private ImageView dientes;
+    private ImageView miMochila;
     protected void onDestroy(){
         super.onDestroy();
     }
@@ -66,6 +72,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         Button volver = (Button) findViewById(R.id.volverMapa);
         image = (ImageView) findViewById(R.id.imageView14);
         lt =(LinearLayout)findViewById(R.id.myLinear);
+        miMochila =(ImageView) findViewById(R.id.mochilaDePremios);
         //Carga Avatar
         parpadoder =(ImageView) findViewById(R.id.parpder);
         parpadoiz=(ImageView) findViewById(R.id.parpizq);
@@ -93,36 +100,31 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
 
 
 
-
+        //Toast.makeText()
         adaptacion(sexo,edad);
         datosPremio = con.cargarPremio(nombreReto);
 
         fileUri = Uri.parse(datosPremio.get(2));
 
-        Drawable yourDrawable;
-        try {
-            InputStream inputStream = getContentResolver().openInputStream(fileUri);
-            yourDrawable = Drawable.createFromStream(inputStream, fileUri.toString() );
-        } catch (FileNotFoundException e) {
-            yourDrawable = getResources().getDrawable(R.drawable.pesas);
-        }
 
-        lt.setBackgroundDrawable(yourDrawable);
+        lt.setBackgroundDrawable(reduceImagen(fileUri,90,90));
 
-        yourDrawable.invalidateSelf();
+
         if(datosPremio.get(4).equals("1")) {
             image.setImageResource(Integer.valueOf(datosPremio.get(1)));
         }
         else{
             Uri nuevo = Uri.parse(datosPremio.get(1));
-            image.setImageURI(nuevo);
+            image.setImageDrawable(reduceImagen(nuevo,90,90));
         }
         image.setOnClickListener(this);
+        miMochila.setOnClickListener(this);
         volver.setOnClickListener(this);
 
         loadItems();
+        adapter = new PlaceList();
 
-        ListaView();
+        //ListaView();
         mp.start();
     }
 
@@ -185,10 +187,18 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
                         Toast.makeText(RecogerPremio.this,"Debes recoger el premio.",Toast.LENGTH_LONG).show();
                     }
                 break;
+            case R.id.mochilaDePremios:
+
+                    mostrarMochila().show();
+
+                break;
         }
     }
     public class PlaceList extends ArrayAdapter<Items> {
         Items currentData;
+        Uri unUri;
+        String miDato;
+        //BitmapDrawable dr;
         public PlaceList(){
             super(RecogerPremio.this, R.layout.activity_lista_horizontal_mochila, dt);
         }
@@ -207,10 +217,16 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
 
             currentData = dt.get(position);
             if(currentData.getImage()!=0) {
+                Toast.makeText(RecogerPremio.this,"solo esto",Toast.LENGTH_LONG).show();
                 img.setImageResource(currentData.getImage());
             }
             else{
-                img.setImageURI(Uri.parse(currentData.getSeconFoto()));
+                unUri = Uri.parse(currentData.getSeconFoto());
+
+                img.setImageDrawable(reduceImagen(unUri,80,80));
+
+
+
             }
             txt1.setText(currentData.getName());
 
@@ -223,7 +239,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     }
 
     public void loadItems(){
-        //Toast.makeText(RecogerPremio.this,"Entro en la carga",Toast.LENGTH_LONG).show();
+
 
         if(!datosMochila.isEmpty()){
             for(int i=0;i<datosMochila.size();i=i+4){
@@ -242,60 +258,25 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
 
         }
 
-        //dt.add(new Items("nombre 1",R.drawable.busto,"vacio" ));
-        //dt.add(new Items("nombre 2",R.drawable.busto ,"vacio"));
-        //dt.add(new Items("nombre 3",R.drawable.busto,"vacio" ));
-        //dt.add(new Items("nombre 4",R.drawable.busto,"vacio" ));
+
 
 
     }
     private void ListaView(){
 
-        adapter= new PlaceList();
-
-        lista2 = (HorizontalListView) findViewById(R.id.listaMochila);
-
-        lista2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                final Items currentData = (Items) lista2.getItemAtPosition(position);
-                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(RecogerPremio.this);
-                dialogo1.setTitle("Importante");
-                dialogo1.setMessage("¿ Ver este Item?");
-
-                dialogo1.setCancelable(false);
-                dialogo1.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo1, int id) {
-
-                        aceptar(currentData);
-                    }
-                });
-                dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo1, int id) {
-                        cancelar();
-                    }
-                });
-                dialogo1.show();
-
-
-            }
-        });
-
-        lista2.setAdapter(adapter);
 
     }
     public void aceptar(Items aBorrar) {
         final Items aB =aBorrar;
        // Toast t=Toast.makeText(this,"Se mostrará una pista ya sea mediante toast o por medio de otro Dialog", Toast.LENGTH_SHORT);
         //t.show();
-        AlertDialog.Builder dialogo2 = new AlertDialog.Builder(RecogerPremio.this);
+        final AlertDialog.Builder dialogo2 = new AlertDialog.Builder(RecogerPremio.this);
         dialogo2.setTitle("Descripción");
         dialogo2.setMessage(aB.getDescripcionRecompensa());
         dialogo2.setCancelable(false);
         dialogo2.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {
-
-                //aceptar2();
+                            //dialogo2.setCancelable(false);
             }
         });
 
@@ -306,8 +287,25 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
 
     }
     public void aceptar2(){
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
 
+    }
+    private AlertDialog.Builder mostrarMochila(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(RecogerPremio.this);
+
+        builder.setTitle("Mochila").setAdapter(adapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                                    aceptar(adapter.currentData);
+            }
+        }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                        builder.setCancelable(false);
+            }
+        });
+
+       return builder;
     }
     private void adaptacion(String sexo,String edad){
         if(tipoReto==0) {
@@ -375,5 +373,19 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
             ojos.setImageResource(R.drawable.ojos_leon);
             dientes.setImageResource(R.drawable.dientes);
         }
+    }
+    private Drawable reduceImagen(Uri unUri,int tam1,int tam2){
+        Drawable yourDrawable;
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(unUri);
+            yourDrawable = Drawable.createFromStream(inputStream, unUri.toString());
+        } catch (FileNotFoundException e) {
+            yourDrawable = getResources().getDrawable(R.drawable.pesas);
+        }
+        Bitmap bitmap = ((BitmapDrawable) yourDrawable).getBitmap();
+        // Scale it to 50 x 50
+        Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, tam1, tam2, true));
+        yourDrawable.invalidateSelf();
+        return d;
     }
 }

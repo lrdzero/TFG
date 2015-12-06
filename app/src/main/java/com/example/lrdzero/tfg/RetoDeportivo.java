@@ -97,42 +97,10 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
     }
 
     public void loadItems(){
-        //dt.add(new Items("nombre 1",R.drawable.busto ));
-        //dt.add(new Items("nombre 2",R.drawable.busto ));
-        //dt.add(new Items("nombre 3",R.drawable.busto ));
-        //dt.add(new Items("nombre 4",R.drawable.busto ));
 
     }
     public void ListView(){
 
-
-        mochila = (HorizontalListView) findViewById(R.id.listaMochila);
-        /*mochila.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                final Items currentData = (Items) mochila.getItemAtPosition(position);
-                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(RetoDeportivo.this);
-                dialogo1.setTitle("Importante");
-                dialogo1.setMessage("¿ Quieres utilizar este Item ?");
-                dialogo1.setCancelable(false);
-                dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo1, int id) {
-
-                        aceptar(currentData);
-                    }
-                });
-                dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo1, int id) {
-                        cancelar();
-                    }
-                });
-                dialogo1.show();
-
-
-            }
-        });
-        */
-        mochila.setAdapter(adapter);
     }
     public class PlaceList extends ArrayAdapter<Items> {
         Items currentData;

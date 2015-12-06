@@ -2,6 +2,9 @@ package com.example.lrdzero.tfg;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -20,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class creador_recompensa extends AppCompatActivity {
@@ -123,11 +128,21 @@ public class creador_recompensa extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
+                }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
                 });
             }
         }
         else{
             builder.setTitle("Error").setMessage("Ya has obtenido una fotografia.").setPositiveButton("0k", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -275,12 +290,26 @@ public class creador_recompensa extends AppCompatActivity {
         if (type == MEDIA_TYPE_IMAGE){
 
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
-                    nombreArchivo+".jpg");
+                    nombreArchivo+".png");
 
         }else {
             return null;
         }
 
         return mediaFile;
+    }
+    private Drawable reduceImagen(Uri unUri,int tam1,int tam2){
+        Drawable yourDrawable;
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(unUri);
+            yourDrawable = Drawable.createFromStream(inputStream, unUri.toString());
+        } catch (FileNotFoundException e) {
+            yourDrawable = getResources().getDrawable(R.drawable.pesas);
+        }
+        Bitmap bitmap = ((BitmapDrawable) yourDrawable).getBitmap();
+        // Scale it to 50 x 50
+        Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, tam1, tam2, true));
+        yourDrawable.invalidateSelf();
+        return d;
     }
 }

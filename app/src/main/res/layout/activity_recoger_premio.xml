@@ -179,7 +179,7 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="627dp"
+                android:layout_width="370dp"
                 android:layout_height="match_parent">
 
                 <TextView
@@ -187,15 +187,17 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Mochila:"
-                    android:id="@+id/mochila" />
+                    android:id="@+id/mochila"
+                    android:layout_gravity="center_horizontal" />
 
-                <com.example.lrdzero.tfg.HorizontalListView
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:id="@+id/listaMochila"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/mochilaDePremios"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/mochila"
+                    android:layout_gravity="center_horizontal" />
+
             </LinearLayout>
 
             <Button

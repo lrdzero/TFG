@@ -1,5 +1,9 @@
 package com.example.lrdzero.tfg;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,18 +16,23 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Finalruta extends AppCompatActivity {
     TextView tv;
     ImageView iv;
-
+    private Conexion con;
+    private ArrayList<String> datosMochila = new ArrayList<String>();
+    private ArrayList<Items> elementosMochila=new ArrayList<Items>();
+    private String creador,nombreRecorrido,nombreRuta;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finalruta);
-
+        con = new Conexion();
         final Animation af = AnimationUtils.loadAnimation(this,R.anim.animfinal);
         tv = (TextView)findViewById(R.id.textitem);
         tv.setVisibility(View.INVISIBLE);
@@ -32,7 +41,12 @@ public class Finalruta extends AppCompatActivity {
         flecha.setVisibility(View.INVISIBLE);
         final ImageView boca = (ImageView) findViewById(R.id.bocaverde);
         final ArrayList<Integer> recomps= new ArrayList<>();
+        creador=getIntent().getExtras().getString("creador");
+        nombreRecorrido=getIntent().getExtras().getString("nombreRecorrido");
+        nombreRuta=getIntent().getExtras().getString("nombreRuta");
 
+        datosMochila=con.cargarMochila(creador,nombreRecorrido,nombreRuta);
+        loadItems();
         recomps.add(R.drawable.pesas);
         recomps.add(R.drawable.zapatillas);
 
@@ -95,10 +109,19 @@ public class Finalruta extends AppCompatActivity {
                 boca.clearAnimation();
                 flecha.getAnimation().reset();
 
-                if(recomps.size()>0){
-                    iv.setImageResource(recomps.remove(0));
-                    tv.startAnimation(Mostrar(flecha));
-                    iv.startAnimation(Mostrar(null));
+                if(elementosMochila.size()>0){
+                    if(elementosMochila.get(0).getImage()!=0) {
+                        iv.setImageResource(elementosMochila.get(0).getImage());
+                        elementosMochila.remove(0);
+                    }
+                    else{
+                        Uri n= Uri.parse(elementosMochila.get(0).getSeconFoto());
+                        iv.setImageURI(n);
+                        elementosMochila.remove(0);
+                    }
+                        tv.startAnimation(Mostrar(flecha));
+                        iv.startAnimation(Mostrar(null));
+
                 }
                 else {
                     tv.setVisibility(View.INVISIBLE);
@@ -114,7 +137,24 @@ public class Finalruta extends AppCompatActivity {
         tv.setVisibility(View.VISIBLE);
 
     }
+    private void loadItems(){
+        if(!datosMochila.isEmpty()){
+            for(int i=0;i<datosMochila.size();i=i+4){
+                if(datosMochila.get(i+3).equals("1")) {
+                    elementosMochila.add(new Items(datosMochila.get(i), Integer.valueOf(datosMochila.get(i+1)), "", datosMochila.get(i+2)));
+                }
+                else if(datosMochila.get(i+3).equals("2")){
+                    Items n = new Items();
+                    n.setName(datosMochila.get(i));
+                    n.setSeconFoto(datosMochila.get(i+1));
+                    n.setNombreReto("");
+                    n.setDescripcionRecompensa(datosMochila.get(i+2));
+                    elementosMochila.add(n);
+                }
+            }
 
+        }
+    }
     public AnimationSet habla(){
 
         Animation habla = new TranslateAnimation(Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,(float)0,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,(float)0.03);
@@ -191,7 +231,7 @@ public class Finalruta extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if(v!=null)
+                if (v != null)
                     v.startAnimation(PasaTexto());
 
             }
@@ -203,5 +243,19 @@ public class Finalruta extends AppCompatActivity {
         });
 
         return mostrar;
+    }
+    private Drawable reduceImagen(Uri unUri,int tam1,int tam2){
+        Drawable yourDrawable;
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(unUri);
+            yourDrawable = Drawable.createFromStream(inputStream, unUri.toString());
+        } catch (FileNotFoundException e) {
+            yourDrawable = getResources().getDrawable(R.drawable.pesas);
+        }
+        Bitmap bitmap = ((BitmapDrawable) yourDrawable).getBitmap();
+        // Scale it to 50 x 50
+        Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, tam1, tam2, true));
+        yourDrawable.invalidateSelf();
+        return d;
     }
 }
