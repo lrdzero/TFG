@@ -4,7 +4,7 @@ package com.example.lrdzero.tfg;
  * Created by lrdzero on 07/08/2015.
  */
 public class Items {
-
+//lkjñlkj
     private String name;
     private int image;
     private String nombreReto;
