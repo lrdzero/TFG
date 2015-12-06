@@ -450,11 +450,12 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             if(inicio){
                 circulo.setCenter(loc);
                 if(measure(PtosRecorridos.get(0),loc)<20) {
-                    textoGuia.setText(puntoactual*100/ruta.getMiniPoints().size()+"%");
+
+                    textoGuia.setText("punto:"+puntoactual+"/"+ruta.getMiniPoints().size());
 
 
 
-                    if (measure(PtosRecorridos.get(1), loc) <= (measure(PtosRecorridos.get(0), loc))||(measure(PtosRecorridos.get(1), loc))<5) {
+                    if (measure(PtosRecorridos.get(1), loc) <= (measure(PtosRecorridos.get(0), loc))||(measure(PtosRecorridos.get(1), loc))<10) {
                         avance();
                     }
 

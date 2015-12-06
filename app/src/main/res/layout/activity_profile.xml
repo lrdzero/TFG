@@ -5,7 +5,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.lrdzero.tfg.ProfileActivity"
-    android:background="#FFFECF">
+    android:background="@drawable/rojo">
 
     <ScrollView
         android:layout_width="400dp"
@@ -36,7 +36,8 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="147dp">
+                android:layout_height="147dp"
+                android:background="@color/ripple_material_dark">
 
                 <ImageView
                     android:layout_width="120dp"
@@ -50,20 +51,23 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="165dp">
+                    android:layout_height="165dp"
+                    android:layout_marginLeft="10dp">
 
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:id="@+id/notaMusical"
                         android:src="@drawable/notamusical"
-                        android:adjustViewBounds="true" />
+                        android:adjustViewBounds="true"
+                        android:layout_marginBottom="10dp"/>
 
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        >
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -94,7 +98,8 @@
                     <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="20dp">
+                        android:layout_height="20dp"
+                        >
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -126,35 +131,35 @@
                             android:layout_toEndOf="@+id/nombre" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp">
 
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        >
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:text="Correo electrónico:"
+                            android:text="Email:"
                             android:id="@+id/textView21" />
 
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
 
-                            <TextView
+
+                        <TextView
                                 android:text="data"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/passwd"
                                 android:textSize="17sp"
                                 android:textColor="#ff37000f"
-                                android:layout_alignBottom="@+id/foto"
+                                android:layout_below="@+id/edad"
                                 android:layout_alignLeft="@+id/edad"
                                 android:layout_alignStart="@+id/edad"
+
                                 android:password="false"
-                                android:layout_marginLeft="10dp" />
+                                android:layout_marginLeft="10dp"
+                            android:layout_gravity="center_horizontal" />
 
                             <ImageView
                                 android:layout_width="20dp"
@@ -165,9 +170,9 @@
                                 android:layout_alignTop="@+id/passwd"
                                 android:layout_toRightOf="@id/passwd"
                                 />
-                        </LinearLayout>
 
                     </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>

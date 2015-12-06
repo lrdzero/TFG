@@ -15,7 +15,7 @@
         android:adjustViewBounds="true"
         android:src="@drawable/camara"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/textView10"
         android:layout_alignLeft="@+id/imagenItemCultural"
         android:layout_alignStart="@+id/imagenItemCultural" />
@@ -36,10 +36,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/imagenItemCultural"
         android:adjustViewBounds="true"
+        android:layout_marginTop="20dp"
         android:src="@drawable/aniadiritem"
         android:layout_gravity="center_horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/textView16" />
+        android:layout_below="@+id/textView16"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -67,7 +68,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView6"
         android:adjustViewBounds="true"
-        android:src="@drawable/brujula"
+        android:src="@drawable/gallery"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/textView25"
         android:layout_alignLeft="@+id/imagenItemCultural"
