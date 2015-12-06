@@ -9,7 +9,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="fill_parent"
+        >
 
         <LinearLayout
             android:orientation="vertical"
@@ -17,7 +18,7 @@
             android:layout_height="350dp"
             >
 
-            <TextView
+            TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ATG"
@@ -27,7 +28,7 @@
                 android:layout_gravity="center_horizontal"
                 android:textStyle="italic" />
 
-            <TextView
+            TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -36,6 +37,13 @@
                 android:layout_gravity="center_horizontal"
                 android:textColor="#67c654"
                 android:textSize="25dp" />
+
+            <ImageView
+                android:src="@drawable/titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/title" />
 
             <Button
                 android:layout_width="120dp"
@@ -60,13 +68,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/setting"
-                android:src="@drawable/setting"
-                android:adjustViewBounds="true"
-                android:layout_gravity="right" />
+
 
         </LinearLayout>
 
@@ -74,6 +76,7 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="104dp"
+            android:layout_gravity="bottom"
             android:background="@drawable/logo_ugr"
             android:layout_marginTop="20dp"></LinearLayout>
     </LinearLayout>

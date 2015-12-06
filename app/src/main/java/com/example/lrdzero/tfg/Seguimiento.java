@@ -337,7 +337,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             PtosRecorridos.remove(0);
             puntoactual++;
             textoGuia.setText("quedan "+PtosRecorridos.size() + " puntos");
-           //markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
+            markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
 
             circulos.get(0).setCenter(circulos.get(circulos.size() - 1).getCenter());
             circulos.remove(0);
@@ -443,7 +443,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     public void onLocationChanged(Location location) {
         if(cargado){
             LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-            markerLastPoint.setPosition(loc);
+            //markerLastPoint.setPosition(loc);
 
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
 
@@ -454,7 +454,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
 
 
-                    if (measure(PtosRecorridos.get(1), loc) <= measure(PtosRecorridos.get(0), loc)) {
+                    if (measure(PtosRecorridos.get(1), loc) <= (measure(PtosRecorridos.get(0), loc))||(measure(PtosRecorridos.get(1), loc))<5) {
                         avance();
                     }
 
@@ -518,7 +518,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
                         .center(ruta.getFirstPoint())
                         .radius(20)
                         .strokeColor(Color.RED));
-                markerLastPoint=googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(puntoactual)).title(String.valueOf(puntoactual)));
+               // markerLastPoint=googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(puntoactual)).title(String.valueOf(puntoactual)));
 
 
             }

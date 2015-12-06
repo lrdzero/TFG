@@ -33,13 +33,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         inicio = (Button) findViewById(R.id.botonSesion);
         registro = (Button) findViewById(R.id.botonRegistro);
-        ImageView Setting =(ImageView) findViewById(R.id.setting);
+
 
 
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
 
         con = new Conexion();
-        Setting.setOnClickListener(this);
+
         inicio.setOnClickListener(this);
         registro.setOnClickListener(this);
     }
@@ -47,40 +47,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
 
         switch (v.getId()) {
-
-            case R.id.setting:
-                LayoutInflater factory = LayoutInflater.from(this);
-                final View textEntryView = factory.inflate(R.layout.settings, null);
-                AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-                alert.setView(textEntryView);
-                alert.setTitle("Configuración");
-                alert.setMessage("Introduzca nueva IP del servidor");
-
-                alert.setView(textEntryView);
-                AlertDialog loginPrompt = alert.create();
-
-                final EditText txtIP = (EditText) textEntryView.findViewById(R.id.textoIP);
-
-
-                alert.setPositiveButton("Acetpar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-
-                            con.cambiarIP(txtIP.getText().toString());
-
-                    }
-                });
-
-                alert.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        // Canceled.
-                    }
-                });
-
-                alert.show();
-
-                break;
-
 
             case R.id.botonSesion:
 
