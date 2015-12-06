@@ -89,6 +89,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+
             android:src="@drawable/parpadoder"
             />
 
@@ -98,7 +99,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Está claro que para petarte bien, es necesario hacer un poco de pesas "
+        android:text="Has completado satisfactoriamente la ruta, así que conocerás ahora su historia"
         android:id="@+id/textitem"
 
         android:layout_centerHorizontal="true"
@@ -124,5 +125,16 @@
             android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/siguiente"
+        android:src="@drawable/flecha"
+        android:adjustViewBounds="true"
+        android:layout_margin="10dp"
+        android:layout_alignBottom="@+id/textitem"
+        android:layout_alignRight="@+id/textitem"
+        android:layout_alignEnd="@+id/textitem" />
 
 </RelativeLayout>
