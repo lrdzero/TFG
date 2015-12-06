@@ -88,18 +88,23 @@ public class Finalruta extends AppCompatActivity {
 
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view){
                 tv.clearAnimation();
                 iv.clearAnimation();
-                flecha.clearAnimation();
+                flecha.getAnimation().cancel();
+                boca.clearAnimation();
+                flecha.getAnimation().reset();
 
-                if(recomps.size()>0) {
+                if(recomps.size()>0){
                     iv.setImageResource(recomps.remove(0));
                     tv.startAnimation(Mostrar(flecha));
                     iv.startAnimation(Mostrar(null));
                 }
-                else
+                else {
+                    tv.setVisibility(View.INVISIBLE);
+                    iv.setVisibility(View.INVISIBLE);
                     avatar.startAnimation(af);
+                }
 
 
             }
