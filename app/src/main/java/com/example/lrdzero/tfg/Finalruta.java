@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Finalruta extends AppCompatActivity {
@@ -30,14 +31,17 @@ public class Finalruta extends AppCompatActivity {
         final ImageView flecha = (ImageView) findViewById(R.id.siguiente);
         flecha.setVisibility(View.INVISIBLE);
         final ImageView boca = (ImageView) findViewById(R.id.bocaverde);
+        final ArrayList<Integer> recomps= new ArrayList<>();
+
+        recomps.add(R.drawable.pesas);
+        recomps.add(R.drawable.zapatillas);
+
+
+        //recomps.add(new Items());
 
         flecha.startAnimation(PasaTexto());
 
-
-
-
-
-        RelativeLayout avatar = (RelativeLayout)findViewById(R.id.Avatar);
+        final RelativeLayout avatar = (RelativeLayout)findViewById(R.id.Avatar);
         af.setFillEnabled(true);
         af.setFillAfter(true);
 
@@ -71,10 +75,9 @@ public class Finalruta extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                tv.setVisibility(View.VISIBLE);
-                iv.setVisibility(View.VISIBLE);
-                tv.startAnimation(af);
-                iv.startAnimation(af);
+
+
+
             }
 
             @Override
@@ -86,10 +89,18 @@ public class Finalruta extends AppCompatActivity {
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tv.clearAnimation();
+                iv.clearAnimation();
                 flecha.clearAnimation();
-                tv.startAnimation(Mostrar(flecha));
-                iv.setImageDrawable(getDrawable(R.drawable.pesas));
-                iv.startAnimation(Mostrar(null));
+
+                if(recomps.size()>0) {
+                    iv.setImageResource(recomps.remove(0));
+                    tv.startAnimation(Mostrar(flecha));
+                    iv.startAnimation(Mostrar(null));
+                }
+                else
+                    avatar.startAnimation(af);
+
 
             }
         });

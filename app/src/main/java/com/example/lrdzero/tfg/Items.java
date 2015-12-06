@@ -1,8 +1,6 @@
 package com.example.lrdzero.tfg;
 
-/**
- * Created by lrdzero on 07/08/2015.
- */
+
 public class Items {
 
     private String name;
