@@ -443,7 +443,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     public void onLocationChanged(Location location) {
         if(cargado){
             LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
-            //markerLastPoint.setPosition(loc);
+
 
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
             markerLastPoint.setPosition(loc);
