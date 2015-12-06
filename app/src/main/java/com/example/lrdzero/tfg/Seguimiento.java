@@ -336,8 +336,8 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         if (PtosRecorridos.size() > 1) {
             PtosRecorridos.remove(0);
             puntoactual++;
-            textoGuia.setText("quedan "+PtosRecorridos.size() + " puntos");
-            markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
+            textoGuia.setText("quedan " + PtosRecorridos.size() + " puntos");
+
 
             circulos.get(0).setCenter(circulos.get(circulos.size() - 1).getCenter());
             circulos.remove(0);
@@ -446,7 +446,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             //markerLastPoint.setPosition(loc);
 
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
-
+            markerLastPoint.setPosition(loc);
             if(inicio){
                 circulo.setCenter(loc);
                 if(measure(PtosRecorridos.get(0),loc)<20) {
