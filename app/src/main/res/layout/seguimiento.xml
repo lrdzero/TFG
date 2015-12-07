@@ -149,16 +149,16 @@
 
     </RelativeLayout>
 
-    <TextView
+    <Chronometer
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="00:00:00"
-        android:id="@+id/textView4"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-
-        />
+        android:id="@+id/chronometer3"
+        android:layout_alignBottom="@+id/Avatar"
+        android:layout_alignRight="@+id/relativetexto"
+        android:layout_alignEnd="@+id/relativetexto"
+        android:layout_marginRight="45dp"
+        android:layout_marginEnd="45dp"
+        android:textSize="30dp" />
 
 
 </RelativeLayout>

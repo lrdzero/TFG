@@ -2,7 +2,9 @@ package com.example.lrdzero.tfg;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -14,6 +16,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
@@ -25,6 +28,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.Interpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -53,6 +57,8 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     private GoogleMap googleMap;
     MapView mapView;
     MediaPlayer media;
+    MediaPlayer alerta;
+    MediaPlayer salidaRuta;
     private ArrayList<Tramo> tramosOF=new ArrayList<Tramo>();
     ArrayList<Reto> retosRuta = new ArrayList<Reto>();
     private int tamanio;
@@ -62,7 +68,8 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     private String musica;
     TextView textoGuia;
     ArrayList<Circle> circulos = new ArrayList<>();
-
+    private Chronometer crono;
+    private boolean cronoON;
     // Reference to the LocationManager and LocationListener
     private LocationManager mLocationManager;
     private LocationListener mLocationListener;
@@ -139,7 +146,22 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         boca = (ImageView)findViewById(R.id.bocaverde);
         ojos = (ImageView)findViewById(R.id.ojos);
 
+        cronoON=false;
+        crono=(Chronometer) findViewById(R.id.chronometer3);
+        crono.setVisibility(View.INVISIBLE );
+        crono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                long myElapsedMillis = SystemClock.elapsedRealtime() - crono.getBase();
+                if (myElapsedMillis >= 120000) {
+                    finish();
+                }
+                else if(myElapsedMillis>=90000){
+                    crono.setTextColor(Color.RED);
+                }
 
+            }
+        });
         mapView = (MapView) findViewById(R.id.gmap);
         mapView.onCreate(savedInstanceState);
         MapsInitializer.initialize(this);
@@ -178,7 +200,8 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             }
 
         }*/
-
+        alerta = MediaPlayer.create(this,R.raw.alert);
+        salidaRuta= MediaPlayer.create(this,R.raw.alert);
         adaptacion(sexo, edad);
         con = new Conexion();
         googleMap = mapView.getMap();
@@ -350,7 +373,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
                 String nombre =ruta.getRetos().get(index).getNombre();
                 Toast.makeText(Seguimiento.this,"Nombre del reto "+  nombre,Toast.LENGTH_LONG).show();
 
-                //DatosRyR datosUser=con.buscarUsuario("l");
+
                 if(tipoRecorrido==1) {
                     Intent n2 = new Intent(Seguimiento.this, RetoDeportivo.class);
                     n2.putExtra("nombreUser", creador);
@@ -359,6 +382,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
                     n2.putExtra("edad", edad);
                     n2.putExtra("sexo", sexo);
                     n2.putExtra("nombreReto", nombre);
+                    alerta.start();
                     startActivity(n2);
                 }
                 else if(tipoRecorrido==0){
@@ -369,31 +393,11 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
                     n2.putExtra("edad", edad);
                     n2.putExtra("sexo", sexo);
                     n2.putExtra("nombreReto", nombre);
+                    alerta.start();
                     startActivity(n2);
                 }
 
-                /*String nombre =ruta.getRetos().get(index).getNombre();
-                if(tipoRecorrido==0){
-                    Intent i = new Intent(getApplicationContext(),RetoCultural.class);
-                    i.putExtra("nombreUser",creador);
-                    i.putExtra("nombreRecorrido",nombreRecorrido);
-                    i.putExtra("nombreRuta",nombreRuta);
-                    i.putExtra("nombreReto",nombre);
-                    i.putExtra("edad", edad);
-                    i.putExtra("sexo",sexo);
-                    startActivity(i);
-                }
-                else{
-                    Intent i = new Intent(getApplicationContext(),RetoDeportivo.class);
-                    i.putExtra("nombreUser",creador);
-                    i.putExtra("nombreRecorrido",nombreRecorrido);
-                    i.putExtra("nombreRuta",nombreRuta);
-                    i.putExtra("nombreReto",nombre);
-                    i.putExtra("edad", edad);
-                    i.putExtra("sexo",sexo);
-                    startActivity(i);
-                }
-                */
+
             }
 
 
@@ -450,8 +454,12 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             if(inicio){
                 circulo.setCenter(loc);
                 if(measure(PtosRecorridos.get(0),loc)<20) {
-
-                    textoGuia.setText("punto:"+puntoactual+"/"+ruta.getMiniPoints().size());
+                    if(cronoON) {
+                        crono.setVisibility(View.INVISIBLE);
+                        cronoON=false;
+                        crono.stop();
+                    }
+                    textoGuia.setText("punto:" + puntoactual + "/" + ruta.getMiniPoints().size());
 
 
 
@@ -461,8 +469,15 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
 
                 }
-                else
-                    textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA");
+                else {
+                    textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA, VUELVE ANTES DE 20 SEGUNDOS");
+                    if(!cronoON) {
+                        crono.setVisibility(View.VISIBLE);
+                        crono.setBase(SystemClock.elapsedRealtime());
+                        cronoON=true;
+                        crono.start();
+                    }
+                }
             }
             else {
                 if (measure(loc, ruta.getFirstPoint()) < 20) {

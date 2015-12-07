@@ -60,6 +60,9 @@
             android:name=".RetoCultural"
             android:label="RetoCultural" />
         <activity
+            android:name=".CronometroAviso"
+            android:label="CronometroAviso" />
+        <activity
             android:name=".HistorialUsuario"
             android:label="@string/title_activity_historial_usuario" >
         </activity>

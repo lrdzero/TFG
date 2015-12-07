@@ -109,10 +109,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                break;
             case R.id.botonRegistro:
-                Intent nueva = new Intent(MainActivity.this,Finalruta.class);
+                Intent nueva = new Intent(MainActivity.this,CronometroAviso.class);
                 nueva.putExtra("creador","l");
-                nueva.putExtra("nombreRecorrido","l");
-                nueva.putExtra("nombreRuta","l");
+                nueva.putExtra("nombreRecorrido","esquina");
+                nueva.putExtra("nombreRuta","rutac");
                 startActivity(nueva);
                 break;
 
