@@ -146,6 +146,9 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         boca = (ImageView)findViewById(R.id.bocaverde);
         ojos = (ImageView)findViewById(R.id.ojos);
 
+
+        alerta = MediaPlayer.create(this,R.raw.alert);
+        salidaRuta= MediaPlayer.create(this,R.raw.metronomo);
         cronoON=false;
         crono=(Chronometer) findViewById(R.id.chronometer3);
         crono.setVisibility(View.INVISIBLE );
@@ -154,6 +157,8 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             public void onChronometerTick(Chronometer chronometer) {
                 long myElapsedMillis = SystemClock.elapsedRealtime() - crono.getBase();
                 if (myElapsedMillis >= 120000) {
+                    salidaRuta.setLooping(false);
+                    salidaRuta.stop();
                     finish();
                 }
                 else if(myElapsedMillis>=90000){
@@ -200,8 +205,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             }
 
         }*/
-        alerta = MediaPlayer.create(this,R.raw.alert);
-        salidaRuta= MediaPlayer.create(this,R.raw.alert);
+
         adaptacion(sexo, edad);
         con = new Conexion();
         googleMap = mapView.getMap();
@@ -457,6 +461,8 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
                     if(cronoON) {
                         crono.setVisibility(View.INVISIBLE);
                         cronoON=false;
+                        salidaRuta.setLooping(false);
+                        salidaRuta.stop();
                         crono.stop();
                     }
                     textoGuia.setText("punto:" + puntoactual + "/" + ruta.getMiniPoints().size());
@@ -470,11 +476,13 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
                 }
                 else {
-                    textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA, VUELVE ANTES DE 20 SEGUNDOS");
+                    textoGuia.setText("CUIDADO TE ESTAS SALIENDO DE LA RUTA, VUELVE ANTES DE 2 MINUTOS");
                     if(!cronoON) {
                         crono.setVisibility(View.VISIBLE);
                         crono.setBase(SystemClock.elapsedRealtime());
                         cronoON=true;
+                        salidaRuta.setLooping(true);
+                        salidaRuta.start();
                         crono.start();
                     }
                 }

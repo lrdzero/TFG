@@ -24,7 +24,7 @@ public class CronometroAviso extends ActionBarActivity {
 
 
         crono.setBase(SystemClock.elapsedRealtime());
-       
+
 
         crono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
