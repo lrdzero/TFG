@@ -2,6 +2,7 @@ package com.example.lrdzero.tfg;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.DragEvent;
@@ -15,6 +16,13 @@ import android.widget.Toast;
 
 public class FondoRecompensa extends AppCompatActivity {
     private ImageView objeto;
+    private boolean imagenTipo;
+    private int drawable=0;
+    private String uri;
+    private String fondoI;
+    private Conexion con;
+    private String nombreRecompensa;
+    private String nombreReto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +32,26 @@ public class FondoRecompensa extends AppCompatActivity {
         ImageView fondo=(ImageView)findViewById(R.id.fondo);
         objeto =(ImageView)findViewById(R.id.objeto);
         RelativeLayout r =(RelativeLayout)findViewById(R.id.rfondo);
+        con=new Conexion();
+
+        fondoI=getIntent().getExtras().getString("fondo");
+        imagenTipo=getIntent().getExtras().getBoolean("imagenTipo");
+        nombreReto=getIntent().getExtras().getString("nombreReto");
+
+        Uri fondoLugar = Uri.parse(fondoI);
+        fondo.setImageURI(fondoLugar);
+        if(imagenTipo){
+            drawable=getIntent().getExtras().getInt("reconD");
+            nombreRecompensa=getIntent().getExtras().getString("nombreRecom");
+            objeto.setImageResource(drawable);
+        }
+        else{
+            uri = getIntent().getExtras().getString("reconS");
+            nombreRecompensa=getIntent().getExtras().getString("nombreRecom");
+            Uri object = Uri.parse(uri);
+            objeto.setImageURI(object);
+        }
+
 
 
         r.setOnDragListener(new MyDragListener());
@@ -73,6 +101,7 @@ public class FondoRecompensa extends AppCompatActivity {
                     //Toast.makeText(FondoRecompensa.this, "X:"+ event.getX()+" e y:"+ event.getY(), Toast.LENGTH_LONG).show();
                     objeto.setX(event.getX());
                     objeto.setY(event.getY());
+                    con.updateRecom(nombreRecompensa,nombreReto,objeto.getX(),objeto.getY());
 
 
 

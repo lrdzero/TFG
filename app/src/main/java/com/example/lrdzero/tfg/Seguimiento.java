@@ -147,26 +147,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         ojos = (ImageView)findViewById(R.id.ojos);
 
 
-        alerta = MediaPlayer.create(this,R.raw.alert);
-        salidaRuta= MediaPlayer.create(this,R.raw.metronomo);
-        cronoON=false;
-        crono=(Chronometer) findViewById(R.id.chronometer3);
-        crono.setVisibility(View.INVISIBLE );
-        crono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
-            @Override
-            public void onChronometerTick(Chronometer chronometer) {
-                long myElapsedMillis = SystemClock.elapsedRealtime() - crono.getBase();
-                if (myElapsedMillis >= 120000) {
-                    salidaRuta.setLooping(false);
-                    salidaRuta.stop();
-                    finish();
-                }
-                else if(myElapsedMillis>=90000){
-                    crono.setTextColor(Color.RED);
-                }
 
-            }
-        });
         mapView = (MapView) findViewById(R.id.gmap);
         mapView.onCreate(savedInstanceState);
         MapsInitializer.initialize(this);
@@ -188,6 +169,26 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         Toast.makeText(Seguimiento.this,"Variable edad "+edad,Toast.LENGTH_LONG).show();
         Toast.makeText(Seguimiento.this,"Variable tipoRecorrido "+Integer.toString(tipoRecorrido),Toast.LENGTH_LONG).show();
 
+        alerta = MediaPlayer.create(this,R.raw.alert);
+        salidaRuta= MediaPlayer.create(this,R.raw.metronomo);
+        cronoON=false;
+        crono=(Chronometer) findViewById(R.id.chronometer3);
+        crono.setVisibility(View.INVISIBLE);
+        crono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                long myElapsedMillis = SystemClock.elapsedRealtime() - crono.getBase();
+                if (myElapsedMillis >= 120000) {
+                    salidaRuta.setLooping(false);
+                    salidaRuta.stop();
+                    con.borrarMochila(creador, nombreRecorrido, nombreRuta);
+                    finish();
+                } else if (myElapsedMillis >= 90000) {
+                    crono.setTextColor(Color.RED);
+                }
+
+            }
+        });
         //musica=getIntent().getExtras().getString("musica");
         /*musica=con.obtenerMusicaUsuario(creador);
         if(musica.matches("")){

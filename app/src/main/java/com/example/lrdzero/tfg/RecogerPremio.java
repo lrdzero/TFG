@@ -103,10 +103,14 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
 
         if(datosPremio.get(4).equals("1")) {
             image.setImageResource(Integer.valueOf(datosPremio.get(1)));
+            image.setX(Float.valueOf(datosPremio.get(5)));
+            image.setY(Float.valueOf(datosPremio.get(6)));
         }
         else{
             Uri nuevo = Uri.parse(datosPremio.get(1));
             image.setImageDrawable(reduceImagen(nuevo,90,90));
+            image.setX(Float.valueOf(datosPremio.get(5)));
+            image.setY(Float.valueOf(datosPremio.get(6)));
         }
         image.setOnClickListener(this);
         miMochila.setOnClickListener(this);

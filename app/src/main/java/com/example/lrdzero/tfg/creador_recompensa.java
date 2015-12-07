@@ -34,11 +34,13 @@ public class creador_recompensa extends AppCompatActivity {
     private ImageView porDefecto;
     private ImageView camera;
     private ImageView fondo;
+    private boolean drawa;
     private ArrayList<String> envio = new ArrayList<String>();
     private ArrayList<Items> dt = new ArrayList<Items>();
     private MediaPlayer error;
     private Uri fileUriLugar;
     private Uri fileUri;
+    private int theImage;
     private static String nombreArchivo;
     private Conexion con;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
@@ -47,6 +49,7 @@ public class creador_recompensa extends AppCompatActivity {
     private static final int UPDATE_POSXY=300;
     private boolean seleccionado = false;
     private Button crear;
+    private String nombreDrawa="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +69,7 @@ public class creador_recompensa extends AppCompatActivity {
         fileUriLugar = Uri.parse(getIntent().getExtras().getString("uri"));
         nombreArchivo=getIntent().getExtras().getString("nombrefile");
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-
+        theImage=0;
         porDefecto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +90,20 @@ public class creador_recompensa extends AppCompatActivity {
         fondo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Lanzar intent con fileUri y fileUriLugar
+                Intent n = new Intent(creador_recompensa.this, FondoRecompensa.class);
+                n.putExtra("fondo",fileUriLugar.toString() );
+                n.putExtra("nombreReto",nombreReto);
+
+                n.putExtra("imagenTipo",drawa);
+                if (drawa){
+                    n.putExtra("reconD",theImage);
+                    n.putExtra("nombreRecom",nombreDrawa);
+                }
+                else{
+                    n.putExtra("reconS",fileUri.toString());
+                    n.putExtra("nombreRecom",nombreRecompensa);
+                }
+                startActivity(n);
             }
         });
         crear.setOnClickListener(new View.OnClickListener() {
@@ -185,8 +201,10 @@ public class creador_recompensa extends AppCompatActivity {
                                     //Toast.makeText(CreadorRetoDeportivo.this, Integer.toString(R.drawable.aniadiritem), Toast.LENGTH_LONG).show();
 
                                     envio.add(currentData.getName());
+                                    nombreDrawa=currentData.getName();
                                     envio.add(currentData.getNombreReto());
                                     envio.add(Integer.toString(currentData.getImage()));
+                                    theImage=currentData.getImage();
                                     envio.add(fileUriLugar.toString());
                                     envio.add(currentData.getDescripcionRecompensa());
                                     envio.add("1");
@@ -194,6 +212,7 @@ public class creador_recompensa extends AppCompatActivity {
 
                                     envio.clear();
                                     seleccionado = true;
+                                    drawa=true;
 
                                 }
                             })
@@ -231,6 +250,7 @@ public class creador_recompensa extends AppCompatActivity {
 
                 envio.clear();
                 seleccionado = true;
+                drawa=false;
                 finish();
                 startActivity(getIntent());
             } else if (resultCode != RESULT_CANCELED){

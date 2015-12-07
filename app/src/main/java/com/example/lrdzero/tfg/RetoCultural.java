@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -34,7 +35,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
     private TextView pregunta;
     private String respuestaCorrecta;
     private Button respuesta;
-    private RadioButton resp1,resp2,resp3,resp4;
+    private CheckBox resp1,resp2,resp3,resp4;
     private RadioGroup group1,group2;
     private AlertDialog alert;
     private String edad,sexo;
@@ -87,10 +88,10 @@ public class RetoCultural extends Activity implements View.OnClickListener {
         boca = (ImageView)findViewById(R.id.bocaverde);
         ojos = (ImageView)findViewById(R.id.ojos);
 
-        resp1 = (RadioButton) findViewById(R.id.responseA);
-        resp2 = (RadioButton) findViewById(R.id.responseB);
-        resp3 = (RadioButton) findViewById(R.id.responseC);
-        resp4 = (RadioButton) findViewById(R.id.responseD);
+        resp1 = (CheckBox) findViewById(R.id.responseA);
+        resp2 = (CheckBox) findViewById(R.id.responseB);
+        resp3 = (CheckBox) findViewById(R.id.responseC);
+        resp4 = (CheckBox) findViewById(R.id.responseD);
         pregunta =(TextView) findViewById(R.id.pregunta);
         respuesta = (Button) findViewById(R.id.buttonResponse);
         nombreRecorrido=getIntent().getExtras().getString("nombreRecorrido");

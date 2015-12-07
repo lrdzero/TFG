@@ -152,8 +152,9 @@ public class Finalruta extends AppCompatActivity {
                     elementosMochila.add(n);
                 }
             }
-
+            con.borrarMochila(creador,nombreRecorrido,nombreRuta);
         }
+
     }
     public AnimationSet habla(){
 

@@ -54,6 +54,21 @@ public class Conexion {
             e.printStackTrace();
         }
     }
+    public void updateRecom(String nombreRecomp,String nombreReto, float x,float y){
+        try{
+            conectar();
+            out.writeUTF("updateRecompensa");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(nombreRecomp);
+                out.writeUTF(nombreReto);
+                out.writeUTF(Float.toString(x));
+                out.writeUTF(Float.toString(y));
+            }
+            cerrar();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
     public int updateRecorridoPreferencias(String tipo,ArrayList<Integer> data,String nombreRecorrido){
         int respuesta=-1;
         try{
@@ -407,6 +422,21 @@ public class Conexion {
             e.printStackTrace();
         }
         return respuesta;
+    }
+    public void borrarMochila(String usuario,String nombreRecorrido,String nombreRuta){
+        try{
+            conectar();
+            out.writeUTF("borrarMochila");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(usuario);
+                out.writeUTF(nombreRecorrido);
+                out.writeUTF(nombreRuta);
+
+            }
+            cerrar();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
     public ArrayList<String> cargarMochila(String nombreCreador,String nombreRecorrido,String nombreRuta){
         ArrayList<String> respuesta=new ArrayList<String>();
