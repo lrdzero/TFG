@@ -310,7 +310,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
             InputStream inputStream = getContentResolver().openInputStream(unUri);
             yourDrawable = Drawable.createFromStream(inputStream, unUri.toString());
         } catch (FileNotFoundException e) {
-            yourDrawable = getResources().getDrawable(R.drawable.pesas);
+            yourDrawable = getResources().getDrawable(R.drawable.plaza);
         }
         Bitmap bitmap = ((BitmapDrawable) yourDrawable).getBitmap();
         // Scale it to 50 x 50
