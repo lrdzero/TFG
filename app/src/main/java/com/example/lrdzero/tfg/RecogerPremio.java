@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -40,7 +41,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     private ArrayList<String> datosPremio;
     private ArrayList<String> envio = new ArrayList<String>();
     private String nameRuta,nameUser,nameRecorrido;
-    private RelativeLayout lt;
+    private HorizontalScrollView lt;
     private Uri fileUri;
     private String edad,sexo;
     private int tipoReto;
@@ -72,7 +73,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         final View v= new View(getApplicationContext());
         Button volver = (Button) findViewById(R.id.volverMapa);
         image = (ImageView) findViewById(R.id.imageView14);
-        lt =(RelativeLayout)findViewById(R.id.myLinear);
+        lt =(HorizontalScrollView)findViewById(R.id.myLinear);
         miMochila =(ImageView) findViewById(R.id.mochilaDePremios);
 
         tipoReto=getIntent().getExtras().getInt("tipoReto");
@@ -219,7 +220,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
             else{
                 unUri = Uri.parse(currentData.getSeconFoto());
 
-                img.setImageDrawable(reduceImagen(unUri,80,80));
+                img.setImageDrawable(reduceImagen(unUri, 80, 80));
 
 
 
@@ -272,7 +273,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         dialogo2.setCancelable(false);
         dialogo2.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {
-                            //dialogo2.setCancelable(false);
+                //dialogo2.setCancelable(false);
             }
         });
 
@@ -297,7 +298,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                        builder.setCancelable(false);
+                builder.setCancelable(false);
             }
         });
 
