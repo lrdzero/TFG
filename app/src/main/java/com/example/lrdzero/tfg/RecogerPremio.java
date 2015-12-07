@@ -41,7 +41,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     private ArrayList<String> datosPremio;
     private ArrayList<String> envio = new ArrayList<String>();
     private String nameRuta,nameUser,nameRecorrido;
-    private HorizontalScrollView lt;
+    private RelativeLayout lt;
     private Uri fileUri;
     private String edad,sexo;
     private int tipoReto;
@@ -73,7 +73,8 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         final View v= new View(getApplicationContext());
         Button volver = (Button) findViewById(R.id.volverMapa);
         image = (ImageView) findViewById(R.id.imageView14);
-        lt =(HorizontalScrollView)findViewById(R.id.myLinear);
+        lt =(RelativeLayout)findViewById(R.id.myLinear);
+
         miMochila =(ImageView) findViewById(R.id.mochilaDePremios);
 
         tipoReto=getIntent().getExtras().getInt("tipoReto");

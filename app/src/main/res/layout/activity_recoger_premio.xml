@@ -28,11 +28,15 @@
 
 
                 <HorizontalScrollView
-                    android:layout_width="fill_parent"
-                    android:layout_height="300dp"
-                    android:id="@+id/myLinear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     >
 
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/plaza"
+                        android:id="@+id/myLinear">
 
 
                     <ImageView
@@ -43,7 +47,7 @@
                         android:adjustViewBounds="true"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true" />
-
+                    </RelativeLayout>
                 </HorizontalScrollView>
 
 
