@@ -23,17 +23,18 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
+            android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Nombre Recorrido"
                 android:id="@+id/nombreRecorrido" />
 
-            <TextView
+            TextView
                 android:layout_width="186dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -42,32 +43,36 @@
                 android:id="@+id/tituloDescrip" />
 
             <TextView
-                android:layout_width="195dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="....................................................................................................................."
+                android:text="...................................................................................."
                 android:id="@+id/descripcion" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/modificar"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/edit" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/eliminar"
+                    android:src="@drawable/error"
+                    android:adjustViewBounds="true" />
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="42dp"
-            android:layout_height="fill_parent">
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/modificar"
-                android:adjustViewBounds="true"
-                android:src="@drawable/edit" />
 
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/eliminar"
-                android:src="@drawable/error"
-                android:adjustViewBounds="true" />
-        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

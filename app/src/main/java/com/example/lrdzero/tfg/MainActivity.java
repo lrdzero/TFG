@@ -84,7 +84,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                 Toast.makeText(MainActivity.this, "Contraseña no válida.", Toast.LENGTH_LONG).show();
                             }
                             else if(result==1){
-                                Intent nueva = new Intent(MainActivity.this, SeleccionRecorridos.class);
+                                Intent nueva = new Intent(MainActivity.this, FondoRecompensa.class);
                                 nueva.putExtra("NombreUser",txtUsername.getText().toString());
 
                                 startActivity(nueva);
