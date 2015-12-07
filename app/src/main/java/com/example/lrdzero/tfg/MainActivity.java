@@ -84,7 +84,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                                 Toast.makeText(MainActivity.this, "Contraseña no válida.", Toast.LENGTH_LONG).show();
                             }
                             else if(result==1){
-                                Intent nueva = new Intent(MainActivity.this, FondoRecompensa.class);
+                                Intent nueva = new Intent(MainActivity.this, SeleccionRecorridos.class);
                                 nueva.putExtra("NombreUser",txtUsername.getText().toString());
 
                                 startActivity(nueva);
@@ -109,7 +109,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                break;
             case R.id.botonRegistro:
-                Intent nueva = new Intent(MainActivity.this,CronometroAviso.class);
+                Intent nueva = new Intent(MainActivity.this,FondoRecompensa.class);
                 nueva.putExtra("creador","l");
                 nueva.putExtra("nombreRecorrido","esquina");
                 nueva.putExtra("nombreRuta","rutac");

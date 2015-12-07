@@ -33,20 +33,25 @@
                 android:id="@+id/myLinear"
                 android:layout_weight="1.50">
 
+                <ScrollView
+
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
 
 
                     <ImageView
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
                         android:id="@+id/imageView14"
                         android:src="@drawable/premiodefecto"
                         android:adjustViewBounds="true"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true" />
                 </RelativeLayout>
+                </ScrollView>
 
             </LinearLayout>
 

@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class FondoRecompensa extends AppCompatActivity {
+    private ImageView objeto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +22,11 @@ public class FondoRecompensa extends AppCompatActivity {
         setContentView(R.layout.activity_fondo_recompensa);
 
         ImageView fondo=(ImageView)findViewById(R.id.fondo);
-        ImageView objeto=(ImageView)findViewById(R.id.objeto);
+        objeto =(ImageView)findViewById(R.id.objeto);
+        RelativeLayout r =(RelativeLayout)findViewById(R.id.rfondo);
 
-        objeto.setOnDragListener(new MyDragListener());
+
+        r.setOnDragListener(new MyDragListener());
 
 
         View.OnTouchListener ot = new View.OnTouchListener(){
@@ -51,6 +54,8 @@ public class FondoRecompensa extends AppCompatActivity {
         @Override
         public boolean onDrag(View v, DragEvent event) {
             int action = event.getAction();
+            View view = (View) event.getLocalState();
+            view.setVisibility(View.VISIBLE);
             switch (event.getAction()) {
                 case DragEvent.ACTION_DRAG_STARTED:
                     // do nothing
@@ -59,21 +64,28 @@ public class FondoRecompensa extends AppCompatActivity {
                     //v.setBackgroundDrawable(enterShape);
                     break;
                 case DragEvent.ACTION_DRAG_EXITED:
+
                     //v.setBackgroundDrawable(normalShape);
 
                     break;
                 case DragEvent.ACTION_DROP:
                     // Dropped, reassign View to ViewGroup
-                    Toast.makeText(FondoRecompensa.this, "X:"+ event.getX()+" e y:"+ event.getY(), Toast.LENGTH_LONG).show();
+                    //Toast.makeText(FondoRecompensa.this, "X:"+ event.getX()+" e y:"+ event.getY(), Toast.LENGTH_LONG).show();
+                    objeto.setX(event.getX());
+                    objeto.setY(event.getY());
 
 
 
-                    View view = (View) event.getLocalState();
+
+                   // view.setYScrollX(view.);
+
+
+
                    /* ViewGroup owner = (ViewGroup) view.getParent();
                     owner.removeView(view);
                     LinearLayout container = (LinearLayout) v;
                     container.addView(view);*/
-                    view.setVisibility(View.VISIBLE);
+
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
                     //v.setBackgroundDrawable(normalShape);
