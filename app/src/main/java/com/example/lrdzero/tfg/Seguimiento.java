@@ -367,8 +367,12 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             textoGuia.setText("quedan " + PtosRecorridos.size() + " puntos");
 
 
-            circulos.get(0).setCenter(circulos.get(circulos.size() - 1).getCenter());
-            circulos.remove(0);
+            if (circulos.size() > 0) {
+                circulos.get(0).setCenter(circulos.get(circulos.size() - 1).getCenter());
+                circulos.remove(0);
+
+            }
+
 
             int index;
 
@@ -407,8 +411,15 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
 
         }
-        else
+        else{
             textoGuia.setText("FIN");
+            Intent nueva = new Intent(Seguimiento.this,Finalruta.class);
+            nueva.putExtra("creador",creador);
+            nueva.putExtra("nombreRecorrido",nombreRecorrido);
+            nueva.putExtra("nombreRuta",nombreRuta);
+            startActivity(nueva);
+        }
+
     }
 
     @Override
