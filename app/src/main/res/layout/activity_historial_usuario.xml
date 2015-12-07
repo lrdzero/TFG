@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rojo"
+    android:background="@drawable/pared"
     tools:context=".MainActivity" >
 
     <TextView
@@ -12,7 +12,7 @@
         android:id="@+id/textView6"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:background="@color/ripple_material_dark"
-
+        android:textSize="20sp"
 
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -31,7 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        >
     </ExpandableListView>
 
 </RelativeLayout>

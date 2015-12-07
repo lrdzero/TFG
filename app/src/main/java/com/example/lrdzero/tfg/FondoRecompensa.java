@@ -105,16 +105,6 @@ public class FondoRecompensa extends AppCompatActivity {
 
 
 
-
-                   // view.setYScrollX(view.);
-
-
-
-                   /* ViewGroup owner = (ViewGroup) view.getParent();
-                    owner.removeView(view);
-                    LinearLayout container = (LinearLayout) v;
-                    container.addView(view);*/
-
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
                     //v.setBackgroundDrawable(normalShape);

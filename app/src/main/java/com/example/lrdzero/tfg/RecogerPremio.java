@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
     private ArrayList<String> datosPremio;
     private ArrayList<String> envio = new ArrayList<String>();
     private String nameRuta,nameUser,nameRecorrido;
-    private LinearLayout lt;
+    private RelativeLayout lt;
     private Uri fileUri;
     private String edad,sexo;
     private int tipoReto;
@@ -71,7 +72,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         final View v= new View(getApplicationContext());
         Button volver = (Button) findViewById(R.id.volverMapa);
         image = (ImageView) findViewById(R.id.imageView14);
-        lt =(LinearLayout)findViewById(R.id.myLinear);
+        lt =(RelativeLayout)findViewById(R.id.myLinear);
         miMochila =(ImageView) findViewById(R.id.mochilaDePremios);
 
         tipoReto=getIntent().getExtras().getInt("tipoReto");
@@ -98,7 +99,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         fileUri = Uri.parse(datosPremio.get(2));
 
 
-        lt.setBackgroundDrawable(reduceImagen(fileUri,90,90));
+        lt.setBackgroundDrawable(reduceImagen(fileUri,60,60));
 
 
         if(datosPremio.get(4).equals("1")) {
@@ -108,7 +109,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         }
         else{
             Uri nuevo = Uri.parse(datosPremio.get(1));
-            image.setImageDrawable(reduceImagen(nuevo,90,90));
+            image.setImageDrawable(reduceImagen(nuevo,60,60));
             image.setX(Float.valueOf(datosPremio.get(5)));
             image.setY(Float.valueOf(datosPremio.get(6)));
         }

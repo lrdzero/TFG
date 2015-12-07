@@ -78,12 +78,12 @@ public class HistorialUsuario extends Activity {
 
         laptopCollection = new LinkedHashMap<>();
 
-        for (String laptop : groupList) {
-            switch (laptop) {
-                case "HP":
+        for (String recorridos : groupList) {
+            switch (recorridos) {
+                case "Recorrido1":
                     loadChild(hpModels);
                     break;
-                case "Dell":
+                case "Recorrido2":
                     loadChild(dellModels);
                     break;
                 case "Sony":
@@ -100,7 +100,7 @@ public class HistorialUsuario extends Activity {
                     break;
             }
 
-            laptopCollection.put(laptop, childList);
+            laptopCollection.put(recorridos, childList);
         }
     }
 
