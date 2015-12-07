@@ -1,14 +1,17 @@
 package com.example.lrdzero.tfg;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class FondoRecompensa extends AppCompatActivity {
 
@@ -21,18 +24,25 @@ public class FondoRecompensa extends AppCompatActivity {
         ImageView objeto=(ImageView)findViewById(R.id.objeto);
 
         objeto.setOnDragListener(new MyDragListener());
-        objeto.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                ClipData data = ClipData.newPlainText("", "");
-                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-                view.startDrag(data, shadowBuilder, view, 0);
-                view.setVisibility(View.INVISIBLE);
 
 
-                return true;
+        View.OnTouchListener ot = new View.OnTouchListener(){
+            //private final class MyTouchListener implements OnTouchListener {
+            @SuppressLint("ClickableViewAccessibility")
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    ClipData data = ClipData.newPlainText("", "");
+                    View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
+                    view.startDrag(data, shadowBuilder, view, 0);
+                    view.setVisibility(View.INVISIBLE);
+                    return true;
+                } else {
+                    return false;
+                }
             }
-        });
+        };
+
+        objeto.setOnTouchListener(ot);
     }
 
     class MyDragListener implements View.OnDragListener {
@@ -54,11 +64,15 @@ public class FondoRecompensa extends AppCompatActivity {
                     break;
                 case DragEvent.ACTION_DROP:
                     // Dropped, reassign View to ViewGroup
+                    Toast.makeText(FondoRecompensa.this, "X:"+ event.getX()+" e y:"+ event.getY(), Toast.LENGTH_LONG).show();
+
+
+
                     View view = (View) event.getLocalState();
-                    ViewGroup owner = (ViewGroup) view.getParent();
+                   /* ViewGroup owner = (ViewGroup) view.getParent();
                     owner.removeView(view);
                     LinearLayout container = (LinearLayout) v;
-                    container.addView(view);
+                    container.addView(view);*/
                     view.setVisibility(View.VISIBLE);
                     break;
                 case DragEvent.ACTION_DRAG_ENDED:
