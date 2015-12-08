@@ -89,7 +89,6 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         nameRuta = getIntent().getExtras().getString("nombreRuta");
         edad=getIntent().getExtras().getString("edad");
         sexo=getIntent().getExtras().getString("sexo");
-
         nombreReto=getIntent().getExtras().getString("nombreReto");
 
         con = new Conexion();
