@@ -16,8 +16,10 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.provider.MediaStore;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +54,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Seguimiento  extends Activity implements LocationListener, GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener {
     private GoogleMap googleMap;
@@ -68,7 +71,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     private String musica;
     TextView textoGuia;
     ArrayList<Circle> circulos = new ArrayList<>();
-    private Chronometer crono;
+    private CountDownTimer cuentaatras;
     private boolean cronoON;
     // Reference to the LocationManager and LocationListener
     private LocationManager mLocationManager;
@@ -89,6 +92,8 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     boolean cargado=false;
     Circle circulo;
     String locationProvider;
+    Chronometer crono;
+    android.support.v7.app.AlertDialog.Builder dialogo2;
 
     private ImageView parpadoder;
     private ImageView parpadoiz;
@@ -123,6 +128,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     protected void onPause() {
         super.onPause();
         this.mLocationManager.removeUpdates(this);
+
         //   mapView.onPause();
         //   media.stop();
     }
@@ -132,6 +138,39 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.seguimiento);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        cuentaatras=new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+                String time =String.format("%d min, %d sec",
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))
+                );
+                dialogo2.setMessage("Tiempo restante: " + time);
+
+
+
+            }
+
+
+            public void onFinish() {
+                finish();
+            }
+        };
+
+
+        dialogo2 = new android.support.v7.app.AlertDialog.Builder(Seguimiento.this);
+        dialogo2.setTitle("Pausa");
+
+        dialogo2.setCancelable(false);
+        dialogo2.setIcon(R.drawable.pausa);
+        dialogo2.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialogo1, int id) {
+                cuentaatras.cancel();
+            }
+        });
 
 
 
@@ -286,7 +325,10 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         googleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-                //puntoactual++;
+
+
+                cuentaatras.start();
+                dialogo2.show();
                 markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
                 Toast.makeText(getApplication(),String.valueOf(measure(latLng, ruta.getMiniPoints().get(puntoactual))) , Toast.LENGTH_SHORT).show();
 
