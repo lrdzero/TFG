@@ -89,7 +89,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         nombreReto=getIntent().getExtras().getString("nombreReto");
 
         con = new Conexion();
-        datosMochila = con.cargarMochila(nameUser,nameRecorrido,nameRuta);
+        datosMochila = con.cargarMochila(nameUser, nameRecorrido, nameRuta);
 
 
 
@@ -111,7 +111,9 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         }
         else{
             Uri nuevo = Uri.parse(datosPremio.get(1));
-            image.setImageDrawable(reduceImagen(nuevo,60,60));
+            image.setImageResource(R.drawable.pesas);
+            //image.setImageDrawable(reduceImagen(nuevo,60,60));
+            Toast.makeText(RecogerPremio.this, "x:" + Float.valueOf(datosPremio.get(5)) + "y:" + Float.valueOf(datosPremio.get(6)), Toast.LENGTH_LONG).show();
             image.setX(Float.valueOf(datosPremio.get(5)));
             image.setY(Float.valueOf(datosPremio.get(6)));
         }

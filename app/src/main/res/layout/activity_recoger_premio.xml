@@ -39,14 +39,14 @@
                         android:id="@+id/myLinear">
 
 
-                    <ImageView
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:id="@+id/imageView14"
-                        android:src="@drawable/premiodefecto"
-                        android:adjustViewBounds="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true" />
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:id="@+id/imageView14"
+                            android:src="@drawable/premiodefecto"
+                            android:adjustViewBounds="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_centerHorizontal="true" />
                     </RelativeLayout>
                 </HorizontalScrollView>
 
