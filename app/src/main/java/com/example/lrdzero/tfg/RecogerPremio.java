@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -92,7 +93,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         nombreReto=getIntent().getExtras().getString("nombreReto");
 
         con = new Conexion();
-        datosMochila = con.cargarMochila(nameUser,nameRecorrido,nameRuta);
+        datosMochila = con.cargarMochila(nameUser, nameRecorrido, nameRuta);
 
         datosPremio = con.cargarPremio(nombreReto);
 
@@ -101,17 +102,25 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
 
         //lt.setBackgroundDrawable(reduceImagen(fileUri,60,60));
 
-
+        lt.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    Toast.makeText(RecogerPremio.this,"x "+Float.valueOf(event.getX())+"y "+Float.valueOf(event.getY()),Toast.LENGTH_LONG).show();
+                }
+                return true;
+            }
+        });
         if(datosPremio.get(4).equals("1")) {
             image.setImageResource(Integer.valueOf(datosPremio.get(1)));
-            image.setX(Float.valueOf(datosPremio.get(5)));
-            image.setY(Float.valueOf(datosPremio.get(6)));
+            //image.setX(Float.valueOf(datosPremio.get(5)));
+            //image.setY(Float.valueOf(datosPremio.get(6)));
         }
         else{
             Uri nuevo = Uri.parse(datosPremio.get(1));
             image.setImageDrawable(reduceImagen(nuevo,60,60));
-            image.setX(Float.valueOf(datosPremio.get(5)));
-            image.setY(Float.valueOf(datosPremio.get(6)));
+            //image.setX(Float.valueOf(datosPremio.get(5)));
+            //image.setY(Float.valueOf(datosPremio.get(6)));
         }
         image.setOnClickListener(this);
         miMochila.setOnClickListener(this);

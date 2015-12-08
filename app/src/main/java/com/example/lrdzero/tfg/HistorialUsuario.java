@@ -34,7 +34,7 @@ public class HistorialUsuario extends Activity {
 
         createGroupList();
 
-        createCollection();
+        //createCollection();
 
         expListView = (ExpandableListView) findViewById(R.id.recorrido_list);
         final ExpandableRecorridosAdapter expListAdapter = new ExpandableRecorridosAdapter(
@@ -58,18 +58,21 @@ public class HistorialUsuario extends Activity {
     }
 
     private void createGroupList() {
+        laptopCollection = new LinkedHashMap<>();
         ArrayList<String>complen=con.cargarRecorridosParticipados(userName);
         groupList = new ArrayList<>();
+
         for(int i=0;i<complen.size();i++){
             groupList.add(complen.get(i));
             //createCollection();
         }
+
         for(int i=0;i<complen.size();i++) {
             ArrayList<String> rutas = con.cargarRutasParaRecorridosTotales(userName, complen.get(i));
             laptopCollection.put(complen.get(i), rutas);
             ArrayList<String> rutasCompletadas=con.cargarRutasParaRecorridosCompletados(userName,complen.get(i));
             for(int j=0;j<rutas.size();j++){
-               // Toast.makeText(HistorialUsuario.this,"Nombre ruta: "+rutas.get(j),Toast.LENGTH_LONG).show();
+                Toast.makeText(HistorialUsuario.this,"Nombre ruta: "+rutas.get(j),Toast.LENGTH_LONG).show();
             }
         }
         /*
