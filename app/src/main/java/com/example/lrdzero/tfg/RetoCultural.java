@@ -280,6 +280,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
+                            con.insertCompletado(creador,nombreReto);
                             startActivityForResult(premio, 1);
                         }
 

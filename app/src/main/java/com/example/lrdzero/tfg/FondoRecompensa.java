@@ -98,9 +98,10 @@ public class FondoRecompensa extends AppCompatActivity {
                     break;
                 case DragEvent.ACTION_DROP:
                     // Dropped, reassign View to ViewGroup
-                    //Toast.makeText(FondoRecompensa.this, "X:"+ event.getX()+" e y:"+ event.getY(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(FondoRecompensa.this, "X:"+ event.getX()+" e y:"+ event.getY(), Toast.LENGTH_LONG).show();
                     objeto.setX(event.getX());
                     objeto.setY(event.getY());
+                    Toast.makeText(FondoRecompensa.this, "X:"+ Float.toString(objeto.getX())+" e y:"+ Float.toString(objeto.getY()), Toast.LENGTH_LONG).show();
                     con.updateRecom(nombreRecompensa,nombreReto,objeto.getX(),objeto.getY());
 
 

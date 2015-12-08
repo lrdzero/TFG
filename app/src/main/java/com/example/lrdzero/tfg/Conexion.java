@@ -368,6 +368,41 @@ public class Conexion {
 
         return dt;
     }
+    public ValoresHistorial obtenerRetosValoresRutaRecorrido(String nombreUser,String nombreRecorrido,String nombreRuta){
+
+        ValoresHistorial nuevo=new ValoresHistorial();
+        try{
+            conectar();
+            out.writeUTF("obtenerRetosValoresRutaRecorrido");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(nombreUser);
+                out.writeUTF(nombreRecorrido);
+                out.writeUTF(nombreRuta);
+                int t=in.readInt();
+                int c=in.readInt();
+                nuevo=new ValoresHistorial(t,c);
+
+
+            }
+            cerrar();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return nuevo;
+    }
+    public void insertCompletado(String nombre, String nombreReto){
+        try{
+            conectar();
+            out.writeUTF("insertCompletado");
+            if(in.readUTF().equals("continua")) {
+                out.writeUTF(nombre);
+                out.writeUTF(nombreReto);
+            }
+            cerrar();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
     public ArrayList<DatosRyR> cargaDeRecorridos(int tipo,String usuario){
         ArrayList<DatosRyR> dt = new ArrayList<DatosRyR>();
         DatosRyR nm = new DatosRyR();

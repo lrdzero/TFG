@@ -60,20 +60,28 @@ public class HistorialUsuario extends Activity {
     private void createGroupList() {
         laptopCollection = new LinkedHashMap<>();
         ArrayList<String>complen=con.cargarRecorridosParticipados(userName);
+        ArrayList<ValoresHistorial> Totales_completados=new ArrayList<ValoresHistorial>();
         groupList = new ArrayList<>();
-
-        for(int i=0;i<complen.size();i++){
-            groupList.add(complen.get(i));
-            //createCollection();
-        }
-
-        for(int i=0;i<complen.size();i++) {
-            ArrayList<String> rutas = con.cargarRutasParaRecorridosTotales(userName, complen.get(i));
-            laptopCollection.put(complen.get(i), rutas);
-            ArrayList<String> rutasCompletadas=con.cargarRutasParaRecorridosCompletados(userName,complen.get(i));
-            for(int j=0;j<rutas.size();j++){
-                Toast.makeText(HistorialUsuario.this,"Nombre ruta: "+rutas.get(j),Toast.LENGTH_LONG).show();
+        if(!complen.isEmpty()) {
+            for (int i = 0; i < complen.size(); i++) {
+                 groupList.add(complen.get(i));
+                //createCollection();
             }
+
+             for (int i = 0; i < complen.size(); i++) {
+                ArrayList<String> rutas = con.cargarRutasParaRecorridosTotales(userName, complen.get(i));
+                laptopCollection.put(complen.get(i), rutas);
+                ArrayList<String> rutasCompletadas = con.cargarRutasParaRecorridosCompletados(userName, complen.get(i));
+                for (int j = 0; j < rutas.size(); j++) {
+                    Totales_completados.add(con.obtenerRetosValoresRutaRecorrido(userName, complen.get(i), rutas.get(j)));
+                 }
+            }
+            for (int i = 0; i < Totales_completados.size(); i++) {
+                Toast.makeText(HistorialUsuario.this, Integer.toString(i) + " Totales : " + Integer.toString(Totales_completados.get(i).getTotales()) + " Completados: " + Integer.toString(Totales_completados.get(i).getCompletados()) + " Porcentaje: " + Integer.toString(Totales_completados.get(i).getPorcentaje()) + "%", Toast.LENGTH_LONG).show();
+            }
+        }
+        else{
+            Toast.makeText(HistorialUsuario.this,"No has participado en ningún recorrido todavia.",Toast.LENGTH_LONG).show();
         }
         /*
         groupList.add("Recorrido1");

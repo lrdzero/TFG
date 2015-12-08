@@ -169,7 +169,7 @@ public class creador_recompensa extends AppCompatActivity {
 
     }
     public class PlaceList extends ArrayAdapter<Items> {
-        Items currentData;
+        //Items currentData;
         public PlaceList() {
             super(creador_recompensa.this, R.layout.activity_lista_horizontal_mochila, dt);
         }
@@ -232,7 +232,7 @@ public class creador_recompensa extends AppCompatActivity {
             return intenView;
         }
 
-        public String getNombre(){return currentData.getName();}
+       // public String getNombre(){return currentData.getName();}
 
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

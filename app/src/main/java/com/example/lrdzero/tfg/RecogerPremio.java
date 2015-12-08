@@ -98,30 +98,47 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         datosPremio = con.cargarPremio(nombreReto);
 
         fileUri = Uri.parse(datosPremio.get(2));
+        Drawable yourDrawable;
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(fileUri);
+            yourDrawable = Drawable.createFromStream(inputStream, fileUri.toString());
+        } catch (FileNotFoundException e) {
+            yourDrawable = getResources().getDrawable(R.drawable.plaza);
+        }
+
+        lt.setBackgroundDrawable(yourDrawable);
 
 
-        //lt.setBackgroundDrawable(reduceImagen(fileUri,60,60));
 
-        lt.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    Toast.makeText(RecogerPremio.this,"x "+Float.valueOf(event.getX())+"y "+Float.valueOf(event.getY()),Toast.LENGTH_LONG).show();
-                }
-                return true;
-            }
-        });
         if(datosPremio.get(4).equals("1")) {
             image.setImageResource(Integer.valueOf(datosPremio.get(1)));
-            //image.setX(Float.valueOf(datosPremio.get(5)));
-            //image.setY(Float.valueOf(datosPremio.get(6)));
+            float dato = Float.valueOf(datosPremio.get(5));
+            float dato2= Float.valueOf(datosPremio.get(6));
+            int x=(int)dato;
+            int y=(int)dato2;
+            image.setX(dato);
+            image.setY(dato2);
+
         }
         else{
             Uri nuevo = Uri.parse(datosPremio.get(1));
-            image.setImageDrawable(reduceImagen(nuevo,60,60));
+            image.setImageDrawable(reduceImagen(nuevo, 60, 60));
+            float dato = Float.valueOf(datosPremio.get(5));
+            float dato2= Float.valueOf(datosPremio.get(6));
+            int x=(int)dato;
+            int y=(int)dato2;
+            image.setX(dato);
+            image.setY(dato2);
+
             //image.setX(Float.valueOf(datosPremio.get(5)));
             //image.setY(Float.valueOf(datosPremio.get(6)));
         }
+        /*
+        RelativeLayout.LayoutParams layoutParams=new RelativeLayout.LayoutParams(60, 60);
+        layoutParams.setMargins(20, 20,0,0);
+
+        lt.addView(image, layoutParams);
+        */
         image.setOnClickListener(this);
         miMochila.setOnClickListener(this);
         volver.setOnClickListener(this);

@@ -25,6 +25,7 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
     private String sexo,edad;
     private int tipoReto;
     private long timeMillisecons;
+    private Conexion con;
     public void onResume(){
         super.onResume();
 
@@ -57,7 +58,7 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
         Toast.makeText(CronometroDeporte.this, tiempus,Toast.LENGTH_LONG).show();
         end.setEnabled(false);
         end.setVisibility(View.INVISIBLE);
-
+        con = new Conexion();
         crono.setBase(SystemClock.elapsedRealtime());
 
         crono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
@@ -103,6 +104,7 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
                 premio.putExtra("edad",edad);
                 premio.putExtra("sexo",sexo);
                 premio.putExtra("tipoReto",tipoReto);
+                con.insertCompletado(nameUser, nombreReto);
                 startActivityForResult(premio, 1);
 
                 break;

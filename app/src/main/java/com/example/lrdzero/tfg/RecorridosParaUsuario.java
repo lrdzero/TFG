@@ -359,7 +359,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
                         mp.putExtra("nombreReto" + i, retosRuta.get(i).getName());
                         mp.putExtra("position" + i, retosRuta.get(i).getPosition());
                     }
-                    if(tramos.size()!=0||retosRuta.size()!=0) {
+                    if(tramos.size()!=0&&retosRuta.size()!=0) {
                         con.insertRecorren(creador,txt1.getText().toString());
                         startActivity(mp);
                     }
