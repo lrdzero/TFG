@@ -66,9 +66,10 @@ public class HistorialUsuario extends Activity {
         }
         for(int i=0;i<complen.size();i++) {
             ArrayList<String> rutas = con.cargarRutasParaRecorridosTotales(userName, complen.get(i));
+            laptopCollection.put(complen.get(i), rutas);
             ArrayList<String> rutasCompletadas=con.cargarRutasParaRecorridosCompletados(userName,complen.get(i));
             for(int j=0;j<rutas.size();j++){
-                Toast.makeText(HistorialUsuario.this,"Nombre ruta: "+rutas.get(j),Toast.LENGTH_LONG).show();
+               // Toast.makeText(HistorialUsuario.this,"Nombre ruta: "+rutas.get(j),Toast.LENGTH_LONG).show();
             }
         }
         /*

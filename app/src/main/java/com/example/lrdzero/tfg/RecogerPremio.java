@@ -73,6 +73,12 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         Button volver = (Button) findViewById(R.id.volverMapa);
         image = (ImageView) findViewById(R.id.imageView14);
         lt =(RelativeLayout)findViewById(R.id.myLinear);
+        lt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         miMochila =(ImageView) findViewById(R.id.mochilaDePremios);
 
         tipoReto=getIntent().getExtras().getInt("tipoReto");
