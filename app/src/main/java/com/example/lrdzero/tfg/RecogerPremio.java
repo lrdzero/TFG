@@ -91,9 +91,6 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
 
 
 
-
-        //Toast.makeText()
-
         datosPremio = con.cargarPremio(nombreReto);
 
         fileUri = Uri.parse(datosPremio.get(2));
