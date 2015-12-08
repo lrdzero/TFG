@@ -153,6 +153,7 @@ public class Finalruta extends AppCompatActivity {
                     elementosMochila.add(n);
                 }
             }
+            con.updateRecorren(creador,nombreRuta);
             con.borrarMochila(creador,nombreRecorrido,nombreRuta);
         }
 

@@ -222,6 +222,8 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                 for(int i=0;i<construyeRespuesta.size();i++){
                     comparador+=construyeRespuesta.get(i);
                 }
+                Toast.makeText(RetoCultural.this,"La respuesta "+respuestaCorrecta,Toast.LENGTH_LONG).show();
+                Toast.makeText(RetoCultural.this,"Tu respuesta es "+comparador,Toast.LENGTH_LONG).show();
 
                         //Toast.makeText(RetoCultural.this, "La respuesta es " + respuestaCorrecta, Toast.LENGTH_LONG).show();
                        // Toast.makeText(RetoCultural.this, "Tu respuesta ha sido " + comparador, Toast.LENGTH_LONG).show();
@@ -278,7 +280,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            startActivityForResult(premio, 1);
+                            //startActivityForResult(premio, 1);
                         }
 
                         @Override
@@ -313,6 +315,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                     resp4.setEnabled(true);
                     resp4.setChecked(false);
                     //construyeRespuesta="";
+
                 break;
         }
 

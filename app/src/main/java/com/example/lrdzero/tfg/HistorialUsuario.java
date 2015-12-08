@@ -18,7 +18,8 @@ import java.util.Map;
 
 
 public class HistorialUsuario extends Activity {
-
+    private Conexion con;
+    private String userName;
     List<String> groupList;
     List<String> childList;
     Map<String, List<String>> laptopCollection;
@@ -28,6 +29,8 @@ public class HistorialUsuario extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historial_usuario);
+        con =new Conexion();
+        userName=getIntent().getExtras().getString("userName");
 
         createGroupList();
 
@@ -55,13 +58,27 @@ public class HistorialUsuario extends Activity {
     }
 
     private void createGroupList() {
+        ArrayList<String>complen=con.cargarRecorridosParticipados(userName);
         groupList = new ArrayList<>();
+        for(int i=0;i<complen.size();i++){
+            groupList.add(complen.get(i));
+            //createCollection();
+        }
+        for(int i=0;i<complen.size();i++) {
+            ArrayList<String> rutas = con.cargarRutasParaRecorridosTotales(userName, complen.get(i));
+            ArrayList<String> rutasCompletadas=con.cargarRutasParaRecorridosCompletados(userName,complen.get(i));
+            for(int j=0;j<rutas.size();j++){
+                Toast.makeText(HistorialUsuario.this,"Nombre ruta: "+rutas.get(j),Toast.LENGTH_LONG).show();
+            }
+        }
+        /*
         groupList.add("Recorrido1");
         groupList.add("Recorrido2");
         groupList.add("Recorrido3");
         groupList.add("Recorrido4");
         groupList.add("Recorrido5");
         groupList.add("Recorrido6");
+        */
     }
 
     private void createCollection() {

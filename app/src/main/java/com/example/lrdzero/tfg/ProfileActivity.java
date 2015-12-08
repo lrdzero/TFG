@@ -355,6 +355,7 @@ public class ProfileActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), HistorialUsuario.class);
+                i.putExtra("userName",Name);
                 Log.i("est","intent craedo");
                 startActivity(i);
 

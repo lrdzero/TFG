@@ -106,8 +106,8 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         mapView.onResume();
         mLocationClient.connect();
         this.mLocationManager.requestLocationUpdates(this.locationProvider, 400, 1, this);
-//        media.setLooping(true);
-        //    media.start();
+         media.setLooping(true);
+        media.start();
     }
 
     @Override
@@ -115,9 +115,8 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         super.onDestroy();
         mapView.onDestroy();
         this.mLocationManager.removeUpdates(this);
-
-        //    media.setLooping(false);
-        //    media.stop();
+        media.setLooping(false);
+        media.stop();
     }
 
     @Override
@@ -189,26 +188,25 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
             }
         });
+        con = new Conexion();
         //musica=getIntent().getExtras().getString("musica");
-        /*musica=con.obtenerMusicaUsuario(creador);
+        musica=con.obtenerMusicaUsuario(creador);
         if(musica.matches("")){
             media= MediaPlayer.create(this,R.raw.frog);
         }
        else{
 
-            File f = new File(musica);
-            if(f.exists()==true){
+
+
                 Uri uri = Uri.parse(musica);
                 media=MediaPlayer.create(this,uri);
-            }
-            else{
-                media= MediaPlayer.create(this,R.raw.frog);
-            }
 
-        }*/
+
+
+        }
 
         adaptacion(sexo, edad);
-        con = new Conexion();
+
         googleMap = mapView.getMap();
         googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         googleMap.setMyLocationEnabled(false);
@@ -257,8 +255,8 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         sig.setVisibility(View.INVISIBLE);
         sig.setAdjustViewBounds(true);
 
-        // media.setLooping(true);
-        // media.start();
+        media.setLooping(true);
+        media.start();
 
 
         PtosRecorridos=ruta.getMiniPoints();

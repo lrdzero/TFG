@@ -401,6 +401,103 @@ public class Conexion {
         }
         return dt;
     }
+    public  ArrayList<String> cargarRutasParaRecorridosCompletados(String username,String nombreReco){
+        ArrayList<String> respuesta = new ArrayList<String>();
+        try{
+            conectar();
+            out.writeUTF("cargarRutasParaRecorridosCompletados");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(username);
+                out.writeUTF(nombreReco);
+                try{
+                    object = objectInput.readObject();
+                    respuesta= (ArrayList<String>) object;
+
+                } catch (ClassNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+            cerrar();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return respuesta;
+    }
+    public  ArrayList<String> cargarRutasParaRecorridosTotales(String username,String nombreReco){
+        ArrayList<String> respuesta = new ArrayList<String>();
+        try{
+            conectar();
+            out.writeUTF("cargarRutasParaRecorridosTotales");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(username);
+                out.writeUTF(nombreReco);
+                try{
+                    object = objectInput.readObject();
+                    respuesta= (ArrayList<String>) object;
+
+                } catch (ClassNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+            cerrar();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return respuesta;
+    }
+    public void updateRecorren(String nombreUser,String nombreRuta){
+        try{
+            conectar();
+            out.writeUTF("updateRecorren");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(nombreUser);
+                out.writeUTF(nombreRuta);
+            }
+            cerrar();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    public int insertRecorren(String nombre, String nombreRuta){
+        int i=-1;
+        try{
+            conectar();
+            out.writeUTF("insertRecorren");
+            if(in.readUTF().equals("correcto")){
+                out.writeUTF(nombre);
+                out.writeUTF(nombreRuta);
+                i=in.readInt();
+            }
+            cerrar();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        return i;
+    }
+     public ArrayList<String> cargarRecorridosParticipados(String nombreUsuario){
+        ArrayList<String> respuesta=new ArrayList<String>();
+        try{
+            conectar();
+            out.writeUTF("cargarRecorridosCompletados");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(nombreUsuario);
+                try{
+                    object = objectInput.readObject();
+                    respuesta= (ArrayList<String>) object;
+
+                } catch (ClassNotFoundException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+            cerrar();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return respuesta;
+    }
     public ArrayList<String> cargarPremio(String nombreReto){
         ArrayList<String> respuesta=new ArrayList<String>();
         try{

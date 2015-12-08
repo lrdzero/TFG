@@ -296,7 +296,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         private String nameRoute;
         public PlaceList2(String name){
 
-            super(RecorridosParaUsuario.this,R.layout.activity_listas_con_imagen,dt);
+            super(RecorridosParaUsuario.this, R.layout.activity_listas_con_imagen, dt);
             nameRoute=name;
         }
 
@@ -359,7 +359,13 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
                         mp.putExtra("nombreReto" + i, retosRuta.get(i).getName());
                         mp.putExtra("position" + i, retosRuta.get(i).getPosition());
                     }
-                    startActivity(mp);
+                    if(tramos.size()!=0||retosRuta.size()!=0) {
+                        con.insertRecorren(creador,txt1.getText().toString());
+                        startActivity(mp);
+                    }
+                    else{
+                        Toast.makeText(RecorridosParaUsuario.this,"La ruta no esta disponible aún.",Toast.LENGTH_LONG).show();
+                    }
                 }
             });
 

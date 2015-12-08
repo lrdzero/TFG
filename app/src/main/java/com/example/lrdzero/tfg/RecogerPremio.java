@@ -11,14 +11,12 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -74,8 +72,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         final View v= new View(getApplicationContext());
         Button volver = (Button) findViewById(R.id.volverMapa);
         image = (ImageView) findViewById(R.id.imageView14);
-        lt =(RelativeLayout)findViewById(R.id.myLinear);
-
+        //lt =(RelativeLayout)findViewById(R.id.myLinear);
         miMochila =(ImageView) findViewById(R.id.mochilaDePremios);
 
         tipoReto=getIntent().getExtras().getInt("tipoReto");
@@ -90,7 +87,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         nombreReto=getIntent().getExtras().getString("nombreReto");
 
         con = new Conexion();
-        datosMochila = con.cargarMochila(nameUser, nameRecorrido, nameRuta);
+        datosMochila = con.cargarMochila(nameUser,nameRecorrido,nameRuta);
 
 
 
@@ -100,9 +97,9 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         datosPremio = con.cargarPremio(nombreReto);
 
         fileUri = Uri.parse(datosPremio.get(2));
-        lt.setBackgroundResource(R.drawable.plaza);
 
-        //lt.setBackgroundDrawable(reduceImagen(fileUri,60,60));
+
+        lt.setBackgroundDrawable(reduceImagen(fileUri,60,60));
 
 
         if(datosPremio.get(4).equals("1")) {
@@ -112,17 +109,10 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         }
         else{
             Uri nuevo = Uri.parse(datosPremio.get(1));
-            image.setImageResource(R.drawable.pesas);
-            //image.setImageDrawable(reduceImagen(nuevo,60,60));
-
-            Toast.makeText(RecogerPremio.this, "x:" + Float.valueOf(datosPremio.get(5)) + "y:" + Float.valueOf(datosPremio.get(6)), Toast.LENGTH_LONG).show();
+            image.setImageDrawable(reduceImagen(nuevo,60,60));
             image.setX(Float.valueOf(datosPremio.get(5)));
             image.setY(Float.valueOf(datosPremio.get(6)));
         }
-        Log.i("tag2", String.valueOf(Float.valueOf(datosPremio.get(5))));
-        Log.i("tag2", String.valueOf(Float.valueOf(datosPremio.get(6))));
-        image.setImageResource(R.drawable.pesas);
-        image.bringToFront();
         image.setOnClickListener(this);
         miMochila.setOnClickListener(this);
         volver.setOnClickListener(this);
@@ -229,7 +219,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
             else{
                 unUri = Uri.parse(currentData.getSeconFoto());
 
-                img.setImageDrawable(reduceImagen(unUri, 80, 80));
+                img.setImageDrawable(reduceImagen(unUri,80,80));
 
 
 
@@ -282,7 +272,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         dialogo2.setCancelable(false);
         dialogo2.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogo1, int id) {
-                //dialogo2.setCancelable(false);
+                            //dialogo2.setCancelable(false);
             }
         });
 
@@ -307,7 +297,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         }).setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                builder.setCancelable(false);
+                        builder.setCancelable(false);
             }
         });
 
