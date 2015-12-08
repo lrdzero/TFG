@@ -11,6 +11,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -113,10 +114,15 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
             Uri nuevo = Uri.parse(datosPremio.get(1));
             image.setImageResource(R.drawable.pesas);
             //image.setImageDrawable(reduceImagen(nuevo,60,60));
+
             Toast.makeText(RecogerPremio.this, "x:" + Float.valueOf(datosPremio.get(5)) + "y:" + Float.valueOf(datosPremio.get(6)), Toast.LENGTH_LONG).show();
             image.setX(Float.valueOf(datosPremio.get(5)));
             image.setY(Float.valueOf(datosPremio.get(6)));
         }
+        Log.i("tag2", String.valueOf(Float.valueOf(datosPremio.get(5))));
+        Log.i("tag2", String.valueOf(Float.valueOf(datosPremio.get(6))));
+        image.setImageResource(R.drawable.pesas);
+        image.bringToFront();
         image.setOnClickListener(this);
         miMochila.setOnClickListener(this);
         volver.setOnClickListener(this);
