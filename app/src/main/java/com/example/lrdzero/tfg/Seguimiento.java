@@ -149,6 +149,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
                                 TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))
                 );
                 dialogo2.setMessage("Tiempo restante: " + time);
+                dialogo2.show();
 
 
 
@@ -328,8 +329,9 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
 
                 cuentaatras.start();
-                dialogo2.show();
-                markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
+
+
+                //markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
                 Toast.makeText(getApplication(),String.valueOf(measure(latLng, ruta.getMiniPoints().get(puntoactual))) , Toast.LENGTH_SHORT).show();
 
             }
