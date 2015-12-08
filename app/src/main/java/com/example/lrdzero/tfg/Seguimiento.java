@@ -102,6 +102,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     private ImageView cuerpo;
     private ImageView boca;
     private ImageView ojos;
+    private Intent miService;
 
     //ArrayList<Array> ArrayTramos = new ArrayList<>();
 
@@ -110,6 +111,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         super.onResume();
         mapView.onResume();
         mLocationClient.connect();
+        stopService(miService);
         this.mLocationManager.requestLocationUpdates(this.locationProvider, 400, 1, this);
          media.setLooping(true);
         media.start();
@@ -119,6 +121,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     protected void onDestroy() {
         super.onDestroy();
         mapView.onDestroy();
+        stopService(miService);
         this.mLocationManager.removeUpdates(this);
         media.setLooping(false);
         media.stop();
@@ -128,6 +131,12 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     protected void onPause() {
         super.onPause();
         this.mLocationManager.removeUpdates(this);
+        startService(miService);
+
+
+
+
+
 
         //   mapView.onPause();
         //   media.stop();
@@ -210,6 +219,8 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
         alerta = MediaPlayer.create(this,R.raw.alert);
         salidaRuta= MediaPlayer.create(this,R.raw.metronomo);
+        GPSAlarmService.setUpdateListener(this);
+        miService=new Intent(Seguimiento.this,GPSAlarmService.class);
         cronoON=false;
         crono=(Chronometer) findViewById(R.id.chronometer3);
         crono.setVisibility(View.INVISIBLE);
@@ -299,7 +310,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         media.start();
 
 
-        PtosRecorridos=ruta.getMiniPoints();
+        PtosRecorridos= (ArrayList<LatLng>) ruta.getMiniPoints().clone();
 
 
         this.mLocationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
@@ -409,11 +420,11 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             textoGuia.setText("quedan " + PtosRecorridos.size() + " puntos");
 
 
-            if (circulos.size() > 0) {
-                circulos.get(0).setCenter(circulos.get(circulos.size() - 1).getCenter());
-                circulos.remove(0);
 
-            }
+            circulos.get(0).setCenter(circulos.get(circulos.size() - 1).getCenter());
+            circulos.remove(0);
+
+
 
 
             int index;
@@ -767,6 +778,10 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             }
 
         }
+    }
+    public void finalizar(){
+        Toast.makeText(Seguimiento.this,"Entro en finalizar",Toast.LENGTH_LONG).show();
+        finish();
     }
 }
 

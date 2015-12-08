@@ -1,42 +1,77 @@
 package com.example.lrdzero.tfg;
 
-
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.Toast;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class GPSAlarmService extends Service {
-    private Uri nm =null;
-    private int vol;
-    //Alarm alarm = new Alarm();
+
+
     MiServicioLocation local;
+    CountDownTimer cuentaatras;
+    private static Intent Contex;
+    private boolean finalizado=false;
+    private static Seguimiento notificador;
+
+
     public void onCreate()
     {
         super.onCreate();
+        Toast.makeText(GPSAlarmService.this,"Entro en el servicion y esta activo",Toast.LENGTH_LONG).show();
+        cuentaatras=new CountDownTimer(30000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+                String time =String.format("%d min, %d sec",
+                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished),
+                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))
+                );
+
+
+
+
+            }
+
+
+            public void onFinish() {
+                notificador.finalizar();
+                //onDestroy();
+            }
+        };
+        cuentaatras.start();
+
+
+
+
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId)
+
+    public void onStart(Intent intent, int flags, int startId)
     {
-        //local=new MiServicioLocation(GPSAlarmService.this,0.0,0.0);
-        //local.setLocal();
-        //alarm.SetAlarm(GPSAlarmService.this,0,startId,nm);
-        return START_STICKY;
+
+
+       
     }
+    public boolean finalizado(){
+        return finalizado;
+    }
+    public static void setUpdateListener(Seguimiento poiService) {
+        notificador =poiService;
+    }
+    public void onDestroy(){
+        super.onDestroy();
+        cuentaatras.cancel();
+        Toast.makeText(GPSAlarmService.this,"Final del servicio",Toast.LENGTH_LONG).show();
 
-
-
-    public void onStart(Context context,double pos1, double pos2)
-    {
-        //local=new MiServicioLocation(GPSAlarmService.this,pos1,pos2);
-        //alarm.setSound(selcet);
-        //alarm.setVol(volumen);
-        //alarm.SetAlarm(context,startId,volumen,selcet);
-        //local.setLocal();
     }
 
     @Override
