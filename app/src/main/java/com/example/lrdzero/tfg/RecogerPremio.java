@@ -94,8 +94,6 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         con = new Conexion();
         datosMochila = con.cargarMochila(nameUser,nameRecorrido,nameRuta);
 
-
-
         datosPremio = con.cargarPremio(nombreReto);
 
         fileUri = Uri.parse(datosPremio.get(2));
