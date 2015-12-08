@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="@drawable/pared">
+    >
 
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+      >
 
         <ImageView
             android:layout_weight="1"
@@ -19,12 +20,14 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:gravity="bottom"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="R"
+            android:background="@color/ripple_material_dark"
             android:id="@+id/nomreto"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_gravity="center|top" />
 
         <SeekBar
             android:layout_marginTop="10dp"

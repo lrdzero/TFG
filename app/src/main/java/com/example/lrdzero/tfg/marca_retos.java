@@ -129,23 +129,27 @@ public class marca_retos extends Activity implements GooglePlayServicesClient.Co
                                                  ruta.setTramos(tramosOF);
                                                  int tamanioRetos = getIntent().getExtras().getInt("tamanioRetos");
 
+
                                                  for(int i=0;i<tamanioRetos;i++){
                                                      String nombre =getIntent().getExtras().getString("nombreReto" + i);
                                                      int position = getIntent().getExtras().getInt("position"+i);
                                                      Log.i("Prueba", Integer.toString(position));
-                                                     Reto nuevo = new Reto(nombre,googleMap.addMarker(new MarkerOptions().position(ruta.getPoints().get(position)).title("prueba")),position);
+                                                     Reto nuevo = new Reto(nombre,googleMap.addMarker(new MarkerOptions().position(ruta.getMiniPoints().get(position)).title(nombre)),position);
                                                      //nuevo.setPunto(position);
                                                      //nuevo.setNombre(nombre);
                                                      retosRuta.add(nuevo);
                                                      ruta.addReto(nuevo);
                                                      //retosRuta.add(nuevo);
                                                  }
+
                                                  ra = new RetosAdapter(getApplicationContext(), ruta);
-                                                 listretos.setAdapter(ra);
-                                                 listretos.setFooterDividersEnabled(true);
                                                  for(int i=0;i<retosRuta.size();i++){
                                                      ra.addReto(retosRuta.get(i));
                                                  }
+                                                 Toast.makeText(marca_retos.this, "Tamanio" + Integer.toString(ra.getCount()), Toast.LENGTH_LONG).show();
+                                                 listretos.setAdapter(ra);
+                                                 listretos.setFooterDividersEnabled(true);
+
                                                  new  RefreshTramos().execute();
 
                                              }
