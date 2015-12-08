@@ -72,7 +72,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         final View v= new View(getApplicationContext());
         Button volver = (Button) findViewById(R.id.volverMapa);
         image = (ImageView) findViewById(R.id.imageView14);
-        //lt =(RelativeLayout)findViewById(R.id.myLinear);
+        lt =(RelativeLayout)findViewById(R.id.myLinear);
         miMochila =(ImageView) findViewById(R.id.mochilaDePremios);
 
         tipoReto=getIntent().getExtras().getInt("tipoReto");
@@ -96,7 +96,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         fileUri = Uri.parse(datosPremio.get(2));
 
 
-        lt.setBackgroundDrawable(reduceImagen(fileUri,60,60));
+        //lt.setBackgroundDrawable(reduceImagen(fileUri,60,60));
 
 
         if(datosPremio.get(4).equals("1")) {
@@ -210,7 +210,7 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
 
             currentData = dt.get(position);
             if(currentData.getImage()!=0) {
-                Toast.makeText(RecogerPremio.this,"solo esto",Toast.LENGTH_LONG).show();
+                //Toast.makeText(RecogerPremio.this,"solo esto",Toast.LENGTH_LONG).show();
                 img.setImageResource(currentData.getImage());
             }
             else{
