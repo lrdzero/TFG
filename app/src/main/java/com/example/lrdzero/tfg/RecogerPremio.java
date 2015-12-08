@@ -99,9 +99,9 @@ public class RecogerPremio extends Activity implements View.OnClickListener{
         datosPremio = con.cargarPremio(nombreReto);
 
         fileUri = Uri.parse(datosPremio.get(2));
+        lt.setBackgroundResource(R.drawable.plaza);
 
-
-        lt.setBackgroundDrawable(reduceImagen(fileUri,60,60));
+        //lt.setBackgroundDrawable(reduceImagen(fileUri,60,60));
 
 
         if(datosPremio.get(4).equals("1")) {
