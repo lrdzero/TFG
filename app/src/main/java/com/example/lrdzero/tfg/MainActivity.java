@@ -111,8 +111,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.botonRegistro:
                 Intent nueva = new Intent(MainActivity.this,Finalruta.class);
                 nueva.putExtra("creador","l");
-                nueva.putExtra("nombreRecorrido","esquina");
-                nueva.putExtra("nombreRuta","rutac");
+                nueva.putExtra("nombreRecorrido","gdghc");
+                nueva.putExtra("nombreRuta","tfffff");
                 startActivity(nueva);
                 break;
 

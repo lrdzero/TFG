@@ -29,7 +29,7 @@ public class Registro extends Activity implements View.OnClickListener{
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitNetwork().build());
         nombre=(EditText)findViewById(R.id.nombre);
         usuario=(EditText)findViewById(R.id.usuario);
-        contrasenia=(EditText)findViewById(R.id.contraseña);
+        contrasenia=(EditText)findViewById(R.id.contrasenia);
         repcontra=(EditText)findViewById(R.id.repetirContr);
         correo=(EditText)findViewById(R.id.textoCorreo);
         edad=(EditText)findViewById(R.id.edad);

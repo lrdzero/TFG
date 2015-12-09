@@ -1,11 +1,13 @@
 package com.example.lrdzero.tfg;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
@@ -29,6 +31,8 @@ public class Finalruta extends AppCompatActivity {
     private ArrayList<Items> elementosMochila=new ArrayList<Items>();
     private String creador,nombreRecorrido,nombreRuta;
     private int totalRetos,porcentaje;
+    private ArrayList<Items> items;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +45,10 @@ public class Finalruta extends AppCompatActivity {
         final ImageView flecha = (ImageView) findViewById(R.id.siguiente);
         flecha.setVisibility(View.INVISIBLE);
         final ImageView boca = (ImageView) findViewById(R.id.bocaverde);
-        final ArrayList<Integer> recomps= new ArrayList<>();
+        final ImageView ojos = (ImageView) findViewById(R.id.ojos);
+        items=new ArrayList<>();
+
+
         creador=getIntent().getExtras().getString("creador");
         nombreRecorrido=getIntent().getExtras().getString("nombreRecorrido");
         nombreRuta=getIntent().getExtras().getString("nombreRuta");
@@ -53,8 +60,7 @@ public class Finalruta extends AppCompatActivity {
         if(elementosMochila.size()!=0){
             porcentaje=(elementosMochila.size()*100)/totalRetos;
         }
-        recomps.add(R.drawable.pesas);
-        recomps.add(R.drawable.zapatillas);
+
 
 
         //recomps.add(new Items());
@@ -65,7 +71,8 @@ public class Finalruta extends AppCompatActivity {
         af.setFillEnabled(true);
         af.setFillAfter(true);
 
-        Animation ocultar = AnimationUtils.loadAnimation(this,R.anim.abc_fade_out);
+
+        final Animation ocultar = AnimationUtils.loadAnimation(this,R.anim.abc_fade_out);
         ocultar.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -90,13 +97,73 @@ public class Finalruta extends AppCompatActivity {
         af.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                flecha.getAnimation().cancel();
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                Animation saltito = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.animloco);
 
 
+                Animation crazy = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.animloco);
+                RelativeLayout todo =(RelativeLayout)findViewById(R.id.todo);
+                todo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i= new Intent(Finalruta.this,HistorialUsuario.class);
+                        i.putExtra("userName",creador);
+
+                        startActivity(i);
+                    }
+                });
+                iv.setVisibility(View.VISIBLE);
+                iv.setImageResource(R.drawable.brujula);
+
+                items.add(new Items("pepe", R.drawable.pesas, "", "petada"));
+                items.add(new Items("pepe2", R.drawable.barba, "", "..."));
+                items.add(new Items("pepeee", R.drawable.brazoder_n, "", "aymama"));
+                ocultar.cancel();
+                ocultar.reset();
+                ocultar.setDuration(2000);
+                ocultar.setRepeatCount(Animation.INFINITE);
+                ocultar.setRepeatMode(Animation.REVERSE);
+                ocultar.setAnimationListener(new Animation.AnimationListener() {
+
+                    double i = 0;
+
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        Log.i("repeat", String.valueOf(i));
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                        int indice = (int) (i % items.size());
+                        if (items.get(indice).getImage() != 0) {
+                            iv.setImageResource(items.get(indice).getImage());
+                            // tv.setText(items.get(indice).getDescripcionRecompensa());
+
+                        } else {
+                            Uri n = Uri.parse(items.get(indice).getSeconFoto());
+                            iv.setImageURI(n);
+                            //  tv.setText(items.get(indice).getDescripcionRecompensa());
+                        }
+                        i+=0.5;
+
+
+                    }
+                });
+                iv.startAnimation(ocultar);
+                saltito.setDuration(1000);
+               // iv.startAnimation(saltito);
+
+
+                //ojos.startAnimation(crazy);
 
             }
 
@@ -161,6 +228,9 @@ public class Finalruta extends AppCompatActivity {
                     elementosMochila.add(n);
                 }
             }
+            items= (ArrayList<Items>) elementosMochila.clone();
+
+
             con.updateRecorren(creador,nombreRuta);
             con.borrarMochila(creador,nombreRecorrido,nombreRuta);
         }

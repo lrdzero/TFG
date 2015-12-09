@@ -63,7 +63,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/contraseña"
+                android:id="@+id/contrasenia"
 
                 android:layout_gravity="center_horizontal"
                 android:password="true" />
