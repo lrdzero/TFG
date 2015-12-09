@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import java.io.File;
 import java.util.ArrayList;
 
 
@@ -38,6 +36,10 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         User = (ImageView) findViewById(R.id.imageView);
         cultura=(Button) findViewById(R.id.buttonCulture);
         ejercicio=(Button) findViewById(R.id.buttonEjercicio);
+        ejercicio.setVisibility(View.INVISIBLE);
+        ejercicio.setEnabled(false);
+        //cultura.setVisibility(View.INVISIBLE);
+        //cultura.setEnabled(false);
         Rc1 = (ImageView) findViewById(R.id.imageView2);
         Rc2 = (ImageView) findViewById(R.id.imageView3);
         con =new Conexion();

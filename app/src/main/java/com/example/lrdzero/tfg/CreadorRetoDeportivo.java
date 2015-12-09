@@ -372,6 +372,7 @@ public class CreadorRetoDeportivo extends Activity {
                     double numero = Math.random() * 5000;
                     int n2= (int) numero;
                     n.putExtra("nombrefile", Integer.toString(n2));
+                    seleccionado=true;
                     startActivityForResult(n,POSICIONADO);
                    // mostrarElecciones(nombre.getText().toString(), descRecom.getText().toString()).show();
                 }
