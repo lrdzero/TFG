@@ -4,9 +4,11 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -54,7 +56,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
     private String nombreABuscar,creador;
     private int tipo;
     private String sexo,edad;
-
+    private MediaPlayer error;
     private ImageView parpadoder;
     private ImageView parpadoiz;
     private ImageView brazoDer;
@@ -90,6 +92,14 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         cuerpo =(ImageView) findViewById(R.id.cabeza);
         boca = (ImageView)findViewById(R.id.bocaverde);
         ojos = (ImageView)findViewById(R.id.ojos);
+        tipo=getIntent().getExtras().getInt("tipo");
+        error=MediaPlayer.create(this,R.raw.alert);
+        if(tipo==0){
+            brazoDer.setVisibility(View.INVISIBLE);
+            brazoIz.setVisibility(View.INVISIBLE);
+            parpadoder.setVisibility(View.INVISIBLE);
+            parpadoiz.setVisibility(View.INVISIBLE);
+        }
 
 
        // sig.setEnabled(false);
@@ -100,7 +110,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         textoGuia.setText(TITULO4);
         recorr =true;
         con = new  Conexion();
-        tipo=getIntent().getExtras().getInt("tipo");
+
         sexo=getIntent().getExtras().getString("sexo");
         edad=getIntent().getExtras().getString("edad");
         creador=getIntent().getExtras().getString("creador");
@@ -364,6 +374,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
                         startActivity(mp);
                     }
                     else{
+                        error.start();
                         Toast.makeText(RecorridosParaUsuario.this,"La ruta no esta disponible aún.",Toast.LENGTH_LONG).show();
                     }
                 }
@@ -454,8 +465,23 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         overridePendingTransition(R.anim.animstart, R.anim.animend);
     }
     private void adaptacion(String sexo,String edad){
+        if(tipo==0) {
+            ImageView cuerpo=(ImageView) findViewById(R.id.cabeza);
+            ImageView boca_roja=(ImageView) findViewById(R.id.bocaroja);
+            ImageView pitorro=(ImageView) findViewById(R.id.pitorro);
+            ImageView dientes=(ImageView) findViewById(R.id.dientes);
 
-        if(sexo.equals("H")){
+            boca.setImageResource(R.drawable.labio_superior);
+            cuerpo.setImageResource(R.drawable.cuerpo_leon);
+            ojos.setImageResource(R.drawable.ojos_leon);
+            boca_roja.setImageResource(R.drawable.labio_inferior);
+            pitorro.setImageResource(R.drawable.pitorro);
+            dientes.setImageResource(R.drawable.dientes);
+
+
+
+        }
+        else if(sexo.equals("H")){
             if(Integer.valueOf((edad))<18){
                 boca.setImageResource(R.drawable.boca_n);
                 ojos.setImageResource(R.drawable.ojos);

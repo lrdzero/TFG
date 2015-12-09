@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -52,6 +54,8 @@ public class RetoCultural extends Activity implements View.OnClickListener {
     private ImageView cuerpo;
     private ImageView boca;
     private ImageView ojos;
+    private Chronometer crono;
+    private long timeMillisecons=60000;
     Animation anim;
 
     private static int selected =0 ;
@@ -94,6 +98,19 @@ public class RetoCultural extends Activity implements View.OnClickListener {
         resp4 = (CheckBox) findViewById(R.id.responseD);
         pregunta =(TextView) findViewById(R.id.pregunta);
         respuesta = (Button) findViewById(R.id.buttonResponse);
+        crono = new Chronometer(this);
+
+        crono.setBase(SystemClock.elapsedRealtime());
+        crono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
+            @Override
+            public void onChronometerTick(Chronometer chronometer) {
+                long myElapsedMillis = SystemClock.elapsedRealtime() - crono.getBase();
+                if(myElapsedMillis>=timeMillisecons){
+                    mp.stop();
+                    finish();
+                }
+            }
+        });
         nombreRecorrido=getIntent().getExtras().getString("nombreRecorrido");
         nombreRuta=getIntent().getExtras().getString("nombreRuta");
         creador=getIntent().getExtras().getString("nombreUser");
@@ -120,6 +137,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
         respuesta.setOnClickListener(this);
         mp.setLooping(true);
         mp.start();
+        crono.start();
 
 
     }
@@ -295,6 +313,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                 else{
                     error=MediaPlayer.create(this,R.raw.alert);
                     error.start();
+
                     parpadoizq.startAnimation(pizq);
                     parpadoder.startAnimation(pder);
 
@@ -302,6 +321,7 @@ public class RetoCultural extends Activity implements View.OnClickListener {
                     //Toast.makeText(RetoCultural.this,"Respuesta Incorrecta",Toast.LENGTH_LONG).show();
                     resultado.setImageResource(R.drawable.fallo);
                     resultado.startAnimation(anim);
+                    finish();
 
                 }
 

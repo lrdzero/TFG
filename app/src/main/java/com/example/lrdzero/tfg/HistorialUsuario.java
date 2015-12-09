@@ -83,14 +83,7 @@ public class HistorialUsuario extends Activity {
         else{
             Toast.makeText(HistorialUsuario.this,"No has participado en ningún recorrido todavia.",Toast.LENGTH_LONG).show();
         }
-        /*
-        groupList.add("Recorrido1");
-        groupList.add("Recorrido2");
-        groupList.add("Recorrido3");
-        groupList.add("Recorrido4");
-        groupList.add("Recorrido5");
-        groupList.add("Recorrido6");
-        */
+
     }
 
     private void createCollection() {

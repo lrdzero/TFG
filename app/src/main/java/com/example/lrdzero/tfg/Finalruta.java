@@ -112,11 +112,13 @@ public class Finalruta extends AppCompatActivity {
                 if(elementosMochila.size()>0){
                     if(elementosMochila.get(0).getImage()!=0) {
                         iv.setImageResource(elementosMochila.get(0).getImage());
+                        tv.setText(elementosMochila.get(0).getDescripcionRecompensa());
                         elementosMochila.remove(0);
                     }
                     else{
                         Uri n= Uri.parse(elementosMochila.get(0).getSeconFoto());
                         iv.setImageURI(n);
+                        tv.setText(elementosMochila.get(0).getDescripcionRecompensa());
                         elementosMochila.remove(0);
                     }
                         tv.startAnimation(Mostrar(flecha));
