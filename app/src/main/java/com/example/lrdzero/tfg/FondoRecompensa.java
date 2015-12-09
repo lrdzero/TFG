@@ -2,15 +2,15 @@ package com.example.lrdzero.tfg;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
+import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -28,7 +28,7 @@ public class FondoRecompensa extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fondo_recompensa);
-
+        Button boton =(Button) findViewById(R.id.botonPosicionado);
         ImageView fondo=(ImageView)findViewById(R.id.fondo);
         objeto =(ImageView)findViewById(R.id.objeto);
         RelativeLayout r =(RelativeLayout)findViewById(R.id.rfondo);
@@ -52,7 +52,22 @@ public class FondoRecompensa extends AppCompatActivity {
             objeto.setImageURI(object);
         }
 
-
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                con.updateRecom(nombreRecompensa,nombreReto,objeto.getX(),objeto.getY());
+                Intent i = getIntent();
+                // Le metemos el resultado que queremos mandar a la
+                // actividad principal.
+                i.putExtra("RESULTADO", 1);
+                // Establecemos el resultado, y volvemos a la actividad
+                // principal. La variable que introducimos en primer lugar
+                // "RESULT_OK" es de la propia actividad, no tenemos que
+                // declararla nosotros.
+                setResult(RESULT_OK, i);
+                finish();
+            }
+        });
 
         r.setOnDragListener(new MyDragListener());
 
@@ -102,7 +117,7 @@ public class FondoRecompensa extends AppCompatActivity {
                     objeto.setX(event.getX());
                     objeto.setY(event.getY());
                     Toast.makeText(FondoRecompensa.this, "X:"+ Float.toString(objeto.getX())+" e y:"+ Float.toString(objeto.getY()), Toast.LENGTH_LONG).show();
-                    con.updateRecom(nombreRecompensa,nombreReto,objeto.getX(),objeto.getY());
+
 
 
 

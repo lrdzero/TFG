@@ -42,5 +42,14 @@
         </RelativeLayout>
     </HorizontalScrollView>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Listo!"
+        android:id="@+id/botonPosicionado"
+        android:layout_alignBottom="@+id/horizontalScrollView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp" />
+
 
 </RelativeLayout>

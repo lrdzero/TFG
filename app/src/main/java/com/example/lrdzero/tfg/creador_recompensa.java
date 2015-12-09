@@ -5,14 +5,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +49,8 @@ public class creador_recompensa extends AppCompatActivity {
     private boolean seleccionado = false;
     private Button crear;
     private String nombreDrawa="";
+    private static int POSICIONAMIENTO=234;
+    private boolean activado=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +91,7 @@ public class creador_recompensa extends AppCompatActivity {
         fondo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent n = new Intent(creador_recompensa.this, FondoRecompensa.class);
                 n.putExtra("fondo",fileUriLugar.toString() );
                 n.putExtra("nombreReto",nombreReto);
@@ -103,13 +105,27 @@ public class creador_recompensa extends AppCompatActivity {
                     n.putExtra("reconS",fileUri.toString());
                     n.putExtra("nombreRecom",nombreRecompensa);
                 }
-                startActivity(n);
+                startActivityForResult(n, POSICIONAMIENTO);
             }
         });
         crear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if(activado) {
+                    Intent i = getIntent();
+                    // Le metemos el resultado que queremos mandar a la
+                    // actividad principal.
+                    i.putExtra("RESULTADO", 1);
+                    // Establecemos el resultado, y volvemos a la actividad
+                    // principal. La variable que introducimos en primer lugar
+                    // "RESULT_OK" es de la propia actividad, no tenemos que
+                    // declararla nosotros.
+                    setResult(RESULT_OK, i);
+                    finish();
+                }
+                else{
+                    Toast.makeText(creador_recompensa.this,"Aún debe seleccionar la posición del objeto.",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -237,7 +253,15 @@ public class creador_recompensa extends AppCompatActivity {
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         ImageView iv = (ImageView)findViewById(R.id.foto);
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+        if(requestCode == POSICIONAMIENTO){
+            if(resultCode==RESULT_OK){
+                activado=true;
+            }
+            else if(resultCode==RESULT_CANCELED){
+                Toast.makeText(creador_recompensa.this,"Se ha producido un error",Toast.LENGTH_LONG).show();
+            }
+        }
+        else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
 
                 envio.add(nombreRecompensa);
