@@ -28,6 +28,7 @@ public class Finalruta extends AppCompatActivity {
     private ArrayList<String> datosMochila = new ArrayList<String>();
     private ArrayList<Items> elementosMochila=new ArrayList<Items>();
     private String creador,nombreRecorrido,nombreRuta;
+    private int totalRetos,porcentaje;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +45,14 @@ public class Finalruta extends AppCompatActivity {
         creador=getIntent().getExtras().getString("creador");
         nombreRecorrido=getIntent().getExtras().getString("nombreRecorrido");
         nombreRuta=getIntent().getExtras().getString("nombreRuta");
+        totalRetos=getIntent().getExtras().getInt("totalRetos");
+        porcentaje=0;
 
         datosMochila=con.cargarMochila(creador,nombreRecorrido,nombreRuta);
         loadItems();
+        if(elementosMochila.size()!=0){
+            porcentaje=(elementosMochila.size()*100)/totalRetos;
+        }
         recomps.add(R.drawable.pesas);
         recomps.add(R.drawable.zapatillas);
 

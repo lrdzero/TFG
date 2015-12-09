@@ -2,7 +2,6 @@ package com.example.lrdzero.tfg;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,8 +17,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
-import android.provider.MediaStore;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,7 +38,6 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.Circle;
@@ -51,7 +47,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -73,6 +68,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     ArrayList<Circle> circulos = new ArrayList<>();
     private CountDownTimer cuentaatras;
     private boolean cronoON;
+    private int totalRetos;
     // Reference to the LocationManager and LocationListener
     private LocationManager mLocationManager;
     private LocationListener mLocationListener;
@@ -209,13 +205,13 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         edad=getIntent().getExtras().getString("edad");
         creador=getIntent().getExtras().getString("creador");
         tipoRecorrido=getIntent().getExtras().getInt("tipoRecorrido");
-        Toast.makeText(Seguimiento.this,"Variable name "+name,Toast.LENGTH_LONG).show();
-        Toast.makeText(Seguimiento.this,"Variable creador "+creador,Toast.LENGTH_LONG).show();
-        Toast.makeText(Seguimiento.this,"Variable nombreRecorrido "+nombreRecorrido,Toast.LENGTH_LONG).show();
-        Toast.makeText(Seguimiento.this,"Variable nombreRuta "+nombreRuta,Toast.LENGTH_LONG).show();
-        Toast.makeText(Seguimiento.this,"Variable sexo "+sexo,Toast.LENGTH_LONG).show();
-        Toast.makeText(Seguimiento.this,"Variable edad "+edad,Toast.LENGTH_LONG).show();
-        Toast.makeText(Seguimiento.this,"Variable tipoRecorrido "+Integer.toString(tipoRecorrido),Toast.LENGTH_LONG).show();
+        //Toast.makeText(Seguimiento.this,"Variable name "+name,Toast.LENGTH_LONG).show();
+        //Toast.makeText(Seguimiento.this,"Variable creador "+creador,Toast.LENGTH_LONG).show();
+        //Toast.makeText(Seguimiento.this,"Variable nombreRecorrido "+nombreRecorrido,Toast.LENGTH_LONG).show();
+        //Toast.makeText(Seguimiento.this,"Variable nombreRuta "+nombreRuta,Toast.LENGTH_LONG).show();
+        //Toast.makeText(Seguimiento.this,"Variable sexo "+sexo,Toast.LENGTH_LONG).show();
+        //Toast.makeText(Seguimiento.this,"Variable edad "+edad,Toast.LENGTH_LONG).show();
+        //Toast.makeText(Seguimiento.this,"Variable tipoRecorrido "+Integer.toString(tipoRecorrido),Toast.LENGTH_LONG).show();
 
         alerta = MediaPlayer.create(this,R.raw.alert);
         salidaRuta= MediaPlayer.create(this,R.raw.metronomo);
@@ -291,7 +287,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         ruta.setTramos(tramosOF);
 
         int tamanioRetos = getIntent().getExtras().getInt("tamanioRetos");
-
+       totalRetos=tamanioRetos;
         for(int i=0;i<tamanioRetos;i++){
             String nombre =getIntent().getExtras().getString("nombreReto" + i);
             int position = getIntent().getExtras().getInt("position"+i);
@@ -470,6 +466,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             nueva.putExtra("creador",creador);
             nueva.putExtra("nombreRecorrido",nombreRecorrido);
             nueva.putExtra("nombreRuta",nombreRuta);
+            nueva.putExtra("totalRetos",totalRetos);
             startActivity(nueva);
         }
 
