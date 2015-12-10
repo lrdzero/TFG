@@ -26,7 +26,7 @@
         android:id="@+id/textView16"
 
         android:layout_marginTop="70dp"
-        android:layout_below="@+id/nombreRecompensaCultural"
+        android:layout_below="@+id/nombreRecompensa"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -87,7 +87,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nombreRecompensaCultural"
+        android:id="@+id/nombreRecompensa"
         android:text="Nombre de recompensa"
         android:layout_margin="10dp"
         android:background="@color/ripple_material_dark"
@@ -103,7 +103,7 @@
         android:background="@color/ripple_material_dark"
         android:id="@+id/editText2"
         android:text="Descripción"
-        android:layout_below="@+id/nombreRecompensaCultural"
+        android:layout_below="@+id/nombreRecompensa"
         android:layout_centerHorizontal="true" />
 
 

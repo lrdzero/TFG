@@ -140,10 +140,10 @@ public class CreadorRetoDeportivo extends Activity {
         final EditText nombreDeporti=(EditText) findViewById(R.id.editNombrePruebaDeportiva);
         final EditText descripcion =(EditText) findViewById(R.id.editPruevaDescripcion);
         final EditText tiempo =(EditText) findViewById(R.id.editText3);
-        final EditText recomp =(EditText)findViewById(R.id.editTextPruevaDeportivaRecompensa);
+        //final EditText recomp =(EditText)findViewById(R.id.editTextPruevaDeportivaRecompensa);
         final ImageView camara=(ImageView) findViewById(R.id.imagenCamaraPruevaDeportiva);
         final ImageView item =(ImageView) findViewById(R.id.imagenItem);
-        final EditText nombreRecompensa=(EditText) findViewById(R.id.nombreRecompensaDeportiva);
+        //final EditText nombreRecompensa=(EditText) findViewById(R.id.nombreRecompensaDeportiva);
 
         nombre=nombreDeporti.getText().toString();
         nameFile=getIntent().getExtras().getString("nombrefile");
@@ -170,14 +170,14 @@ public class CreadorRetoDeportivo extends Activity {
             @Override
             public void onClick(View v) {
 
-                if(nombreDeporti.getText().toString().matches("")||recomp.getText().toString().matches("")||nombreRecompensa.getText().toString().matches("")){
+                if(nombreDeporti.getText().toString().matches("")){
                     Toast.makeText(CreadorRetoDeportivo.this,"Nombre y descripción recompensa no pueden estar vacíos.",Toast.LENGTH_LONG).show();
                 }
                 else {
                         Intent n = new Intent(CreadorRetoDeportivo.this,creador_recompensa.class);
                         n.putExtra("nombrereto",nombreDeporti.getText().toString());
-                        n.putExtra("descripcion",recomp.getText().toString());
-                        n.putExtra("nombreRecompensa",nombreRecompensa.getText().toString());
+                        //n.putExtra("descripcion",recomp.getText().toString());
+                       // n.putExtra("nombreRecompensa",nombreRecompensa.getText().toString());
                         n.putExtra("uri",fileUri.toString());
                         double numero = Math.random() * 5000;
                          int n2= (int) numero;
@@ -250,7 +250,7 @@ public class CreadorRetoDeportivo extends Activity {
                 @Override
                 public void onClick(View v) {
 
-                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")||dificultades.isEmpty()||dificultades.size()!=1||!seleccionado) {
+                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") ||dificultades.isEmpty()||dificultades.size()!=1||!seleccionado) {
                         Toast.makeText(c, "Hay campos sin rellenar", Toast.LENGTH_LONG).show();
                         error.start();
                     } else {
@@ -259,7 +259,7 @@ public class CreadorRetoDeportivo extends Activity {
                         envio.add(nombreDeporti.getText().toString());
                         envio.add(descripcion.getText().toString());
                         envio.add(tiempo.getText().toString());
-                        envio.add(recomp.getText().toString());
+                        envio.add("");
 
                             envio.add(Integer.toString(dificultades.get(0)+1));
 
@@ -288,7 +288,7 @@ public class CreadorRetoDeportivo extends Activity {
             crear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")||!seleccionado||dificultades.isEmpty()||dificultades.size()!=1) {
+                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") ||!seleccionado||dificultades.isEmpty()||dificultades.size()!=1) {
                         Toast.makeText(c, "Hay campos sin rellenar", Toast.LENGTH_LONG).show();
                         error.start();
                     } else {
@@ -298,7 +298,7 @@ public class CreadorRetoDeportivo extends Activity {
                         envio.add(nombreDeporti.getText().toString());
                         envio.add(descripcion.getText().toString());
                         envio.add(tiempo.getText().toString());
-                        envio.add(recomp.getText().toString());
+                        envio.add("");
                         envio.add(fileUri.toString());
                         envio.add(Integer.toString(dificultades.get(0)+1));
                         int resultado = con.hacerconexionGenerica("crearRetoNuevo", envio);
@@ -329,7 +329,7 @@ public class CreadorRetoDeportivo extends Activity {
         final EditText respB = (EditText) findViewById(R.id.editTextB);
         final EditText respC = (EditText) findViewById(R.id.editTextC);
         final EditText respD = (EditText) findViewById(R.id.editTextD);
-        final EditText descRecom = (EditText) findViewById(R.id.editText2);
+        //final EditText descRecom = (EditText) findViewById(R.id.editText2);
         final RadioButton btnA =(RadioButton)findViewById(R.id.radioButtonA);
         final RadioButton btnB =(RadioButton)findViewById(R.id.radioButtonB);
         final RadioButton btnC =(RadioButton)findViewById(R.id.radioButtonC);
@@ -341,7 +341,7 @@ public class CreadorRetoDeportivo extends Activity {
         final ImageView camara=(ImageView) findViewById(R.id.imagenCameraCultural);
         final ArrayList<String> respuesta = new ArrayList<String>();
         final ImageView item =(ImageView) findViewById(R.id.imagenItemCultural);
-        final EditText nombreRecompensa=(EditText) findViewById(R.id.nombreRecompensaCultural);
+        //final EditText nombreRecompensa=(EditText) findViewById(R.id.nombreRecompensaCultural);
 
         nameFile=getIntent().getExtras().getString("nombrefile");
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
@@ -360,14 +360,14 @@ public class CreadorRetoDeportivo extends Activity {
         item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(nombre.getText().toString().matches("")||descRecom.getText().toString().matches("")||nombreRecompensa.getText().toString().matches("")){
+                if(nombre.getText().toString().matches("")){
                     Toast.makeText(CreadorRetoDeportivo.this,"Nombre y descripción de recompnesa no pueden estar vacíos.",Toast.LENGTH_LONG).show();
                 }
                 else {
                     Intent n = new Intent(CreadorRetoDeportivo.this,creador_recompensa.class);
                     n.putExtra("nombrereto",nombre.getText().toString());
-                    n.putExtra("descripcion",descRecom.getText().toString());
-                    n.putExtra("nombreRecompensa",nombreRecompensa.getText().toString());
+                    //n.putExtra("descripcion",descRecom.getText().toString());
+                    //n.putExtra("nombreRecompensa",nombreRecompensa.getText().toString());
                     n.putExtra("uri",fileUri.toString());
                     double numero = Math.random() * 5000;
                     int n2= (int) numero;
@@ -467,7 +467,7 @@ public class CreadorRetoDeportivo extends Activity {
             crear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(nombre.getText().toString().matches("")||Pregunta.getText().toString().matches("")||descRecom.getText().toString().matches("")||respA.getText().toString().matches("")||respB.getText().toString().matches("")||respC.getText().toString().matches("")||respD.getText().toString().matches("")||dificultades.isEmpty()||dificultades.size()!=1){
+                    if(nombre.getText().toString().matches("")||Pregunta.getText().toString().matches("")||respA.getText().toString().matches("")||respB.getText().toString().matches("")||respC.getText().toString().matches("")||respD.getText().toString().matches("")||dificultades.isEmpty()||dificultades.size()!=1){
                         Toast.makeText(c,"Hay campos sin rellenar, o dificultad sin asignar",Toast.LENGTH_LONG).show();
                         error.start();
                     }
@@ -479,7 +479,7 @@ public class CreadorRetoDeportivo extends Activity {
                             envio.add(nam);
                             envio.add(nombre.getText().toString());
                             envio.add(Pregunta.getText().toString());
-                            envio.add(descRecom.getText().toString());
+                            envio.add("");
                             envio.add(respA.getText().toString());
                             envio.add(respB.getText().toString());
                             envio.add(respC.getText().toString());
@@ -534,7 +534,7 @@ public class CreadorRetoDeportivo extends Activity {
             crear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(nombre.getText().toString().matches("")||Pregunta.getText().toString().matches("")||descRecom.getText().toString().matches("")||respA.getText().toString().matches("")||respB.getText().toString().matches("")||respC.getText().toString().matches("")||respD.getText().toString().matches("")||dificultades.isEmpty()||dificultades.size()!=1){
+                    if(nombre.getText().toString().matches("")||Pregunta.getText().toString().matches("")||respA.getText().toString().matches("")||respB.getText().toString().matches("")||respC.getText().toString().matches("")||respD.getText().toString().matches("")||dificultades.isEmpty()||dificultades.size()!=1){
                         Toast.makeText(c,"Hay campos sin rellenar, o dificultad sin asignar",Toast.LENGTH_LONG).show();
                         error.start();
                     }
@@ -553,7 +553,7 @@ public class CreadorRetoDeportivo extends Activity {
                             envio.add(respB.getText().toString());
                             envio.add(respC.getText().toString());
                             envio.add(respD.getText().toString());
-                            envio.add(descRecom.getText().toString());
+                            envio.add("");
                             envio.add(Integer.toString(dificultades.get(0)+1));
                             if(btnA.isChecked()==true){
                                 //envio.add("A");
