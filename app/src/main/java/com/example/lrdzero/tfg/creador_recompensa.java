@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,11 +29,11 @@ import java.util.ArrayList;
 
 public class creador_recompensa extends AppCompatActivity {
     private String nombreReto;
-    private String descripcionRecompensa;
-    private String nombreRecompensa;
+    private String nSubida;
     private ImageView porDefecto;
     private ImageView camera;
     private ImageView fondo;
+    private EditText nombreRecompensa,descripcionRecompensa;
     private boolean drawa;
     private ArrayList<String> envio = new ArrayList<String>();
     private ArrayList<Items> dt = new ArrayList<Items>();
@@ -62,10 +63,12 @@ public class creador_recompensa extends AppCompatActivity {
         fondo=(ImageView) findViewById(R.id.imageView6);
         error=MediaPlayer.create(this,R.raw.alert);
         crear=(Button) findViewById(R.id.botonCrear);
+        nombreRecompensa=(EditText) findViewById(R.id.nombreRecompensa);
+        descripcionRecompensa=(EditText) findViewById(R.id.editText2);
 
-        nombreRecompensa=getIntent().getExtras().getString("nombreRecompensa");
+        //nombreRecompensa=getIntent().getExtras().getString("nombreRecompensa");
         nombreReto=getIntent().getExtras().getString("nombrereto");
-        descripcionRecompensa=getIntent().getExtras().getString("descripcion");
+        //descripcionRecompensa=getIntent().getExtras().getString("descripcion");
 
         fileUriLugar = Uri.parse(getIntent().getExtras().getString("uri"));
         nombreArchivo=getIntent().getExtras().getString("nombrefile");
@@ -74,7 +77,12 @@ public class creador_recompensa extends AppCompatActivity {
         porDefecto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mostrarElecciones(nombreReto,descripcionRecompensa).show();
+                if(!descripcionRecompensa.getText().toString().matches("")||nombreRecompensa.getText().toString().matches("")) {
+                    mostrarElecciones(nombreReto, descripcionRecompensa.getText().toString()).show();
+                }
+                else{
+                    Toast.makeText(creador_recompensa.this,"No hay nombre o descripción para la recompensa.",Toast.LENGTH_LONG).show();
+                }
             }
         });
         camera.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +111,7 @@ public class creador_recompensa extends AppCompatActivity {
                 }
                 else{
                     n.putExtra("reconS",fileUri.toString());
-                    n.putExtra("nombreRecom",nombreRecompensa);
+                    n.putExtra("nombreRecom",nombreRecompensa.getText().toString());
                 }
                 startActivityForResult(n, POSICIONAMIENTO);
             }
@@ -263,12 +271,12 @@ public class creador_recompensa extends AppCompatActivity {
         }
         else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-
-                envio.add(nombreRecompensa);
+                //modificac
+                envio.add(nombreRecompensa.getText().toString());
                 envio.add(nombreReto);
                 envio.add(fileUri.toString());
                 envio.add(fileUriLugar.toString());
-                envio.add(descripcionRecompensa);
+                envio.add(descripcionRecompensa.getText().toString());
                 envio.add("2");
                 con.hacerconexionGenerica("insertPremio", envio);
 

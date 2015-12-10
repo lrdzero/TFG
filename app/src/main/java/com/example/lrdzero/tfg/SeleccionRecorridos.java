@@ -38,8 +38,8 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         ejercicio=(Button) findViewById(R.id.buttonEjercicio);
         ejercicio.setVisibility(View.INVISIBLE);
         ejercicio.setEnabled(false);
-        //cultura.setVisibility(View.INVISIBLE);
-        //cultura.setEnabled(false);
+        cultura.setVisibility(View.INVISIBLE);
+        cultura.setEnabled(false);
         Rc1 = (ImageView) findViewById(R.id.imageView2);
         Rc2 = (ImageView) findViewById(R.id.imageView3);
         con =new Conexion();
