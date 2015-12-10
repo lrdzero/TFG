@@ -92,8 +92,8 @@ public class Finalruta extends AppCompatActivity {
         loadItems();
 
 
-       // porcentaje=(elementosMochila.size()*100)/totalRetos;
-        porcentaje=60;
+        porcentaje=(elementosMochila.size()*100)/totalRetos;
+        //porcentaje=60;
 
 
 

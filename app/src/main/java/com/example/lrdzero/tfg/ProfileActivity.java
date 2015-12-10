@@ -457,8 +457,6 @@ public class ProfileActivity extends Activity {
 
                 iv.setImageURI(fileUri);
 
-                finish();
-                startActivity(getIntent());
             } else if (resultCode != RESULT_CANCELED){
                 Toast.makeText(this,"Error al capturar la imagen", Toast.LENGTH_LONG).show();
                 // Image capture failed, advise user

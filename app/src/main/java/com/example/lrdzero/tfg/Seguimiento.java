@@ -341,8 +341,8 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             public void onMapClick(LatLng latLng) {
 
 
-                cuentaatras.start();
-
+                //cuentaatras.start();
+                avance();
 
                 //markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
                 //Toast.makeText(getApplication(),String.valueOf(measure(latLng, ruta.getMiniPoints().get(puntoactual))) , Toast.LENGTH_SHORT).show();

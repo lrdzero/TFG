@@ -284,8 +284,7 @@ public class creador_recompensa extends AppCompatActivity {
                 envio.clear();
                 seleccionado = true;
                 drawa=false;
-                finish();
-                startActivity(getIntent());
+
             } else if (resultCode != RESULT_CANCELED){
 
                 Toast.makeText(this, "Error al capturar la imagen", Toast.LENGTH_LONG).show();
@@ -351,11 +350,22 @@ public class creador_recompensa extends AppCompatActivity {
 
         return mediaFile;
     }
+    private Drawable reduceDrawable(int dra,int tam1,int tam2){
+        Drawable yourDrawable;
+
+        yourDrawable = this.getDrawable(dra);
+        Bitmap bitmap=((BitmapDrawable) yourDrawable).getBitmap();
+        Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, tam1, tam2, true));
+        yourDrawable.invalidateSelf();
+
+        return d;
+    }
     private Drawable reduceImagen(Uri unUri,int tam1,int tam2){
         Drawable yourDrawable;
         try {
             InputStream inputStream = getContentResolver().openInputStream(unUri);
             yourDrawable = Drawable.createFromStream(inputStream, unUri.toString());
+
         } catch (FileNotFoundException e) {
             yourDrawable = getResources().getDrawable(R.drawable.pesas);
         }

@@ -609,15 +609,7 @@ public class CreadorRetoDeportivo extends Activity {
         }
         else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                // Image captured and saved to fileUri specified in the Intent
-                //Log.i("Camara", String.valueOf(data));
-                //Toast.makeText(this, "Image saved to:\n" +
-                //  fileUri, Toast.LENGTH_LONG).show();
-
-
-               // Toast.makeText(CreadorRetoDeportivo.this,fileUri.toString(), Toast.LENGTH_LONG).show();
-                finish();
-                startActivity(getIntent());
+                Toast.makeText(this," Imagen tomada con exito.",Toast.LENGTH_SHORT).show();
             } else if (resultCode != RESULT_CANCELED){
 
                 Toast.makeText(this,"Error al capturar la imagen", Toast.LENGTH_LONG).show();
@@ -627,13 +619,9 @@ public class CreadorRetoDeportivo extends Activity {
         else if(requestCode == PICK_IMAGE) {
 
             if (resultCode == RESULT_OK) {
-                // Image captured and saved to fileUri specified in the Intent
+            // Image captured and saved to fileUri specified in the Intent
                 //Log.i("Camara", String.valueOf(data));
-
-
                 //iv.setImageURI(data.getData());
-
-
             } else if (resultCode != RESULT_CANCELED) {
                 // User cancelled the image capture
                 Toast.makeText(this,"Error al recoger la imagen", Toast.LENGTH_LONG).show();
