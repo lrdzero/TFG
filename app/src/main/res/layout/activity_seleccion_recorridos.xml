@@ -5,7 +5,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.lrdzero.tfg.SeleccionRecorridos"
-    android:background="#fffcffa3">
+    android:background="@drawable/rojo">
 
     <LinearLayout
         android:orientation="vertical"
@@ -18,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="155dp"
             android:layout_marginTop="20dp"
-            android:layout_weight="0.41">
+            android:layout_weight="0.41"
+            android:background="@color/ripple_material_dark">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -61,20 +62,24 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="170dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@drawable/pared">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_margin="5dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Granada Historica"
                     android:id="@+id/textView2"
                     android:layout_alignTop="@+id/textView"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center" />
 
                 <ImageView
-                    android:layout_width="121dp"
+                    android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:id="@+id/imageView3"
                     android:src="@drawable/bustogriego"
@@ -83,14 +88,8 @@
                     android:adjustViewBounds="true"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/imageView"
-                    android:layout_toEndOf="@+id/imageView" />
-
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:text="Ejemplo de Reto"
-                    android:id="@+id/buttonCulture" />
+                    android:layout_toEndOf="@+id/imageView"
+                    android:layout_gravity="center" />
 
             </LinearLayout>
 
@@ -98,20 +97,24 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:weightSum="1">
+                android:weightSum="1"
+                android:background="@drawable/cesped"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Granada Verde"
                     android:id="@+id/textView"
                     android:layout_below="@+id/imageView"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="center" />
 
                 <ImageView
-                    android:layout_width="160dp"
+                    android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:id="@+id/imageView2"
                     android:src="@drawable/images"
@@ -120,14 +123,9 @@
                     android:adjustViewBounds="true"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-
-                <Button
-                    style="?android:attr/buttonStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:text="Ejemplo De reto"
-                    android:id="@+id/buttonEjercicio" />
+                    android:layout_alignParentStart="true"
+                    android:layout_gravity="center"
+                    android:background="#ff000000" />
 
             </LinearLayout>
 
