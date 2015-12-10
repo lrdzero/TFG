@@ -17,6 +17,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -32,6 +33,7 @@ public class Finalruta extends AppCompatActivity {
     private String creador,nombreRecorrido,nombreRuta;
     private int totalRetos,porcentaje;
     private ArrayList<Items> items;
+    private String historiaFinal="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class Finalruta extends AppCompatActivity {
         porcentaje=0;
 
         datosMochila=con.cargarMochila(creador,nombreRecorrido,nombreRuta);
+        historiaFinal=con.finalHistoria(nombreRuta);
+        Toast.makeText(Finalruta.this,"Historia final "+historiaFinal,Toast.LENGTH_LONG).show();
         loadItems();
         if(elementosMochila.size()!=0){
             porcentaje=(elementosMochila.size()*100)/totalRetos;

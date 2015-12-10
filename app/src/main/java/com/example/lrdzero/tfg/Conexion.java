@@ -2,7 +2,6 @@ package com.example.lrdzero.tfg;
 
 import android.net.Uri;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -236,7 +235,7 @@ public class Conexion {
     public void cambiarIP(String nueva){
         ip=nueva;
     }
-   public int nuevaRuta(String nombre,String descripcion,String historia){
+   public int nuevaRuta(String nombre,String descripcion,String historia,String historiaFinal){
        int respuesta=-1;
        try{
            conectar();
@@ -245,6 +244,7 @@ public class Conexion {
                out.writeUTF(nombre);
                out.writeUTF(descripcion);
                out.writeUTF(historia);
+               out.writeUTF(historiaFinal);
            }
            cerrar();
        }catch (IOException e){
@@ -678,7 +678,21 @@ public class Conexion {
         }
         return nuvo;
     }
-
+    public String finalHistoria(String nombreRuta){
+        String finalHistoria="";
+        try{
+            conectar();
+            out.writeUTF("historiaFinalRuta");
+            if(in.readUTF().equals("continua")){
+                out.writeUTF(nombreRuta);
+                finalHistoria=in.readUTF();
+            }
+            cerrar();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return finalHistoria;
+    }
     public DatosRyR buscarDatosRuta(String nombre){
         DatosRyR n = new DatosRyR();
         try{
@@ -697,6 +711,7 @@ public class Conexion {
                 n.setName(listReception.get(0));
                 n.setDescription(listReception.get(1));
                 n.setNumber(listReception.get(2));
+
             }
             cerrar();
         }catch (IOException e){

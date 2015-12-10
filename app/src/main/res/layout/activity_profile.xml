@@ -197,7 +197,7 @@
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="preferencias"
+                        android:text="Problemas"
                         android:id="@+id/button3"
                         android:layout_gravity="center_horizontal" />
                 </LinearLayout>

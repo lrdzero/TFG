@@ -27,7 +27,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
     private ListView lista;
     private ImageView imageNew;
     private Boolean tipo;
-    private EditText nombreRuta,historia;
+    private EditText nombreRuta,historia,historiaFinal;
     private String nombreRecorrido,descRecorrido;
     private ImageView check,mapa;
     private Conexion con;
@@ -76,6 +76,8 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
         lista =(ListView) findViewById(R.id.listaRetosParaRuta);
         imageNew =(ImageView) findViewById(R.id.imagenNuevoReto);
         historia=(EditText)findViewById(R.id.editHistoria);
+        historiaFinal=(EditText)findViewById(R.id.editHistoriaFinal);
+
         mapa=(ImageView)findViewById(R.id.maprutas);
         imageNew.setOnClickListener(this);
         check.setOnClickListener(this);
@@ -133,7 +135,10 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                     }
                     else if(retos.isEmpty()&&!con.existeRuta(nombreRuta.getText().toString())) {
                         Log.e("ERRORRORORORO","VUELVO A ENTRAR");
-                      int r=con.nuevaRuta(nombreRuta.getText().toString(),nombreRecorrido,historia.getText().toString());
+                      int r=con.nuevaRuta(nombreRuta.getText().toString(),nombreRecorrido,historia.getText().toString(),historiaFinal.getText().toString());
+                        if(r!=-1){
+                            Toast.makeText(CreadorRutas.this,"No se ha podido crear la ruta",Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     Intent nuevo = new Intent(CreadorRutas.this, CreadorRetoDeportivo.class);
@@ -158,7 +163,7 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                         relacion.add(nombreRuta.getText().toString());
                         relacion.add(Integer.toString(retos.size()));
                         if (retos.isEmpty()) {
-                            con.nuevaRuta(nombreRuta.getText().toString(), nombreRecorrido, historia.getText().toString());
+                            con.nuevaRuta(nombreRuta.getText().toString(), nombreRecorrido, historia.getText().toString(),historiaFinal.getText().toString());
                         }
                         con.hacerconexionGenerica("actualizaReco", relacion);
                     } else {
@@ -187,12 +192,12 @@ public class CreadorRutas extends Activity implements View.OnClickListener {
                 break;
 
             case R.id.maprutas:
-                if(nombreRuta.getText().toString().matches("")){
+                if(nombreRuta.getText().toString().matches("")||historia.getText().toString().matches("")){
                     Toast.makeText(CreadorRutas.this,"El nombre de la ruta no puede estar vacio",Toast.LENGTH_LONG).show();
                     error.start();
                 }
                 else{
-                    con.nuevaRuta(nombreRuta.getText().toString(), historia.getText().toString(), "");
+                    con.nuevaRuta(nombreRuta.getText().toString(), historia.getText().toString(), "","");
                     Intent nuevo = new Intent(CreadorRutas.this, MapaEditor.class);
                     nuevo.putExtra("nombre", nombreRuta.getText().toString());
                     nuevo.putExtra("tipo", true);

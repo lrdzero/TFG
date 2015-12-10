@@ -89,7 +89,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
-                    android:id="@+id/editText3" />
+                    android:id="@+id/editText3"
+                    style="@color/ripple_material_dark" />
             </LinearLayout>
 
             <ImageView
@@ -119,7 +120,8 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/nombreRecompensaDeportiva" />
+                android:id="@+id/nombreRecompensaDeportiva"
+                style="@color/ripple_material_dark" />
 
             <TextView
                 android:layout_width="wrap_content"
