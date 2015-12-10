@@ -14,19 +14,18 @@
         android:id="@+id/imagenCameraCultural"
         android:adjustViewBounds="true"
         android:src="@drawable/camara"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/textView10"
-        android:layout_alignLeft="@+id/imagenItemCultural"
-        android:layout_alignStart="@+id/imagenItemCultural" />
+        android:layout_alignBottom="@+id/imagenItemCultural"
+        android:layout_toRightOf="@+id/botonCrear"
+        android:layout_toEndOf="@+id/botonCrear" />
 
     <TextView
         android:layout_width="wrap_content"
+        android:background="@color/ripple_material_dark"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Seleccionar por defecto:"
         android:id="@+id/textView16"
-        android:layout_below="@+id/imagenCameraCultural"
+
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="32dp" />
@@ -36,11 +35,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/imagenItemCultural"
         android:adjustViewBounds="true"
-        android:layout_marginTop="20dp"
         android:src="@drawable/aniadiritem"
-        android:layout_gravity="center_horizontal"
+
         android:layout_below="@+id/textView16"
-        android:layout_centerHorizontal="true" />
+        android:layout_toLeftOf="@+id/botonCrear"
+        android:layout_toStartOf="@+id/botonCrear" />
 
     <Button
         android:layout_width="wrap_content"
@@ -48,7 +47,7 @@
         android:text="Crear"
         android:id="@+id/botonCrear"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="30dp"
+
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
@@ -58,6 +57,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Fondo"
         android:id="@+id/textView25"
+        android:background="@color/ripple_material_dark"
         android:layout_below="@+id/imagenItemCultural"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -71,11 +71,13 @@
         android:src="@drawable/gallery"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/textView25"
-        android:layout_alignLeft="@+id/imagenItemCultural"
-        android:layout_alignStart="@+id/imagenItemCultural" />
+        android:layout_centerHorizontal="true" />
+
+
 
     <TextView
         android:layout_width="wrap_content"
+        android:background="@color/ripple_material_dark"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Recompensa"
@@ -83,6 +85,43 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below=""
+        android:text="Nombre recompensa:"
+        android:id="@+id/textView26" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nombreRecompensaCultural" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Descripción Recompensa"
+        android:id="@+id/textView16"
+        android:layout_marginTop="10dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText2" />
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imagenItemCultural"
+        android:adjustViewBounds="true"
+        android:src="@drawable/aniadiritem"
+        android:layout_gravity="center_horizontal" />
+
+
+
 
 
 </RelativeLayout>
