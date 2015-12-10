@@ -34,20 +34,24 @@
         </activity>
         <activity
             android:name=".Registro"
-            android:label="@string/title_activity_registro" >
+            android:label="@string/title_activity_registro"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".SeleccionRecorridos"
-            android:label="@string/title_activity_seleccion_recorridos" >
+            android:label="@string/title_activity_seleccion_recorridos"
+            android:screenOrientation="portrait" >
         </activity>
         <service android:name=".GPSAlarmService"></service>
         <activity
             android:name=".ProfileActivity"
-            android:label="@string/title_activity_profile" >
+            android:label="@string/title_activity_profile"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".RecorridosParaUsuario"
-            android:label="@string/title_activity_recorridos_para_usuario" >
+            android:label="@string/title_activity_recorridos_para_usuario"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".Listas"
@@ -59,51 +63,63 @@
         </activity>
         <activity
             android:name=".RetoCultural"
-            android:label="RetoCultural" />
+            android:label="RetoCultural"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CronometroAviso"
-            android:label="CronometroAviso" />
+            android:label="CronometroAviso"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".HistorialUsuario"
-            android:label="@string/title_activity_historial_usuario" >
+            android:label="@string/title_activity_historial_usuario"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".RetoDeportivo"
-            android:label="@string/title_activity_reto_deportivo" >
+            android:label="@string/title_activity_reto_deportivo"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".CronometroDeporte"
-            android:label="@string/title_activity_cronometro_deporte" >
+            android:label="@string/title_activity_cronometro_deporte"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".RecogerPremio"
-            android:label="@string/title_activity_recoger_premio" >
+            android:label="@string/title_activity_recoger_premio"
+            android:screenOrientation="portrait" >
 
             <!-- android:screenOrientation="landscape" -->
         </activity>
         <activity
             android:name=".MapaEditor"
-            android:label="@string/title_activity_mapa" >
+            android:label="@string/title_activity_mapa"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".HerramientaNuevaRuta"
-            android:label="@string/title_activity_Herramientas_Autor" >
+            android:label="@string/title_activity_Herramientas_Autor"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".CrearNuevoRecorrido"
-            android:label="@string/title_activity_Nuevos_Retos" >
+            android:label="@string/title_activity_Nuevos_Retos"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".CreadorRetoDeportivo"
-            android:label="@string/title_activity_creador_reto_deportivo" >
+            android:label="@string/title_activity_creador_reto_deportivo"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".Finalruta"
-            android:label="@string/title_activity_finalruta" >
+            android:label="@string/title_activity_finalruta"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".CreadorRutas"
-            android:label="@string/title_activity_creador_rutas" >
+            android:label="@string/title_activity_creador_rutas"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".Seguimiento"
@@ -112,12 +128,15 @@
         </activity>
         <activity
             android:name=".marca_retos"
-            android:label="@string/title_activity_marca_retos" >
+            android:label="@string/title_activity_marca_retos"
+            android:screenOrientation="portrait" >
         </activity>
-        <activity android:name=".creador_recompensa" >
+        <activity android:name=".creador_recompensa"
+            android:screenOrientation="portrait" >
         </activity>
         <activity android:name=".FondoRecompensa"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            >
         </activity>
     </application>
 
