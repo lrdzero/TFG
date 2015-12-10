@@ -80,7 +80,7 @@ public class CreadorRetoDeportivo extends Activity {
         mp =MediaPlayer.create(this, R.raw.brico);
         error=MediaPlayer.create(this, R.raw.alert);
         creador=getIntent().getExtras().getString("creador");
-        posicionamiento =false;
+
         if(lyout) {
             setContentView(R.layout.activity_creador_reto_deportivo);
             metodosDeportivos(modifi,getBaseContext());
@@ -250,7 +250,7 @@ public class CreadorRetoDeportivo extends Activity {
                 @Override
                 public void onClick(View v) {
 
-                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")||dificultades.isEmpty()||dificultades.size()!=1||!seleccionado||!posicionamiento) {
+                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")||dificultades.isEmpty()||dificultades.size()!=1||!seleccionado) {
                         Toast.makeText(c, "Hay campos sin rellenar", Toast.LENGTH_LONG).show();
                         error.start();
                     } else {
@@ -288,7 +288,7 @@ public class CreadorRetoDeportivo extends Activity {
             crear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")||!seleccionado||dificultades.isEmpty()||dificultades.size()!=1||!posicionamiento) {
+                    if (nombreDeporti.getText().toString().matches("") || descripcion.getText().toString().matches("") || tiempo.getText().toString().matches("") || recomp.getText().toString().matches("")||!seleccionado||dificultades.isEmpty()||dificultades.size()!=1) {
                         Toast.makeText(c, "Hay campos sin rellenar", Toast.LENGTH_LONG).show();
                         error.start();
                     } else {
@@ -467,7 +467,7 @@ public class CreadorRetoDeportivo extends Activity {
             crear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(nombre.getText().toString().matches("")||Pregunta.getText().toString().matches("")||descRecom.getText().toString().matches("")||respA.getText().toString().matches("")||respB.getText().toString().matches("")||respC.getText().toString().matches("")||respD.getText().toString().matches("")||dificultades.isEmpty()||dificultades.size()!=1||!posicionamiento){
+                    if(nombre.getText().toString().matches("")||Pregunta.getText().toString().matches("")||descRecom.getText().toString().matches("")||respA.getText().toString().matches("")||respB.getText().toString().matches("")||respC.getText().toString().matches("")||respD.getText().toString().matches("")||dificultades.isEmpty()||dificultades.size()!=1){
                         Toast.makeText(c,"Hay campos sin rellenar, o dificultad sin asignar",Toast.LENGTH_LONG).show();
                         error.start();
                     }
@@ -534,7 +534,7 @@ public class CreadorRetoDeportivo extends Activity {
             crear.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(nombre.getText().toString().matches("")||Pregunta.getText().toString().matches("")||descRecom.getText().toString().matches("")||respA.getText().toString().matches("")||respB.getText().toString().matches("")||respC.getText().toString().matches("")||respD.getText().toString().matches("")||dificultades.isEmpty()||dificultades.size()!=1||!posicionamiento){
+                    if(nombre.getText().toString().matches("")||Pregunta.getText().toString().matches("")||descRecom.getText().toString().matches("")||respA.getText().toString().matches("")||respB.getText().toString().matches("")||respC.getText().toString().matches("")||respD.getText().toString().matches("")||dificultades.isEmpty()||dificultades.size()!=1){
                         Toast.makeText(c,"Hay campos sin rellenar, o dificultad sin asignar",Toast.LENGTH_LONG).show();
                         error.start();
                     }
