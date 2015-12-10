@@ -47,25 +47,12 @@
                     android:layout_weight="1" />
             </LinearLayout>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="fill_parent"
-                android:layout_height="40dp"
-             >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:text="Su prueba o pregunta:"
-                    android:id="@+id/textPregunta" />
-
-            </LinearLayout>
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editPregunta"
+
                 android:textAppearance="?android:attr/textAppearanceListItem"
                 android:text="Introduzca pregunta"
                 android:background="@color/ripple_material_dark"/>
@@ -235,6 +222,26 @@
                 android:adjustViewBounds="true"
                 android:src="@drawable/camara"
                 android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Recompensa:"
+                android:id="@+id/textReconpensaPrueba"
+                android:layout_marginLeft="0dp"
+                android:layout_gravity="center_horizontal" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/imagenItem"
+                android:src="@drawable/aniadiritem"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center_horizontal" />
+
 
 
 

@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scrollView5"
+        android:background="@color/ripple_material_dark"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
@@ -21,7 +22,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:weightSum="1" >
 
             <LinearLayout
@@ -31,16 +32,12 @@
                 android:layout_marginTop="0dp"
                 android:background="@color/ripple_material_dark">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Nombre:"
-                    android:id="@+id/NombrePruebaDespotiva" />
+
 
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="Nombre del reto"
                     android:inputType="textPersonName"
                     android:ems="10"
                     android:id="@+id/editNombrePruebaDeportiva"
@@ -51,23 +48,20 @@
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
-                android:background="@color/ripple_material_dark"
+
                 >
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Su prueba:"
-                    android:id="@+id/textPrueba" />
+                    android:background="@color/ripple_material_dark"
+                    android:id="@+id/editPruevaDescripcion"
+                    android:text="Introduzca la descripción de la prueba"
+                    />
 
             </LinearLayout>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/editPruevaDescripcion"
-                android:text="Introduzca la descripción de la prueba" />
+
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -89,6 +83,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:ems="10"
+                    android:background="@color/ripple_material_dark"
                     android:id="@+id/editText3"
                     style="@color/ripple_material_dark" />
             </LinearLayout>
@@ -110,20 +105,20 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp" />
 
-            <TextView
+            TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Nombre Recompensa:"
                 android:id="@+id/textView27" />
 
-            <EditText
+            EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/nombreRecompensaDeportiva"
                 style="@color/ripple_material_dark" />
 
-            <TextView
+            TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -131,7 +126,7 @@
                 android:id="@+id/textRecompensaPruevaDeportiva"
                 android:layout_marginTop="10dp" />
 
-            <EditText
+            EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editTextPruevaDeportivaRecompensa"
@@ -141,6 +136,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Recompensa:"
                 android:id="@+id/textReconpensaPrueba"
@@ -150,18 +146,21 @@
             <ImageView
                 android:layout_width="60dp"
                 android:layout_height="39dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/imagenItem"
                 android:src="@drawable/aniadiritem"
                 android:adjustViewBounds="true"
                 android:layout_gravity="center_horizontal" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Crear"
-                android:id="@+id/botonCrearPDeportiva"
-                android:layout_gravity="center_horizontal" />
-
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crear"
+        android:id="@+id/botonCrearPDeportiva"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
