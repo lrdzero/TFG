@@ -258,6 +258,7 @@ public class MapaEditor extends Activity implements GooglePlayServicesClient.Con
             @Override
             public void onClick(View v) {
                 ruta.removeTramo();
+                ruta.CalculaPoints();
                 new RefreshTramos().execute();
 
             }
