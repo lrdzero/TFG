@@ -212,6 +212,7 @@ public class creador_recompensa extends AppCompatActivity {
 
             final Items currentData = dt.get(position);
 
+
             img.setImageResource(currentData.getImage());
             txt1.setText(currentData.getName());
             img.setOnClickListener(new View.OnClickListener() {
