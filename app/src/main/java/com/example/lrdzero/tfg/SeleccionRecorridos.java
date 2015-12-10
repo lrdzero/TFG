@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -174,16 +173,9 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
             // nombre o el apellido.
             switch (requestCode) {
                 case 1:
-                    musica= data.getExtras().getString("musica");
-                    if(musica.matches("")){
-                        //musica="default";
-                        Toast.makeText(SeleccionRecorridos.this,musica,Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        Toast.makeText(SeleccionRecorridos.this, "La musica es " + musica, Toast.LENGTH_LONG).show();
-                    }
 
-                    //finish();
+
+                    finish();
                     break;
 
 
