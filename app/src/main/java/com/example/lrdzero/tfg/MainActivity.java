@@ -1,18 +1,15 @@
 package com.example.lrdzero.tfg;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -112,8 +109,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Intent nueva = new Intent(MainActivity.this,HistorialUsuario.class);
                 nueva.putExtra("userName","l");
                 nueva.putExtra("creador","l");
-                nueva.putExtra("nombreRecorrido","gdghc");
-                nueva.putExtra("nombreRuta","tfffff");
+                nueva.putExtra("nombreRecorrido","hc");
+                nueva.putExtra("nombreRuta","hxdg");
+                nueva.putExtra("tipoRecorrido",0);
+                nueva.putExtra("totalRetos",1);
+                nueva.putExtra("sexo","H");
+                nueva.putExtra("edad","19");
+
                 startActivity(nueva);
                 break;
 

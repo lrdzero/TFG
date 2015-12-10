@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
@@ -47,6 +48,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -98,6 +100,10 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     private ImageView cuerpo;
     private ImageView boca;
     private ImageView ojos;
+    private ImageView boca_roja;
+    private ImageView pitorro;
+    private ImageView dientes;
+
     private Intent miService;
 
     //ArrayList<Array> ArrayTramos = new ArrayList<>();
@@ -189,6 +195,9 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         cuerpo =(ImageView) findViewById(R.id.cabeza);
         boca = (ImageView)findViewById(R.id.bocaverde);
         ojos = (ImageView)findViewById(R.id.ojos);
+        boca_roja=(ImageView) findViewById(R.id.bocaroja);
+        pitorro=(ImageView) findViewById(R.id.pitorro);
+        dientes=(ImageView) findViewById(R.id.dientes);
 
 
 
@@ -205,13 +214,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         edad=getIntent().getExtras().getString("edad");
         creador=getIntent().getExtras().getString("creador");
         tipoRecorrido=getIntent().getExtras().getInt("tipoRecorrido");
-        //Toast.makeText(Seguimiento.this,"Variable name "+name,Toast.LENGTH_LONG).show();
-        //Toast.makeText(Seguimiento.this,"Variable creador "+creador,Toast.LENGTH_LONG).show();
-        //Toast.makeText(Seguimiento.this,"Variable nombreRecorrido "+nombreRecorrido,Toast.LENGTH_LONG).show();
-        //Toast.makeText(Seguimiento.this,"Variable nombreRuta "+nombreRuta,Toast.LENGTH_LONG).show();
-        //Toast.makeText(Seguimiento.this,"Variable sexo "+sexo,Toast.LENGTH_LONG).show();
-        //Toast.makeText(Seguimiento.this,"Variable edad "+edad,Toast.LENGTH_LONG).show();
-        //Toast.makeText(Seguimiento.this,"Variable tipoRecorrido "+Integer.toString(tipoRecorrido),Toast.LENGTH_LONG).show();
+
 
         alerta = MediaPlayer.create(this,R.raw.alert);
         salidaRuta= MediaPlayer.create(this,R.raw.metronomo);
@@ -242,14 +245,17 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             media= MediaPlayer.create(this,R.raw.frog);
         }
        else{
+            //musica.
+            File f = Environment.getExternalStoragePublicDirectory(musica);
+            if(f.exists()){
+                    Uri uri = Uri.parse(musica);
+                    media=MediaPlayer.create(this,uri);
+                }
+            else{
 
-
-
-                Uri uri = Uri.parse(musica);
-                media=MediaPlayer.create(this,uri);
-
-
-
+                Toast.makeText(Seguimiento.this,"Archivo de audio "+Environment.getExternalStoragePublicDirectory(musica).toString()+" no encontrado.",Toast.LENGTH_LONG).show();
+                media=MediaPlayer.create(this,R.raw.frog);
+            }
         }
 
         adaptacion(sexo, edad);
@@ -467,6 +473,9 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
             nueva.putExtra("nombreRecorrido",nombreRecorrido);
             nueva.putExtra("nombreRuta",nombreRuta);
             nueva.putExtra("totalRetos",totalRetos);
+            nueva.putExtra("tipoRecorrido",tipoRecorrido);
+            nueva.putExtra("sexo",sexo);
+            nueva.putExtra("edad",edad);
             startActivity(nueva);
         }
 
@@ -713,8 +722,21 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     }
 
     private void adaptacion(String sexo,String edad){
+        if(tipoRecorrido==0) {
 
-        if(sexo.equals("H")){
+            boca.setImageResource(R.drawable.labio_superior);
+            cuerpo.setImageResource(R.drawable.cuerpo_leon);
+            ojos.setImageResource(R.drawable.ojos_leon);
+            boca_roja.setImageResource(R.drawable.labio_inferior);
+            pitorro.setImageResource(R.drawable.pitorro);
+            dientes.setImageResource(R.drawable.dientes);
+
+            parpadoder.setVisibility(View.INVISIBLE);
+            parpadoiz.setVisibility(View.INVISIBLE);
+            brazoIz.setVisibility(View.INVISIBLE);
+            brazoDer.setVisibility(View.INVISIBLE);
+        }
+        else if(sexo.equals("H")){
             if(Integer.valueOf((edad))<18){
                 boca.setImageResource(R.drawable.boca_n);
                 ojos.setImageResource(R.drawable.ojos);

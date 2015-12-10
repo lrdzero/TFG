@@ -34,12 +34,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         setContentView(R.layout.activity_seleccion_recorridos);
 
         User = (ImageView) findViewById(R.id.imageView);
-        cultura=(Button) findViewById(R.id.buttonCulture);
-        ejercicio=(Button) findViewById(R.id.buttonEjercicio);
-        ejercicio.setVisibility(View.INVISIBLE);
-        ejercicio.setEnabled(false);
-        cultura.setVisibility(View.INVISIBLE);
-        cultura.setEnabled(false);
+
         Rc1 = (ImageView) findViewById(R.id.imageView2);
         Rc2 = (ImageView) findViewById(R.id.imageView3);
         con =new Conexion();
@@ -48,8 +43,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         User.setOnClickListener(this);
         Rc1.setOnClickListener(this);
         Rc2.setOnClickListener(this);
-        cultura.setOnClickListener(this);
-        ejercicio.setOnClickListener(this);
+
         name= getIntent().getExtras().getString("NombreUser");
         Toast.makeText(SeleccionRecorridos.this,"Nombre de usuario "+ name,Toast.LENGTH_LONG).show();
 
@@ -64,28 +58,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
 
         Intent nueva;
         switch (v.getId()) {
-            case R.id.buttonCulture:
-                Intent n = new Intent(SeleccionRecorridos.this,RetoCultural.class);
-                datosUser=con.buscarUsuario(name);
-                n.putExtra("nombreUser",name);
-                n.putExtra("nombreRecorrido","l");
-                n.putExtra("nombreRuta","l");
-                n.putExtra("edad", datosUser.getNumber());
-                n.putExtra("sexo",datosUser.getAdic());
-                n.putExtra("nombreReto","retoCultural");
-                startActivity(n);
-                break;
-            case R.id.buttonEjercicio:
-                Intent n2 = new Intent(SeleccionRecorridos.this, RetoDeportivo.class);
-                datosUser=con.buscarUsuario(name);
-                n2.putExtra("nombreUser",name);
-                n2.putExtra("nombreRecorrido","recorridodefecto");
-                n2.putExtra("nombreRuta","rutadefecto");
-                n2.putExtra("edad", datosUser.getNumber());
-                n2.putExtra("sexo",datosUser.getAdic());
-                n2.putExtra("nombreReto","unreto");
-                startActivity(n2);
-                break;
+
             case R.id.imageView2:
 
                 generarBuilder(1);
@@ -202,14 +175,8 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
             // nombre o el apellido.
             switch (requestCode) {
                 case 1:
-                    musica= data.getExtras().getString("musica");
-                    if(musica.matches("")){
-                        //musica="default";
-                        Toast.makeText(SeleccionRecorridos.this,musica,Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        Toast.makeText(SeleccionRecorridos.this, "La musica es " + musica, Toast.LENGTH_LONG).show();
-                    }
+                    finish();
+
 
                     //finish();
                     break;

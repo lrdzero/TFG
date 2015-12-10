@@ -4,13 +4,11 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -93,6 +91,12 @@ public class ProfileActivity extends Activity {
         contr.setText(datosUser.getDescription());
 
         final ImageView foto = (ImageView)findViewById(R.id.foto);
+        fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
+        Toast.makeText(ProfileActivity.this,fileUri.toString(),Toast.LENGTH_LONG).show();
+        File f = getOutputMediaFile(MEDIA_TYPE_IMAGE);
+        if(f.exists()) {
+            foto.setImageURI(fileUri);
+        }
 
 
 
@@ -305,8 +309,7 @@ public class ProfileActivity extends Activity {
             public void onShow(DialogInterface dialogI) {
                     ImageView camara= (ImageView)dialog.findViewById(icamara);
                     ImageView galeria= (ImageView)dialog.findViewById(R.id.igallery);
-                    fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-                    foto.setImageURI(fileUri);
+
                     camara.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
