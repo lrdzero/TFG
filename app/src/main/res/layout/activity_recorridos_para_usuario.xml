@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Recorridos para ti"
+        android:background="@color/ripple_material_dark"
         android:id="@+id/TextoRecorrido"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -164,7 +165,8 @@
         android:layout_height="300dp"
         android:id="@+id/listView2"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/TextoRecorrido" />
+        android:layout_below="@+id/TextoRecorrido"
+        android:background="@drawable/pared"/>
 
 
 

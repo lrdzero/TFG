@@ -435,7 +435,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
                 Toast.makeText(getApplication(),"reto "+String.valueOf(index) , Toast.LENGTH_SHORT).show();
 
                 String nombre =ruta.getRetos().get(index).getNombre();
-                Toast.makeText(Seguimiento.this,"Nombre del reto "+  nombre,Toast.LENGTH_LONG).show();
+               // Toast.makeText(Seguimiento.this,"Nombre del reto "+  nombre,Toast.LENGTH_LONG).show();
 
 
                 if(tipoRecorrido==1) {

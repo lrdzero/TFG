@@ -20,7 +20,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
     ImageView User;
     ImageView Rc1;
     ImageView Rc2;
-    private Button cultura,ejercicio;
+
     private String name;
     private Conexion con;
     private DatosRyR datosUser;
@@ -43,9 +43,8 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
         User.setOnClickListener(this);
         Rc1.setOnClickListener(this);
         Rc2.setOnClickListener(this);
-
         name= getIntent().getExtras().getString("NombreUser");
-        Toast.makeText(SeleccionRecorridos.this,"Nombre de usuario "+ name,Toast.LENGTH_LONG).show();
+       // Toast.makeText(SeleccionRecorridos.this,"Nombre de usuario "+ name,Toast.LENGTH_LONG).show();
 
 
 
@@ -175,8 +174,14 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
             // nombre o el apellido.
             switch (requestCode) {
                 case 1:
-                    finish();
-
+                    musica= data.getExtras().getString("musica");
+                    if(musica.matches("")){
+                        //musica="default";
+                        Toast.makeText(SeleccionRecorridos.this,musica,Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(SeleccionRecorridos.this, "La musica es " + musica, Toast.LENGTH_LONG).show();
+                    }
 
                     //finish();
                     break;

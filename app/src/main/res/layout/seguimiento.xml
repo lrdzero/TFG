@@ -137,10 +137,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/textodinamico"
             android:layout_alignLeft="@+id/callout"
+            android:textSize="12sp"
             android:layout_alignTop="@+id/callout"
             android:layout_alignRight="@+id/callout"
             android:layout_alignBottom="@+id/callout"
-
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="5dp"

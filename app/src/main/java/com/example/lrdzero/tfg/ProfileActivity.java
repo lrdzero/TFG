@@ -92,7 +92,7 @@ public class ProfileActivity extends Activity {
 
         final ImageView foto = (ImageView)findViewById(R.id.foto);
         fileUri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
-        Toast.makeText(ProfileActivity.this,fileUri.toString(),Toast.LENGTH_LONG).show();
+        //Toast.makeText(ProfileActivity.this,fileUri.toString(),Toast.LENGTH_LONG).show();
         File f = getOutputMediaFile(MEDIA_TYPE_IMAGE);
         if(f.exists()) {
             foto.setImageURI(fileUri);
@@ -436,7 +436,7 @@ public class ProfileActivity extends Activity {
         if (requestCode== MEDIA_TYPE_AUDIO){
             ArrayList<String> musc = new ArrayList<>();
             String path = data.getData().toString();
-            Toast.makeText(ProfileActivity.this,"Paht "+path,Toast.LENGTH_LONG).show();
+           // Toast.makeText(ProfileActivity.this,"Paht "+path,Toast.LENGTH_LONG).show();
             musc.add(path);
             musc.add(Name);
             int r=con.hacerconexionGenerica("musicaUsuario", musc);
