@@ -150,7 +150,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         setContentView(R.layout.seguimiento);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        cuentaatras=new CountDownTimer(30000, 1000) {
+        cuentaatras=new CountDownTimer(1200000, 1000) {
 
             public void onTick(long millisUntilFinished) {
 
@@ -253,7 +253,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
                 }
             else{
 
-                Toast.makeText(Seguimiento.this,"Archivo de audio "+Environment.getExternalStoragePublicDirectory(musica).toString()+" no encontrado.",Toast.LENGTH_LONG).show();
+               // Toast.makeText(Seguimiento.this,"Archivo de audio "+Environment.getExternalStoragePublicDirectory(musica).toString()+" no encontrado.",Toast.LENGTH_LONG).show();
                 media=MediaPlayer.create(this,R.raw.frog);
             }
         }
@@ -345,7 +345,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
 
                 //markerLastPoint.setPosition(ruta.getMiniPoints().get(puntoactual));
-                Toast.makeText(getApplication(),String.valueOf(measure(latLng, ruta.getMiniPoints().get(puntoactual))) , Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplication(),String.valueOf(measure(latLng, ruta.getMiniPoints().get(puntoactual))) , Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -396,7 +396,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
                     loc = ruta.getFirstPoint();
                     new RefreshTramos().execute();
 
-                    Toast.makeText(getApplication(), Integer.toString(ruta.getMiniPoints().size()) , Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getApplication(), Integer.toString(ruta.getMiniPoints().size()) , Toast.LENGTH_SHORT).show();
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, 18.0f));
 
                 }
@@ -540,7 +540,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
 
 
-                    if (measure(PtosRecorridos.get(1), loc) <= (measure(PtosRecorridos.get(0), loc))||(measure(PtosRecorridos.get(1), loc))<10) {
+                    if (measure(PtosRecorridos.get(1), loc) <= (measure(PtosRecorridos.get(0), loc))||(measure(PtosRecorridos.get(1), loc))<15) {
                         avance();
                     }
 
@@ -799,7 +799,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         }
     }
     public void finalizar(){
-        Toast.makeText(Seguimiento.this,"Entro en finalizar",Toast.LENGTH_LONG).show();
+       // Toast.makeText(Seguimiento.this,"Entro en finalizar",Toast.LENGTH_LONG).show();
         finish();
     }
 }

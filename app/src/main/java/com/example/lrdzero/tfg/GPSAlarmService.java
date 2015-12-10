@@ -26,7 +26,7 @@ public class GPSAlarmService extends Service {
     {
         super.onCreate();
         Toast.makeText(GPSAlarmService.this,"Entro en el servicion y esta activo",Toast.LENGTH_LONG).show();
-        cuentaatras=new CountDownTimer(30000, 1000) {
+        cuentaatras=new CountDownTimer(1200000, 1000) {
 
             public void onTick(long millisUntilFinished) {
 

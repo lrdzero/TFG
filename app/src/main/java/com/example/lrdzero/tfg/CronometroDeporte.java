@@ -52,10 +52,10 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
         edad=getIntent().getExtras().getString("edad");
         tipoReto=getIntent().getExtras().getInt("tipoReto");
         tiempo=Integer.valueOf(getIntent().getExtras().getString("tiempo"));
-        Toast.makeText(CronometroDeporte.this, "Tiempo obtenido "+Integer.toString(tiempo),Toast.LENGTH_LONG).show();
+       // Toast.makeText(CronometroDeporte.this, "Tiempo obtenido "+Integer.toString(tiempo),Toast.LENGTH_LONG).show();
         timeMillisecons = tiempo*60000;
         String tiempus = "TIEMPUS "+ timeMillisecons;
-        Toast.makeText(CronometroDeporte.this, tiempus,Toast.LENGTH_LONG).show();
+        //Toast.makeText(CronometroDeporte.this, tiempus,Toast.LENGTH_LONG).show();
         end.setEnabled(false);
         end.setVisibility(View.INVISIBLE);
         con = new Conexion();
