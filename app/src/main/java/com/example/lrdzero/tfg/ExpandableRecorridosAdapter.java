@@ -1,38 +1,37 @@
 package com.example.lrdzero.tfg;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ExpandableRecorridosAdapter extends BaseExpandableListAdapter {
     private Activity context;
-    private Map<String, List<String>> laptopCollections;
-    private List<String> laptops;
+    private Map<String, List<String>> RecorridoRutas;
+    private List<String> recorridos;
+    private ArrayList<ValoresHistorial> valores;
+    private int index=0;
 
-    public ExpandableRecorridosAdapter(Activity context, List<String> laptops,
-                                 Map<String, List<String>> laptopCollections) {
+    public ExpandableRecorridosAdapter(Activity context, List<String> recs,
+                                 Map<String, List<String>> relations, ArrayList<ValoresHistorial> v) {
         this.context = context;
-        this.laptopCollections = laptopCollections;
-        this.laptops = laptops;
+        this.RecorridoRutas = relations;
+        this.recorridos = recs;
+        this.valores=v;
     }
 
     public Object getChild(int groupPosition, int childPosition) {
-        return laptopCollections.get(laptops.get(groupPosition)).get(childPosition);
+        return RecorridoRutas.get(recorridos.get(groupPosition)).get(childPosition);
     }
 
     public long getChildId(int groupPosition, int childPosition) {
@@ -49,49 +48,28 @@ public class ExpandableRecorridosAdapter extends BaseExpandableListAdapter {
             convertView = inflater.inflate(R.layout.rutaexpandable, null);
         }
 
-        TextView item = (TextView) convertView.findViewById(R.id.laptop);
+        TextView item = (TextView) convertView.findViewById(R.id.nomruta);
 
-        ImageView delete = (ImageView) convertView.findViewById(R.id.completado);
-        delete.setOnClickListener(new OnClickListener() {
-
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Do you want to remove?");
-                builder.setCancelable(false);
-                builder.setPositiveButton("Yes",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                List<String> child =
-                                        laptopCollections.get(laptops.get(groupPosition));
-                                child.remove(childPosition);
-                                notifyDataSetChanged();
-                            }
-                        });
-                builder.setNegativeButton("No",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
-        });
+        TextView percent = (TextView) convertView.findViewById(R.id.completado);
+        TextView retos = (TextView) convertView.findViewById(R.id.puntuacion);
 
         item.setText(laptop);
+        retos.setText(String.valueOf(valores.get(index).getCompletados())+"/"+valores.get(index).getTotales());
+        percent.setText(String.valueOf(valores.get(index).getPorcentaje())+"%");
+        index++;
         return convertView;
     }
 
     public int getChildrenCount(int groupPosition) {
-        return laptopCollections.get(laptops.get(groupPosition)).size();
+        return RecorridoRutas.get(recorridos.get(groupPosition)).size();
     }
 
     public Object getGroup(int groupPosition) {
-        return laptops.get(groupPosition);
+        return recorridos.get(groupPosition);
     }
 
     public int getGroupCount() {
-        return laptops.size();
+        return recorridos.size();
     }
 
     public long getGroupId(int groupPosition) {
@@ -107,7 +85,7 @@ public class ExpandableRecorridosAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.group,
                     null);
         }
-        TextView item = (TextView) convertView.findViewById(R.id.laptop);
+        TextView item = (TextView) convertView.findViewById(R.id.nomruta);
         item.setTypeface(null, Typeface.BOLD);
         item.setText(laptopName);
         return convertView;

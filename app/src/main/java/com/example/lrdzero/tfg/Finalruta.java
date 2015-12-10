@@ -61,12 +61,14 @@ public class Finalruta extends AppCompatActivity {
         historiaFinal=con.finalHistoria(nombreRuta);
         Toast.makeText(Finalruta.this,"Historia final "+historiaFinal,Toast.LENGTH_LONG).show();
         loadItems();
-        if(elementosMochila.size()!=0){
-            porcentaje=(elementosMochila.size()*100)/totalRetos;
-        }
+
+
+       // porcentaje=(elementosMochila.size()*100)/totalRetos;
+        porcentaje=60;
 
 
 
+        tv.setText("¡Felicidades! Has recorrido la ruta con el "+porcentaje+"% de los retos completados");
         //recomps.add(new Items());
 
         flecha.startAnimation(PasaTexto());
@@ -185,6 +187,17 @@ public class Finalruta extends AppCompatActivity {
                 flecha.getAnimation().cancel();
                 boca.clearAnimation();
                 flecha.getAnimation().reset();
+
+
+                if(porcentaje!=100){
+                    Intent i = new Intent(Finalruta.this,SeleccionRecorridos.class);
+                    i.putExtra("NombreUser",creador);
+                    startActivity(i);
+
+                }
+
+
+
 
                 if(elementosMochila.size()>0){
                     if(elementosMochila.get(0).getImage()!=0) {

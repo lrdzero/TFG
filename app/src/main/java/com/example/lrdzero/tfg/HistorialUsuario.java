@@ -24,6 +24,7 @@ public class HistorialUsuario extends Activity {
     List<String> childList;
     Map<String, List<String>> laptopCollection;
     ExpandableListView expListView;
+    private ArrayList<ValoresHistorial> Totales_completados;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class HistorialUsuario extends Activity {
 
         expListView = (ExpandableListView) findViewById(R.id.recorrido_list);
         final ExpandableRecorridosAdapter expListAdapter = new ExpandableRecorridosAdapter(
-                this, groupList, laptopCollection);
+                this, groupList, laptopCollection,Totales_completados);
         expListView.setAdapter(expListAdapter);
 
         //setGroupIndicatorToRight();
@@ -60,7 +61,7 @@ public class HistorialUsuario extends Activity {
     private void createGroupList() {
         laptopCollection = new LinkedHashMap<>();
         ArrayList<String>complen=con.cargarRecorridosParticipados(userName);
-        ArrayList<ValoresHistorial> Totales_completados=new ArrayList<ValoresHistorial>();
+        Totales_completados=new ArrayList<ValoresHistorial>();
         groupList = new ArrayList<>();
         if(!complen.isEmpty()) {
             for (int i = 0; i < complen.size(); i++) {

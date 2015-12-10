@@ -5,7 +5,7 @@
     android:padding="10dp" >
 
     <TextView
-        android:id="@+id/laptop"
+        android:id="@+id/nomruta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -22,7 +22,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="@dimen/abc_text_size_body_1_material"
         android:layout_toRightOf="@id/puntuacion"
@@ -30,7 +30,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/error"
+        android:gravity="center"
+        android:text="%"
         android:adjustViewBounds="true" />
 
 
