@@ -20,15 +20,15 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:background="@color/ripple_material_dark"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Seleccionar por defecto:"
         android:id="@+id/textView16"
 
+        android:layout_marginTop="70dp"
+        android:layout_below="@+id/nombreRecompensaCultural"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="32dp" />
+        android:layout_alignParentStart="true" />
 
     <ImageView
         android:layout_width="60dp"
@@ -57,7 +57,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Fondo"
         android:id="@+id/textView25"
-        android:background="@color/ripple_material_dark"
         android:layout_below="@+id/imagenItemCultural"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -77,7 +76,6 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:background="@color/ripple_material_dark"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Recompensa"
@@ -86,39 +84,29 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_below=""
-        android:text="Nombre recompensa:"
-        android:id="@+id/textView26" />
+        android:id="@+id/nombreRecompensaCultural"
+        android:text="Nombre de recompensa"
+        android:layout_margin="10dp"
+        android:background="@color/ripple_material_dark"
+        android:layout_below="@+id/textView10"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/nombreRecompensaCultural" />
+        android:layout_margin="10dp"
+        android:background="@color/ripple_material_dark"
+        android:id="@+id/editText2"
+        android:text="Descripción"
+        android:layout_below="@+id/nombreRecompensaCultural"
+        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Descripción Recompensa"
-        android:id="@+id/textView16"
-        android:layout_marginTop="10dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText2" />
-
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/imagenItemCultural"
-        android:adjustViewBounds="true"
-        android:src="@drawable/aniadiritem"
-        android:layout_gravity="center_horizontal" />
 
 
 
