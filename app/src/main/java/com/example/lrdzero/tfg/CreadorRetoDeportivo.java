@@ -340,7 +340,7 @@ public class CreadorRetoDeportivo extends Activity {
         final ImageView borrarD =(ImageView) findViewById(R.id.borraD);
         final ImageView camara=(ImageView) findViewById(R.id.imagenCameraCultural);
         final ArrayList<String> respuesta = new ArrayList<String>();
-        final ImageView item =(ImageView) findViewById(R.id.imagenItemCultural);
+        final ImageView item =(ImageView) findViewById(R.id.imagenItem);
         //final EditText nombreRecompensa=(EditText) findViewById(R.id.nombreRecompensaCultural);
 
         nameFile=getIntent().getExtras().getString("nombrefile");
