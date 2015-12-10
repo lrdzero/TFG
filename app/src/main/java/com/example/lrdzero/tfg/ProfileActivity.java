@@ -435,9 +435,9 @@ public class ProfileActivity extends Activity {
         ImageView iv = (ImageView)findViewById(R.id.foto);
         if (requestCode== MEDIA_TYPE_AUDIO){
             ArrayList<String> musc = new ArrayList<>();
-            Uri path = data.getData();
-            Toast.makeText(ProfileActivity.this,"Paht "+path.toString(),Toast.LENGTH_LONG).show();
-            musc.add(path.toString());
+            String path = data.getData().toString();
+            Toast.makeText(ProfileActivity.this,"Paht "+path,Toast.LENGTH_LONG).show();
+            musc.add(path);
             musc.add(Name);
             int r=con.hacerconexionGenerica("musicaUsuario", musc);
             if(r==0){
@@ -445,7 +445,7 @@ public class ProfileActivity extends Activity {
             }
             else {
                 musc.clear();
-                musicaSelected=path.toString();
+                musicaSelected=path;
             }
         }
         else if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {

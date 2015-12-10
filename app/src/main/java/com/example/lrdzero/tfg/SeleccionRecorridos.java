@@ -62,7 +62,7 @@ public class SeleccionRecorridos extends Activity implements View.OnClickListene
             case R.id.imageView2:
 
                 generarBuilder(1);
-
+//aasdfa
                 dificultad.clear();
 
                 break;
