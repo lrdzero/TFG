@@ -20,7 +20,7 @@ public class Ruta {
     ArrayList<Reto> retos = new ArrayList<>();
     ArrayList<LatLng> points = new ArrayList<>();
     ArrayList<LatLng> minipoints = new ArrayList<>();
-    private Functions functions;
+    private Functions functions=new Functions();
 
     /**
      * Constructor por parámetro.
