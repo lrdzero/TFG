@@ -15,6 +15,9 @@ import android.widget.RelativeLayout;
 
 import com.example.lrdzero.datos.Conexion;
 
+/**
+ * Clase para posicionar una recompensa dentro de una imagen de fondo.
+ */
 public class FondoRecompensa extends AppCompatActivity {
     private ImageView objeto;
     private boolean imagenTipo;

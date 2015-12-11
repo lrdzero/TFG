@@ -13,6 +13,10 @@ import android.widget.Toast;
 
 import com.example.lrdzero.datos.Conexion;
 
+/**
+ * Clase para cronometra el tiempo de ejecución de un reto deportivo.
+ */
+
 
 public class CronometroDeporte extends Activity implements View.OnClickListener {
      private Chronometer crono;
@@ -92,6 +96,10 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
 
     }
 
+    /**
+     * Función para controlar eventos.
+     * @param v
+     */
 
     public void onClick(View v){
         switch (v.getId()){
@@ -112,6 +120,13 @@ public class CronometroDeporte extends Activity implements View.OnClickListener 
                 break;
         }
     }
+
+    /**
+     * Función para controlar respuesta de activity lanzada por esta clase.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

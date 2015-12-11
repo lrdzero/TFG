@@ -3,7 +3,7 @@ package com.example.lrdzero.datos;
 import android.net.Uri;
 
 /**
- * Created by lrdzero on 03/08/2015.
+ * Clase para guardar datos de transito en la aplicación
  */
 public class DatosRyR {
 
@@ -21,11 +21,23 @@ public class DatosRyR {
     private String respuesta;
     private int position;
 
-
+    /**
+     * Constructor por defecto
+     */
     public DatosRyR(){
 
     }
 
+    /**
+     * Constructor por parámetros
+     * @param aName
+     * @param aNumber
+     * @param aDescription
+     * @param anOther
+     * @param ima
+     * @param large
+     * @param un
+     */
     public DatosRyR(String aName, String aNumber, String aDescription, String anOther,int ima,String large,Uri un){
         this.name=aName;
         this.number=aNumber;
@@ -38,6 +50,7 @@ public class DatosRyR {
 
 
     }
+    //Métodos set.
     public void setPosition(int i){this.position=i;}
     public void setRespuesta(String n){this.respuesta=n;}
     public void setPreferenciaUser1(String n){this.preferenciaUser1=n;}
@@ -52,6 +65,7 @@ public class DatosRyR {
     public void setImage(int n){this.image=n;}
     public void setLargeDescription(String n){this.largeDescription=n;}
 
+    //Métodos get.
     public int getPosition(){return position;}
     public String getRespuesta(){return respuesta;}
     public String getPreferenciaUser1(){return preferenciaUser1;}

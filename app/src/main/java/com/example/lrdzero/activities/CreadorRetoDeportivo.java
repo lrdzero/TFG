@@ -133,7 +133,7 @@ public class CreadorRetoDeportivo extends Activity {
 
         return mediaFile;
     }
-
+    //Funcón para cargar el conjuto de elementos de la interfaz reto deportivo
     public void metodosDeportivos(boolean modifi, final Context c){
 
         Button crear=(Button) findViewById(R.id.botonCrearPDeportiva);
@@ -321,6 +321,7 @@ public class CreadorRetoDeportivo extends Activity {
             });
         }
     }
+    //Función para controlar la interfaz de reto cultural
     public void metodosCulturales(boolean modifi,final Context c){
         Button crear=(Button) findViewById(R.id.botonCrear);
         Button dificultad=(Button) findViewById(R.id.botonDifucultad);

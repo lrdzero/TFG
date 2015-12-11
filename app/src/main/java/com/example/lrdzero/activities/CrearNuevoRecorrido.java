@@ -27,7 +27,9 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
-//haber si así
+/**
+ * Clase para controlar la interfaz de creación de un nuevo Recorrido.
+ */
 public class CrearNuevoRecorrido extends Activity implements View.OnClickListener {
     private Button recomen;
     private ArrayList<Integer> recomendaciones = new ArrayList<>();
@@ -151,6 +153,7 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                 });
         return builder;
     }
+    //Clase para generar un alert dialog para mostrar las recomendaciones.
    private AlertDialog.Builder generarBuilder(){
        final AlertDialog.Builder builder = new AlertDialog.Builder(CrearNuevoRecorrido.this);
        final ArrayList<Integer> aux = new ArrayList<>();
@@ -189,6 +192,12 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
 
        return builder;
    }
+
+    /**
+     * Función que convierte una lista de números a string
+     * @param f
+     * @return sul
+     */
     private String converToString(ArrayList<Integer> f){
         String sul = "";
         for(int i=0;i<f.size();i++){
@@ -197,6 +206,11 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
 
         return sul;
     }
+
+    /**
+     * Función de control de enventos.
+     * @param v
+     */
     public void onClick(View v){
         switch (v.getId()){
             case R.id.botonRecomendado:
@@ -270,6 +284,10 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
                 break;
         }
     }
+
+    /**
+     * Función para cargar datos.
+     */
     public void Create(){
         retos=con.cargaDeRutas(nombreRecorrido.getText().toString());
 
@@ -278,6 +296,10 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
         //retos.add(new DatosRyR("Ruta 3", "2", "Breve descripcion de ruta", "alguien", R.drawable.recorridodefecto, "mas descripcion"));
 
     }
+
+    /**
+     * Función para llevar a cabo el evento listo.
+     */
     public void llevaACaboListo(){
 
             ArrayList<Integer> datosTrueEnBD = new ArrayList<>();
@@ -343,6 +365,10 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
             finish();
         }
     }
+
+    /**
+     * Función para llevar a cabo la modificación de un recorrido.
+     */
     public void llevaACaboModificacion(){
         ArrayList<Integer> datosTrueEnBD =new ArrayList<>();
         for(int i=0;i<4;i++){
@@ -378,6 +404,10 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
             finish();
         }
     }
+
+    /**
+     * Función parar llevar a cabo la inserción de un nuevo recorrido.
+     */
     public void llevarACaboInsercion(){
         ArrayList<Integer> datosTrueEnBD = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -446,6 +476,10 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
 
         }
     }
+
+    /**
+     * Función para visualizar la lista de rutas.
+     */
     public void Visualizar(){
 
         adapter=new PlaceList();
@@ -454,9 +488,16 @@ public class CrearNuevoRecorrido extends Activity implements View.OnClickListene
 
     }
 
+    /**
+     * Función para actualiar la lista de rutas.
+     */
     public void actualizar(){
         adapter.notifyDataSetChanged();
     }
+
+    /**
+     * Clase controladora de la visión de la lista
+     */
     public class PlaceList extends ArrayAdapter<DatosRyR> {
 
         public PlaceList(){

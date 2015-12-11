@@ -19,6 +19,9 @@ import com.example.lrdzero.datos.Recompensa;
 
 import java.util.ArrayList;
 
+/**
+ * Clase para lanzar la animación final.
+ */
 public class Finalruta extends AppCompatActivity {
     TextView tv;
     ImageView iv;
@@ -250,6 +253,10 @@ public class Finalruta extends AppCompatActivity {
         tv.setVisibility(View.VISIBLE);
 
     }
+
+    /**
+     * Función para cargar la mochila del usuario.
+     */
     private void loadItems(){
         if(!datosMochila.isEmpty()){
             for(int i=0;i<datosMochila.size();i=i+4){
@@ -274,6 +281,11 @@ public class Finalruta extends AppCompatActivity {
 
     }
 
+    /**
+     * Función que lanza animación
+     * @param v
+     * @return mostrar
+     */
     public Animation Mostrar(final View v){
 
         final Animation mostrar= AnimationUtils.loadAnimation(this,R.anim.abc_fade_in);
@@ -301,6 +313,11 @@ public class Finalruta extends AppCompatActivity {
 
     }
 
+    /**
+     * Función de adaptación de guía.
+     * @param sexo
+     * @param edad
+     */
     private void adaptacion(String sexo,String edad){
         if(tipoRecorrido==0) {
             ImageView cuerpo=(ImageView) findViewById(R.id.cabeza);

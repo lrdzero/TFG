@@ -18,7 +18,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * Clase de control de interfaz Historial de usuario.
+ */
 public class HistorialUsuario extends Activity {
     private Conexion con;
     private String userName;
@@ -60,6 +62,9 @@ public class HistorialUsuario extends Activity {
         });
     }
 
+    /**
+     * Función que carga los elementos en una lista expandible.
+     */
     private void createGroupList() {
         laptopCollection = new LinkedHashMap<>();
         ArrayList<String>complen=con.cargarRecorridosParticipados(userName);

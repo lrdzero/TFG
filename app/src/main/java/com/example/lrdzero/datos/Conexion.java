@@ -4,9 +4,6 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.lrdzero.activities.R;
-import com.example.lrdzero.datos.DatosRyR;
-import com.example.lrdzero.datos.Tramo;
-import com.example.lrdzero.datos.ValoresHistorial;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
@@ -20,7 +17,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-
+/**
+ * Clase encargada de la conexión con el servidor.
+ */
 public class Conexion {
     //private int ent;
     private Socket sk;
@@ -33,8 +32,14 @@ public class Conexion {
     private Object object;
     private ArrayList<String> listReception=new ArrayList<>();
 
+    /**
+     * Constructor por defecto.
+     */
     public Conexion(){}
 
+    /**
+     * Función para conectar con el servidor por Socket
+     */
     private void conectar(){
         try {
 
@@ -49,6 +54,9 @@ public class Conexion {
         }
     }
 
+    /**
+     * Función para cerrar la conexión con el servidor.
+     */
     private void cerrar(){
         try{
             sk.close();
@@ -57,6 +65,14 @@ public class Conexion {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Función para solicitar modificación de recompensa.
+     * @param nombreRecomp
+     * @param nombreReto
+     * @param x
+     * @param y
+     */
     public void updateRecom(String nombreRecomp,String nombreReto, float x,float y){
         try{
             conectar();
@@ -72,6 +88,14 @@ public class Conexion {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Función que solicitar modificación del recorrido.
+     * @param tipo
+     * @param data
+     * @param nombreRecorrido
+     * @return respuesta
+     */
     public int updateRecorridoPreferencias(String tipo,ArrayList<Integer> data,String nombreRecorrido){
         int respuesta=-1;
         try{
@@ -88,6 +112,12 @@ public class Conexion {
         }
         return respuesta;
     }
+
+    /**
+     * Función que solicita carga de posición de los retos.
+     * @param name
+     * @return respuesta
+     */
     public ArrayList<String> cargarPositonRetos(String name){
         ArrayList<String> respuesta=new ArrayList<>();
         try{
@@ -114,6 +144,13 @@ public class Conexion {
 
         return respuesta;
     }
+
+    /**
+     * Función que solicita modificación de posición de retos.
+     * @param m
+     * @param lat
+     * @param log
+     */
     public void updateRetoPos(String m,double lat,double log){
         try{
             conectar();
@@ -129,6 +166,13 @@ public class Conexion {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Función para llevar a cabo una solicitud de tipo generica.
+     * @param tipo
+     * @param data
+     * @return respuesta
+     */
     public int hacerconexionGenerica(String tipo,ArrayList<String>data){
         int respuesta=-1;
         try{
@@ -144,6 +188,12 @@ public class Conexion {
         }
         return respuesta;
     }
+
+    /**
+     * Función que solicita la comprobación de un nombre para la tabla recorrido
+     * @param nombreRecorrido
+     * @return resultado
+     */
     public boolean existeRecorrido(String nombreRecorrido){
         boolean resultado=false;
         try{
@@ -159,6 +209,12 @@ public class Conexion {
         }
         return resultado;
     }
+
+    /**
+     * Función que solicita la comprobación de un nombre en la tabla ruta.
+     * @param nombreRuta
+     * @return
+     */
     public boolean existeRuta(String nombreRuta){
         boolean resultado=false;
         try{
@@ -175,6 +231,12 @@ public class Conexion {
 
         return resultado;
     }
+
+    /**
+     * Función que solicita la música para un usuario
+     * @param usuario
+     * @return uri
+     */
     public String obtenerMusicaUsuario(String usuario){
         String uri=null;
         try{
@@ -190,6 +252,12 @@ public class Conexion {
         }
         return uri;
     }
+
+    /**
+     * Función para cargar retos de una ruta.
+     * @param name
+     * @return respuesta.
+     */
    public ArrayList<DatosRyR> cargaDeRetos(String name){
        ArrayList<DatosRyR> respuesta = new ArrayList<DatosRyR>();
 
@@ -236,9 +304,15 @@ public class Conexion {
 
        return respuesta;
    }
-    public void cambiarIP(String nueva){
-        ip=nueva;
-    }
+
+    /**
+     * Función que solicita la creación de una nueva ruta.
+     * @param nombre
+     * @param descripcion
+     * @param historia
+     * @param historiaFinal
+     * @return respuesta
+     */
    public int nuevaRuta(String nombre,String descripcion,String historia,String historiaFinal){
        int respuesta=-1;
        try{
@@ -256,6 +330,13 @@ public class Conexion {
        }
        return respuesta;
    }
+
+    /**
+     * Función para llevar a cabo el inicio de sesión
+     * @param nombre
+     * @param contrasenia
+     * @return respuesta
+     */
     public int IniciarSesion(String nombre, String contrasenia){
         int respuesta=-2;
         ArrayList<String> my = new ArrayList<>();
@@ -280,6 +361,12 @@ public class Conexion {
         return respuesta;
     }
 
+    /**
+     * Función para enviar los tramos de una ruta.
+     * @param name
+     * @param obj
+     * @param tamanio
+     */
     public void hacerConexionJSON(String name, JSONObject obj, int tamanio){
         ArrayList<String> envio = new ArrayList<>();
         for(int i=0;i<tamanio;i++) {
@@ -297,6 +384,12 @@ public class Conexion {
         hacerconexionGenerica(name,envio);
 
     }
+
+    /**
+     * Función para cargar la ruta de un recorrido
+     * @param name
+     * @return respuesta
+     */
     public ArrayList<DatosRyR> cargaDeRutas(String name){
         ArrayList<DatosRyR> dt = new ArrayList<DatosRyR>();
         DatosRyR nm = new DatosRyR();
@@ -335,6 +428,16 @@ public class Conexion {
         }
         return dt;
     }
+
+    /**
+     * Función para solicitar la carga de recorridos para un usuario.
+     * @param tipo
+     * @param edad
+     * @param pref1
+     * @param pref2
+     * @param dificultad
+     * @return dt
+     */
     public ArrayList<DatosRyR> cargaDeRecorridosPorAdaptacion(int tipo,String edad,String pref1,String pref2,String dificultad){
         ArrayList<DatosRyR> dt = new ArrayList<DatosRyR>();
         DatosRyR nm = new DatosRyR();
@@ -372,6 +475,14 @@ public class Conexion {
 
         return dt;
     }
+
+    /**
+     * Función para solicitar la carga de los valores de retos completados y retos totales de una ruta para un usuario.
+     * @param nombreUser
+     * @param nombreRecorrido
+     * @param nombreRuta
+     * @return
+     */
     public ValoresHistorial obtenerRetosValoresRutaRecorrido(String nombreUser,String nombreRecorrido,String nombreRuta){
 
         ValoresHistorial nuevo=new ValoresHistorial();
@@ -394,6 +505,12 @@ public class Conexion {
         }
         return nuevo;
     }
+
+    /**
+     * Función para solicitar la creación de un nuevo reto completado.
+     * @param nombre
+     * @param nombreReto
+     */
     public void insertCompletado(String nombre, String nombreReto){
         try{
             conectar();
@@ -407,6 +524,13 @@ public class Conexion {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Función para cargar los recorridos que crea un usuario.
+     * @param tipo
+     * @param usuario
+     * @return dt
+     */
     public ArrayList<DatosRyR> cargaDeRecorridos(int tipo,String usuario){
         ArrayList<DatosRyR> dt = new ArrayList<DatosRyR>();
         DatosRyR nm = new DatosRyR();
@@ -440,6 +564,13 @@ public class Conexion {
         }
         return dt;
     }
+
+    /**
+     * Función para solicitar carga de rutas completadas para un usuario.
+     * @param username
+     * @param nombreReco
+     * @return respuesta
+     */
     public  ArrayList<String> cargarRutasParaRecorridosCompletados(String username,String nombreReco){
         ArrayList<String> respuesta = new ArrayList<String>();
         try{
@@ -463,6 +594,13 @@ public class Conexion {
         }
         return respuesta;
     }
+
+    /**
+     * Función para solicitar la carga de las rutas totales para un recorrido.
+     * @param username
+     * @param nombreReco
+     * @return
+     */
     public  ArrayList<String> cargarRutasParaRecorridosTotales(String username,String nombreReco){
         ArrayList<String> respuesta = new ArrayList<String>();
         try{
@@ -486,6 +624,12 @@ public class Conexion {
         }
         return respuesta;
     }
+
+    /**
+     * Función para solicitar modificación de tabla recorren
+     * @param nombreUser
+     * @param nombreRuta
+     */
     public void updateRecorren(String nombreUser,String nombreRuta){
         try{
             conectar();
@@ -499,6 +643,13 @@ public class Conexion {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Función para solicitar inserción en la tabla recorren.
+     * @param nombre
+     * @param nombreRuta
+     * @return i
+     */
     public int insertRecorren(String nombre, String nombreRuta){
         int i=-1;
         try{
@@ -515,6 +666,12 @@ public class Conexion {
         }
         return i;
     }
+
+    /**
+     * Función para solicitar la carga de recorridos en los que el usuario ha participado.
+     * @param nombreUsuario
+     * @return respuesta
+     */
      public ArrayList<String> cargarRecorridosParticipados(String nombreUsuario){
         ArrayList<String> respuesta=new ArrayList<String>();
         try{
@@ -537,6 +694,12 @@ public class Conexion {
         }
         return respuesta;
     }
+
+    /**
+     * Función que solicita la carga de un premio para un reto.
+     * @param nombreReto
+     * @return respuesta
+     */
     public ArrayList<String> cargarPremio(String nombreReto){
         ArrayList<String> respuesta=new ArrayList<String>();
         try{
@@ -559,6 +722,13 @@ public class Conexion {
         }
         return respuesta;
     }
+
+    /**
+     * Función que solicita el borrado de una mochila para una ruta y usuario específicos.
+     * @param usuario
+     * @param nombreRecorrido
+     * @param nombreRuta
+     */
     public void borrarMochila(String usuario,String nombreRecorrido,String nombreRuta){
         try{
             conectar();
@@ -574,6 +744,14 @@ public class Conexion {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Función para cargar la mochila de un usuario.
+     * @param nombreCreador
+     * @param nombreRecorrido
+     * @param nombreRuta
+     * @return respuesta
+     */
     public ArrayList<String> cargarMochila(String nombreCreador,String nombreRecorrido,String nombreRuta){
         ArrayList<String> respuesta=new ArrayList<String>();
         try{
@@ -599,6 +777,12 @@ public class Conexion {
         }
         return respuesta;
     }
+
+    /**
+     * Función que solicita la carga de un tipo de reto deportivo
+     * @param name
+     * @return nuvo
+     */
     public DatosRyR buscarDatosRetoDeportivo(String name){
         DatosRyR nuvo = new DatosRyR();
         try{
@@ -625,6 +809,12 @@ public class Conexion {
         }
         return nuvo;
     }
+
+    /**
+     * Función para cargar una lista de recomendaciones existente en un recorrido
+     * @param nombreRecorrido
+     * @return respuesta
+     */
     public ArrayList<String> cargaRecomendaciones(String nombreRecorrido){
         ArrayList<String> respuesta=new ArrayList<String>();
         try{
@@ -652,6 +842,12 @@ public class Conexion {
 
         return respuesta;
     }
+
+    /**
+     * Función que solicita la carga de un reto de tipo cultural.
+     * @param name
+     * @return nuvo
+     */
     public DatosRyR buscarDatosRetoCultural(String name){
         DatosRyR nuvo = new DatosRyR();
         try{
@@ -682,6 +878,12 @@ public class Conexion {
         }
         return nuvo;
     }
+
+    /**
+     * Función que solicita la carga del final de la historia para una ruta.
+     * @param nombreRuta
+     * @return finalHistoria
+     */
     public String finalHistoria(String nombreRuta){
         String finalHistoria="";
         try{
@@ -697,6 +899,12 @@ public class Conexion {
         }
         return finalHistoria;
     }
+
+    /**
+     * Función que solicita la carga de los datos de una ruta.
+     * @param nombre
+     * @return n
+     */
     public DatosRyR buscarDatosRuta(String nombre){
         DatosRyR n = new DatosRyR();
         try{
@@ -725,6 +933,12 @@ public class Conexion {
 
         return n;
     }
+
+    /**
+     * Función que solicita la carga de los datos de un usuario.
+     * @param nombre
+     * @return n
+     */
     public DatosRyR buscarUsuario(String nombre){
         DatosRyR n = new DatosRyR();
         try{
@@ -756,6 +970,14 @@ public class Conexion {
         return n;
     }
 
+    /**
+     * Función que solicita la modificación de los elementos de un usuario.
+     * @param nombre
+     * @param nuevonombre
+     * @param action
+     * @param preferencias
+     * @return devol
+     */
     public String updateUsuario(String nombre, String nuevonombre,String action,ArrayList<Integer> preferencias){
         String devol="";
         if(!action.equals("preferencias")) {
@@ -793,6 +1015,11 @@ public class Conexion {
         return devol;
     }
 
+    /**
+     * Función que solicita la carga del conjuto de tramos existentes para una ruta.
+     * @param nombre
+     * @return result
+     */
     public ArrayList<Tramo> cargarVisionRuta(String nombre){
         ArrayList<Tramo> result = new ArrayList<Tramo>();
         try{

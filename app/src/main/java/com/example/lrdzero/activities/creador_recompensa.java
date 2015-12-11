@@ -25,6 +25,9 @@ import com.example.lrdzero.datos.Recompensa;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Clase de creador de recompensa
+ */
 public class creador_recompensa extends AppCompatActivity {
     private String nombreReto;
     private ImageView porDefecto;
@@ -130,6 +133,12 @@ public class creador_recompensa extends AppCompatActivity {
         });
     }
 
+    /**
+     * Función para cargar un alert dialog y mostrar las posibles recompensas por defecto.
+     * @param nombreReto
+     * @param descripcionRecompensa
+     * @return builder
+     */
     private AlertDialog.Builder mostrarElecciones(String nombreReto,String descripcionRecompensa){
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         if(!seleccionado) {
@@ -184,6 +193,10 @@ public class creador_recompensa extends AppCompatActivity {
         return builder;
 
     }
+
+    /**
+     * Clase para controlar la visión de una lista.
+     */
     public class PlaceList extends ArrayAdapter<Recompensa> {
         public PlaceList() {
             super(creador_recompensa.this, R.layout.activity_lista_horizontal_mochila, dt);
@@ -248,6 +261,12 @@ public class creador_recompensa extends AppCompatActivity {
         }
     }
 
+    /**
+     * Función para recoger respuesta desde otras activities
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         ImageView iv = (ImageView)findViewById(R.id.foto);
         if(requestCode == POSICIONAMIENTO){
@@ -285,9 +304,21 @@ public class creador_recompensa extends AppCompatActivity {
         }
 
     }
+
+    /**
+     * Función de carga de uri desde archivo
+     * @param type
+     * @return uri
+     */
     private static Uri getOutputMediaFileUri(int type){
         return Uri.fromFile(getOutputMediaFile(type));
     }
+
+    /**
+     * Función de caraga de tipo de archivo
+     * @param type
+     * @return File
+     */
     private static File getOutputMediaFile(int type){
         // To be safe, you should check that the SDCard is mounted
         // using Environment.getExternalStorageState() before doing this.

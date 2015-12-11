@@ -32,6 +32,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase para control de interfaz de recorridos y rutas mostradas.
+ */
 
 public class RecorridosParaUsuario extends Activity implements View.OnClickListener{
     Animations animations;
@@ -179,6 +182,10 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
     }
 
+    /**
+     * Función que controla eventos de la interfaz
+     * @param v
+     */
     public void onClick(View v) {
 
         Intent nueva;
@@ -209,6 +216,9 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
     }
 
+    /**
+     * Función para carga de elementos en la lista
+     */
     public void Create(){
         String edad, pref1,pref2,dificultad;
         edad=getIntent().getExtras().getString("edad");
@@ -225,6 +235,9 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
     }
 
+    /**
+     * Función de creación de vista de la lista.
+     */
     private void ListaView(){
         adapter= new PlaceList();
         listView = (ListView)findViewById(R.id.listView2);
@@ -244,6 +257,9 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
        });
     }
 
+    /**
+     * Clase para control de la lista de recorridos.
+     */
     public class PlaceList extends ArrayAdapter<DatosRyR>{
 
             public PlaceList(){
@@ -300,6 +316,9 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
     }
 
+    /**
+     * Clase para control de la lista de rutas.
+     */
     public class PlaceList2 extends ArrayAdapter<DatosRyR>{
         private String nameRoute;
         public PlaceList2(String name){
@@ -395,6 +414,12 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
         overridePendingTransition(R.anim.animstart, R.anim.animend);
     }
+
+    /**
+     * Función para adaptación del guía al usuario.
+     * @param sexo
+     * @param edad
+     */
     private void adaptacion(String sexo,String edad){
         if(tipo==0) {
             ImageView cuerpo=(ImageView) findViewById(R.id.cabeza);

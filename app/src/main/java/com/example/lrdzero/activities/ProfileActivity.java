@@ -31,6 +31,9 @@ import java.util.ArrayList;
 
 import static com.example.lrdzero.activities.R.id.icamara;
 
+/**
+ * Clase de control de interfaz de perfil de usuario.
+ */
 
 public class ProfileActivity extends Activity {
     ArrayList<Integer> Discapacidades = new ArrayList<>();

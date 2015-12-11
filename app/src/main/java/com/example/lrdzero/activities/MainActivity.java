@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.example.lrdzero.datos.Conexion;
 
+/**
+ * Clase inicial del programa.
+ */
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -43,6 +46,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         registro.setOnClickListener(this);
     }
 
+    /**
+     * Función para controlar eventos.
+     */
     public void onClick(View v) {
 
         switch (v.getId()) {
