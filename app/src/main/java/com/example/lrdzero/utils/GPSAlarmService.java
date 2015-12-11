@@ -11,6 +11,9 @@ import com.example.lrdzero.activities.Seguimiento;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Servicio para temporizar tiempo de pause de la clase Seguimiento.
+ */
 
 public class GPSAlarmService extends Service {
 
@@ -27,7 +30,10 @@ public class GPSAlarmService extends Service {
         super.onCreate();
         Toast.makeText(GPSAlarmService.this,"Entro en el servicion y esta activo",Toast.LENGTH_LONG).show();
         cuentaatras=new CountDownTimer(1200000, 1000) {
-
+            /**
+             * Función para lanzar la cuenta atrás
+             * @param millisUntilFinished
+             */
             public void onTick(long millisUntilFinished) {
 
                 String time =String.format("%d min, %d sec",
@@ -41,7 +47,9 @@ public class GPSAlarmService extends Service {
 
             }
 
-
+            /**
+             * Función que reconoce la llegada a 0 de cuenta atrás y notifica a la clase Seguimiento.
+             */
             public void onFinish() {
                 notificador.finalizar();
                 //onDestroy();
@@ -61,12 +69,18 @@ public class GPSAlarmService extends Service {
 
        
     }
-    public boolean finalizado(){
-        return finalizado;
-    }
+
+    /**
+     * Función para asignar clase contenedora con la que enlazar comunicación de vuelta
+     * @param poiService
+     */
     public static void setUpdateListener(Seguimiento poiService) {
         notificador =poiService;
     }
+
+    /**
+     * Función onDestroy que ejecuta la cancelación del contador.
+     */
     public void onDestroy(){
         super.onDestroy();
         cuentaatras.cancel();

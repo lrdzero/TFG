@@ -8,7 +8,9 @@ import org.w3c.dom.Document;
 
 import java.util.ArrayList;
 
-
+/**
+ * Clase contenedora de los elementos de ruta.
+ */
 public class Ruta {
     private String nombreRuta;
     ArrayList<Tramo> tramos= new ArrayList<>();
@@ -16,34 +18,60 @@ public class Ruta {
     ArrayList<LatLng> points = new ArrayList<>();
     ArrayList<LatLng> minipoints = new ArrayList<>();
 
-
+    /**
+     * Constructor por parámetro.
+     * @param nombre
+     */
     public Ruta(String nombre){
         nombreRuta=nombre;
 
     }
 
+    /**
+     * Función para añadir un tramo a la ruta.
+     * @param t
+     */
     public void addTramo(Tramo t){
         Log.e("tag",t.getOrigen().toString());
         tramos.add(t);
     }
 
+    /**
+     * Función para eliminar el último tramo de la ruta.
+     */
     public void removeTramo(){
         if(tramos.size()>0)
             tramos.remove(tramos.size()-1);
     }
 
+    /**
+     * Función para añadir un conjuto de tramos.
+     * @param t
+     */
     public void setTramos(ArrayList<Tramo> t){
         tramos=t;
         CalculaPoints();
     }
 
+    /**
+     * Función para devolver un conjunto de tramos.
+     * @return tramos
+     */
     public ArrayList<Tramo> getTramos(){
         return tramos;
     }
+
+    /**
+     * Función que devuelve el primer punto de ruta.
+     * @return tramos.get(0).getOrigen();
+     */
     public LatLng getFirstPoint(){
         return tramos.get(0).getOrigen();
     }
 
+    /**
+     *
+     */
     public void CalculaPoints(){
         points.clear();
         Directions dir = new Directions();

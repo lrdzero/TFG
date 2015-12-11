@@ -9,7 +9,7 @@ import android.widget.Chronometer;
 import com.example.lrdzero.activities.Seguimiento;
 
 /**
- * Created by lrdzero on 10/12/2015.
+ * Servicio Temporizardo para controlar el tiempo que se tarda en completar una ruta.
  */
 public class Temporizador extends Service {
     private Chronometer crono;
@@ -18,6 +18,9 @@ public class Temporizador extends Service {
     public void onCreate(){
         super.onCreate();
         crono.setBase(SystemClock.elapsedRealtime());
+        /**
+         * Función que controla el tiempo y lo guarda en formato milisegundos.
+         */
         crono.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener() {
             @Override
             public void onChronometerTick(Chronometer chronometer) {
@@ -32,10 +35,19 @@ public class Temporizador extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
+    /**
+     * Función que finaliza el servicio y notifica a la clase interesada.
+     */
     public void onDestroy(){
         super.onDestroy();
         //notificador.tiempoTranscurrido(timeTotal);
         crono.stop();
     }
+
+    /**
+     * Función que se encarga de establecer la comunicaión con el elemento al que se desea notificar
+     * @param seguimineto
+     */
     public static void setUpdateListener(Seguimiento seguimineto){ notificador=seguimineto;}
 }

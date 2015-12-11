@@ -2,7 +2,6 @@ package com.example.lrdzero.activities;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import com.example.lrdzero.animations.Animations;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -22,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.lrdzero.animations.Animations;
 import com.example.lrdzero.datos.Conexion;
 import com.example.lrdzero.datos.DatosRyR;
 import com.example.lrdzero.datos.Ruta;
@@ -120,8 +120,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
         adaptacion(sexo, edad);
 
         Create();
-
-
+        animations=new Animations();
         final AnimationSet habla = animations.habla();
 
         ListaView();

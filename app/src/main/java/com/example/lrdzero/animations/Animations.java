@@ -16,6 +16,7 @@ import java.util.Random;
  */
 public class Animations {
 
+    public Animations(){}
     /**
      *
      * Animacion del saludo del avatar
