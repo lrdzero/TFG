@@ -174,7 +174,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
                 dialogo2.show();
 
 
-
+            functions=new Functions();
             }
 
 

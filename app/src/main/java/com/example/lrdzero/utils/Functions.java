@@ -14,6 +14,7 @@ import java.io.InputStream;
 
 
 public class Functions {
+    public Functions (){}
     /**
      *
      * Funcion para medir la distancia en metros entre dos puntos
