@@ -6,7 +6,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:background="@drawable/madera"
-    tools:context="com.example.lrdzero.tfg.creador_recompensa">
+    tools:context="com.example.lrdzero.activities.creador_recompensa">
 
     <ImageView
         android:layout_width="60dp"
@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Seleccionar por defecto:"
+        android:background="@color/ripple_material_dark"
         android:id="@+id/textView16"
 
         android:layout_marginTop="70dp"
@@ -31,6 +32,7 @@
         android:layout_alignParentStart="true" />
 
     <ImageView
+
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:id="@+id/imagenItemCultural"
@@ -56,6 +58,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Fondo"
+        android:background="@color/ripple_material_dark"
         android:id="@+id/textView25"
         android:layout_below="@+id/imagenItemCultural"
         android:layout_alignParentLeft="true"
@@ -79,6 +82,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Recompensa"
+        android:background="@color/ripple_material_dark"
         android:id="@+id/textView10"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"

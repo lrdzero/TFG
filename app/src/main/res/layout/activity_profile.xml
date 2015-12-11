@@ -4,8 +4,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.lrdzero.tfg.ProfileActivity"
+    tools:context="com.example.lrdzero.activities.ProfileActivity"
     android:background="@drawable/rojo">
+
 
     <ScrollView
         android:layout_width="400dp"
@@ -17,16 +18,20 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/border">
 
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:padding="5dp"
                 android:text="Cerrar Sesión"
                 android:id="@+id/button"
+                android:textSize="12sp"
                 android:textColor="#ffffffff"
-                android:background="#ffff3927"
+                android:background="@drawable/borderbutton"
+                android:layout_margin="10dp"
 
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
@@ -37,7 +42,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="147dp"
-                android:background="@color/ripple_material_dark">
+               >
 
                 <ImageView
                     android:layout_width="120dp"
@@ -46,7 +51,9 @@
                     android:src="@drawable/camara"
                     android:layout_below="@+id/button"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_alignParentStart="true"
+
+                    android:layout_margin="10dp"/>
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -60,6 +67,7 @@
                         android:id="@+id/notaMusical"
                         android:src="@drawable/notamusical"
                         android:adjustViewBounds="true"
+                        android:layout_margin="5dp"
                         android:layout_marginBottom="10dp"/>
 
                     <LinearLayout
@@ -180,7 +188,8 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="255dp">
+                android:layout_height="255dp"
+                >
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -188,10 +197,13 @@
                     android:layout_height="120dp">
 
                     <Button
+                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Mis Recorridos"
                         android:id="@+id/button2"
+
+
                         android:layout_gravity="center_horizontal" />
 
                     <Button
@@ -204,15 +216,17 @@
 
                 <TextView
                     android:text="Mis estadísticas"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/estadisticas"
                     android:textColor="#ff37000f"
                     android:textSize="18sp"
+                    android:gravity="center"
                     android:layout_below="@+id/foto"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    />
 
                 <ImageView
                     android:layout_width="120dp"

@@ -4,7 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.lrdzero.tfg.NuevosRecorridos"
+    tools:context="com.example.lrdzero.activities.NuevosRecorridos"
     android:background="@drawable/pared">
 
     <LinearLayout
@@ -13,8 +13,8 @@
         android:layout_height="120dp">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:id="@+id/imagenRecrorrido"
             android:adjustViewBounds="true"
             android:src="@drawable/recorridodefecto" />

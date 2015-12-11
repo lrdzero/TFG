@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.lrdzero.tfg" >
+    package="com.example.lrdzero.activities" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -24,7 +24,7 @@
             android:value="AIzaSyDBeAN_SI7BQrtguPZBz-tKNMbf0MvD9OA" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.lrdzero.activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,108 +33,108 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Registro"
+            android:name="com.example.lrdzero.activities.Registro"
             android:label="@string/title_activity_registro"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".SeleccionRecorridos"
+            android:name="com.example.lrdzero.activities.SeleccionRecorridos"
             android:label="@string/title_activity_seleccion_recorridos"
             android:screenOrientation="portrait" >
         </activity>
-        <service android:name=".GPSAlarmService"></service>
+        <service android:name="com.example.lrdzero.utils.GPSAlarmService"></service>
         <activity
-            android:name=".ProfileActivity"
+            android:name="com.example.lrdzero.activities.ProfileActivity"
             android:label="@string/title_activity_profile"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".RecorridosParaUsuario"
+            android:name="com.example.lrdzero.activities.RecorridosParaUsuario"
             android:label="@string/title_activity_recorridos_para_usuario"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Listas"
+            android:name="com.example.lrdzero.activities.Listas"
             android:label="@string/title_activity_listas" >
         </activity>
         <activity
-            android:name=".ListasConImagen"
+            android:name="com.example.lrdzero.activities.ListasConImagen"
             android:label="@string/title_activity_listas_con_imagen" >
         </activity>
         <activity
-            android:name=".RetoCultural"
+            android:name="com.example.lrdzero.activities.RetoCultural"
             android:label="RetoCultural"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CronometroAviso"
+            android:name="com.example.lrdzero.activities.CronometroAviso"
             android:label="CronometroAviso"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HistorialUsuario"
+            android:name="com.example.lrdzero.activities.HistorialUsuario"
             android:label="@string/title_activity_historial_usuario"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".RetoDeportivo"
+            android:name="com.example.lrdzero.activities.RetoDeportivo"
             android:label="@string/title_activity_reto_deportivo"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".CronometroDeporte"
+            android:name="com.example.lrdzero.activities.CronometroDeporte"
             android:label="@string/title_activity_cronometro_deporte"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".RecogerPremio"
+            android:name="com.example.lrdzero.activities.RecogerPremio"
             android:label="@string/title_activity_recoger_premio"
             android:screenOrientation="portrait" >
 
             <!-- android:screenOrientation="landscape" -->
         </activity>
         <activity
-            android:name=".MapaEditor"
+            android:name="com.example.lrdzero.activities.MapaEditor"
             android:label="@string/title_activity_mapa"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".HerramientaNuevaRuta"
+            android:name="com.example.lrdzero.activities.HerramientaNuevaRuta"
             android:label="@string/title_activity_Herramientas_Autor"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".CrearNuevoRecorrido"
+            android:name="com.example.lrdzero.activities.CrearNuevoRecorrido"
             android:label="@string/title_activity_Nuevos_Retos"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".CreadorRetoDeportivo"
+            android:name="com.example.lrdzero.activities.CreadorRetoDeportivo"
             android:label="@string/title_activity_creador_reto_deportivo"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Finalruta"
+            android:name="com.example.lrdzero.activities.Finalruta"
             android:label="@string/title_activity_finalruta"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".CreadorRutas"
+            android:name="com.example.lrdzero.activities.CreadorRutas"
             android:label="@string/title_activity_creador_rutas"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".Seguimiento"
+            android:name="com.example.lrdzero.activities.Seguimiento"
             android:label="@string/title_activity_seguimiento"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".marca_retos"
+            android:name="com.example.lrdzero.activities.marca_retos"
             android:label="@string/title_activity_marca_retos"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name=".creador_recompensa"
+        <activity android:name="com.example.lrdzero.activities.creador_recompensa"
             android:screenOrientation="portrait" >
         </activity>
-        <activity android:name=".FondoRecompensa"
+        <activity android:name="com.example.lrdzero.activities.FondoRecompensa"
             android:screenOrientation="portrait"
             >
         </activity>

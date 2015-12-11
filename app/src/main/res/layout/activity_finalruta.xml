@@ -6,7 +6,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:id="@+id/todo"
-    tools:context="com.example.lrdzero.tfg.Finalruta"
+    tools:context="com.example.lrdzero.activities.Finalruta"
     android:background="@drawable/rojo">
 
     <RelativeLayout
@@ -117,9 +117,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Has completado satisfactoriamente la ruta, así que conocerás ahora su historia"
         android:id="@+id/textitem"
-
+        android:padding="5dp"
         android:layout_centerHorizontal="true"
-        android:background="@color/ripple_material_dark"
+        android:background="@drawable/border"
         android:layout_above="@+id/Avatar"
         android:layout_below="@+id/relativeLayout"
         android:autoText="true"
