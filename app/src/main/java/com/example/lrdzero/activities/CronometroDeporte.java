@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.Toast;
 
-import com.example.lrdzero.datos.Conexion;
+import com.example.lrdzero.data.Conexion;
 
 /**
  * Clase para cronometra el tiempo de ejecución de un reto deportivo.

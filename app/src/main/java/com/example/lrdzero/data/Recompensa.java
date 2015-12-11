@@ -1,4 +1,4 @@
-package com.example.lrdzero.datos;
+package com.example.lrdzero.data;
 
 /**
  * Clase contenedora de los datos recompensa.

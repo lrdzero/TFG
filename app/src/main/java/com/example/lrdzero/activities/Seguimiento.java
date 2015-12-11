@@ -34,10 +34,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lrdzero.datos.Conexion;
-import com.example.lrdzero.datos.Reto;
-import com.example.lrdzero.datos.Ruta;
-import com.example.lrdzero.datos.Tramo;
+import com.example.lrdzero.animations.Animations;
+import com.example.lrdzero.data.Conexion;
+import com.example.lrdzero.data.Reto;
+import com.example.lrdzero.data.Ruta;
+import com.example.lrdzero.data.Tramo;
 import com.example.lrdzero.utils.Functions;
 import com.example.lrdzero.utils.GPSAlarmService;
 import com.google.android.gms.common.ConnectionResult;
@@ -84,6 +85,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
     LocationClient mLocationClient;
 
+
     Ruta ruta;
     Conexion con;
     private boolean carga;
@@ -112,6 +114,8 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
     private ImageView dientes;
 
     private Intent miService;
+    private Animations animations;
+
 
     //ArrayList<Array> ArrayTramos = new ArrayList<>();
 
@@ -192,7 +196,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
         });
 
 
-
+        animations=new Animations();
 
         //Carga Avatar
         parpadoder =(ImageView) findViewById(R.id.parpder);
@@ -356,7 +360,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
             }
         });
-        final Animation pasa = PasaTexto();
+        final Animation pasa = animations.PasaTexto();
         final Animation a = new AlphaAnimation(0,1);
         Interpolator i = new Interpolator() {
             @Override
@@ -414,7 +418,7 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
             }
         });
-        boca.startAnimation(habla());
+        boca.startAnimation(animations.habla());
         textoGuia.startAnimation(a);
 
 
@@ -654,50 +658,6 @@ public class Seguimiento  extends Activity implements LocationListener, GooglePl
 
     }
 
-
-    public AnimationSet habla(){
-
-        Animation habla = new TranslateAnimation(Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,(float)0,Animation.RELATIVE_TO_SELF,0,Animation.RELATIVE_TO_SELF,(float)0.03);
-        habla.setDuration(500);
-        habla.setRepeatCount(Animation.INFINITE);
-        habla.setRepeatMode(Animation.REVERSE);
-        habla.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-                Random rand = new Random();
-
-                // nextInt is normally exclusive of the top value,
-                // so add 1 to make it inclusive
-                int randomNum = rand.nextInt((300 - 50) + 1) + 50;
-                animation.setDuration(randomNum);
-            }
-        });
-
-        AnimationSet as = new AnimationSet(true);
-        as.addAnimation(habla);
-        return as;
-    }
-
-    public Animation PasaTexto(){
-        Animation agrandaSig = new ScaleAnimation((float)0.25,(float)1.25,(float)0.25,(float)1.25,Animation.RELATIVE_TO_SELF,(float)0.50,Animation.RELATIVE_TO_SELF,(float)0.50);
-
-        agrandaSig.setDuration(500);
-        agrandaSig.setRepeatCount(Animation.INFINITE);
-        agrandaSig.setRepeatMode(Animation.REVERSE);
-
-
-        return agrandaSig;
-    }
 
 
 

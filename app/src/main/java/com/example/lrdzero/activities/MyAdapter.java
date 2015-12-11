@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.lrdzero.datos.Recompensa;
+import com.example.lrdzero.data.Recompensa;
 
 import java.util.ArrayList;
 import java.util.HashSet;

@@ -12,10 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.lrdzero.datos.Conexion;
-import com.example.lrdzero.datos.Directions;
-import com.example.lrdzero.datos.Ruta;
-import com.example.lrdzero.datos.Tramo;
+import com.example.lrdzero.data.Conexion;
+import com.example.lrdzero.data.Directions;
+import com.example.lrdzero.data.Ruta;
+import com.example.lrdzero.data.Tramo;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;

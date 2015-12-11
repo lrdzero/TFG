@@ -10,8 +10,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 
-import com.example.lrdzero.datos.Reto;
-import com.example.lrdzero.datos.Ruta;
+import com.example.lrdzero.data.Reto;
+import com.example.lrdzero.data.Ruta;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.example.lrdzero.datos.ValoresHistorial;
+import com.example.lrdzero.data.ValoresHistorial;
 
 public class ExpandableRecorridosAdapter extends BaseExpandableListAdapter {
     private Activity context;

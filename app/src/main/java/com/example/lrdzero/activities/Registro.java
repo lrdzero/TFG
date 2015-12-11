@@ -10,7 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import com.example.lrdzero.datos.Conexion;
+import com.example.lrdzero.data.Conexion;
 
 import java.util.ArrayList;
 

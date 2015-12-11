@@ -14,8 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lrdzero.datos.Conexion;
-import com.example.lrdzero.datos.DatosRyR;
+import com.example.lrdzero.data.Conexion;
+import com.example.lrdzero.data.DatosRyR;
 
 import java.util.ArrayList;
 

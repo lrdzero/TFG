@@ -13,10 +13,10 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-import com.example.lrdzero.datos.Conexion;
-import com.example.lrdzero.datos.Reto;
-import com.example.lrdzero.datos.Ruta;
-import com.example.lrdzero.datos.Tramo;
+import com.example.lrdzero.data.Conexion;
+import com.example.lrdzero.data.Reto;
+import com.example.lrdzero.data.Ruta;
+import com.example.lrdzero.data.Tramo;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;

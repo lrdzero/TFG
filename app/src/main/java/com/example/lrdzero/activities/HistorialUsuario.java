@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import com.example.lrdzero.datos.Conexion;
-import com.example.lrdzero.datos.ValoresHistorial;
+import com.example.lrdzero.data.Conexion;
+import com.example.lrdzero.data.ValoresHistorial;
 
 import java.util.ArrayList;
 import java.util.Collections;

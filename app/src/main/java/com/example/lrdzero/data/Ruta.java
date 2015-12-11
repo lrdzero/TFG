@@ -1,7 +1,10 @@
-package com.example.lrdzero.datos;
+package com.example.lrdzero.data;
 
 import android.util.Log;
+import android.view.View;
 
+
+import com.example.lrdzero.utils.Functions;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.w3c.dom.Document;
@@ -17,6 +20,7 @@ public class Ruta {
     ArrayList<Reto> retos = new ArrayList<>();
     ArrayList<LatLng> points = new ArrayList<>();
     ArrayList<LatLng> minipoints = new ArrayList<>();
+    private Functions functions;
 
     /**
      * Constructor por parámetro.
@@ -45,7 +49,7 @@ public class Ruta {
     }
 
     /**
-     * Función para añadir un conjuto de tramos.
+     * Función para añadir un conjunto de tramos.
      * @param t
      */
     public void setTramos(ArrayList<Tramo> t){
@@ -63,16 +67,19 @@ public class Ruta {
 
     /**
      * Función que devuelve el primer punto de ruta.
-     * @return tramos.get(0).getOrigen();
+     *
      */
     public LatLng getFirstPoint(){
         return tramos.get(0).getOrigen();
     }
 
     /**
+     *Función que genera primero los puntos de ruta devueltos desde GoogleMap y despues realiza una distribucion homogenea de los puntos
+     *
      *
      */
     public void CalculaPoints(){
+        
         points.clear();
         Directions dir = new Directions();
 
@@ -83,9 +90,10 @@ public class Ruta {
 
         ArrayList<LatLng> aux = new ArrayList<>();
         for(int i=0;i<points.size()-1;i++){
-            if(measure(points.get(i),points.get(i+1))>3) {
-                aux.addAll(Divide(measure(points.get(i), points.get(i + 1)), points.get(i), points.get(i + 1)));
-                Log.i("puntos",String.valueOf(i)+"+dist:"+String.valueOf(measure(points.get(i),points.get(i+1))));
+            
+            if(functions.Haversine(points.get(i), points.get(i + 1))>3) {
+                aux.addAll(Divide(functions.Haversine(points.get(i), points.get(i + 1)), points.get(i), points.get(i + 1)));
+                Log.i("puntos",String.valueOf(i)+"+dist:"+String.valueOf(functions.Haversine(points.get(i),points.get(i+1))));
             }
 
         }
@@ -97,6 +105,12 @@ public class Ruta {
 
 
     }
+
+    /**
+     *Función que divide una recta en n puntos con una relativa distancia entre ellos
+     *
+     *
+     */
     private ArrayList<LatLng> Divide(double distancia,LatLng l1, LatLng l2) {
         ArrayList<LatLng> aux2 = new ArrayList<>();
         double lat1=l1.latitude;
@@ -117,26 +131,21 @@ public class Ruta {
 
 
 
-    public double measure(LatLng l1,LatLng l2){  // generally used geo measurement function
-        double lat1=l1.latitude;
-        double lon1=l1.longitude;
-        double lat2=l2.latitude;
-        double lon2=l2.longitude;
-        double R = 6378.137; // Radius of earth in KM
-        double dLat = (lat2 - lat1) * Math.PI / 180;
-        double dLon = (lon2 - lon1) * Math.PI / 180;
-       double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-                        Math.sin(dLon/2) * Math.sin(dLon/2);
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-        double d = R * c;
-        return d * 1000; // meters
-    }
 
+    /**
+     *Función que devuelve los puntos iniciales de la ruta
+     *
+     *
+     */
     public ArrayList<LatLng> getPoints(){
         return points;
     }
 
+    /**
+     *Función que devuelve el ultimo punto de la ruta
+     *
+     *
+     */
     public LatLng getLastPoint(){
         if(tramos.size()>0)
             return tramos.get(tramos.size()-1).getFinal();
@@ -144,19 +153,43 @@ public class Ruta {
             return null;
     }
 
+    /**
+     *Función que establece los retos pasados por parametro
+     * 
+     *@param list Lista de retos a añadir
+     *
+     */
     public void setRetos(ArrayList<Reto> list){
         retos=list;
     }
 
+
+    /**
+     *Función que añade un reto 
+     *
+     *
+     */
     public void addReto(Reto r){
         retos.add(r);
     }
 
+    /**
+     *Función que devuelve la lista de retos de la ruta
+     *
+     *
+     */
     public ArrayList<Reto> getRetos(){
         return retos;
     }
 
 
+    /**
+     *Función que indica si hay un reto en el punto de la ruta indicado
+     * 
+     *@return index Indice del reto encontrado
+     * @return -1 Si no encuentra ningun reto
+     *
+     */
     public int existsRetoIn(int puntoactual) {
         int index=-1;
         for(int i=0;i<retos.size();i++){
@@ -167,6 +200,11 @@ public class Ruta {
         return index;
     }
 
+    /**
+     *Función que devuelve la lista de puntos homogeneamente distribuidos
+     *
+     *
+     */
     public ArrayList<LatLng> getMiniPoints() {
         return minipoints;
     }

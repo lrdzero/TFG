@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.lrdzero.datos.Conexion;
+import com.example.lrdzero.data.Conexion;
 
 /**
  * Clase inicial del programa.

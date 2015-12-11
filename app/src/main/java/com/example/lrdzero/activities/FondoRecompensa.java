@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.example.lrdzero.datos.Conexion;
+import com.example.lrdzero.data.Conexion;
 
 /**
  * Clase para posicionar una recompensa dentro de una imagen de fondo.

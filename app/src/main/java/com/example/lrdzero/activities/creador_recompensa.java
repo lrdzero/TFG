@@ -19,8 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.lrdzero.datos.Conexion;
-import com.example.lrdzero.datos.Recompensa;
+import com.example.lrdzero.data.Conexion;
+import com.example.lrdzero.data.Recompensa;
 
 import java.io.File;
 import java.util.ArrayList;

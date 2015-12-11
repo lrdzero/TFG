@@ -1,4 +1,4 @@
-package com.example.lrdzero.datos;
+package com.example.lrdzero.data;
 
 /**
  * Clase contenedora de datos para control de Historial de usuario.

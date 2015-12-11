@@ -14,8 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lrdzero.animations.Animations;
-import com.example.lrdzero.datos.Conexion;
-import com.example.lrdzero.datos.Recompensa;
+import com.example.lrdzero.data.Conexion;
+import com.example.lrdzero.data.Recompensa;
 
 import java.util.ArrayList;
 
@@ -60,6 +60,7 @@ public class Finalruta extends AppCompatActivity {
         final ImageView flecha = (ImageView) findViewById(R.id.siguiente);
         flecha.setVisibility(View.INVISIBLE);
         items=new ArrayList<>();
+        animations= new Animations();
 
         //Carga Avatar
         parpadoder =(ImageView) findViewById(R.id.parpder);

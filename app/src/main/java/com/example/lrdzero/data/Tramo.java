@@ -1,4 +1,4 @@
-package com.example.lrdzero.datos;
+package com.example.lrdzero.data;
 
 import com.google.android.gms.maps.model.LatLng;
 
