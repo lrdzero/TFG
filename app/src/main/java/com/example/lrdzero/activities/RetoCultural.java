@@ -29,7 +29,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-
+/**
+ * Clase para control de interfaz de reto tipo cultural.
+ */
 
 public class RetoCultural extends Activity implements View.OnClickListener {
     private ArrayList<Recompensa> dt = new ArrayList<Recompensa>();
@@ -145,37 +147,12 @@ public class RetoCultural extends Activity implements View.OnClickListener {
     }
 
     private void ListaView(){
-        /*
-        adapter= new PlaceList();
-        //lista2 = (HorizontalListView) findViewById(R.id.listaMochila);
-        lista2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                final Recompensa currentData = (Recompensa) lista2.getItemAtPosition(position);
-                AlertDialog.Builder dialogo1 = new AlertDialog.Builder(RetoCultural.this);
-                dialogo1.setTitle("Importante");
-                dialogo1.setMessage("¿ Quieres utilizar este Item ?");
-                dialogo1.setCancelable(false);
-                dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo1, int id) {
 
-                        aceptar(currentData);
-                    }
-                });
-                dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogo1, int id) {
-                        cancelar();
-                    }
-                });
-                dialogo1.show();
-
-
-            }
-        });
-        lista2.setAdapter(adapter);
-        */
     }
 
+    /**
+     * Control de vista
+     */
     public class PlaceList extends ArrayAdapter<Recompensa> {
         Recompensa currentData;
         public PlaceList(){
@@ -215,6 +192,11 @@ public class RetoCultural extends Activity implements View.OnClickListener {
 
 
     }
+
+    /**
+     * Función para control de eventos.
+     * @param v
+     */
     @Override
     public void onClick(View v){
         switch (v.getId()){
@@ -344,6 +326,10 @@ public class RetoCultural extends Activity implements View.OnClickListener {
 
     }
 
+    /**
+     * Función depreciada para obtener una pista.
+     * @param aBorrar
+     */
     public void aceptar(Recompensa aBorrar) {
         final Recompensa aB =aBorrar;
         Toast t=Toast.makeText(this,"Se mostrará una pista ya sea mediante toast o por medio de otro Dialog", Toast.LENGTH_SHORT);
@@ -362,9 +348,16 @@ public class RetoCultural extends Activity implements View.OnClickListener {
         dialogo2.show();
     }
 
+    /**
+     * Función depreciada para cancelar una selección
+     */
     public void cancelar() {
 
     }
+
+    /**
+     * Función depreciada para notificar al adapter de que debe actualizarce.
+     */
     public void aceptar2(){
         adapter.notifyDataSetChanged();
 
@@ -391,6 +384,12 @@ public class RetoCultural extends Activity implements View.OnClickListener {
             }
         }
     }
+
+    /**
+     * Función para adaptación del usuario.
+     * @param sexo
+     * @param edad
+     */
     private void adaptacion(String sexo,String edad){
 
         if(sexo.equals("H")){

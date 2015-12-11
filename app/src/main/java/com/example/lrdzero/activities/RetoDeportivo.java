@@ -19,7 +19,9 @@ import com.example.lrdzero.data.Recompensa;
 
 import java.util.ArrayList;
 
-//push
+/**
+ * Clase para control de interfaz de reto tipo deportivo.
+ */
 public class RetoDeportivo extends Activity implements View.OnClickListener{
     private HorizontalListView mochila;
     private ArrayList<Recompensa> dt = new ArrayList<Recompensa>();
@@ -77,6 +79,10 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
 
     }
 
+    /**
+     * Función para control de eventos.
+     * @param v
+     */
     public void onClick(View v){
 
         switch(v.getId()){
@@ -97,12 +103,23 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
 
     }
 
+    /**
+     * Función depreciada para carga de items
+     */
     public void loadItems(){
 
     }
+
+    /**
+     * Función depreciada para carga de vista.
+     */
     public void ListView(){
 
     }
+
+    /**
+     * Clase depreciada para control de recompensas.
+     */
     public class PlaceList extends ArrayAdapter<Recompensa> {
         Recompensa currentData;
         public PlaceList(){
@@ -134,6 +151,10 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
 
     }
 
+    /**
+     * Función depreciada para obtener una pista.
+     * @param aBorrar
+     */
     public void aceptar(Recompensa aBorrar) {
         final Recompensa aB =aBorrar;
         Toast t=Toast.makeText(this,"Se mostrará una pista ya sea mediante toast o por medio de otro Dialog", Toast.LENGTH_SHORT);
@@ -152,13 +173,27 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
         dialogo2.show();
     }
 
+    /**
+     * Función depreciada para cancelar el mostrado de una pista.
+     */
     public void cancelar() {
 
     }
+
+    /**
+     * Función para notificar de cambios al adapter de la lista.
+     */
     public void aceptar2(){
         adapter.notifyDataSetChanged();
 
     }
+
+    /**
+     * Función para recpción de datos de los activities lanzados desde esta clase.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -182,6 +217,12 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
             }
         }
     }
+
+    /**
+     * Función para adpatación del guía al usuario.
+     * @param sexo
+     * @param edad
+     */
     private void adaptacion(String sexo,String edad){
 
         if(sexo.equals("H")){
