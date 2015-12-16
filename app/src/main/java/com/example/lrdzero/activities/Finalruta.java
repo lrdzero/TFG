@@ -46,6 +46,7 @@ public class Finalruta extends AppCompatActivity {
     private ImageView boca_roja;
     private ImageView pitorro;
     private ImageView dientes;
+    private ImageView cola;
     private Animations animations;
 
     @Override
@@ -73,6 +74,7 @@ public class Finalruta extends AppCompatActivity {
         boca_roja=(ImageView) findViewById(R.id.bocaroja);
         pitorro=(ImageView) findViewById(R.id.pitorro);
         dientes=(ImageView) findViewById(R.id.dientes);
+        cola=(ImageView) findViewById(R.id.cola);
 
 
         creador=getIntent().getExtras().getString("creador");
@@ -347,6 +349,7 @@ public class Finalruta extends AppCompatActivity {
                 brazoIz.setImageResource(R.drawable.manoizq);
                 brazoDer.setImageResource(R.drawable.manoder);
                 cuerpo.setImageResource(R.drawable.cuerpo_n);
+                cola.setImageResource(R.drawable.cola_n);
             }
             else if(Integer.valueOf(edad)>=18&&Integer.valueOf(edad)<57) {
                 boca.setImageResource(R.drawable.boca);
@@ -357,6 +360,7 @@ public class Finalruta extends AppCompatActivity {
                 brazoIz.setImageResource(R.drawable.manoizq);
                 brazoDer.setImageResource(R.drawable.manoder);
                 cuerpo.setImageResource(R.drawable.cuerpo);
+                cola.setImageResource(R.drawable.cola);
             }
             else{
                 boca.setImageResource(R.drawable.boca_a);
@@ -366,6 +370,7 @@ public class Finalruta extends AppCompatActivity {
                 brazoIz.setImageResource(R.drawable.manoizq_a);
                 brazoDer.setImageResource(R.drawable.manoder_a);
                 cuerpo.setImageResource(R.drawable.cuerpo_a);
+                cola.setImageResource(R.drawable.cola_a);
             }
         }
         else{
@@ -377,6 +382,7 @@ public class Finalruta extends AppCompatActivity {
                 brazoIz.setImageResource(R.drawable.manoizq_h_n);
                 brazoDer.setImageResource(R.drawable.manoder_h_n);
                 cuerpo.setImageResource(R.drawable.cuerpo_h_n);
+                cola.setImageResource(R.drawable.cola_h_n);
             }
             else if(Integer.valueOf(edad)>=18&&Integer.valueOf(edad)<57) {
                 boca.setImageResource(R.drawable.boca_h);
@@ -387,6 +393,7 @@ public class Finalruta extends AppCompatActivity {
                 brazoIz.setImageResource(R.drawable.manoizq_h);
                 brazoDer.setImageResource(R.drawable.manoder_h);
                 cuerpo.setImageResource(R.drawable.cuerpo_h);
+                cola.setImageResource(R.drawable.cola_h);
             }
             else{
                 boca.setImageResource(R.drawable.boca_h_a);
@@ -396,6 +403,7 @@ public class Finalruta extends AppCompatActivity {
                 brazoIz.setImageResource(R.drawable.manoizq_h_a);
                 brazoDer.setImageResource(R.drawable.manoder_h_a);
                 cuerpo.setImageResource(R.drawable.cuerpo_h_a);
+                cola.setImageResource(R.drawable.cola_h_a);
             }
 
         }

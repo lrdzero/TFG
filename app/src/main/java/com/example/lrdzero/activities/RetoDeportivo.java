@@ -37,6 +37,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
     private ImageView cuerpo;
     private ImageView boca;
     private ImageView ojos;
+    private ImageView cola;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
         cuerpo =(ImageView) findViewById(R.id.cabeza);
         boca = (ImageView)findViewById(R.id.bocaverde);
         ojos = (ImageView)findViewById(R.id.ojos);
+        cola=(ImageView) findViewById(R.id.cola);
 
         con=new Conexion();
         nameUser=getIntent().getExtras().getString("nombreUser");
@@ -234,6 +236,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
                 brazoIz.setImageResource(R.drawable.manoizq);
                 brazoDer.setImageResource(R.drawable.manoder);
                 cuerpo.setImageResource(R.drawable.cuerpo_n);
+                cola.setImageResource(R.drawable.cola_n);
             }
             else if(Integer.valueOf(edad)>=18&&Integer.valueOf(edad)<57) {
                 boca.setImageResource(R.drawable.boca);
@@ -244,6 +247,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
                 brazoIz.setImageResource(R.drawable.manoizq);
                 brazoDer.setImageResource(R.drawable.manoder);
                 cuerpo.setImageResource(R.drawable.cuerpo);
+                cola.setImageResource(R.drawable.cola);
             }
             else{
                 boca.setImageResource(R.drawable.boca_a);
@@ -253,6 +257,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
                 brazoIz.setImageResource(R.drawable.manoizq_a);
                 brazoDer.setImageResource(R.drawable.manoder_a);
                 cuerpo.setImageResource(R.drawable.cuerpo_a);
+                cola.setImageResource(R.drawable.cola_a);
             }
         }
         else{
@@ -264,6 +269,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
                 brazoIz.setImageResource(R.drawable.manoizq_h_n);
                 brazoDer.setImageResource(R.drawable.manoder_h_n);
                 cuerpo.setImageResource(R.drawable.cuerpo_h_n);
+                cola.setImageResource(R.drawable.cola_h_n);
             }
             else if(Integer.valueOf(edad)>=18&&Integer.valueOf(edad)<57) {
                 boca.setImageResource(R.drawable.boca_h);
@@ -274,6 +280,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
                 brazoIz.setImageResource(R.drawable.manoizq_h);
                 brazoDer.setImageResource(R.drawable.manoder_h);
                 cuerpo.setImageResource(R.drawable.cuerpo_h);
+                cola.setImageResource(R.drawable.cola_h);
             }
             else{
                 boca.setImageResource(R.drawable.boca_h_a);
@@ -283,6 +290,7 @@ public class RetoDeportivo extends Activity implements View.OnClickListener{
                 brazoIz.setImageResource(R.drawable.manoizq_h_a);
                 brazoDer.setImageResource(R.drawable.manoder_h_a);
                 cuerpo.setImageResource(R.drawable.cuerpo_h_a);
+                cola.setImageResource(R.drawable.cola_h_a);
             }
 
         }
