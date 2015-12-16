@@ -60,7 +60,7 @@
                     android:layout_width="350dp"
                     android:layout_height="120dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
+                    android:text="Pregunta"
                     android:gravity="center"
                     android:id="@+id/pregunta"
                     android:background="@color/dim_foreground_disabled_material_dark" />

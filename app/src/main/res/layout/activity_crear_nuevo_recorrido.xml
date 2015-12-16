@@ -154,11 +154,12 @@
             android:id="@+id/textoRetos" />
 
         <ListView
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:id="@+id/listView5"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/borderpared" />
+            android:background="@drawable/border" />
 
         <ImageView
             android:layout_width="30dp"

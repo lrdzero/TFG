@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -27,6 +28,7 @@ import com.example.lrdzero.data.DatosRyR;
 import com.example.lrdzero.data.Ruta;
 import com.example.lrdzero.data.Tramo;
 import com.google.android.gms.maps.model.LatLng;
+
 
 import java.net.Socket;
 import java.util.ArrayList;
@@ -76,7 +78,7 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
 
         tituloRecorrido =(TextView) findViewById(R.id.TextoRecorrido);
         ImageView bi = (ImageView)findViewById(R.id.brazoizq);
-
+        Log.i("d","");
 
         textoGuia =(TextView) findViewById(R.id.textodinamico);
         final RelativeLayout tdin =(RelativeLayout)findViewById(R.id.relativetexto);
@@ -267,7 +269,6 @@ public class RecorridosParaUsuario extends Activity implements View.OnClickListe
             }
 
         public View getView(final int position,View convertView, ViewGroup parent){
-
 
             View intenView=convertView;
             if(intenView == null){

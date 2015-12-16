@@ -112,9 +112,10 @@
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:id="@+id/scrollView2"
-            android:background="@drawable/borderpared">
+            android:background="@drawable/border">
 
             <ListView
+                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="133dp"
                 android:id="@+id/listaRetosParaRuta"

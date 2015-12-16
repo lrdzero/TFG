@@ -22,11 +22,11 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:textColor="@color/abc_background_cache_hint_selector_material_dark"
+            android:textColor="@android:color/black"
 
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="R"
-            android:background="@color/ripple_material_dark"
+
             android:id="@+id/nomreto"
             android:layout_weight="1"
             android:layout_gravity="center|top" />
